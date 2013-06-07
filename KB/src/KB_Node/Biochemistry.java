@@ -5,7 +5,7 @@ package KB_Node;
  * Email: mahinshaw@gmail.com
  * gitHub: https://github.com/mahinshaw/msproject.git
  */
-public class Biochemistry {
+public class Biochemistry extends KB_Node {
 
     private String protein_id;
     private String protein_name;

@@ -5,7 +5,7 @@ package KB_Node;
  * Email: mahinshaw@gmail.com
  * gitHub: https://github.com/mahinshaw/msproject.git
  */
-public class Symptom {
+public class Symptom extends KB_Node{
 
     private String symptom_id;
     private String symptom_name;
