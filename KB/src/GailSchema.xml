@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+
+<!DOCTYPE gail [
+        <!ELEMENT gail (ui, genie)>
+        <!ELEMENT ui (hypothesis, data, generalizations, connections)>
+        <!ELEMENT hypothesis (#PCDATA)>
+        <!ELEMENT data (#PCDATA)>
+        <!ELEMENT generalizations (#PCDATA)>
+        <!ELEMENT connections (#PCDATA)>
+        <!ELEMENT genie (KB_Node, KB_Arc, Argument)>
+        <!ELEMENT KB_Node (genotype, biochemestry, symptom)>
+        <!ELEMENT biochemestry (#PCDATA)>
+        <!ELEMENT symptom (#PCDATA)>
+        <!ELEMENT genotype (#PCDATA)>
+        <!ELEMENT KB_Arc (influence_arc, synergy_arc_set)>
+        <!ELEMENT synergy_arc_set (#PCDATA)>
+        <!ELEMENT influence_arc (#PCDATA)>
+        <!ELEMENT Argument (proposition, generalization)>
+        <!ELEMENT proposition (#PCDATA)>
+        <!ELEMENT generalization (#PCDATA)>
+        ]>
+
+<gail>
+    <ui>
+        <hypothesis></hypothesis>
+        <data></data>
+        <generalizations></generalizations>
+        <connections></connections>
+    </ui>
+    <genie>
+        <KB_Node>
+            <genotype></genotype>
+            <biochemestry></biochemestry>
+            <symptom></symptom>
+        </KB_Node>
+        <KB_Arc>
+            <influence_arc></influence_arc>
+            <synergy_arc_set></synergy_arc_set>
+        </KB_Arc>
+        <Argument>
+            <proposition></proposition>
+            <generalization></generalization>
+        </Argument>
+    </genie>
+</gail>
