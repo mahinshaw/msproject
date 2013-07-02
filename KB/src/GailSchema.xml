@@ -8,16 +8,45 @@
         <!ELEMENT data (#PCDATA)>
         <!ELEMENT generalizations (#PCDATA)>
         <!ELEMENT genie (KB_Node, KB_Arc, Argument)>
-        <!ELEMENT KB_Node (genotype, biochemistry, symptom)>
-        <!ELEMENT biochemistry (#PCDATA)>
-        <!ELEMENT symptom (#PCDATA)>
-        <!ELEMENT genotype (#PCDATA)>
+        <!ELEMENT KB_Node (node_id, person_id, certainty, genotype, biochemistry, symptom)>
+        <!ELEMENT node_id (#PCDATA)>
+        <!ELEMENT person_id (#PCDATA)>
+        <!ELEMENT certainty (#PCDATA)>
+        <!ELEMENT biochemistry (protein_id, protein_name, normal, quantity)>
+        <!ELEMENT protein_id (#PCDATA)>
+        <!ELEMENT protein_name (#PCDATA)>
+        <!ELEMENT normal (#PCDATA)>
+        <!ELEMENT quantity (#PCDATA)>
+        <!ELEMENT symptom (symptom_id, symptom_name, degree)>
+        <!ELEMENT symptom_id (#PCDATA)>
+        <!ELEMENT symptom_name (#PCDATA)>
+        <!ELEMENT degree (#PCDATA)>
+        <!ELEMENT genotype (gene_id, gene_name, mutated, autosomal_type, disease, cell)>
+        <!ELEMENT gene_id (#PCDATA)>
+        <!ELEMENT gene_name (#PCDATA)>
+        <!ELEMENT mutated (#PCDATA)>
+        <!ELEMENT autosomal_type (#PCDATA)>
+        <!ELEMENT disease (#PCDATA)>
+        <!ELEMENT cell (#PCDATA)>
         <!ELEMENT KB_Arc (influence_arc, synergy_arc_set)>
-        <!ELEMENT synergy_arc_set (#PCDATA)>
-        <!ELEMENT influence_arc (#PCDATA)>
-        <!ELEMENT Argument (proposition, generalization)>
-        <!ELEMENT proposition (#PCDATA)>
-        <!ELEMENT generalization (#PCDATA)>
+        <!ELEMENT synergy_arc_set (type, child, parents)>
+        <!ELEMENT type (#PCDATA)>
+        <!ELEMENT child (#PCDATA)>
+        <!ELEMENT parents (#PCDATA)>
+        <!ELEMENT influence_arc (influence_type, influence_parent, influence_child)>
+        <!ELEMENT influence_type (#PCDATA)>
+        <!ELEMENT influence_parent (#PCDATA)>
+        <!ELEMENT influence_child (#PCDATA)>
+        <!ELEMENT Argument (argument_id, scheme, argument_data, warrant, conclusion, proposition, generalization)>
+        <!ELEMENT argument_id (#PCDATA)>
+        <!ELEMENT scheme (#PCDATA)>
+        <!ELEMENT argument_data (#PCDATA)>
+        <!ELEMENT warrant (#PCDATA)>
+        <!ELEMENT conclusion (#PCDATA)>
+        <!ELEMENT proposition (prop_id)>
+        <!ELEMENT prop_id (#PCDATA)>
+        <!ELEMENT generalization (generalization_path)>
+        <!ELEMENT generalization_path (#PCDATA)>
         ]>
 
 <gail>
@@ -51,17 +80,53 @@
     </ui>
     <genie>
         <KB_Node>
-            <genotype></genotype>
-            <biochemistry></biochemistry>
-            <symptom></symptom>
+            <node_id></node_id>
+            <person_id></person_id>
+            <certainty></certainty>
+            <genotype>
+                <gene_id></gene_id>
+                <gene_name></gene_name>
+                <mutated></mutated>
+                <autosomal_type></autosomal_type>
+                <disease></disease>
+                <cell></cell>
+            </genotype>
+            <biochemistry>
+                <protein_id></protein_id>
+                <protein_name></protein_name>
+                <normal></normal>
+                <quantity></quantity>
+            </biochemistry>
+            <symptom>
+                <symptom_id></symptom_id>
+                <symptom_name></symptom_name>
+                <degree></degree>
+            </symptom>
         </KB_Node>
         <KB_Arc>
-            <influence_arc></influence_arc>
-            <synergy_arc_set></synergy_arc_set>
+            <influence_arc>
+                <influence_type></influence_type>
+                <influence_parent></influence_parent>
+                <influence_child></influence_child>
+            </influence_arc>
+            <synergy_arc_set>
+                <type></type>
+                <child></child>
+                <parents></parents>
+            </synergy_arc_set>
         </KB_Arc>
         <Argument>
-            <proposition></proposition>
-            <generalization></generalization>
+            <argument_id></argument_id>
+            <scheme></scheme>
+            <argument_data></argument_data>
+            <warrant></warrant>
+            <conclusion></conclusion>
+            <proposition>
+                <prop_id></prop_id>
+            </proposition>
+            <generalization>
+                <generalization_path></generalization_path>
+            </generalization>
         </Argument>
     </genie>
 </gail>
