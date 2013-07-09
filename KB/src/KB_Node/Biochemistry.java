@@ -12,7 +12,12 @@ public class Biochemistry extends KB_Node {
     private boolean normal;
     private String quantity;
 
-    public Biochemistry() {
+    public Biochemistry(KB_Person person, String protein_id, String protein_name, boolean normal, String quantity) {
+        super(person);
+        this.protein_id = protein_id;
+        this.protein_name = protein_name;
+        this.normal = normal;
+        this.quantity = quantity;
     }
 
     public String getProtein_id() {

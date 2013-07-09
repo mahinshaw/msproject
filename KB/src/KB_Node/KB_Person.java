@@ -11,18 +11,20 @@ import java.util.ArrayList;
 
 public class KB_Person {
 
-    private int id;
+    private static int id_generator = 0;
+
+    private final int id;
     private String name;
     // 'm' for male; 'f' for female;
     private char gender;
     // list for children
     private ArrayList<KB_Person> children;
 
-    private KB_Person(){
-        this.id = -1;
-        this.name = null;
-        // initialized to n.  Should be changed on creation.
-        this.gender = 'n';
+    public KB_Person(String name, char gender){
+        this.id = id_generator;
+        id_generator++;
+        this.name = name;
+        this.gender = gender;
         this.children = new ArrayList<KB_Person>();
 
     }
@@ -43,10 +45,6 @@ public class KB_Person {
         return children;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -56,19 +54,10 @@ public class KB_Person {
     }
 
     public void addChildren(ArrayList<KB_Person> children) {
-        children.addAll(children);
+        this.children.addAll(children);
     }
 
     public void addChild(KB_Person child){
-        children.add(child);
-    }
-
-    public KB_Person create(int id, String name, char gender) {
-        KB_Person person = new KB_Person();
-        person.id = id;
-        person.name = name;
-        person.gender = gender;
-
-        return person;
+        this.children.add(child);
     }
 }

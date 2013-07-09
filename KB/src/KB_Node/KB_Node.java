@@ -7,34 +7,26 @@ package KB_Node;
  */
 public class KB_Node {
 
-    private int id;
+    private final int id;
     private KB_Person person;
     private String certainty;
 
-    public KB_Node(){
-
-    }
-
-    public KB_Node(int id, KB_Person person, String certainty) {
+    public KB_Node(KB_Person person, int id) {
         this.id = id;
         this.person = person;
-        this.certainty = certainty;
+        this.certainty = null;
     }
 
     public int getId(){
         return id;
     }
 
-    public KB_Person getPerson_id(){
+    public KB_Person getPerson(){
         return person;
     }
 
     public String getCertainty(){
         return certainty;
-    }
-
-    public void setId(int i){
-        this.id = i;
     }
 
     public void setPerson(KB_Person person){

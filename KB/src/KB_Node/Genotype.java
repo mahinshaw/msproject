@@ -14,17 +14,14 @@ public class Genotype extends KB_Node {
     private String disease;
     private String cell;
 
-    public Genotype(){
-
-    }
-
-    public Genotype(String gene_id, String gene_name, String mutated, String autosomal_type, String disease, String cell) {
+    public Genotype(KB_Person person, String gene_id, String gene_name, String mutated, String autosomal_type) {
+        super(person);
         this.gene_id = gene_id;
         this.gene_name = gene_name;
         this.mutated = mutated;
         this.autosomal_type = autosomal_type;
-        this.disease = disease;
-        this.cell = cell;
+        this.disease = null;
+        this.cell = null;
     }
 
     public String getGene_id() {

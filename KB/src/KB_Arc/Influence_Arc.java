@@ -1,5 +1,6 @@
 package KB_Arc;
 
+import KB_Node.KB_Node;
 import KB_Node.KB_Person;
 
 /**
@@ -10,8 +11,8 @@ import KB_Node.KB_Person;
 public class Influence_Arc extends KB_Arc {
 
     private String type;
-    private KB_Person parent;
-    private KB_Person child;
+    private KB_Node parent;
+    private KB_Node child;
 
     public Influence_Arc() {
     }
@@ -24,19 +25,19 @@ public class Influence_Arc extends KB_Arc {
         this.type = type;
     }
 
-    public KB_Person getParent() {
+    public KB_Node getParent() {
         return parent;
     }
 
-    public void setParent(KB_Person parent) {
+    public void setParent(KB_Node parent) {
         this.parent = parent;
     }
 
-    public KB_Person getChild() {
+    public KB_Node getChild() {
         return child;
     }
 
-    public void setChild(KB_Person child) {
+    public void setChild(KB_Node child) {
         this.child = child;
     }
 }
