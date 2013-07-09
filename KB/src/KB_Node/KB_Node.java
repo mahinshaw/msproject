@@ -8,12 +8,12 @@ package KB_Node;
 public class KB_Node {
 
     private final int id;
-    private KB_Person person;
+    private int person_id;
     private String certainty;
 
-    public KB_Node(KB_Person person, int id) {
+    public KB_Node(int id, int person_id) {
         this.id = id;
-        this.person = person;
+        this.person_id = person_id;
         this.certainty = null;
     }
 
@@ -21,16 +21,16 @@ public class KB_Node {
         return id;
     }
 
-    public KB_Person getPerson(){
-        return person;
+    public int getPerson_id(){
+        return person_id;
     }
 
     public String getCertainty(){
         return certainty;
     }
 
-    public void setPerson(KB_Person person){
-        this.person = person;
+    public void setPerson_id(int person_id){
+        this.person_id = person_id;
     }
 
     public void setCertainty(String c){

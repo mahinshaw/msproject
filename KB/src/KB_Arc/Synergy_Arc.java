@@ -17,8 +17,10 @@ public class Synergy_Arc extends KB_Arc {
     private KB_Node child;
     private ArrayList<KB_Node> parents;
 
-    public Synergy_Arc() {
-        parents = new ArrayList<KB_Node>();
+    public Synergy_Arc(String type, ArrayList<KB_Node> parents, KB_Node child) {
+        this.type = type;
+        this.parents = parents;
+        this.child = child;
     }
 
     public String getType() {

@@ -14,18 +14,17 @@ public class KB_Person {
     private static int id_generator = 0;
 
     private final int id;
-    private String name;
+    private final String name;
     // 'm' for male; 'f' for female;
-    private char gender;
-    // list for children
-    private ArrayList<KB_Person> children;
+    private final char gender;
+    // list for parents
+    private ArrayList<KB_Person> parents;
 
-    public KB_Person(String name, char gender){
-        this.id = id_generator;
-        id_generator++;
+    public KB_Person(int id, String name, char gender){
+        this.id = id;
         this.name = name;
         this.gender = gender;
-        this.children = new ArrayList<KB_Person>();
+        this.parents = new ArrayList<KB_Person>();
 
     }
 
@@ -41,23 +40,15 @@ public class KB_Person {
         return gender;
     }
 
-    public ArrayList<KB_Person> getChildren() {
-        return children;
+    public ArrayList<KB_Person> getParents() {
+        return parents;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void addParents(ArrayList<KB_Person> parents) {
+        this.parents.addAll(parents);
     }
 
-    public void setGender(char gender) {
-        this.gender = gender;
-    }
-
-    public void addChildren(ArrayList<KB_Person> children) {
-        this.children.addAll(children);
-    }
-
-    public void addChild(KB_Person child){
-        this.children.add(child);
+    public void addParent(KB_Person parent){
+        this.parents.add(parent);
     }
 }

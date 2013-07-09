@@ -11,8 +11,8 @@ public class Symptom extends KB_Node{
     private String symptom_name;
     private String degree;
 
-    public Symptom(KB_Person person, String symptom_id, String symptom_name, String degree) {
-        super(person);
+    public Symptom(int id, int person_id, String symptom_id, String symptom_name, String degree) {
+        super(id, person_id);
         this.symptom_id = symptom_id;
         this.symptom_name = symptom_name;
         this.degree = degree;
