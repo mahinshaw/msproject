@@ -1,5 +1,7 @@
 package KB_Arc;
 
+import KB_Node.KB_Person;
+
 /**
  * Author: Mark Hinshaw
  * Email: mahinshaw@gmail.com
@@ -8,8 +10,8 @@ package KB_Arc;
 public class Influence_Arc extends KB_Arc {
 
     private String type;
-    private String parent;
-    private String child;
+    private KB_Person parent;
+    private KB_Person child;
 
     public Influence_Arc() {
     }
@@ -22,19 +24,19 @@ public class Influence_Arc extends KB_Arc {
         this.type = type;
     }
 
-    public String getParent() {
+    public KB_Person getParent() {
         return parent;
     }
 
-    public void setParent(String parent) {
+    public void setParent(KB_Person parent) {
         this.parent = parent;
     }
 
-    public String getChild() {
+    public KB_Person getChild() {
         return child;
     }
 
-    public void setChild(String child) {
+    public void setChild(KB_Person child) {
         this.child = child;
     }
 }

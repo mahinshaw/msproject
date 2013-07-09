@@ -25,7 +25,7 @@ public class KB_Node {
         return id;
     }
 
-    public String getPerson_id(){
+    public KB_Person getPerson_id(){
         return person;
     }
 

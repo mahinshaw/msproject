@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * github: https://github.com/mahinshaw/msproject
  */
 
-private class KB_Person {
+public class KB_Person {
 
     private int id;
     private String name;
@@ -18,10 +18,11 @@ private class KB_Person {
     // list for children
     private ArrayList<KB_Person> children;
 
-    private KB_Person{
-        this.id = null;
+    private KB_Person(){
+        this.id = -1;
         this.name = null;
-        this.gender = null;
+        // initialized to n.  Should be changed on creation.
+        this.gender = 'n';
         this.children = new ArrayList<KB_Person>();
 
     }

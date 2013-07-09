@@ -1,6 +1,8 @@
 package KB_Graph;
 
 import java.util.ArrayList;
+import KB_Node.*;
+import KB_Arc.*;
 
 /**
  *
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 public class KB_Graph {
 
     private ArrayList<KB_Node> nodelist;
-    private ArrayList<KB_Arc arclist;
+    private ArrayList<KB_Arc> arclist;
 
     private KB_Graph() {
         this.nodelist = new ArrayList<KB_Node>();

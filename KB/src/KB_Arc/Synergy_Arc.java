@@ -1,5 +1,7 @@
 package KB_Arc;
 
+import KB_Node.KB_Person;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +13,11 @@ import java.util.List;
 public class Synergy_Arc extends KB_Arc {
 
     private String type;
-    private String child;
-    private List<String> parents;
+    private KB_Person child;
+    private List<KB_Person> parents;
 
     public Synergy_Arc() {
-        parents = new ArrayList<String>();
+        parents = new ArrayList<KB_Person>();
     }
 
     public String getType() {
@@ -26,19 +28,19 @@ public class Synergy_Arc extends KB_Arc {
         this.type = type;
     }
 
-    public String getChild() {
+    public KB_Person getChild() {
         return child;
     }
 
-    public void setChild(String child) {
+    public void setChild(KB_Person child) {
         this.child = child;
     }
 
-    public List<String> getParents() {
+    public List<KB_Person> getParents() {
         return parents;
     }
 
-    public void setParents(List<String> parents) {
+    public void setParents(List<KB_Person> parents) {
         this.parents = parents;
     }
 }
