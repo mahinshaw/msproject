@@ -45,12 +45,14 @@
         <!ELEMENT autosomal_type (#PCDATA)>
         <!ELEMENT disease (#PCDATA)>
         <!ELEMENT cell (#PCDATA)>
-        <!ELEMENT KB_Arc (influence_arc, synergy_arc_set)>
-        <!ELEMENT synergy_arc_set (type, child, parents)>
+        <!ELEMENT KB_Arc (influence_arc+, synergy_arc_set+)>
+        <!ATTLIST synergy_arc_set syn_id CDATA #REQUIRED>
+        <!ELEMENT synergy_arc_set (type, child, parent+)>
         <!ELEMENT type (#PCDATA)>
         <!ELEMENT child (#PCDATA)>
-        <!ELEMENT parents (#PCDATA)>
+        <!ELEMENT parent (#PCDATA)>
         <!ELEMENT influence_arc (influence_type, influence_parent, influence_child)>
+        <!ATTLIST influence_arc arc_id CDATA #REQUIRED>
         <!ELEMENT influence_type (#PCDATA)>
         <!ELEMENT influence_parent (#PCDATA)>
         <!ELEMENT influence_child (#PCDATA)>
@@ -214,15 +216,62 @@
             </symptom>
         </KB_Node>
         <KB_Arc>
-            <influence_arc>
+            <influence_arc arc_id="1">
                 <influence_type></influence_type>
-                <influence_parent></influence_parent>
-                <influence_child></influence_child>
+                <influence_parent>1</influence_parent>
+                <influence_child>3</influence_child>
             </influence_arc>
-            <synergy_arc_set>
+            <influence_arc arc_id="2">
+                <influence_type></influence_type>
+                <influence_parent>2</influence_parent>
+                <influence_child>3</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="3">
+                <influence_type></influence_type>
+                <influence_parent>3</influence_parent>
+                <influence_child>4</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="4">
+                <influence_type></influence_type>
+                <influence_parent>4</influence_parent>
+                <influence_child>5</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="5">
+                <influence_type></influence_type>
+                <influence_parent>4</influence_parent>
+                <influence_child>6</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="6">
+                <influence_type></influence_type>
+                <influence_parent>1</influence_parent>
+                <influence_child>7</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="7">
+                <influence_type></influence_type>
+                <influence_parent>2</influence_parent>
+                <influence_child>7</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="8">
+                <influence_type></influence_type>
+                <influence_parent>2</influence_parent>
+                <influence_child>8</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="9">
+                <influence_type></influence_type>
+                <influence_parent>1</influence_parent>
+                <influence_child>9</influence_child>
+            </influence_arc>
+            <synergy_arc_set syn_id="1">
                 <type></type>
-                <child></child>
-                <parents></parents>
+                <child>3</child>
+                <parent>1</parent>
+                <parent>2</parent>
+            </synergy_arc_set>
+            <synergy_arc_set syn_id="2">
+                <type></type>
+                <child>7</child>
+                <parent>1</parent>
+                <parent>2</parent>
             </synergy_arc_set>
         </KB_Arc>
         <Argument>
