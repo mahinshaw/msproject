@@ -41,6 +41,16 @@ public class KB_Node {
         return arcs;
     }
 
+    public ArrayList<KB_Node> getChildren() {
+        ArrayList<KB_Node> children = new ArrayList<KB_Node>();
+
+        for (KB_Arc arc : arcs) {
+            children.add(arc.getChild());
+        }
+
+        return children;
+    }
+
     public void setPerson_id(int person_id){
         this.person_id = person_id;
     }

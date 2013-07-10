@@ -12,12 +12,11 @@ public class Influence_Arc extends KB_Arc {
 
     private String type;
     private KB_Node parent;
-    private KB_Node child;
 
     public Influence_Arc(String type, KB_Node parent, KB_Node child) {
+        super(child);
         this.type = type;
         this.parent = parent;
-        this.child = child;
     }
 
     public String getType() {
@@ -34,13 +33,5 @@ public class Influence_Arc extends KB_Arc {
 
     public void setParent(KB_Node parent) {
         this.parent = parent;
-    }
-
-    public KB_Node getChild() {
-        return child;
-    }
-
-    public void setChild(KB_Node child) {
-        this.child = child;
     }
 }

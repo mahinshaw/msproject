@@ -14,13 +14,12 @@ import java.util.List;
 public class Synergy_Arc extends KB_Arc {
 
     private String type;
-    private KB_Node child;
     private ArrayList<KB_Node> parents;
 
     public Synergy_Arc(String type, ArrayList<KB_Node> parents, KB_Node child) {
+        super(child);
         this.type = type;
         this.parents = parents;
-        this.child = child;
     }
 
     public String getType() {
@@ -29,14 +28,6 @@ public class Synergy_Arc extends KB_Arc {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public KB_Node getChild() {
-        return child;
-    }
-
-    public void addChild(KB_Node child) {
-        this.child = child;
     }
 
     public ArrayList<KB_Node> getParents() {
