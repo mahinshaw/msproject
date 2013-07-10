@@ -14,12 +14,10 @@ import KB_Arc.*;
 public class KB_Graph {
 
     private ArrayList<KB_Node> nodelist;
-    private ArrayList<KB_Arc> arclist;
     private ArrayList<KB_Person> personlist;
 
     private KB_Graph() {
         this.nodelist = new ArrayList<KB_Node>();
-        this.arclist = new ArrayList<KB_Arc>();
         this.personlist = new ArrayList<KB_Person>();
 
     }
@@ -28,19 +26,9 @@ public class KB_Graph {
         return nodelist;
     }
 
-    public ArrayList<KB_Arc> getArclist() {
-        return arclist;
-    }
-
     public void addNode(KB_Node node) {
         if (!nodelist.add(node)){
             throw new IllegalArgumentException("The node was not added to the list of nodes");
-        }
-    }
-
-    public void addArc(KB_Arc arc) {
-        if (!arclist.add(arc)){
-            throw new IllegalArgumentException("The node was not added to the list of arcs");
         }
     }
 
@@ -71,7 +59,7 @@ public class KB_Graph {
         KB_Node parent = nodelist.get(findKB_NodeIndex(parentNodeID));
         KB_Node child = nodelist.get(findKB_NodeIndex(childNodeID));
 
-        this.addArc(new Influence_Arc(type, parent, child));
+        parent.addArc(new Influence_Arc(type, parent, child));
     }
 
     public void createSynergyArc(String type, int childNodeID, int[] parentNodeIDs) {
@@ -79,20 +67,32 @@ public class KB_Graph {
         KB_Node child = nodelist.get(findKB_NodeIndex(childNodeID));
         KB_Node parent;
         ArrayList<KB_Node> parents = new ArrayList<KB_Node>();
-        for(int i = 0; i < parentNodeIDs.length; i++){
+
+        // find all the parent nodes by nodeID
+        int ids = 0;
+        for(int i : parentNodeIDs){
             parent = nodelist.get(findKB_NodeIndex(parentNodeIDs[i]));
-            parents.add(parent);
+            if (parents.add(parent)){
+                ids++;
+            }
+            if (ids >= parentNodeIDs.length) { break; }
         }
 
-        this.addArc(new Synergy_Arc(type, parents, child));
+        //add the arc to all the parent nodes
+        for (KB_Node node : parents) {
+            node.addArc(new Synergy_Arc(type, parents, child));
+        }
+
+        // add the arc to the child node
+        child.addArc(new Synergy_Arc(type, parents, child));
     }
 
     public int findKB_NodeIndex(int node_id){
-        // returns -1 if fail
+        // returns -1 if node is not in the list
         int index = -1;
-        for (int i = 0; i < nodelist.size(); i++) {
-            if (nodelist.get(i).getId() == node_id){
-                index = i;
+        for (KB_Node node : nodelist) {
+            if (node.getId() == node_id){
+                index = nodelist.indexOf(node);
                 break;
             }
         }

@@ -44,7 +44,7 @@ public class Synergy_Arc extends KB_Arc {
     }
 
     public void addParents(ArrayList<KB_Node> parents) {
-        this.parents = parents;
+        this.parents.addAll(parents);
     }
 
     public void addParent(KB_Node parent) {
