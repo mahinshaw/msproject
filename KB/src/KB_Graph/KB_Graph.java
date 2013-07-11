@@ -16,7 +16,7 @@ public class KB_Graph {
     private ArrayList<KB_Node> nodelist;
     private ArrayList<KB_Person> personlist;
 
-    private KB_Graph() {
+    public KB_Graph() {
         this.nodelist = new ArrayList<KB_Node>();
         this.personlist = new ArrayList<KB_Person>();
 
@@ -71,7 +71,7 @@ public class KB_Graph {
         // find all the parent nodes by nodeID
         int ids = 0;
         for(int i : parentNodeIDs){
-            parent = nodelist.get(findKB_NodeIndex(parentNodeIDs[i]));
+            parent = nodelist.get(findKB_NodeIndex(parentNodeIDs[i-1]));
             if (parents.add(parent)){
                 ids++;
             }
@@ -97,7 +97,35 @@ public class KB_Graph {
             }
         }
 
+        if (index == -1) {
+            throw new IndexOutOfBoundsException("No indexes found.");
+        }
+
         return index;
+    }
+
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+
+        //add people in the graph
+        str.append("People in the graph:\n");
+        str.append("---------------------\n");
+        for (KB_Person person : personlist){
+            str.append(person.toString() + "\n");
+        }
+
+        //add space between items
+        str.append("\n=================================================\n\n\n");
+
+        // add nodes in the graph with adj list
+        str.append("Nodes in the graph with child node(s):\n");
+        str.append("---------------------------------------\n");
+        for (KB_Node node : nodelist) {
+            str.append(node.toString());
+            str.append(node.adjList() + "\n");
+        }
+
+        return str.toString();
     }
 }
 

@@ -51,4 +51,12 @@ public class Biochemistry extends KB_Node {
     public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
+
+    public String toString() {
+        return super.toString() +
+                "Protein ID: " + this.protein_id + "\n" +
+                "Protein name: " + this.protein_name + "\n" +
+                "Normal: " + this.normal + "\n" +
+                "quantity: " + this.quantity + "\n";
+    }
 }

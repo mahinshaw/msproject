@@ -34,4 +34,10 @@ public class Influence_Arc extends KB_Arc {
     public void setParent(KB_Node parent) {
         this.parent = parent;
     }
+
+    public String toString() {
+        return super.toString() + "\n" +
+                "Type: " + this.type + "\n" +
+                "Parent node ID: " + this.parent.getId() + "\n";
+    }
 }

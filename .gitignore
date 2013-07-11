@@ -38,3 +38,5 @@ local.properties
 *.ipr
 *.iws
 .idea/
+out/*
+.DS_Store

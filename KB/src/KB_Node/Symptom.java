@@ -41,4 +41,11 @@ public class Symptom extends KB_Node{
     public void setDegree(String degree) {
         this.degree = degree;
     }
+
+    public String toString() {
+        return super.toString() +
+                "Symptom ID: " + this.symptom_id + "\n" +
+                "Sympton name: " + this.symptom_name + "\n" +
+                "degree: " + this.degree + "\n";
+    }
 }

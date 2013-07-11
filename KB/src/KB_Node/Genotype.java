@@ -71,4 +71,14 @@ public class Genotype extends KB_Node {
     public void setCell(String cell) {
         this.cell = cell;
     }
+
+    public String toString(){
+        return super.toString() +
+                "Gene ID: " + this.gene_id + "\n" +
+                "Gene Name: " + this.gene_name + "\n" +
+                "Mutated: " + this.mutated + "\n" +
+                "Autosomal type: " + this.autosomal_type + "\n" +
+                "Disease: " + this.disease + "\n" +
+                "Cell: " + this.cell + "\n";
+    }
 }

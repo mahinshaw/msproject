@@ -62,4 +62,18 @@ public class KB_Node {
     public void addArc(KB_Arc arc){
         arcs.add(arc);
     }
+
+    public String toString(){
+        return "Node ID: " + this.id + "\n" +
+                "Person ID: " + this.person_id + "\n" +
+                "Certainty: " + this.certainty + "\n";
+    }
+
+    public String adjList(){
+        String aList = "";
+        for (KB_Arc arc : arcs){
+            aList += arc.getChild().getId() + " ";
+        }
+        return  "List of adjacent nodes: " + aList + "\n";
+    }
 }

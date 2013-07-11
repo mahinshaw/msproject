@@ -22,4 +22,8 @@ public class KB_Arc {
     public void setChild(KB_Node child) {
         this.child = child;
     }
+
+    public String toString() {
+        return "Child node ID: " + this.child.getId() + "\n";
+    }
 }

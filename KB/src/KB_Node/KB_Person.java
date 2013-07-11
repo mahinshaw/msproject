@@ -51,4 +51,15 @@ public class KB_Person {
     public void addParent(KB_Person parent){
         this.parents.add(parent);
     }
+
+    public String toString() {
+        String parentString = "";
+        for (KB_Person parent : parents){
+            parentString += parent.getName() + ", ";
+        }
+        return "Person ID: " + this.id + "\n" +
+                "Name: " + this.name + "\n" +
+                "Gender: " + this.gender + "\n" +
+                "Parents: " + parentString + "\n";
+    }
 }
