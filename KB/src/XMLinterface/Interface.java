@@ -15,8 +15,15 @@ import java.util.ArrayList;
  * Date: 7/10/13
  */
 public class Interface {
+    private KB_Graph graph;
 
-    public void xmlInterface(){
+    protected Interface(String f){
+       xmlInterface(f);
+    }
+
+    private void xmlInterface(String f){
+
+        setGraph();
 
         try {
             SAXParserFactory parserFactory;
@@ -26,7 +33,7 @@ public class Interface {
 
             DefaultHandler handler = new DefaultHandler() {
                 ArrayList<String> holdValues;
-                KB_Graph graph = new KB_Graph();
+
                 boolean person_name = false, gender = false, gene_id = false, gene_name = false, mutated = false;
                 boolean autosomal_type = false, protein_id = false, protein_name = false, normal = false, quantity = false;
                 boolean symptom_id = false, symptom_name = false, degree = false, influence_type = false, influence_parent = false;
@@ -262,9 +269,19 @@ public class Interface {
                 }
             };
 
-            saxParser.parse("KB/src/GailSchema.xml", handler);
+            saxParser.parse(f, handler);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setGraph() {
+        graph = new KB_Graph();
+    }
+
+    protected KB_Graph getGraph(){
+        return graph;
     }
 }
