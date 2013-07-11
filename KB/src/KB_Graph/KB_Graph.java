@@ -17,7 +17,7 @@ public class KB_Graph {
     private ArrayList<KB_Arc> arclist;
     private ArrayList<KB_Person> personlist;
 
-    private KB_Graph() {
+    public KB_Graph() {
         this.nodelist = new ArrayList<KB_Node>();
         this.arclist = new ArrayList<KB_Arc>();
         this.personlist = new ArrayList<KB_Person>();
