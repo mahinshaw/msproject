@@ -139,22 +139,22 @@
             <person person_id="1">
                 <person_name>Mother</person_name>
                 <gender>F</gender>
-                <family></family>
+                <family> </family>
             </person>
             <person person_id="2">
                 <person_name>Father</person_name>
                 <gender>M</gender>
-                <family></family>
+                <family> </family>
             </person>
             <person person_id="3">
                 <person_name>JB</person_name>
                 <gender>F</gender>
-                <family></family>
+                <family> </family>
             </person>
             <person person_id="4">
                 <person_name>Brother</person_name>
                 <gender>M</gender>
-                <family></family>
+                <family> </family>
             </person>
             <genotype node_id="1" person_id="1" certainty="">
                 <gene_id>FLAG</gene_id>
@@ -217,58 +217,58 @@
         </KB_Node>
         <KB_Arc>
             <influence_arc arc_id="1">
-                <influence_type></influence_type>
+                <influence_type> </influence_type>
                 <influence_parent>1</influence_parent>
                 <influence_child>3</influence_child>
             </influence_arc>
             <influence_arc arc_id="2">
-                <influence_type></influence_type>
+                <influence_type> </influence_type>
                 <influence_parent>2</influence_parent>
                 <influence_child>3</influence_child>
             </influence_arc>
             <influence_arc arc_id="3">
-                <influence_type></influence_type>
+                <influence_type> </influence_type>
                 <influence_parent>3</influence_parent>
                 <influence_child>4</influence_child>
             </influence_arc>
             <influence_arc arc_id="4">
-                <influence_type></influence_type>
+                <influence_type> </influence_type>
                 <influence_parent>4</influence_parent>
                 <influence_child>5</influence_child>
             </influence_arc>
             <influence_arc arc_id="5">
-                <influence_type></influence_type>
+                <influence_type> </influence_type>
                 <influence_parent>4</influence_parent>
                 <influence_child>6</influence_child>
             </influence_arc>
             <influence_arc arc_id="6">
-                <influence_type></influence_type>
+                <influence_type> </influence_type>
                 <influence_parent>1</influence_parent>
                 <influence_child>7</influence_child>
             </influence_arc>
             <influence_arc arc_id="7">
-                <influence_type></influence_type>
+                <influence_type> </influence_type>
                 <influence_parent>2</influence_parent>
                 <influence_child>7</influence_child>
             </influence_arc>
             <influence_arc arc_id="8">
-                <influence_type></influence_type>
+                <influence_type> </influence_type>
                 <influence_parent>2</influence_parent>
                 <influence_child>8</influence_child>
             </influence_arc>
             <influence_arc arc_id="9">
-                <influence_type></influence_type>
+                <influence_type> </influence_type>
                 <influence_parent>1</influence_parent>
                 <influence_child>9</influence_child>
             </influence_arc>
             <synergy_arc_set syn_id="1">
-                <type></type>
+                <type> </type>
                 <child>3</child>
                 <parent>1</parent>
                 <parent>2</parent>
             </synergy_arc_set>
             <synergy_arc_set syn_id="2">
-                <type></type>
+                <type> </type>
                 <child>7</child>
                 <parent>1</parent>
                 <parent>2</parent>
