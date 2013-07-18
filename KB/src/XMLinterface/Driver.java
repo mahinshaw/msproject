@@ -8,6 +8,6 @@ public class Driver {
     public static void main(String arg[]){
          Interface dri = new Interface("KB/src/GailSchema.xml");
 
-        System.out.println("TEST: "+dri.getGraph().getNodelist().get(5));
+       System.out.print("TEST: "+dri.getGraph().getNodelist().get(9));
     }
 }

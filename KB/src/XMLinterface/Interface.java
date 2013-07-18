@@ -37,7 +37,7 @@ public class Interface {
                 boolean person_name = false, gender = false, gene_id = false, gene_name = false, mutated = false;
                 boolean autosomal_type = false, protein_id = false, protein_name = false, normal = false, quantity = false;
                 boolean symptom_id = false, symptom_name = false, degree = false, influence_type = false, influence_parent = false;
-                boolean influence_child = false, type = false, child = false, parent = false;
+                boolean influence_child = false, type = false, child = false, parent = false, chlorideLevel = false;
                 int count = 0, size = 0;
 
                 public void startElement(String str, String local, String name, Attributes attribute) {
@@ -117,6 +117,14 @@ public class Interface {
                     }
                     if (name.equalsIgnoreCase("parent")) {
                         parent = true;
+                    }
+                    if (name.equalsIgnoreCase("test")){
+                        addVar(attribute.getValue("node_id"));
+                        addVar(attribute.getValue("person_id"));
+                    }
+
+                    if (name.equalsIgnoreCase("chlorideLevel")){
+                        chlorideLevel = true;
                     }
 
                 }
@@ -221,6 +229,12 @@ public class Interface {
 
                     }
 
+                    if (chlorideLevel){
+                        addVar(new String(c, start, length));
+                        chlorideLevel = false;
+                        print(7);
+                    }
+
                 }
 
                 public void setArray() {
@@ -262,6 +276,10 @@ public class Interface {
                                     parents[i] = Integer.parseInt(getArray().get((getArray().size()-i)-1));
                                 }
                                 graph.createSynergyArc(getArray().get(size), Integer.parseInt(getArray().get(++size)), parents);
+                                size = 0;
+                                break;
+                            case 7:
+                                graph.createTest(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), Boolean.parseBoolean(getArray().get(++size)));
                                 size = 0;
                                 break;
                         }

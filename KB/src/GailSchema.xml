@@ -12,7 +12,7 @@
         <!ELEMENT generalizations (#PCDATA)>
         <!ATTLIST generalizations gen CDATA #REQUIRED>
         <!ELEMENT genie (KB_Node, KB_Arc, Argument)>
-        <!ELEMENT KB_Node (person+, genotype+, biochemistry+, symptom+)>
+        <!ELEMENT KB_Node (person+, genotype+, biochemistry+, symptom+, test+)>
         <!ELEMENT person (person_name, gender, family)>
         <!ELEMENT person_name (#PCDATA)>
         <!ELEMENT gender (#PCDATA)>
@@ -45,6 +45,10 @@
         <!ELEMENT autosomal_type (#PCDATA)>
         <!ELEMENT disease (#PCDATA)>
         <!ELEMENT cell (#PCDATA)>
+        <!ATTLIST test node_id CDATA #REQUIRED>
+        <!ATTLIST test person_id CDATA #REQUIRED>
+        <!ELEMENT test (chlorideLevel)>
+        <!ELEMENT chlorideLevel (#PCDATA)>
         <!ELEMENT KB_Arc (influence_arc+, synergy_arc_set+)>
         <!ATTLIST synergy_arc_set syn_id CDATA #REQUIRED>
         <!ELEMENT synergy_arc_set (type, child, parent+)>
@@ -214,6 +218,9 @@
                 <symptom_name>Upper respiratory infections</symptom_name>
                 <degree>absent</degree>
             </symptom>
+            <test node_id = "10" person_id="3">
+                <chlorideLevel>true</chlorideLevel>
+            </test>
         </KB_Node>
         <KB_Arc>
             <influence_arc arc_id="1">

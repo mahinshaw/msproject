@@ -54,6 +54,10 @@ public class KB_Graph {
         this.addNode(new Symptom(id, person_id, symptom_id, symptom_name, degree));
     }
 
+    public void createTest(int id, int person_id, boolean result){
+        this.addNode(new Test(id, person_id, result));
+    }
+
     public void createInfluenceArc(String type, int parentNodeID, int childNodeID) {
         // will throw outOfBoundsException of findKB_NodeIndex returns -1.
         KB_Node parent = nodelist.get(findKB_NodeIndex(parentNodeID));
