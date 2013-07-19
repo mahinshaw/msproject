@@ -2,13 +2,6 @@
 
 package GAIL.src.controller;
 
-import GAIL.src.frame.ApplicationFrame;
-import GAIL.src.frame.SubmitDialog;
-import GAIL.src.frame.TutorialDialog;
-import GAIL.src.model.MultiGeneralizationFactory;
-import GAIL.src.model.MultiGeneralizationModel;
-import GAIL.src.model.Statement;
-import GAIL.src.view.StatementView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +16,16 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
+
+import GAIL.src.frame.ApplicationFrame;
+import GAIL.src.frame.MenuBar;
+import GAIL.src.frame.SubmitDialog;
+import GAIL.src.frame.TutorialDialog;
+import GAIL.src.model.MultiGeneralizationFactory;
+import GAIL.src.model.MultiGeneralizationModel;
+import GAIL.src.model.Statement;
+import GAIL.src.view.StatementView;
+
 
 public class ApplicationController implements MouseListener, ActionListener {
 	public static boolean noSumbitDialog = true;
