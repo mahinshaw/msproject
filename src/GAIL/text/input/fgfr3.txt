@@ -1,0 +1,13 @@
+Give one argument for the hypothesis that A.C.'s mother has exactly 1 mutated copy of the FGFR3 gene that causes achondroplasia.
+@
+A.C.'s mother has exactly 1 mutated copy of the FGFR3 gene that causes achondroplasia.
+A.C.'s mother does not have any mutated copies of the FGFR3 gene that causes achondroplasia.
+A.C.'s father has exactly 1 mutated copy of the FGFR3 gene that causes achondroplasia.
+A.C.'s father does not have any mutated copies of the FGFR3 gene that causes achondroplasia.
+Either (but not both) A.C.'s mother or A.C.'s father has exactly 1 mutated copy of the FGFR3 gene that causes achondroplasia.
+@
+A.C. has been diagnosed as having achondroplasia due to having exactly 1 mutated copy of the FGFR3 gene.
+A.C.'s father has no symptoms of achondroplasia.
+@
+Achondroplasia is the name of a disease caused by having exactly 1 mutated copy of the FGFR3 gene. When 1 copy is mutated, the gene cannot perform its normal function. When the FGFR3 gene cannot perform its normal function, a person with the mutation may have symptoms such as dwarfism.
+Achondroplasia is inherited in an autosomal dominant manner, which means that an individual with achondroplasia inherited 1 mutated copy of the FGFR3 gene, either from the mother or from the father.

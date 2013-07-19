@@ -1,0 +1,297 @@
+<?xml version="1.0" ?>
+
+<!DOCTYPE gail [
+        <!ELEMENT gail (ui, genie)>
+        <!ELEMENT ui (question+, hypothesis+, data+, generalizations+)>
+        <!ELEMENT question (#PCDATA)>
+        <!ATTLIST question quest CDATA #REQUIRED>
+        <!ELEMENT hypothesis (#PCDATA)>
+        <!ATTLIST hypothesis hypo CDATA #REQUIRED>
+        <!ELEMENT data (#PCDATA)>
+        <!ATTLIST data datum CDATA #REQUIRED>
+        <!ELEMENT generalizations (#PCDATA)>
+        <!ATTLIST generalizations gen CDATA #REQUIRED>
+        <!ELEMENT genie (KB_Node, KB_Arc, Argument)>
+        <!ELEMENT KB_Node (person+, genotype+, biochemistry+, symptom+, test+)>
+        <!ELEMENT person (person_name, gender, family)>
+        <!ELEMENT person_name (#PCDATA)>
+        <!ELEMENT gender (#PCDATA)>
+        <!ELEMENT family (#PCDATA)>
+        <!ATTLIST person person_id CDATA #REQUIRED>
+        <!ELEMENT biochemistry (protein_id, protein_name, normal, quantity)>
+        <!ATTLIST biochemistry node_id CDATA #REQUIRED>
+        <!ATTLIST biochemistry person_id CDATA #REQUIRED>
+        <!ATTLIST biochemistry certainty CDATA #REQUIRED>
+        <!ELEMENT protein_id (#PCDATA)>
+        <!ELEMENT protein_name (#PCDATA)>
+        <!ELEMENT normal (#PCDATA)>
+        <!ELEMENT quantity (#PCDATA)>
+        <!ELEMENT symptom (symptom_id, symptom_name, degree)>
+        <!ATTLIST symptom node_id CDATA #REQUIRED>
+        <!ATTLIST symptom person_id CDATA #REQUIRED>
+        <!ATTLIST symptom certainty CDATA #REQUIRED>
+        <!ELEMENT symptom_id (#PCDATA)>
+        <!ELEMENT symptom_name (#PCDATA)>
+        <!ELEMENT degree (#PCDATA)>
+        <!ELEMENT genotype (gene_id, gene_name, mutated, autosomal_type, disease, cell)>
+        <!ATTLIST genotype node_id CDATA #REQUIRED>
+        <!ATTLIST genotype person_id CDATA #REQUIRED>
+        <!ATTLIST genotype certainty CDATA #REQUIRED>
+        <!ELEMENT person_id (#PCDATA)>
+        <!ELEMENT certainty (#PCDATA)>
+        <!ELEMENT gene_id (#PCDATA)>
+        <!ELEMENT gene_name (#PCDATA)>
+        <!ELEMENT mutated (#PCDATA)>
+        <!ELEMENT autosomal_type (#PCDATA)>
+        <!ELEMENT disease (#PCDATA)>
+        <!ELEMENT cell (#PCDATA)>
+        <!ATTLIST test node_id CDATA #REQUIRED>
+        <!ATTLIST test person_id CDATA #REQUIRED>
+        <!ELEMENT test (chlorideLevel)>
+        <!ELEMENT chlorideLevel (#PCDATA)>
+        <!ELEMENT KB_Arc (influence_arc+, synergy_arc_set+)>
+        <!ATTLIST synergy_arc_set syn_id CDATA #REQUIRED>
+        <!ELEMENT synergy_arc_set (type, child, parent+)>
+        <!ELEMENT type (#PCDATA)>
+        <!ELEMENT child (#PCDATA)>
+        <!ELEMENT parent (#PCDATA)>
+        <!ELEMENT influence_arc (influence_type, influence_parent, influence_child)>
+        <!ATTLIST influence_arc arc_id CDATA #REQUIRED>
+        <!ELEMENT influence_type (#PCDATA)>
+        <!ELEMENT influence_parent (#PCDATA)>
+        <!ELEMENT influence_child (#PCDATA)>
+        <!ELEMENT Argument (argument_id, scheme, argument_data, warrant, conclusion, proposition, generalization)>
+        <!ELEMENT argument_id (#PCDATA)>
+        <!ELEMENT scheme (#PCDATA)>
+        <!ELEMENT argument_data (#PCDATA)>
+        <!ELEMENT warrant (#PCDATA)>
+        <!ELEMENT conclusion (#PCDATA)>
+        <!ELEMENT proposition (prop_id)>
+        <!ELEMENT prop_id (#PCDATA)>
+        <!ELEMENT generalization (generalization_path)>
+        <!ELEMENT generalization_path (#PCDATA)>
+        ]>
+
+<gail>
+    <ui>
+        <question quest="q1">Give 2 arguments for the hypothesis that J.B. has cystic fibrosis (has 2 mutated copies of
+            the CFTR gene).
+        </question>
+        <question quest="q2">Give one argument for the hypothesis that J.B.'s mother has 1 or 2 mutated copies of the
+            CFTR gene.
+        </question>
+        <question quest="q3">Give one argument for the hypothesis that the mother does not have 2 mutated copies of the
+            CFTR gene.
+        </question>
+        <question quest="q4">Give one argument for the hypothesis that J.B.'s mother has 1 normal and 1 mutated copy of
+            the CFTR gene.
+        </question>
+        <hypothesis hypo="h1">J. B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).</hypothesis>
+        <hypothesis hypo="h2">J.B.'s mother does not have any CFTR gene mutations (both copies of the CFTR gene are
+            normal).
+        </hypothesis>
+        <hypothesis hypo="h3">J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.
+        </hypothesis>
+        <hypothesis hypo="h4">J.B.'s mother is a carrier of the CFTR gene mutation (has 1 normal copy and 1 mutated copy
+            of the CFTR gene).
+        </hypothesis>
+        <hypothesis hypo="h5">J.B.'s mother does not have 2 mutated copies of the CFTR gene.</hypothesis>
+        <hypothesis hypo="h6">J. B.'s mother has cystic fibrosis (has 2 mutated copies of the CFTR gene).</hypothesis>
+        <hypothesis hypo="h7">J.B.'s father does not have any CFTR gene mutations (both copies of the CFTR gene are
+            normal).
+        </hypothesis>
+        <hypothesis hypo="h8">J.B.'s father is a carrier of the CFTR gene mutation (has one normal copy and one mutated
+            copy of the CFTR gene).
+        </hypothesis>
+        <hypothesis hypo="h9">J. B.'s father has cystic fibrosis (has two mutated copies of the CFTR gene in all of his
+            cells).
+        </hypothesis>
+        <data datum="d1">Patient: J.B., a 2-year old girl.</data>
+        <data datum="d2">History of respiratory problems: During her second year, J.B. developed a chronic cough and has
+            had frequent upper respiratory infections.
+        </data>
+        <data datum="d3">J.B.'s mother does not have a history of respiratory problems.</data>
+        <data datum="d4">J.B.'s father does not have a history of respiratory problems.</data>
+        <data datum="d5">Test result: J.B.'s chloride level is 75 mmol/L.</data>
+        <data datum="d6">J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.</data>
+        <generalizations gen="g1">Cystic fibrosis is the name of a disease caused by having two mutated copies of the
+            CFTR gene. When both copies of CFTR are mutated, it cannot perform its normal function.
+        </generalizations>
+        <generalizations gen="g2">People with CFTR gene dysfunction often have viscous secretions in the lungs, which
+            provides a medium for growth of bacteria, and which may result in frequent respiratory infections.
+        </generalizations>
+        <generalizations gen="g3">Dysfunction of CFTR may affect the pancreas. Pancreatic abnormality may result in
+            malnutrition and poor growth.
+        </generalizations>
+        <generalizations gen="g4">Cystic fibrosis is inherited in an autosomal recessive manner, which means that an
+            individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one
+            from the father.
+        </generalizations>
+        <generalizations gen="g5">If one parent is a carrier (has one copy of the mutation) and the other parent has no
+            copies of the mutation, each offspring has a 25 percent chance of being a carrier.
+        </generalizations>
+        <generalizations gen="g6">Although cystic fibrosis classically manifests in early childhood, approximately 4
+            percent of patients are diagnosed in adulthood.
+        </generalizations>
+        <generalizations gen="g7">In the absence of functional CFTR, sweat has an increased sodium chloride content.
+            Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).
+        </generalizations>
+    </ui>
+    <genie>
+        <KB_Node>
+            <person person_id="1">
+                <person_name>Mother</person_name>
+                <gender>F</gender>
+                <family> </family>
+            </person>
+            <person person_id="2">
+                <person_name>Father</person_name>
+                <gender>M</gender>
+                <family> </family>
+            </person>
+            <person person_id="3">
+                <person_name>JB</person_name>
+                <gender>F</gender>
+                <family> </family>
+            </person>
+            <person person_id="4">
+                <person_name>Brother</person_name>
+                <gender>M</gender>
+                <family> </family>
+            </person>
+            <genotype node_id="1" person_id="1" certainty="">
+                <gene_id>FLAG</gene_id>
+                <gene_name>CF</gene_name>
+                <mutated>1</mutated>
+                <autosomal_type>recessive</autosomal_type>
+                <disease>FLAG</disease>
+                <cell>FLAG</cell>
+            </genotype>
+            <genotype node_id="2" person_id="2" certainty="">
+                <gene_id>FLAG</gene_id>
+                <gene_name>CF</gene_name>
+                <mutated>1</mutated>
+                <autosomal_type>recessive</autosomal_type>
+                <disease>FLAG</disease>
+                <cell>FLAG</cell>
+            </genotype>
+            <genotype node_id="3" person_id="3" certainty="">
+                <gene_id>FLAG</gene_id>
+                <gene_name>CF</gene_name>
+                <mutated>2</mutated>
+                <autosomal_type>dominant</autosomal_type>
+                <disease>CF</disease>
+                <cell>FLAG</cell>
+            </genotype>
+            <genotype node_id="7" person_id="4" certainty="">
+                <gene_id>FLAG</gene_id>
+                <gene_name>CF</gene_name>
+                <mutated>2</mutated>
+                <autosomal_type>dominant</autosomal_type>
+                <disease>CF</disease>
+                <cell>FLAG</cell>
+            </genotype>
+            <biochemistry node_id="4" person_id="3" certainty="">
+                <protein_id>FLAG</protein_id>
+                <protein_name>CF</protein_name>
+                <normal>false</normal>
+                <quantity>high</quantity>
+            </biochemistry>
+            <symptom node_id="5" person_id="3" certainty="">
+                <symptom_id>FLAG</symptom_id>
+                <symptom_name>Frequent cough</symptom_name>
+                <degree>severe</degree>
+            </symptom>
+            <symptom node_id="6" person_id="3" certainty="">
+                <symptom_id>FLAG</symptom_id>
+                <symptom_name>Upper respiratory infections</symptom_name>
+                <degree>severe</degree>
+            </symptom>
+            <symptom node_id="8" person_id="2" certainty="">
+                <symptom_id>FLAG</symptom_id>
+                <symptom_name>Upper respiratory infections</symptom_name>
+                <degree>absent</degree>
+            </symptom>
+            <symptom node_id="9" person_id="1" certainty="">
+                <symptom_id>FLAG</symptom_id>
+                <symptom_name>Upper respiratory infections</symptom_name>
+                <degree>absent</degree>
+            </symptom>
+            <test node_id = "10" person_id="3">
+                <chlorideLevel>true</chlorideLevel>
+            </test>
+        </KB_Node>
+        <KB_Arc>
+            <influence_arc arc_id="1">
+                <influence_type> </influence_type>
+                <influence_parent>1</influence_parent>
+                <influence_child>3</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="2">
+                <influence_type> </influence_type>
+                <influence_parent>2</influence_parent>
+                <influence_child>3</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="3">
+                <influence_type> </influence_type>
+                <influence_parent>3</influence_parent>
+                <influence_child>4</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="4">
+                <influence_type> </influence_type>
+                <influence_parent>4</influence_parent>
+                <influence_child>5</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="5">
+                <influence_type> </influence_type>
+                <influence_parent>4</influence_parent>
+                <influence_child>6</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="6">
+                <influence_type> </influence_type>
+                <influence_parent>1</influence_parent>
+                <influence_child>7</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="7">
+                <influence_type> </influence_type>
+                <influence_parent>2</influence_parent>
+                <influence_child>7</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="8">
+                <influence_type> </influence_type>
+                <influence_parent>2</influence_parent>
+                <influence_child>8</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="9">
+                <influence_type> </influence_type>
+                <influence_parent>1</influence_parent>
+                <influence_child>9</influence_child>
+            </influence_arc>
+            <synergy_arc_set syn_id="1">
+                <type> </type>
+                <child>3</child>
+                <parent>1</parent>
+                <parent>2</parent>
+            </synergy_arc_set>
+            <synergy_arc_set syn_id="2">
+                <type> </type>
+                <child>7</child>
+                <parent>1</parent>
+                <parent>2</parent>
+            </synergy_arc_set>
+        </KB_Arc>
+        <Argument>
+            <argument_id></argument_id>
+            <scheme></scheme>
+            <argument_data></argument_data>
+            <warrant></warrant>
+            <conclusion></conclusion>
+            <proposition>
+                <prop_id></prop_id>
+            </proposition>
+            <generalization>
+                <generalization_path></generalization_path>
+            </generalization>
+        </Argument>
+    </genie>
+</gail>

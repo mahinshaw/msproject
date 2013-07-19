@@ -1,0 +1,33 @@
+Give two arguments for (PRO) diagnosis that J.B. has cystic fibrosis.
+Give one argument against (CON) diagnosis that J.B.'s brother has cystic fibrosis.
+@
+J. B. has cystic fibrosis (has two mutated copies of the CFTR gene in all of her cells).
+J.B.'s brother has cystic fibrosis (has two mutated copies of the CFTR gene in all of his cells).
+J.B.'s mother does not have any CFTR gene mutations (both copies of the CFTR gene are normal in all of her cells).
+J.B.'s mother has one normal copy of the CFTR gene in all of her cells.
+J.B.'s mother has one mutated copy of the CFTR gene in all of her cells.
+J. B.'s mother has cystic fibrosis (has two mutated copies of the CFTR gene in all of her cells).
+@
+History of poor growth:  During infancy, J.B. had diarrhea and colic. According to a recent physical examination, her weight and height plotted less than the 3rd percentile.
+History of respiratory problems:  During her second year, J.B. developed a chronic cough and has had frequent upper respiratory infections.
+J.B.'s mother does not have a history of poor growth or respiratory problems.
+J.B.'s father does not have a history of poor growth or respiratory problems.
+J.B.'s 25-year-old brother does not have a history of poor growth or respiratory problems.
+Test result:  J.B.'s chloride level is 75 mmol/L.
+Ethnicity of mother:  N. European
+Ethnicity of father:  N. European
+@
+Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene in each cell.  When both copies of CFTR are mutated, it cannot perform its normal function.
+The viscous secretions in the lungs of patients with CFTR dysfunction provide a medium for growth of bacteria, which can result in frequent respiratory infections.
+Dysfunction of CFTR can affect the pancreas. Poor growth may result in part from malnutrition from pancreatic exocrine insufficiency.
+Cystic fibrosis is inherited in an autosomal recessive manner, which means that an individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one from the father.
+One copy of each gene is inherited from the mother and the other copy is inherited from the father.
+A carrier of an autosomal recessive genetic condition is someone with one mutated and one normal copy of the gene.
+A carrier of an autosomal recessive genetic condition is not usually affected by the condition, but may pass a copy of the mutation to his or her offspring.
+If both parents are carriers, each offspring has a 25% chance of inheriting two copies of the mutation and being affected by the condition.
+If one parent has the genetic condition (has two mutated copies of the gene) and the other parent is a carrier, each offspring has a 75% chance of inheriting two copies of the mutation and being affected by the condition.
+If one parent is a carrier and the other parent has no copies of the mutation, each offspring has a 25% chance of being a carrier.
+For North Americans who do not have a family history of cystic fibrosis and are of northern European ancestry, their empiric risk for each being a carrier is approximately 1 in 25.
+Although cystic fibrosis classically manifests in early childhood, approximately 4 percent of patients are diagnosed in adulthood.
+In the absence of functional CFTR, sweat has an increased sodium chloride content. Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).
+

@@ -1,0 +1,29 @@
+Give 2 arguments for the hypothesis that J.B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).
+Give one argument for the hypothesis that J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.
+Give one argument for the hypothesis that the mother does not have 2 mutated copies of the CFTR gene.
+Give one argument for the hypothesis that J.B.'s mother has 1 normal and 1 mutated copy of the CFTR gene.
+@
+J. B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).
+J.B.'s mother does not have any CFTR gene mutations (both copies of the CFTR gene are normal).
+J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.
+J.B.'s mother is a carrier of the CFTR gene mutation (has 1 normal copy and 1 mutated copy of the CFTR gene).
+J.B.'s mother does not have 2 mutated copies of the CFTR gene.
+J. B.'s mother has cystic fibrosis (has 2 mutated copies of the CFTR gene).
+J.B.'s father does not have any CFTR gene mutations (both copies of the CFTR gene are normal).
+J.B.'s father is a carrier of the CFTR gene mutation (has one normal copy and one mutated copy of the CFTR gene).
+J. B.'s father has cystic fibrosis (has two mutated copies of the CFTR gene in all of his cells).
+@
+Patient: J.B., a 2-year old girl.
+History of respiratory problems:  During her second year, J.B. developed a chronic cough and has had frequent upper respiratory infections. 
+J.B.'s mother does not have a history of respiratory problems.
+J.B.'s father does not have a history of respiratory problems.
+Test result:  J.B.'s chloride level is 75 mmol/L.
+J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.
+@
+Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene.  When both copies of CFTR are mutated, it cannot perform its normal function. 
+People with CFTR gene dysfunction often have viscous secretions in the lungs, which provides a medium for growth of bacteria, and which may result in frequent respiratory infections.
+Dysfunction of CFTR may affect the pancreas. Pancreatic abnormality may result in malnutrition and poor growth.
+Cystic fibrosis is inherited in an autosomal recessive manner, which means that an individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one from the father. 
+If one parent is a carrier (has one copy of the mutation) and the other parent has no copies of the mutation, each offspring has a 25 percent  chance of being a carrier.
+Although cystic fibrosis classically manifests in early childhood, approximately 4 percent of patients are diagnosed in adulthood. 
+In the absence of functional CFTR, sweat has an increased sodium chloride content. Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).
