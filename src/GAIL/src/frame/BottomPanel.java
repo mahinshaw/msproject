@@ -28,8 +28,8 @@ public class BottomPanel extends JPanel implements MouseListener {
 
 	public BottomPanel(ApplicationController ac) {// 1003 new width
 		try {
-			refreshPic = ImageIO.read(new File("image/refresh1.png"));
-			refreshPicRollOver = ImageIO.read(new File("image/refresh12.png"));
+			refreshPic = ImageIO.read(new File("src/GAIL/image/refresh1.png"));
+			refreshPicRollOver = ImageIO.read(new File("src/GAIL/image/refresh12.png"));
 		} catch (IOException ignored) {}
 
 		this.ac = ac;

@@ -70,12 +70,12 @@ public class LeftPanel extends JPanel implements MouseListener {
 		dheight = (int) (.28 * (LEFT_PANEL_HEIGHT - pheight));
 		hheight = (int) (.21 * (LEFT_PANEL_HEIGHT - pheight));
 		try {
-			minimizePic = ImageIO.read(new File("image/minimize.png"));
-			maximizePic = ImageIO.read(new File("image/maximize.png"));
+			minimizePic = ImageIO.read(new File("src/GAIL/image/minimize.png"));
+			maximizePic = ImageIO.read(new File("../image/maximize.png"));
 			minimizePicRollOver = ImageIO.read(new File(
-					"image/minimizerollover.png"));
+					"src/GAIL/image/minimizerollover.png"));
 			maximizePicRollOver = ImageIO.read(new File(
-					"image/maximizerollover.png"));
+					"src/GAIL/image/maximizerollover.png"));
 		} catch (IOException e) {
 		}
 

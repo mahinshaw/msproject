@@ -32,11 +32,11 @@ public class Toolbar implements MouseListener {
 		BufferedImage tImg = null;
 		BufferedImage sImg = null;
 		try {
-			aImg = ImageIO.read(new File("image/addand.png"));
-			hImg = ImageIO.read(new File("image/addhypothesis.png"));
-			cImg = ImageIO.read(new File("image/clearworkspace.png"));
-			sImg = ImageIO.read(new File("image/submit.png"));
-			tImg = ImageIO.read(new File("image/tutorial.png"));
+			aImg = ImageIO.read(new File("src/GAIL/image/addand.png"));
+			hImg = ImageIO.read(new File("src/GAIL/image/addhypothesis.png"));
+			cImg = ImageIO.read(new File("src/GAIL/image/clearworkspace.png"));
+			sImg = ImageIO.read(new File("src/GAIL/image/submit.png"));
+			tImg = ImageIO.read(new File("src/GAIL/image/tutorial.png"));
 		} catch (IOException de) {
 		}
 

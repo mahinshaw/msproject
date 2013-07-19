@@ -22,7 +22,7 @@ public class ChatPanel extends JPanel {
 	public ChatPanel(final ChatController chatController) {
 		BufferedImage chatIcon = null;
 		try {
-			chatIcon = ImageIO.read(new File("image/chaticon.png"));
+			chatIcon = ImageIO.read(new File("src/GAIL/image/chaticon.png"));
 		} catch (IOException e) { }
 		JLabel chatIconLabel = new JLabel(new ImageIcon(chatIcon));
 		setLayout(new BorderLayout());
