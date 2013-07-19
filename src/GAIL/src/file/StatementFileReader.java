@@ -11,7 +11,7 @@ import GAIL.src.controller.StatementController;
 public class StatementFileReader {
 
 	private final char DELIMETER = '@';
-	private final String FOLDER = "text/input/";
+	private final String FOLDER = "src/GAIL/text/input/";
 	StatementController statementController;
 
 	public StatementFileReader(StatementController statementController) {
