@@ -7,8 +7,10 @@
         <!ATTLIST question quest CDATA #REQUIRED>
         <!ELEMENT hypothesis (#PCDATA)>
         <!ATTLIST hypothesis hypo CDATA #REQUIRED>
+        <!ATTLIST hypothesis node_id CDATA #REQUIRED>
         <!ELEMENT data (#PCDATA)>
         <!ATTLIST data datum CDATA #REQUIRED>
+        <!ATTLIST data node_id CDATA #REQUIRED>
         <!ELEMENT generalizations (#PCDATA)>
         <!ATTLIST generalizations gen CDATA #REQUIRED>
         <!ELEMENT genie (KB_Node, KB_Arc, Argument)>
@@ -74,68 +76,32 @@
 
 <gail>
     <ui>
-        <question quest="q1">Give 2 arguments for the hypothesis that J.B. has cystic fibrosis (has 2 mutated copies of
-            the CFTR gene).
-        </question>
-        <question quest="q2">Give one argument for the hypothesis that J.B.'s mother has 1 or 2 mutated copies of the
-            CFTR gene.
-        </question>
-        <question quest="q3">Give one argument for the hypothesis that the mother does not have 2 mutated copies of the
-            CFTR gene.
-        </question>
-        <question quest="q4">Give one argument for the hypothesis that J.B.'s mother has 1 normal and 1 mutated copy of
-            the CFTR gene.
-        </question>
-        <hypothesis hypo="h1">J. B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).</hypothesis>
-        <hypothesis hypo="h2">J.B.'s mother does not have any CFTR gene mutations (both copies of the CFTR gene are
-            normal).
-        </hypothesis>
-        <hypothesis hypo="h3">J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.
-        </hypothesis>
-        <hypothesis hypo="h4">J.B.'s mother is a carrier of the CFTR gene mutation (has 1 normal copy and 1 mutated copy
-            of the CFTR gene).
-        </hypothesis>
-        <hypothesis hypo="h5">J.B.'s mother does not have 2 mutated copies of the CFTR gene.</hypothesis>
-        <hypothesis hypo="h6">J. B.'s mother has cystic fibrosis (has 2 mutated copies of the CFTR gene).</hypothesis>
-        <hypothesis hypo="h7">J.B.'s father does not have any CFTR gene mutations (both copies of the CFTR gene are
-            normal).
-        </hypothesis>
-        <hypothesis hypo="h8">J.B.'s father is a carrier of the CFTR gene mutation (has one normal copy and one mutated
-            copy of the CFTR gene).
-        </hypothesis>
-        <hypothesis hypo="h9">J. B.'s father has cystic fibrosis (has two mutated copies of the CFTR gene in all of his
-            cells).
-        </hypothesis>
-        <data datum="d1">Patient: J.B., a 2-year old girl.</data>
-        <data datum="d2">History of respiratory problems: During her second year, J.B. developed a chronic cough and has
-            had frequent upper respiratory infections.
-        </data>
-        <data datum="d3">J.B.'s mother does not have a history of respiratory problems.</data>
-        <data datum="d4">J.B.'s father does not have a history of respiratory problems.</data>
-        <data datum="d5">Test result: J.B.'s chloride level is 75 mmol/L.</data>
-        <data datum="d6">J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.</data>
-        <generalizations gen="g1">Cystic fibrosis is the name of a disease caused by having two mutated copies of the
-            CFTR gene. When both copies of CFTR are mutated, it cannot perform its normal function.
-        </generalizations>
-        <generalizations gen="g2">People with CFTR gene dysfunction often have viscous secretions in the lungs, which
-            provides a medium for growth of bacteria, and which may result in frequent respiratory infections.
-        </generalizations>
-        <generalizations gen="g3">Dysfunction of CFTR may affect the pancreas. Pancreatic abnormality may result in
-            malnutrition and poor growth.
-        </generalizations>
-        <generalizations gen="g4">Cystic fibrosis is inherited in an autosomal recessive manner, which means that an
-            individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one
-            from the father.
-        </generalizations>
-        <generalizations gen="g5">If one parent is a carrier (has one copy of the mutation) and the other parent has no
-            copies of the mutation, each offspring has a 25 percent chance of being a carrier.
-        </generalizations>
-        <generalizations gen="g6">Although cystic fibrosis classically manifests in early childhood, approximately 4
-            percent of patients are diagnosed in adulthood.
-        </generalizations>
-        <generalizations gen="g7">In the absence of functional CFTR, sweat has an increased sodium chloride content.
-            Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).
-        </generalizations>
+        <question quest="q1" >Give 2 arguments for the hypothesis that J.B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).</question>
+        <question quest="q2">Give one argument for the hypothesis that J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.</question>
+        <question quest="q3">Give one argument for the hypothesis that the mother does not have 2 mutated copies of the CFTR gene.</question>
+        <question quest="q4">Give one argument for the hypothesis that J.B.'s mother has 1 normal and 1 mutated copy of the CFTR gene.</question>
+        <hypothesis hypo="h1" node_id = "3">J. B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).</hypothesis>
+        <hypothesis hypo="h2" node_id = "100">J.B.'s mother does not have any CFTR gene mutations (both copies of the CFTR gene are normal).</hypothesis>
+        <hypothesis hypo="h3" node_id = "1">J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.</hypothesis>
+        <hypothesis hypo="h4" node_id="1">J.B.'s mother is a carrier of the CFTR gene mutation (has 1 normal copy and 1 mutated copy of the CFTR gene).</hypothesis>
+        <hypothesis hypo="h5" node_id="1">J.B.'s mother does not have 2 mutated copies of the CFTR gene.</hypothesis>
+        <hypothesis hypo="h6" node_id="100">J. B.'s mother has cystic fibrosis (has 2 mutated copies of the CFTR gene).</hypothesis>
+        <hypothesis hypo="h7" node_id="100">J.B.'s father does not have any CFTR gene mutations (both copies of the CFTR gene are normal).</hypothesis>
+        <hypothesis hypo="h8" node_id="2">J.B.'s father is a carrier of the CFTR gene mutation (has one normal copy and one mutated copy of the CFTR gene).</hypothesis>
+        <hypothesis hypo="h9" node_id="100">J. B.'s father has cystic fibrosis (has two mutated copies of the CFTR gene in all of his cells).</hypothesis>
+        <data datum="d1" node_id ="">Patient: J.B., a 2-year old girl.</data>
+        <data datum="d2" node_id= "6">History of respiratory problems: During her second year, J.B. developed a chronic cough and has had frequent upper respiratory infections.</data>
+        <data datum="d3" node_id="">J.B.'s mother does not have a history of respiratory problems.</data>
+        <data datum="d4" node_id="">J.B.'s father does not have a history of respiratory problems.</data>
+        <data datum="d5" node_id="">Test result: J.B.'s chloride level is 75 mmol/L.</data>
+        <data datum="d6" node_id="">J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.</data>
+        <generalizations gen="g1">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, it cannot perform its normal function.</generalizations>
+        <generalizations gen="g2">People with CFTR gene dysfunction often have viscous secretions in the lungs, which provides a medium for growth of bacteria, and which may result in frequent respiratory infections.</generalizations>
+        <generalizations gen="g3">Dysfunction of CFTR may affect the pancreas. Pancreatic abnormality may result in malnutrition and poor growth.</generalizations>
+        <generalizations gen="g4">Cystic fibrosis is inherited in an autosomal recessive manner, which means that an individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one from the father.</generalizations>
+        <generalizations gen="g5">If one parent is a carrier (has one copy of the mutation) and the other parent has no copies of the mutation, each offspring has a 25 percent chance of being a carrier.</generalizations>
+        <generalizations gen="g6">Although cystic fibrosis classically manifests in early childhood, approximately 4 percent of patients are diagnosed in adulthood.</generalizations>
+        <generalizations gen="g7">In the absence of functional CFTR, sweat has an increased sodium chloride content. Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).</generalizations>
     </ui>
     <genie>
         <KB_Node>

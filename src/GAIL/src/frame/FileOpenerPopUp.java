@@ -31,7 +31,9 @@ public class FileOpenerPopUp extends JFrame implements ListSelectionListener {
 		JLabel openFileLabel = new JLabel("Select a file to open:");
 		selectProblemLabel = new JLabel("Select a problem to display");
 		selectProblemLabel.setForeground(Color.LIGHT_GRAY);
+		//TODO Changed -Tobey
 		JComboBox fileNamesComboBox = new JComboBox(sc.getStatementFileReader().getFileNames());
+        //JComboBox fileNamesComboBox = new JComboBox();
 		fileNamesComboBox.setMaximumSize(new Dimension(300, 25));
 		fileNamesComboBox.setBackground(Color.WHITE);
 		button = new JButton("Open file");
@@ -113,7 +115,7 @@ public class FileOpenerPopUp extends JFrame implements ListSelectionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			String fileName = (String) ((JComboBox) event.getSource()).getSelectedItem();
-			sc.getStatementFileReader().readStatements(fileName);
+            sc.getStatementFileReader().readStatements(fileName);
 			selectProblemLabel.setForeground(Color.BLACK);
 			data = sc.getProblemText();
 			listModel.clear();

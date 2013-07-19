@@ -125,10 +125,10 @@ public class StatementView extends NodeView implements Serializable,
 		BufferedImage qImg = null;
 		BufferedImage xImg = null;
 		try {
-			qImg = ImageIO.read(new File("image/qwhite.png"));
-			xImg = ImageIO.read(new File("image/xwhite.png"));
-			minImg = ImageIO.read(new File("image/minwhite.png"));
-			maxImg = ImageIO.read(new File("image/maxwhite.png"));
+			qImg = ImageIO.read(new File("src/GAIL/image/qwhite.png"));
+			xImg = ImageIO.read(new File("src/GAIL/image/xwhite.png"));
+			minImg = ImageIO.read(new File("src/GAIL/image/minwhite.png"));
+			maxImg = ImageIO.read(new File("src/GAIL/image/maxwhite.png"));
 
 		} catch (IOException e) {
 		}

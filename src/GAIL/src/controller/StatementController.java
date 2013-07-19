@@ -151,7 +151,7 @@ public class StatementController implements ActionListener, MouseListener,
 			problemText[i] = problemTextArr.get(i);
 		}
 		this.applicationController.setProblems(problemText);
-		// for (String s: problemText)System.out.println(s + "asdf");
+        //for (String s: problemText){System.out.println(s + "asdf");}
 		return problemText;
 	}
 

@@ -10,21 +10,32 @@ import GAIL.src.controller.StatementController;
 
 public class StatementFileReader {
 
-	private final char DELIMETER = '@';
-	private final String FOLDER = "text/input/";
+    /*
+	private final char DELIMETER = '@';      */
+	private final String FOLDER = "src/XMLInput/";
 	StatementController statementController;
+    xmlReader reader;
 
 	public StatementFileReader(StatementController statementController) {
-		this.statementController = statementController;
+        this.statementController = statementController;
 	}
 
 	public void readStatements(String fileName) {
-		ArrayList<String> problemText = new ArrayList<String>();
-		ArrayList<String> hypothText = new ArrayList<String>();
-		ArrayList<String> dataText = new ArrayList<String>();
-		ArrayList<String> genText = new ArrayList<String>();
+        /**
+         * ADDED - Tobey
+         * ArrayLists are copied from the xmlReader
+         * File path sent to xmlReader
+         */
+        reader = new xmlReader(FOLDER+fileName);
+        reader.readFile();
 
-		try {
+        ArrayList<String> problemText = new ArrayList<String>(reader.getProblemText());
+		ArrayList<String> hypothText = new ArrayList<String>(reader.getHypothText());
+		ArrayList<String> dataText = new ArrayList<String>(reader.getDataText());
+		ArrayList<String> genText = new ArrayList<String>(reader.getGenText());
+
+		/*
+        try {
 			String nextLine;
 			int count = 0;
 			Scanner scanner = new Scanner(new FileReader(FOLDER + fileName));
@@ -67,8 +78,8 @@ public class StatementFileReader {
 					}
 				}
 			}
-		} catch (FileNotFoundException e) {
-		}
+		} catch (FileNotFoundException e) {  }*/
+
 		statementController.setText(problemText, hypothText, dataText, genText);
 	}
 
