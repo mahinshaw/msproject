@@ -48,10 +48,10 @@ public class ArgumentView extends EdgeView {
 		BufferedImage xImg = null;
 		BufferedImage qImg = null;
 		try {
-			xImg = ImageIO.read(new File("image/xwhite.png"));
-			qImg = ImageIO.read(new File("image/qwhite.png"));
-			bImg = ImageIO.read(new File("image/swap.png"));
-			rImg = ImageIO.read(new File("image/swap2.png"));
+			xImg = ImageIO.read(new File("src/GAIL/image/xwhite.png"));
+			qImg = ImageIO.read(new File("src/GAIL/image/qwhite.png"));
+			bImg = ImageIO.read(new File("src/GAIL/image/swap.png"));
+			rImg = ImageIO.read(new File("src/GAIL/image/swap2.png"));
 		} catch (IOException de) {
 		}
 

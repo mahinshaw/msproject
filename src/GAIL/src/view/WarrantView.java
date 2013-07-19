@@ -25,8 +25,8 @@ public class WarrantView extends EdgeView {
 
 	public WarrantView() {
 		try {
-			blueX = ImageIO.read(new File("image/xblue.png"));
-			redX = ImageIO.read(new File("image/xred.png"));
+			blueX = ImageIO.read(new File("src/GAIL/image/xblue.png"));
+			redX = ImageIO.read(new File("src/GAIL/image/xred.png"));
 		} catch (Exception e) {
 		}
 	}
