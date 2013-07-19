@@ -10,9 +10,14 @@ import GAIL.src.controller.StatementController;
 
 public class StatementFileReader {
 
+<<<<<<< HEAD
     /*
 	private final char DELIMETER = '@';      */
 	private final String FOLDER = "src/XMLInput/";
+=======
+	private final char DELIMETER = '@';
+	private final String FOLDER = "src/GAIL/text/input/";
+>>>>>>> 5546243775cf55e7b078475726940223d5a3756e
 	StatementController statementController;
     xmlReader reader;
 
