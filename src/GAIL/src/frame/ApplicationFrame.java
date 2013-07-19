@@ -27,7 +27,7 @@ public class ApplicationFrame extends JFrame {
 		//setUndecorated(true); //TODO: reenable undecorated mode at some point...
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(0,0,screenSize.width, screenSize.height);
-		setTitle("Zo fo draziW");
+		setTitle("Mark and Tobey's GAIL version 1.0");
 		ToolTipManager.sharedInstance().setInitialDelay(200);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -158,10 +158,10 @@ public class ApplicationController implements MouseListener, ActionListener {
 				+ "" + minute + "" + second;
 	}
 
-	final String FOLDER_FINAL_ARGUMENT = "text/output/finalargument/";
-	final String FOLDER_SESSION_LOG = "text/output/sessionlog/";
-	final String FOLDER_CHAT_LOG = "text/output/chatlog/";
-	final String FOLDER_SERIALIZED = "text/output/serialized/";
+	final String FOLDER_FINAL_ARGUMENT = "src/output/finalargument/";
+	final String FOLDER_SESSION_LOG = "src/output/sessionlog/";
+	final String FOLDER_CHAT_LOG = "src/output/chatlog/";
+	final String FOLDER_SERIALIZED = "src/output/serialized/";
 
 	public void saveFinalArgument() {
 		File file = new File("finalargument_" + getTimeStamp() + "__p"
