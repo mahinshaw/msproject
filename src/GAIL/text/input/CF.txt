@@ -1,0 +1,20 @@
+Arguments for and/or against diagnosis of cystic fibrosis (CF) for patient J.B.
+Arguments for and/or against mother and father having no, 1, or 2 mutated alleles of CFTR gene.
+@
+J.B.'s condition is CF.
+J.B.’s condition is not CF
+@
+J. B. is a 2-year-old girl.
+During infancy, J.B. had diarrhea and colic.
+During her second year, J.B. grew poorly.
+During her second year, J.B. developed a chronic cough and had frequent upper respiratory infections.
+No one else in the family had poor growth, feeding disorders, or pulmonary illnesses.
+On physical examination, J.B.’s weight and height plotted less than the 3rd percentile.
+Result of J.B.’s test for sweat chloride level was 75 mmol/L,
+@
+Cystic fibrosis (CF) is an autosomal recessive disorder caused by mutations in the CFTR gene. The CFTR gene maintains the hydration of secretions within airways and ducts. Dysfunction of CFTR can affect many different organs, particularly those that secrete mucus including the upper and lower respiratory tracts, pancreas, biliary system, male genitalia, intestine, and sweat glands.
+The dehydrated and viscous secretions in the lungs of patients with CF interfere with mucociliary clearance, inhibit the function of naturally occurring antimicrobial peptides, provide a medium for growth of pathogenic organisms, and obstruct air flow. Within the first months of life, these secretions and the bacteria colonizing them initiate an inflammatory reaction. The release of inflammatory cytokines, host antibacterial enzymes, and bacterial enzymes damages the bronchioles. Recurrent cycles of infection, inflammation, and tissue destruction decrease the amount of functional lung tissue and eventually lead to respiratory failure.
+CFTR regulates the uptake of sodium and chloride from sweat as it moves through the sweat duct. In the absence of functional CFTR, the sweat has an increased sodium chloride content, and this is the basis of the historical “salty-baby syndrome” and the diagnostic sweat chloride test. In most patients with CF, the diagnosis can be based on the pulmonary or pancreatic findings and on an elevated level of sweat chloride (more than 60 mEq/L). Less than 2 percent of patients have normal sweat chloride but an otherwise typical clinical picture; in these cases, molecular analysis can be used to ascertain whether they have mutations at the CF locus.
+CF classically manifests in early childhood, although approximately 4 percent of patients are diagnosed in adulthood. Ten to 20 percent of patients present at birth with meconium ileus, and the remainder present with chronic respiratory complaints (rhinitis, sinusitis or obstructive lung disease, or both) or poor growth, or both, later in life. The poor growth results from a combination of increased calorie expenditure because of chronic lung infections, and malnutrition from pancreatic exocrine insufficiency. Five to 15 percent of patients with CF with pulmonary disease do not develop pancreatic insufficiency.
+A couple’s empiric risk for having a child affected with CF varies greatly depending on the frequency of CF in their ethnic groups. For North Americans who do not have a family history of CF and are of northern European ancestry, their empiric risk for each being a carrier is approximately 1 in 25, and such a couple’s risk of having an affected child is therefore 1 in 2500.
+@

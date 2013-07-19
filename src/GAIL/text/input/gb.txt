@@ -1,0 +1,16 @@
+Arguments for and/or against diagnosis of patient's hearing loss due to GJB2 mutation
+@
+The patient's hearing loss is due to having two mutated alleles of the gene GJB2.
+The patient's hearing loss is not due to having two mutated alleles of the gene GJB2.
+The patient's mother has two mutated alleles of the gene GJB2.
+The patient's mother has at least one mutated allele of the gene GJB2.
+@
+The patient has had severe hearing loss since birth. 
+The patient has no other symptoms (is non-syndromic).
+The patient's mother does not have hearing loss.
+The patient's father does not have hearing loss.
+@
+The GJB2 gene encodes a member of the gap junction protein family (connexin 26), which facilitates communications between cells. When both copies of GJB2 are mutated, it cannot perform its normal function.
+Connexin 26 is found particularly in the inner ear. When there is a lack of connexin 26, cellular communication in the inner ear is disrupted which causes hearing loss from birth. This is a common source of severe to profound childhood hearing loss.
+Individuals with GJB2 mutations are nonsyndromic: other than hearing loss, no other symptoms are reported.
+A carrier of an autosomal recessive condition is someone who has one mutated and one normal allele of a gene. A carrier is not usually affected by the condition but may pass the mutation to his or her offspring.  If both parents are carriers, there is a 25% chance that each offspring will inherit two copies of the mutation and thus be affected.
