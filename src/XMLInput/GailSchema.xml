@@ -14,7 +14,7 @@
         <!ELEMENT generalizations (#PCDATA)>
         <!ATTLIST generalizations gen CDATA #REQUIRED>
         <!ELEMENT genie (KB_Node, KB_Arc, Argument)>
-        <!ELEMENT KB_Node (person+, genotype+, biochemistry+, symptom+, test+)>
+        <!ELEMENT KB_Node (person+, genotype+, biochemistry+, symptom+, testType+, testResult+, physiology+)>
         <!ELEMENT person (person_name, gender, family)>
         <!ELEMENT person_name (#PCDATA)>
         <!ELEMENT gender (#PCDATA)>
@@ -47,10 +47,18 @@
         <!ELEMENT autosomal_type (#PCDATA)>
         <!ELEMENT disease (#PCDATA)>
         <!ELEMENT cell (#PCDATA)>
-        <!ATTLIST test node_id CDATA #REQUIRED>
-        <!ATTLIST test person_id CDATA #REQUIRED>
-        <!ELEMENT test (chlorideLevel)>
+        <!ATTLIST testResult node_id CDATA #REQUIRED>
+        <!ATTLIST testResult person_id CDATA #REQUIRED>
+        <!ELEMENT testResult (chlorideLevel)>
         <!ELEMENT chlorideLevel (#PCDATA)>
+        <!ATTLIST testType node_id CDATA #REQUIRED>
+        <!ATTLIST testType person_id CDATA #REQUIRED>
+        <!ELEMENT testType (typeTest)>
+        <!ELEMENT typeTest (#PCDATA)>
+        <!ATTLIST physiology node_id CDATA #REQUIRED>
+        <!ATTLIST physiology person_id CDATA #REQUIRED>
+        <!ELEMENT physiology (phyType)>
+        <!ELEMENT phyType (#PCDATA)>
         <!ELEMENT KB_Arc (influence_arc+, synergy_arc_set+)>
         <!ATTLIST synergy_arc_set syn_id CDATA #REQUIRED>
         <!ELEMENT synergy_arc_set (type, child, parent+)>
@@ -118,12 +126,12 @@
             <person person_id="3">
                 <person_name>JB</person_name>
                 <gender>F</gender>
-                <family> </family>
+                <family>1 2</family>
             </person>
             <person person_id="4">
                 <person_name>Brother</person_name>
                 <gender>M</gender>
-                <family> </family>
+                <family>1 2</family>
             </person>
             <genotype node_id="1" person_id="1" certainty="">
                 <gene_id>FLAG</gene_id>
@@ -163,14 +171,9 @@
                 <normal>false</normal>
                 <quantity>high</quantity>
             </biochemistry>
-            <symptom node_id="5" person_id="3" certainty="">
+             <symptom node_id="5" person_id="3" certainty="">
                 <symptom_id>FLAG</symptom_id>
-                <symptom_name>Frequent cough</symptom_name>
-                <degree>severe</degree>
-            </symptom>
-            <symptom node_id="6" person_id="3" certainty="">
-                <symptom_id>FLAG</symptom_id>
-                <symptom_name>Upper respiratory infections</symptom_name>
+                <symptom_name>Frequent cough and upper respiratory infections</symptom_name>
                 <degree>severe</degree>
             </symptom>
             <symptom node_id="8" person_id="2" certainty="">
@@ -183,9 +186,21 @@
                 <symptom_name>Upper respiratory infections</symptom_name>
                 <degree>absent</degree>
             </symptom>
-            <test node_id = "10" person_id="3">
+            <testType node_id="6" person_id="3">
+                <typeTest>Sweat Chloride Test</typeTest>
+            </testType>
+            <testResult node_id = "10" person_id="3">
                 <chlorideLevel>true</chlorideLevel>
-            </test>
+            </testResult>
+            <physiology node_id="11" person_id="3">
+                <phyType>Lung secretions</phyType>
+            </physiology>
+            <physiology node_id="12" person_id="2">
+                <phyType>Lung secretions</phyType>
+            </physiology>
+            <physiology node_id="13" person_id="1">
+                <phyType>Lung secretions</phyType>
+            </physiology>
         </KB_Node>
         <KB_Arc>
             <influence_arc arc_id="1">
