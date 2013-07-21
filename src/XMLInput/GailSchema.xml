@@ -106,7 +106,6 @@
         <data datum="d5" node_id="10">Test result: J.B.'s chloride level is 75 mmol/L.</data>
         <data datum="d6" node_id="7">J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.</data>
         <generalizations gen="g1" node_id="4">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, it cannot perform its normal function.</generalizations>
-        <!--additional nodes should go into g2: node_ids 13 and 12-->
         <generalizations gen="g2" node_id="11">People with CFTR gene dysfunction often have viscous secretions in the lungs, which provides a medium for growth of bacteria, and which may result in frequent respiratory infections.</generalizations>
         <generalizations gen="g3" node_id="200">Dysfunction of CFTR may affect the pancreas. Pancreatic abnormality may result in malnutrition and poor growth.</generalizations>
         <generalizations gen="g4" node_id="4">Cystic fibrosis is inherited in an autosomal recessive manner, which means that an individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one from the father.</generalizations>
@@ -254,7 +253,7 @@
             <influence_arc arc_id="10">
                 <influence_type>+</influence_type>
                 <influence_parent>1</influence_parent>
-                <influence_child>13</influence_child>
+                <influence_child>9</influence_child>
             </influence_arc>
             <influence_arc arc_id="11">
                 <influence_type>+</influence_type>

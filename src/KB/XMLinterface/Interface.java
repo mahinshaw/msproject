@@ -34,10 +34,10 @@ public class Interface {
             DefaultHandler handler = new DefaultHandler() {
                 ArrayList<String> holdValues;
 
-                boolean person_name = false, gender = false, gene_id = false, gene_name = false, mutated = false;
+                boolean person_name = false, gender = false, gene_id = false, gene_name = false, mutated = false, phyType = false;
                 boolean autosomal_type = false, protein_id = false, protein_name = false, normal = false, quantity = false;
                 boolean symptom_id = false, symptom_name = false, degree = false, influence_type = false, influence_parent = false;
-                boolean influence_child = false, type = false, child = false, parent = false, chlorideLevel = false;
+                boolean influence_child = false, type = false, child = false, parent = false, chlorideLevel = false, typeTest = false;
                 int count = 0, size = 0;
 
                 public void startElement(String str, String local, String name, Attributes attribute) {
@@ -118,13 +118,31 @@ public class Interface {
                     if (name.equalsIgnoreCase("parent")) {
                         parent = true;
                     }
-                    if (name.equalsIgnoreCase("test")){
+                    if (name.equalsIgnoreCase("testResult")){
                         addVar(attribute.getValue("node_id"));
                         addVar(attribute.getValue("person_id"));
                     }
 
                     if (name.equalsIgnoreCase("chlorideLevel")){
                         chlorideLevel = true;
+                    }
+
+                    if (name.equalsIgnoreCase("testType")){
+                        addVar(attribute.getValue("node_id"));
+                        addVar(attribute.getValue("person_id"));
+                    }
+
+                    if (name.equalsIgnoreCase("typeTest")){
+                        typeTest = true;
+                    }
+
+                    if (name.equalsIgnoreCase("physiology")){
+                        addVar(attribute.getValue("node_id"));
+                        addVar(attribute.getValue("person_id"));
+                    }
+
+                    if (name.equalsIgnoreCase("phyType")){
+                        typeTest = true;
                     }
 
                 }
@@ -228,11 +246,22 @@ public class Interface {
                         }
 
                     }
-
                     if (chlorideLevel){
                         addVar(new String(c, start, length));
                         chlorideLevel = false;
                         print(7);
+                    }
+
+                    if (typeTest){
+                        addVar(new String(c, start, length));
+                        typeTest = false;
+                        print(8);
+                    }
+
+                    if (phyType){
+                        addVar(new String(c, start, length));
+                        phyType = false;
+                        print(9);
                     }
 
                 }
@@ -279,7 +308,15 @@ public class Interface {
                                 size = 0;
                                 break;
                             case 7:
-                                graph.createTest(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), Boolean.parseBoolean(getArray().get(++size)));
+                                graph.createTestResult(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), Boolean.parseBoolean(getArray().get(++size)));
+                                size = 0;
+                                break;
+                            case 8:
+                                graph.createTestType(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size));
+                                size = 0;
+                                break;
+                            case 9:
+                                graph.createPhysiology(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size));
                                 size = 0;
                                 break;
                         }

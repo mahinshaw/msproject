@@ -54,10 +54,17 @@ public class KB_Graph {
         this.addNode(new Symptom(id, person_id, symptom_id, symptom_name, degree));
     }
 
-    public void createTest(int id, int person_id, boolean result){
+    public void createTestResult(int id, int person_id, boolean result){
         this.addNode(new TestResult(id, person_id, result));
     }
 
+    public void createTestType(int id, int person_id, String testType){
+        this.addNode(new TestType(id, person_id, testType));
+    }
+
+    public void createPhysiology(int id, int person_id, String phyType){
+        this.addNode(new Physiology(id, person_id, phyType));
+    }
     public void createInfluenceArc(String type, int parentNodeID, int childNodeID) {
         // will throw outOfBoundsException of findKB_NodeIndex returns -1.
         KB_Node parent = nodelist.get(findKB_NodeIndex(parentNodeID));
@@ -66,6 +73,12 @@ public class KB_Graph {
         parent.addArc(new Influence_Arc(type, parent, child));
     }
 
+    /**
+     * CHANGED: Disabled function to find all parent nodes for now - Tobey
+     * @param type
+     * @param childNodeID
+     * @param parentNodeIDs
+     */
     public void createSynergyArc(String type, int childNodeID, int[] parentNodeIDs) {
         // will throw outOfBoundsException of findKB_NodeIndex returns -1.
         KB_Node child = nodelist.get(findKB_NodeIndex(childNodeID));
@@ -73,14 +86,14 @@ public class KB_Graph {
         ArrayList<KB_Node> parents = new ArrayList<KB_Node>();
 
         // find all the parent nodes by nodeID
-        int ids = 0;
+        /*int ids = 0;
         for(int i : parentNodeIDs){
             parent = nodelist.get(findKB_NodeIndex(parentNodeIDs[i-1]));
             if (parents.add(parent)){
                 ids++;
             }
             if (ids >= parentNodeIDs.length) { break; }
-        }
+        }   */
 
         //add the arc to all the parent nodes
         for (KB_Node node : parents) {

@@ -42,13 +42,14 @@ public class Synergy_Arc extends KB_Arc {
         this.parents.add(parent);
     }
 
+
     public String toString() {
         String parentIDs = "";
         for (KB_Node parent : parents) {
             parentIDs += parent.getId() + " ";
         }
         return super.toString() + "\n" +
-                "Type: " + this.type + "\n" +
+                "Synergy Type: " + this.type + "\n" +
                 "Parent node IDs: " + parentIDs + "\n";
     }
 }
