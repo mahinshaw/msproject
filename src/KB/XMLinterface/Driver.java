@@ -6,7 +6,7 @@ package KB.XMLinterface;
  */
 public class Driver {
     public static void main(String arg[]){
-         Interface dri = new Interface("KB/src/GailSchema.xml");
+         Interface dri = new Interface("src/XMLInput/GailSchema.xml");
 
        System.out.print(dri.getGraph().toString());
     }

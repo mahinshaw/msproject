@@ -55,7 +55,7 @@ public class KB_Graph {
     }
 
     public void createTest(int id, int person_id, boolean result){
-        this.addNode(new Test(id, person_id, result));
+        this.addNode(new TestResult(id, person_id, result));
     }
 
     public void createInfluenceArc(String type, int parentNodeID, int childNodeID) {

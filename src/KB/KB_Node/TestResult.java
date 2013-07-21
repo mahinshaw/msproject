@@ -4,11 +4,11 @@ package KB.KB_Node;
  * User: Tshering Tobgay
  * Date: 7/18/13
  */
-public class Test extends KB_Node{
+public class TestResult extends KB_Node{
 
     private boolean result;
 
-    public Test(int id, int person_id, boolean result) {
+    public TestResult(int id, int person_id, boolean result) {
         super(id, person_id);
         this.result = result;
     }
