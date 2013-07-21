@@ -13,6 +13,7 @@
         <!ATTLIST data node_id CDATA #REQUIRED>
         <!ELEMENT generalizations (#PCDATA)>
         <!ATTLIST generalizations gen CDATA #REQUIRED>
+        <!ATTLIST generalizations node_id CDATA #REQUIRED>
         <!ELEMENT genie (KB_Node, KB_Arc, Argument)>
         <!ELEMENT KB_Node (person+, genotype+, biochemistry+, symptom+, testType+, testResult+, physiology+)>
         <!ELEMENT person (person_name, gender, family)>
@@ -84,6 +85,7 @@
 
 <gail>
     <ui>
+        <!--node_id 100 is false information and node_id 200 is unknown-->
         <question quest="q1" >Give 2 arguments for the hypothesis that J.B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).</question>
         <question quest="q2">Give one argument for the hypothesis that J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.</question>
         <question quest="q3">Give one argument for the hypothesis that the mother does not have 2 mutated copies of the CFTR gene.</question>
@@ -97,19 +99,20 @@
         <hypothesis hypo="h7" node_id="100">J.B.'s father does not have any CFTR gene mutations (both copies of the CFTR gene are normal).</hypothesis>
         <hypothesis hypo="h8" node_id="2">J.B.'s father is a carrier of the CFTR gene mutation (has one normal copy and one mutated copy of the CFTR gene).</hypothesis>
         <hypothesis hypo="h9" node_id="100">J. B.'s father has cystic fibrosis (has two mutated copies of the CFTR gene in all of his cells).</hypothesis>
-        <data datum="d1" node_id ="">Patient: J.B., a 2-year old girl.</data>
-        <data datum="d2" node_id= "6">History of respiratory problems: During her second year, J.B. developed a chronic cough and has had frequent upper respiratory infections.</data>
-        <data datum="d3" node_id="">J.B.'s mother does not have a history of respiratory problems.</data>
-        <data datum="d4" node_id="">J.B.'s father does not have a history of respiratory problems.</data>
-        <data datum="d5" node_id="">Test result: J.B.'s chloride level is 75 mmol/L.</data>
-        <data datum="d6" node_id="">J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.</data>
-        <generalizations gen="g1">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, it cannot perform its normal function.</generalizations>
-        <generalizations gen="g2">People with CFTR gene dysfunction often have viscous secretions in the lungs, which provides a medium for growth of bacteria, and which may result in frequent respiratory infections.</generalizations>
-        <generalizations gen="g3">Dysfunction of CFTR may affect the pancreas. Pancreatic abnormality may result in malnutrition and poor growth.</generalizations>
-        <generalizations gen="g4">Cystic fibrosis is inherited in an autosomal recessive manner, which means that an individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one from the father.</generalizations>
-        <generalizations gen="g5">If one parent is a carrier (has one copy of the mutation) and the other parent has no copies of the mutation, each offspring has a 25 percent chance of being a carrier.</generalizations>
-        <generalizations gen="g6">Although cystic fibrosis classically manifests in early childhood, approximately 4 percent of patients are diagnosed in adulthood.</generalizations>
-        <generalizations gen="g7">In the absence of functional CFTR, sweat has an increased sodium chloride content. Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).</generalizations>
+        <data datum="d1" node_id ="200">Patient: J.B., a 2-year old girl.</data>
+        <data datum="d2" node_id= "5">History of respiratory problems: During her second year, J.B. developed a chronic cough and has had frequent upper respiratory infections.</data>
+        <data datum="d3" node_id="9">J.B.'s mother does not have a history of respiratory problems.</data>
+        <data datum="d4" node_id="8">J.B.'s father does not have a history of respiratory problems.</data>
+        <data datum="d5" node_id="10">Test result: J.B.'s chloride level is 75 mmol/L.</data>
+        <data datum="d6" node_id="7">J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.</data>
+        <generalizations gen="g1" node_id="4">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, it cannot perform its normal function.</generalizations>
+        <!--additional nodes should go into g2: node_ids 13 and 12-->
+        <generalizations gen="g2" node_id="11">People with CFTR gene dysfunction often have viscous secretions in the lungs, which provides a medium for growth of bacteria, and which may result in frequent respiratory infections.</generalizations>
+        <generalizations gen="g3" node_id="200">Dysfunction of CFTR may affect the pancreas. Pancreatic abnormality may result in malnutrition and poor growth.</generalizations>
+        <generalizations gen="g4" node_id="4">Cystic fibrosis is inherited in an autosomal recessive manner, which means that an individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one from the father.</generalizations>
+        <generalizations gen="g5" node_id="200">If one parent is a carrier (has one copy of the mutation) and the other parent has no copies of the mutation, each offspring has a 25 percent chance of being a carrier.</generalizations>
+        <generalizations gen="g6" node_id="200">Although cystic fibrosis classically manifests in early childhood, approximately 4 percent of patients are diagnosed in adulthood.</generalizations>
+        <generalizations gen="g7" node_id="6">In the absence of functional CFTR, sweat has an increased sodium chloride content. Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).</generalizations>
     </ui>
     <genie>
         <KB_Node>
@@ -241,7 +244,7 @@
             <influence_arc arc_id="8">
                 <influence_type>+</influence_type>
                 <influence_parent>2</influence_parent>
-                <influence_child>12</influence_child>
+                <influence_child>8</influence_child>
             </influence_arc>
             <influence_arc arc_id="9">
                 <influence_type>+</influence_type>
@@ -285,6 +288,18 @@
                 <child>7</child>
                 <parent>1</parent>
                 <parent>2</parent>
+            </synergy_arc_set>
+            <synergy_arc_set syn_id="4">
+                <type>Y-</type>
+                <child>9</child>
+                <parent>1</parent>
+                <parent>13</parent>
+            </synergy_arc_set>
+            <synergy_arc_set syn_id="5">
+                <type>Y-</type>
+                <child>8</child>
+                <parent>2</parent>
+                <parent>12</parent>
             </synergy_arc_set>
         </KB_Arc>
         <Argument>
