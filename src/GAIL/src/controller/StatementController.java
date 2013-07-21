@@ -392,7 +392,11 @@ public class StatementController implements ActionListener, MouseListener,
 		}
 	}
 
-	@Override
+    /**
+     * Marker - Tobey
+     * @param e
+     */
+    @Override
 	public void mouseReleased(MouseEvent e) {
 		if (draggedItem == null) {
 			return;

@@ -90,7 +90,7 @@ public class StatementPanel extends JPanel {
 
 		public StatementUnit(String text) {
 			String name = "";
-			this.text = text;
+            this.text = text;
 			addMouseListener(sc);
 			addMouseMotionListener(sc);
 			setLayout(new GridLayout(0, 1));
