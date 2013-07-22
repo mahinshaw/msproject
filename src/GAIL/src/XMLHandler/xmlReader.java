@@ -1,9 +1,6 @@
 package GAIL.src.XMLHandler;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,6 +20,7 @@ public class xmlReader {
     private ArrayList<String> hypothText = new ArrayList<String>();
     private ArrayList<String> dataText = new ArrayList<String>();
     private ArrayList<String> genText = new ArrayList<String>();
+    private ArrayList<String> id = new ArrayList<String>();
 
     public xmlReader(String fileName){
         this.fileName = fileName;
@@ -86,6 +84,7 @@ public class xmlReader {
             if (nodeN.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) nodeN;
                 hypothText.add(element.getTextContent());
+                System.out.println("HERE: "+element.getAttribute("node_id"));
             }
         }
 
@@ -118,5 +117,6 @@ public class xmlReader {
     public ArrayList<String> getGenText() {
         return genText;
     }
+
 
 }
