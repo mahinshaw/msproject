@@ -1,4 +1,4 @@
-package GAIL.src.file;
+package GAIL.src.XMLHandler;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,6 +13,8 @@ import java.util.ArrayList;
 /**
  * User: Tshering Tobgay
  * Date: 7/19/13
+ * Get data from XML file and output to GUI.
+ * Get data from XML file and add to ArgStructure
  */
 public class xmlReader {
 
@@ -25,6 +27,7 @@ public class xmlReader {
     public xmlReader(String fileName){
         this.fileName = fileName;
     }
+
     public void readFile() {
         try {
 
@@ -108,11 +111,11 @@ public class xmlReader {
         return hypothText;
     }
 
-    protected ArrayList<String> getDataText() {
+    public ArrayList<String> getDataText() {
         return dataText;
     }
 
-    protected ArrayList<String> getGenText() {
+    public ArrayList<String> getGenText() {
         return genText;
     }
 
