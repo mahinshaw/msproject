@@ -57,6 +57,26 @@ public class ArgStructure {
         this.questions.addAll(questions);
     }
 
+    public ArrayList<String> getQuestions() {
+        return questions;
+    }
+
+    public ArrayList<Node> getNodeList() {
+        return nodeList;
+    }
+
+    public ArrayList<Node> getHypothesisList() {
+        return hypothesisList;
+    }
+
+    public ArrayList<Node> getDataList() {
+        return dataList;
+    }
+
+    public ArrayList<Node> getGeneralizationList() {
+        return generalizationList;
+    }
+
     public static ArgStructure create(){
         return new ArgStructure();
     }
