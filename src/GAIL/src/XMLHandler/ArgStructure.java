@@ -85,7 +85,7 @@ public class ArgStructure {
     /*
     * This class is only intended for use by ArgStructure class, and hence is private
     */
-    private class Node {
+    public class Node {
 
         private final int id;
         private final int node_id;
