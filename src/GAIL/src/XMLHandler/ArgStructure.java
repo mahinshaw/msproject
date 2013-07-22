@@ -7,21 +7,21 @@ import java.util.ArrayList;
  * User: Mark Hinshaw
  * Email: mahinshaw@gmail.com
  * Date: 7/19/13
- * github: https://github.com/mahinshaw/${PROJECT_NAME}
+ * github: https://github.com/mahinshaw/msproject
  *
  */
 public class ArgStructure {
 
-    //question
+    private static int index;
     private ArrayList<String> questions;
     private ArrayList<Node> nodeList;
     private ArrayList<Node> hypothesisList;
     private ArrayList<Node> dataList;
     private ArrayList<Node> generalizationList;
 
-    private ArgStructure(String question){
+    private ArgStructure(){
+        this.index = 0;
         this.questions = new ArrayList<String>();
-        this.questions.add(question);
         nodeList = new ArrayList<Node>();
         hypothesisList = new ArrayList<Node>();
         dataList = new ArrayList<Node>();
@@ -45,16 +45,20 @@ public class ArgStructure {
         }
     }
 
-    private Node createNode(int id, int node_id, String text, char argType){
-        return new Node(id, node_id, text, argType);
+    private Node createNode(int node_id, String text, char argType){
+        return new Node(this.index++, node_id, text, argType);
     }
 
-    public void insertNewNode(int id, int node_id, String text, char argType){
-        this.addNode(createNode(id, node_id, text, argType));
+    public void insertNewNode(int node_id, String text, char argType){
+        this.addNode(createNode(node_id, text, argType));
     }
 
-    public static ArgStructure create(String question){
-        return new ArgStructure(question);
+    public void insertQuestions(ArrayList<String> questions){
+        this.questions.addAll(questions);
+    }
+
+    public static ArgStructure create(){
+        return new ArgStructure();
     }
 
 
