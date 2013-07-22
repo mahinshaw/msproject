@@ -21,6 +21,8 @@ public class xmlReader {
     private ArrayList<String> dataText = new ArrayList<String>();
     private ArrayList<String> genText = new ArrayList<String>();
     private ArrayList<String> id = new ArrayList<String>();
+    private ArgStructure arg = ArgStructure.create();
+    final String nodeID = "node_id";
 
     public xmlReader(String fileName){
         this.fileName = fileName;
@@ -55,36 +57,46 @@ public class xmlReader {
     }
 
     private void setData(NodeList list3) {
+        String text = " ";
+        char argType= 'd';
         for (int i = 0; i < list3.getLength(); i++) {
             Node nodeN = list3.item(i);
 
             if (nodeN.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) nodeN;
-                dataText.add(element.getTextContent());
+                text = element.getTextContent();
+                dataText.add(text);
+                arg.insertNewNode(Integer.parseInt(element.getAttribute(nodeID)), text, argType);
             }
         }
     }
 
     private void setGen(NodeList list4) {
+        String text = " ";
+        char argType= 'g';
         for (int i = 0; i < list4.getLength(); i++) {
             Node nodeN = list4.item(i);
 
             if (nodeN.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) nodeN;
-                genText.add(element.getTextContent());
+                text = element.getTextContent();
+                genText.add(text);
+                arg.insertNewNode(Integer.parseInt(element.getAttribute(nodeID)), text, argType);
             }
         }
-
     }
 
     private void setHypothesis(NodeList list) {
+        String text = " ";
+        char argType= 'h';
         for (int i = 0; i < list.getLength(); i++) {
             Node nodeN = list.item(i);
 
             if (nodeN.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) nodeN;
-                hypothText.add(element.getTextContent());
-                System.out.println("HERE: "+element.getAttribute("node_id"));
+                text = element.getTextContent();
+                hypothText.add(text);
+                arg.insertNewNode(Integer.parseInt(element.getAttribute(nodeID)), text, argType);
             }
         }
 
@@ -99,7 +111,7 @@ public class xmlReader {
                 problemText.add(element.getTextContent());
             }
         }
-
+        arg.insertQuestions(problemText);
     }
 
     public ArrayList<String> getProblemText() {
