@@ -97,6 +97,7 @@ public class xmlReader {
                 text = element.getTextContent();
                 hypothText.add(text);
                 arg.insertNewNode(Integer.parseInt(element.getAttribute(nodeID)), text, argType);
+
             }
         }
 
