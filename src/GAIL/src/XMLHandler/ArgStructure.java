@@ -82,10 +82,10 @@ public class ArgStructure {
     }
 
 
-    /*
+    /*                                                                                       q
     * This class is only intended for use by ArgStructure class, and hence is private
     */
-    private class Node {
+    public class Node {
 
         private final int id;
         private final int node_id;
@@ -103,15 +103,15 @@ public class ArgStructure {
             return this.id;
         }
 
-        private int getNode_id() {
+        public int getNode_id() {
             return node_id;
         }
 
-        private String getText() {
+        public String getText() {
             return text;
         }
 
-        private char getArgType() {
+        public char getArgType() {
             return argType;
         }
     }
