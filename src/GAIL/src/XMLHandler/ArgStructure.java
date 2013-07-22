@@ -12,11 +12,13 @@ import java.util.ArrayList;
  */
 public class ArgStructure {
 
-    private String question;
+    //question
+    private ArrayList<String> questions;
     private ArrayList<Node> nodeList;
 
     private ArgStructure(String question){
-        this.question = question;
+        this.questions = new ArrayList<String>();
+        this.questions.add(question);
         nodeList = new ArrayList<Node>();
     }
 
