@@ -1,11 +1,9 @@
 package GAIL.src.file;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
+import GAIL.src.XMLHandler.xmlReader;
 import GAIL.src.controller.StatementController;
 
 public class StatementFileReader {

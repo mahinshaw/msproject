@@ -90,9 +90,9 @@
         <question quest="q2">Give one argument for the hypothesis that J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.</question>
         <question quest="q3">Give one argument for the hypothesis that the mother does not have 2 mutated copies of the CFTR gene.</question>
         <question quest="q4">Give one argument for the hypothesis that J.B.'s mother has 1 normal and 1 mutated copy of the CFTR gene.</question>
-        <hypothesis hypo="h1" node_id = "3">J. B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).</hypothesis>
-        <hypothesis hypo="h2" node_id = "100">J.B.'s mother does not have any CFTR gene mutations (both copies of the CFTR gene are normal).</hypothesis>
-        <hypothesis hypo="h3" node_id = "1">J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.</hypothesis>
+        <hypothesis hypo="h1" node_id ="3">J. B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).</hypothesis>
+        <hypothesis hypo="h2" node_id ="100">J.B.'s mother does not have any CFTR gene mutations (both copies of the CFTR gene are normal).</hypothesis>
+        <hypothesis hypo="h3" node_id ="1">J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.</hypothesis>
         <hypothesis hypo="h4" node_id="1">J.B.'s mother is a carrier of the CFTR gene mutation (has 1 normal copy and 1 mutated copy of the CFTR gene).</hypothesis>
         <hypothesis hypo="h5" node_id="1">J.B.'s mother does not have 2 mutated copies of the CFTR gene.</hypothesis>
         <hypothesis hypo="h6" node_id="100">J. B.'s mother has cystic fibrosis (has 2 mutated copies of the CFTR gene).</hypothesis>
