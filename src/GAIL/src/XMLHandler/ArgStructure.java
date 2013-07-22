@@ -15,22 +15,41 @@ public class ArgStructure {
     //question
     private ArrayList<String> questions;
     private ArrayList<Node> nodeList;
+    private ArrayList<Node> hypothesisList;
+    private ArrayList<Node> dataList;
+    private ArrayList<Node> generalizationList;
 
     private ArgStructure(String question){
         this.questions = new ArrayList<String>();
         this.questions.add(question);
         nodeList = new ArrayList<Node>();
+        hypothesisList = new ArrayList<Node>();
+        dataList = new ArrayList<Node>();
+        generalizationList = new ArrayList<Node>();
     }
 
     private void addNode(Node node){
         nodeList.add(node);
+        switch (node.argType){
+            case 'h':
+                hypothesisList.add(node);
+                break;
+            case 'd':
+                dataList.add(node);
+                break;
+            case 'g':
+                generalizationList.add(node);
+                break;
+            default:
+                System.out.println("The Node argType was incorrectly entered.");
+        }
     }
 
-    private Node createNode(int id, int node_id, String text, String argType){
+    private Node createNode(int id, int node_id, String text, char argType){
         return new Node(id, node_id, text, argType);
     }
 
-    public void insertNewNode(int id, int node_id, String text, String argType){
+    public void insertNewNode(int id, int node_id, String text, char argType){
         this.addNode(createNode(id, node_id, text, argType));
     }
 
@@ -47,9 +66,9 @@ public class ArgStructure {
         private final int id;
         private final int node_id;
         private final String text;
-        private final String argType;
+        private final char argType;
 
-        private Node(int id, int node_id, String text, String argType){
+        private Node(int id, int node_id, String text, char argType){
             this.id = id;
             this.node_id = node_id;
             this.text = text;
@@ -68,7 +87,7 @@ public class ArgStructure {
             return text;
         }
 
-        private String getArgType() {
+        private char getArgType() {
             return argType;
         }
     }
