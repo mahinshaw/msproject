@@ -35,13 +35,18 @@ public class XMLWriter {
             question.appendChild(document.createTextNode(argArray.get(index).getQuestions().get(index)));
 
             Element argument = document.createElement("Argument");
+            Attr argIndex = document.createAttribute("arg");
             Element hypothesis = document.createElement("Hypothesis");
             Element data = document.createElement("Data");
             Element generalization = document.createElement("Generalization");
 
             for (ArgStructure arg : argArray){
+                // append argument
+                argIndex.setValue(Integer.toString(index));
+                argument.setAttributeNode(argIndex);
                 session.appendChild(argument);
-                argument.setAttribute("arg", "index");
+
+                //append hyp, dat, gen, to argument as children
 
             }
         }
