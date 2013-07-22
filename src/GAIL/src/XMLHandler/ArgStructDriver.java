@@ -9,7 +9,9 @@ package GAIL.src.XMLHandler;
 public class ArgStructDriver {
 
     public static void main(String[] args){
-        //ArgStructure argStructure = ArgStructure.create("Hello");
-        //argStructure.insertNewNode(1, 1, "datadatadatadata", 'h');
+
+        ArgStructure argStructure = ArgStructure.create();
+        argStructure.insertNewNode(1, "datadatadatadata", 'h');
+
     }
 }
