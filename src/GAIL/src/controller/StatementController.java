@@ -1,5 +1,6 @@
 package GAIL.src.controller;
 
+import GAIL.src.XMLHandler.ArgStructure;
 import GAIL.src.file.StatementFileReader;
 import GAIL.src.frame.StatementPanel;
 import GAIL.src.model.Statement;
@@ -25,9 +26,9 @@ public class StatementController implements ActionListener, MouseListener,
 	private ArrayList<Statement> statements;
 	private ArrayList<StatementView> statementViews;
 	private ArrayList<String> problemTextArr;
-	private ArrayList<String> datumTextArr;
-	private ArrayList<String> hypothTextArr;
-	private ArrayList<String> genTextArr;
+	private ArrayList<ArgStructure.Node> datumTextArr;
+	private ArrayList<ArgStructure.Node> hypothTextArr;
+	private ArrayList<ArgStructure.Node> genTextArr;
 	private String[] problemText;
 	private ApplicationController applicationController;
 	private EdgeController edgeController;
@@ -127,8 +128,8 @@ public class StatementController implements ActionListener, MouseListener,
     }
 
 	public void setText(ArrayList<String> problemTextArr,
-			ArrayList<String> hypothTextArr, ArrayList<String> datumTextArr,
-			ArrayList<String> genTextArr) {
+			ArrayList<ArgStructure.Node> hypothTextArr, ArrayList<ArgStructure.Node> datumTextArr,
+			ArrayList<ArgStructure.Node> genTextArr) {
 		this.problemTextArr = problemTextArr;
 		this.hypothTextArr = hypothTextArr;
 		this.datumTextArr = datumTextArr;
@@ -155,16 +156,20 @@ public class StatementController implements ActionListener, MouseListener,
 		return problemText;
 	}
 
-	private void createProblemHypothesis(StatementSource source, String text,
-			int x, int y) {
-		int desktopX = applicationController.getApplicationView()
+	private void createProblemHypothesis(StatementSource source,
+                                         ArgStructure.Node textNode, int x, int y) {
+
+        //TODO Checking for correct hypothesis selection - Tobey
+        System.out.println("node_id "+textNode.getNode_id()+" Hypothesis: "+textNode.getText());
+
+        int desktopX = applicationController.getApplicationView()
 				.getDesktopViewportX();
 		int desktopY = applicationController.getApplicationView()
 				.getDesktopViewPortY();
 		nHypotheses++;
 		String ID = StatementLabel.HYPOTHESIS + " " + nHypotheses;
 		Statement statement = new Statement(ID, StatementType.HYPOTHESIS,
-				source, text);
+				source, textNode.getText());
 		if (source == StatementSource.USER_HYPOTHESIS) {
 			x = StatementView.INITIAL_X_INCREMENT;
 			y = StatementView.INITIAL_Y_INCREMENT;
@@ -182,41 +187,45 @@ public class StatementController implements ActionListener, MouseListener,
 			registerStatement(statement, true, x, y);
 			applicationController
 					.appendToSessionLog("STATEMENT CREATED: hypothesisUser "
-							+ nHypotheses + ": " + text);
+							+ nHypotheses + ": " + textNode.getText());
 		} else {
 			applicationController
 					.appendToSessionLog("STATEMENT CREATED: hypothesisGiven "
-							+ nHypotheses + ": " + text);
+							+ nHypotheses + ": " + textNode.getText());
 			registerStatement(statement, false, x, y);
 		}
 
 	}
 
-	private void createDatum(StatementSource source, String text, int x, int y) {
-		if (null != text) {
+	private void createDatum(StatementSource source, ArgStructure.Node textNode, int x, int y) {
+		if (null != textNode.getText()) {
 			nData++;
 			applicationController
 					.appendToSessionLog("STATEMENT CREATED: Data item " + nData
-							+ ": " + text);
+							+ ": " + textNode.getText());
 			String ID = StatementLabel.DATUM + " " + nData;
 			Statement statement = new Statement(ID, StatementType.DATA, source,
-					text);
+					textNode.getText());
 			registerStatement(statement, false, x, y);
 		}
+        //TODO Checking for correct data selection - Tobey
+        System.out.println("node_id "+textNode.getNode_id()+" Datum: "+textNode.getText());
 	}
 
-	private void createGeneralization(StatementSource source, String text,
-			int x, int y) {
-		if (null != text) {
+	private void createGeneralization(StatementSource source,
+                                      ArgStructure.Node textNode, int x, int y) {
+		if (null != textNode.getText()) {
 			nGeneralizations++;
 			applicationController
 					.appendToSessionLog("STATEMENT CREATED: Generalization "
-							+ nGeneralizations + ": " + text);
+							+ nGeneralizations + ": " + textNode.getText());
 			String ID = StatementLabel.GENERALIZATION + " " + nGeneralizations;
 			Statement statement = new Statement(ID,
-					StatementType.GENERALIZATION, source, text);
+					StatementType.GENERALIZATION, source, textNode.getText());
 			registerStatement(statement, false, x, y);
 		}
+        //TODO Checking for correct generalization selection - Tobey
+        System.out.println("node_id "+textNode.getNode_id()+" Generalization: "+textNode.getText());
 	}
 
 	private void registerStatement(Statement statement, boolean isEditable,
@@ -406,14 +415,14 @@ public class StatementController implements ActionListener, MouseListener,
 		if (boxX > 0 && boxX < desktopWidth - 20 && boxY > 0
 				&& boxY < desktopHeight) {
 			if (draggedItem.getType() == StatementPanel.Type.DATUM) {
-				createDatum(StatementSource.DATUM, draggedItem.getText(), boxX,
+				createDatum(StatementSource.DATUM, draggedItem.getTextNode(), boxX,
 						boxY);
 			} else if (draggedItem.getType() == StatementPanel.Type.GENERALIZATION) {
 				createGeneralization(StatementSource.GENERALIZATION,
-						draggedItem.getText(), boxX, boxY);
+						draggedItem.getTextNode(), boxX, boxY);
 			} else if (draggedItem.getType() == StatementPanel.Type.HYPOTHESIS) {
 				createProblemHypothesis(StatementSource.PROBLEM_HYPOTHESIS,
-						draggedItem.getText(), boxX, boxY);
+						draggedItem.getTextNode(), boxX, boxY);
 			}
 		}
 		draggedItem = null;
@@ -457,7 +466,7 @@ public class StatementController implements ActionListener, MouseListener,
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createProblemHypothesis(StatementSource.USER_HYPOTHESIS,
-						textArea.getText(), 10,
+						draggedItem.getTextNode(), 10,
 						10);
 				d.dispose();
 			}

@@ -10,6 +10,7 @@ import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 
+import GAIL.src.XMLHandler.ArgStructure;
 import GAIL.src.controller.StatementController;
 import GAIL.src.view.ColorPalette;
 
@@ -50,7 +51,7 @@ public class StatementPanel extends JPanel {
 		add(selector);
 	}
 
-	public void setText(ArrayList<String> text) {
+	public void setText(ArrayList<ArgStructure.Node> text) {
 		remove(selector);
 		selector = new StatementSelector();
 		selector.setText(text);
@@ -63,11 +64,11 @@ public class StatementPanel extends JPanel {
 		JPanel holder;
 		JScrollPane scrollPane;
 
-		public void setText(ArrayList<String> text) {
+		public void setText(ArrayList<ArgStructure.Node> text) {
 			holder = new JPanel();
 			holder.setLayout(new BoxLayout(holder, BoxLayout.Y_AXIS));
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-			for (String string : text) {
+			for (ArgStructure.Node string : text) {
 				StatementUnit statement = new StatementUnit(string);
 				holder.add(statement);
 				sc.addStatementUnit(statement);
@@ -85,13 +86,19 @@ public class StatementPanel extends JPanel {
 
 	public class StatementUnit extends JPanel {
 
+        ArgStructure.Node textNode;
 		TextPane textPane;
 		String text;
+        char argType;
         int node_id, id;
 
-		public StatementUnit(String text) {
+		public StatementUnit(ArgStructure.Node textNode) {
 			String name = "";
-            this.text = text;
+            this.textNode = textNode;
+            this.text = textNode.getText();
+            this.node_id = textNode.getNode_id();
+            this.id = textNode.getId();
+            this.argType = textNode.getArgType();
 			addMouseListener(sc);
 			addMouseMotionListener(sc);
 			setLayout(new GridLayout(0, 1));
@@ -158,6 +165,16 @@ public class StatementPanel extends JPanel {
         public int getIndex(){
             return id;
         }
+
+        public char getArgType(){
+            return argType;
+        }
+
+        public ArgStructure.Node getTextNode(){
+            return textNode;
+        }
+
+
 
 		public void setTextColor(Color color) {
 			textPane.setForeground(color);
