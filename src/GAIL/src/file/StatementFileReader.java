@@ -80,7 +80,7 @@ public class StatementFileReader {
 		} catch (FileNotFoundException e) {  }*/
 
 	//statementController.setText(problemText, hypothText, dataText, genText);
-      statementController.setText(problemText, reader.getHypothText(), reader.getDataText(), reader.getGenText());
+      statementController.setText(reader.getArg());
 
     }
 

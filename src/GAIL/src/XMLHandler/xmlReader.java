@@ -95,5 +95,9 @@ public class xmlReader {
         return arg.getGeneralizationList();
     }
 
+    public ArgStructure getArg() {
+        return arg;
+    }
+
 
 }

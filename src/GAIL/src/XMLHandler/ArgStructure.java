@@ -81,6 +81,16 @@ public class ArgStructure {
         return new ArgStructure();
     }
 
+    public void clear(){
+        this.index = 0;
+        this.questions.clear();
+        this.nodeList.clear();
+        this.questions.clear();
+        this.hypothesisList.clear();
+        this.dataList.clear();
+        this.generalizationList.clear();
+    }
+
 
     /*                                                                                       q
     * This class is only intended for use by ArgStructure class, and hence is private

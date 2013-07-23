@@ -163,6 +163,7 @@ public class ApplicationController implements MouseListener, ActionListener {
 	final String FOLDER_CHAT_LOG = "src/output/chatlog/";
 	final String FOLDER_SERIALIZED = "src/output/serialized/";
 
+    // This prints the document - OLD VERSION
 	public void saveFinalArgument() {
 		File file = new File("finalargument_" + getTimeStamp() + "__p"
 				+ currentProblem + ".xml");

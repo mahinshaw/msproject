@@ -127,13 +127,11 @@ public class StatementController implements ActionListener, MouseListener,
         applicationController.setCurrentProblem(index);
     }
 
-	public void setText(ArrayList<String> problemTextArr,
-			ArrayList<ArgStructure.Node> hypothTextArr, ArrayList<ArgStructure.Node> datumTextArr,
-			ArrayList<ArgStructure.Node> genTextArr) {
-		this.problemTextArr = problemTextArr;
-		this.hypothTextArr = hypothTextArr;
-		this.datumTextArr = datumTextArr;
-		this.genTextArr = genTextArr;
+	public void setText(ArgStructure arg) {
+		this.problemTextArr = arg.getQuestions();
+		this.hypothTextArr = arg.getHypothesisList();
+		this.datumTextArr = arg.getDataList();
+		this.genTextArr = arg.getGeneralizationList();
 
 	}
 
