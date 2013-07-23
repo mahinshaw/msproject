@@ -6,7 +6,14 @@ import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * User: Mark Hinshaw
@@ -46,12 +53,52 @@ public class XMLWriter {
                 argument.setAttributeNode(argIndex);
                 session.appendChild(argument);
 
-                //append hyp, dat, gen, to argument as children
+                // append hypothesis to argument as children
+                for (ArgStructure.Node hyp : arg.getHypothesisList()){
+                    hypothesis.appendChild(document.createTextNode("Node " + hyp.getNode_id()));
+                    argument.appendChild(hypothesis);
+                }
 
+                // append data to argument as children
+                for (ArgStructure.Node dat : arg.getDataList()){
+                    data.appendChild(document.createTextNode("Node " + dat.getNode_id()));
+                    argument.appendChild(data);
+                }
+
+                // append generalizations to argument as children
+                for (ArgStructure.Node gen : arg.getGeneralizationList()){
+                    generalization.appendChild(document.createTextNode("Node " + gen.getNode_id()));
+                    argument.appendChild(generalization);
+                }
             }
+
+            TransformerFactory tFactory = TransformerFactory.newInstance();
+            Transformer transformer = tFactory.newTransformer();
+            DOMSource source = new DOMSource(document);
+            StreamResult result = new StreamResult("src/output/session_" + getTimeStamp());
+
+            transformer.transform(source, result);
         }
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public String getTimeStamp() {
+        Calendar ca = Calendar.getInstance();
+        String hour = "" + ca.get(Calendar.HOUR_OF_DAY);
+        String minute = "" + ca.get(Calendar.MINUTE);
+        String second = "" + ca.get(Calendar.SECOND);
+        if (hour.length() < 2) {
+            hour = 0 + hour;
+        }
+        if (minute.length() < 2) {
+            minute = 0 + minute;
+        }
+        if (second.length() < 2) {
+            second = 0 + second;
+        }
+        return new SimpleDateFormat("MMddyy").format(new Date()) + "_" + hour
+                + "" + minute + "" + second;
     }
 }
