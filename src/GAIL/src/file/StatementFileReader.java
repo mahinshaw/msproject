@@ -27,10 +27,11 @@ public class StatementFileReader {
         reader = new xmlReader(FOLDER+fileName);
         reader.readFile();
 
+        //TODO Object file transfers. Empty ArrayList for now - Tobey
         ArrayList<String> problemText = new ArrayList<String>(reader.getProblemText());
-		ArrayList<String> hypothText = new ArrayList<String>(reader.getHypothText());
-		ArrayList<String> dataText = new ArrayList<String>(reader.getDataText());
-		ArrayList<String> genText = new ArrayList<String>(reader.getGenText());
+		ArrayList<String> hypothText = new ArrayList<String>(reader.getProblemText());
+		ArrayList<String> dataText = new ArrayList<String>(reader.getProblemText());
+		ArrayList<String> genText = new ArrayList<String>(reader.getProblemText());
 
 		/*
         try {
@@ -78,8 +79,9 @@ public class StatementFileReader {
 			}
 		} catch (FileNotFoundException e) {  }*/
 
-		statementController.setText(problemText, hypothText, dataText, genText);
-	}
+	statementController.setText(problemText, hypothText, dataText, genText);
+
+    }
 
 	public String[] getFileNames() {
 		ArrayList<String> fileNamesArr = new ArrayList<String>();

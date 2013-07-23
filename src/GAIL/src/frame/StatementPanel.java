@@ -87,6 +87,7 @@ public class StatementPanel extends JPanel {
 
 		TextPane textPane;
 		String text;
+        int node_id, id;
 
 		public StatementUnit(String text) {
 			String name = "";
@@ -149,6 +150,14 @@ public class StatementPanel extends JPanel {
 		public String getText() {
 			return text;
 		}
+
+        public int getNodeID(){
+            return node_id;
+        }
+
+        public int getIndex(){
+            return id;
+        }
 
 		public void setTextColor(Color color) {
 			textPane.setForeground(color);

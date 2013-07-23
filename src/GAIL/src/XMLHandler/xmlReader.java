@@ -17,10 +17,6 @@ public class xmlReader {
 
     private String fileName;
     private ArrayList<String> problemText = new ArrayList<String>();
-    private ArrayList<String> hypothText = new ArrayList<String>();
-    private ArrayList<String> dataText = new ArrayList<String>();
-    private ArrayList<String> genText = new ArrayList<String>();
-    private ArrayList<String> id = new ArrayList<String>();
     private ArgStructure arg = ArgStructure.create();
     final String nodeID = "node_id";
 
@@ -29,6 +25,7 @@ public class xmlReader {
     }
 
     public void readFile() {
+        char argType = ' ';
         try {
 
             File xmlFile = new File(fileName);
@@ -38,17 +35,20 @@ public class xmlReader {
 
             doc.getDocumentElement().normalize();
 
-            NodeList list1 = doc.getElementsByTagName("question");
-            setQuestion(list1);
+            NodeList list = doc.getElementsByTagName("question");
+            setQuestion(list);
 
             NodeList list2 = doc.getElementsByTagName("hypothesis");
-            setHypothesis(list2);
+            argType = 'h';
+            setArgStructure(list2, argType);
 
             NodeList list3 = doc.getElementsByTagName("data");
-            setData(list3);
+            argType = 'd';
+            setArgStructure(list3, argType);
 
             NodeList list4 = doc.getElementsByTagName("generalizations");
-            setGen(list4);
+            argType = 'g';
+            setArgStructure(list4, argType);
 
 
         } catch (Exception e) {
@@ -56,51 +56,15 @@ public class xmlReader {
         }
     }
 
-    private void setData(NodeList list3) {
-        String text = " ";
-        char argType= 'd';
-        for (int i = 0; i < list3.getLength(); i++) {
-            Node nodeN = list3.item(i);
-
-            if (nodeN.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) nodeN;
-                text = element.getTextContent();
-                dataText.add(text);
-                arg.insertNewNode(Integer.parseInt(element.getAttribute(nodeID)), text, argType);
-            }
-        }
-    }
-
-    private void setGen(NodeList list4) {
-        String text = " ";
-        char argType= 'g';
-        for (int i = 0; i < list4.getLength(); i++) {
-            Node nodeN = list4.item(i);
-
-            if (nodeN.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) nodeN;
-                text = element.getTextContent();
-                genText.add(text);
-                arg.insertNewNode(Integer.parseInt(element.getAttribute(nodeID)), text, argType);
-            }
-        }
-    }
-
-    private void setHypothesis(NodeList list) {
-        String text = " ";
-        char argType= 'h';
+    private void setArgStructure(NodeList list, char argType) {
         for (int i = 0; i < list.getLength(); i++) {
             Node nodeN = list.item(i);
 
             if (nodeN.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) nodeN;
-                text = element.getTextContent();
-                hypothText.add(text);
-                arg.insertNewNode(Integer.parseInt(element.getAttribute(nodeID)), text, argType);
-
+                arg.insertNewNode(Integer.parseInt(element.getAttribute(nodeID)), element.getTextContent(), argType);
             }
         }
-
     }
 
     private void setQuestion(NodeList list) {
@@ -116,19 +80,19 @@ public class xmlReader {
     }
 
     public ArrayList<String> getProblemText() {
-        return problemText;
+        return arg.getQuestions();
     }
 
-    public ArrayList<String> getHypothText() {
-        return hypothText;
+    public ArrayList<ArgStructure.Node> getHypothText() {
+        return arg.getHypothesisList();
     }
 
-    public ArrayList<String> getDataText() {
-        return dataText;
+    public ArrayList<ArgStructure.Node> getDataText() {
+        return arg.getDataList();
     }
 
-    public ArrayList<String> getGenText() {
-        return genText;
+    public ArrayList<ArgStructure.Node> getGenText() {
+        return arg.getGeneralizationList();
     }
 
 
