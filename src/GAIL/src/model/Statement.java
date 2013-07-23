@@ -3,6 +3,7 @@ package GAIL.src.model;
 import java.awt.Graphics;
 import java.io.Serializable;
 
+import GAIL.src.XMLHandler.ArgStructure;
 import GAIL.src.view.StatementView;
 import GAIL.src.frame.StatementPanel.StatementUnit;
 
@@ -48,10 +49,12 @@ public class Statement extends Node implements Serializable {
 	private StatementView statementView; // the statement's visual component
 	private StatementType type;
 	public MultiGeneralizationModel group = null;
+    private ArgStructure.Node textNode;
 
-	public Statement(String ID, StatementType type, StatementSource source, String text) {
+	public Statement(String ID, StatementType type, StatementSource source, ArgStructure.Node textNode) {
 		super(ID);
-		this.text = text;
+		this.textNode = textNode;
+        this.text = textNode.getText();
 		this.type = type;
 		// assign source label based on its source
 		switch (source) {
@@ -88,6 +91,10 @@ public class Statement extends Node implements Serializable {
 	public StatementView getView() {
 		return statementView;
 	}
+
+    public ArgStructure.Node getTextNode(){
+        return textNode;
+    }
 
 	public void setView(StatementView view) {
 		this.statementView = view;

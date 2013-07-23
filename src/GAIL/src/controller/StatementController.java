@@ -167,7 +167,7 @@ public class StatementController implements ActionListener, MouseListener,
 		nHypotheses++;
 		String ID = StatementLabel.HYPOTHESIS + " " + nHypotheses;
 		Statement statement = new Statement(ID, StatementType.HYPOTHESIS,
-				source, textNode.getText());
+				source, textNode);
 		if (source == StatementSource.USER_HYPOTHESIS) {
 			x = StatementView.INITIAL_X_INCREMENT;
 			y = StatementView.INITIAL_Y_INCREMENT;
@@ -203,7 +203,7 @@ public class StatementController implements ActionListener, MouseListener,
 							+ ": " + textNode.getText());
 			String ID = StatementLabel.DATUM + " " + nData;
 			Statement statement = new Statement(ID, StatementType.DATA, source,
-					textNode.getText());
+					textNode);
 			registerStatement(statement, false, x, y);
 		}
         //TODO Checking for correct data selection - Tobey
@@ -219,7 +219,7 @@ public class StatementController implements ActionListener, MouseListener,
 							+ nGeneralizations + ": " + textNode.getText());
 			String ID = StatementLabel.GENERALIZATION + " " + nGeneralizations;
 			Statement statement = new Statement(ID,
-					StatementType.GENERALIZATION, source, textNode.getText());
+					StatementType.GENERALIZATION, source, textNode);
 			registerStatement(statement, false, x, y);
 		}
         //TODO Checking for correct generalization selection - Tobey
@@ -254,8 +254,9 @@ public class StatementController implements ActionListener, MouseListener,
 		System.out.println("state");
 		ArrayList<String> output = new ArrayList<String>();
 		output.add("  <Statement>");
-		for (Statement s : statements) {
-			output.add("    <"
+
+        for (Statement s : statements) {
+            output.add("    <"
 					+ applicationController.removeEscapeChars(s
 							.getSourceLabel()) + " id=\""
 					+ applicationController.removeEscapeChars(s.getID())
@@ -263,7 +264,9 @@ public class StatementController implements ActionListener, MouseListener,
 					+ applicationController.removeEscapeChars(s.getText())
 					+ "\" xCoordinate=\"" + s.getView().getX()
 					+ "\" yCoordinate=\"" + s.getView().getY() + "\" />");
+
 		}
+
 		output.add("  </Statement>");
 		String s[] = new String[output.size()];
 		for (int i = 0; i < output.size(); i++) {
