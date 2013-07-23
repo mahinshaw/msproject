@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
+import GAIL.src.XMLHandler.ArgStructure;
+import GAIL.src.XMLHandler.XMLWriter;
 import GAIL.src.frame.ApplicationFrame;
 import GAIL.src.frame.MenuBar;
 import GAIL.src.frame.SubmitDialog;
@@ -297,6 +299,12 @@ public class ApplicationController implements MouseListener, ActionListener {
 		saveChatSession();
 		saveSessionLog();
 		saveFinalArgument();
+
+        // Added July 23, Mark Hinshaw
+        XMLWriter writer = new XMLWriter();
+        ArrayList<ArgStructure> argArray = new ArrayList<ArgStructure>();
+        argArray.add(statementController.getArgOutput());
+        writer.writeXML(argArray, currentProblem);
 	}
 
 	@Override

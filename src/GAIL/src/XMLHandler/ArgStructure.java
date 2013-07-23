@@ -53,8 +53,18 @@ public class ArgStructure {
         this.addNode(createNode(node_id, text, argType));
     }
 
+    public void insertNewNode(Node n){
+        this.addNode(n);
+    }
+
     public void insertQuestions(ArrayList<String> questions){
-        this.questions.addAll(questions);
+        for (String s : questions){
+            addQuestion(s);
+        }
+    }
+
+    public void addQuestion(String q){
+        this.questions.add(q);
     }
 
     public ArrayList<String> getQuestions() {

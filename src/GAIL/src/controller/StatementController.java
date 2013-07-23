@@ -33,6 +33,9 @@ public class StatementController implements ActionListener, MouseListener,
 	private ApplicationController applicationController;
 	private EdgeController edgeController;
 
+    // Added July 23, Mark Hinshaw
+    private ArgStructure argOutput;
+
 	// From Drag and Drop stuff
 	private StatementUnit draggedItem;
 	private int pressedX, pressedY;
@@ -54,6 +57,9 @@ public class StatementController implements ActionListener, MouseListener,
 		edgeController = ac.getEdgeController();
 		statements = new ArrayList<Statement>();
 		statementViews = new ArrayList<StatementView>();
+
+        // Added July 23, Mark Hinshaw
+        argOutput = ArgStructure.create();
 	}
 
 	public StatementFileReader getStatementFileReader() {
@@ -129,6 +135,7 @@ public class StatementController implements ActionListener, MouseListener,
 
 	public void setText(ArgStructure arg) {
 		this.problemTextArr = arg.getQuestions();
+        argOutput.insertQuestions(arg.getQuestions());
 		this.hypothTextArr = arg.getHypothesisList();
 		this.datumTextArr = arg.getDataList();
 		this.genTextArr = arg.getGeneralizationList();
@@ -159,6 +166,8 @@ public class StatementController implements ActionListener, MouseListener,
 
         //TODO Checking for correct hypothesis selection - Tobey
         System.out.println("node_id "+textNode.getNode_id()+" Hypothesis: "+textNode.getText());
+        // Added July 23, Mark Hinshaw
+        argOutput.insertNewNode(textNode);
 
         int desktopX = applicationController.getApplicationView()
 				.getDesktopViewportX();
@@ -208,6 +217,8 @@ public class StatementController implements ActionListener, MouseListener,
 		}
         //TODO Checking for correct data selection - Tobey
         System.out.println("node_id "+textNode.getNode_id()+" Datum: "+textNode.getText());
+        // Added July 23, Mark Hinshaw
+        argOutput.insertNewNode(textNode);
 	}
 
 	private void createGeneralization(StatementSource source,
@@ -224,6 +235,8 @@ public class StatementController implements ActionListener, MouseListener,
 		}
         //TODO Checking for correct generalization selection - Tobey
         System.out.println("node_id "+textNode.getNode_id()+" Generalization: "+textNode.getText());
+        // Added July 23, Mark Hinshaw
+        argOutput.insertNewNode(textNode);
 	}
 
 	private void registerStatement(Statement statement, boolean isEditable,
@@ -245,6 +258,9 @@ public class StatementController implements ActionListener, MouseListener,
 		nGeneralizations = 0;
 		statements.clear();
 		statementViews.clear();
+
+        // Added July 23, Mark Hinshaw
+        argOutput.clear();
 	}
 
 	public void actionPerformed(ActionEvent ae) {
@@ -490,4 +506,10 @@ public class StatementController implements ActionListener, MouseListener,
 		d.pack();
 		d.setVisible(true);
 	}
+
+    // Added July 23, Mark Hinshaw
+    public ArgStructure getArgOutput(){
+        argOutput.insertQuestions(problemTextArr);
+        return this.argOutput;
+    }
 }
