@@ -23,7 +23,7 @@ import java.util.Date;
  */
 public class XMLWriter {
 
-    public void writeXML(ArrayList<ArgStructure> argArray){
+    public void writeXML(ArrayList<ArgStructure> argArray, int qIndex){
         int argCount = argArray.size();
         int index = 0;
 
@@ -39,7 +39,7 @@ public class XMLWriter {
             // append the question to the session
             Element question = document.createElement("Question");
             session.appendChild(question);
-            question.appendChild(document.createTextNode(argArray.get(index).getQuestions().get(index)));
+            question.appendChild(document.createTextNode(argArray.get(index).getQuestions().get(qIndex)));
 
             Element argument = document.createElement("Argument");
             Attr argIndex = document.createAttribute("arg");
@@ -75,7 +75,7 @@ public class XMLWriter {
             TransformerFactory tFactory = TransformerFactory.newInstance();
             Transformer transformer = tFactory.newTransformer();
             DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult("src/output/session_" + getTimeStamp());
+            StreamResult result = new StreamResult("src/XMLOutput/session_" + getTimeStamp() + ".xml");
 
             transformer.transform(source, result);
         }
