@@ -1,5 +1,6 @@
 package GAIL.src.controller;
 
+import GAIL.src.XMLHandler.ArgStructure;
 import GAIL.src.model.*;
 import GAIL.src.view.AnchorSet;
 import GAIL.src.view.AnchorSet.Anchor;
@@ -36,6 +37,9 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 	boolean isArgument;
 	boolean isBranch;
 
+    //CHANGES- Tobey 7/25/13
+    private ArrayList<ArgStructure.Node> argList;
+
 	public EdgeController(ApplicationController ac) {
 		argumentCount = 0;
 		warrantCount = 0;
@@ -45,6 +49,9 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 		branches = new ArrayList<Branch>();
 		anchors = new ArrayList<AnchorSet>();
 		setApplicationController(ac);
+
+        //CHANGES- Tobey 7/25/13
+        argList = new ArrayList<ArgStructure.Node>();
 	}
 
 	private void setApplicationController(ApplicationController ac) {
@@ -405,10 +412,12 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 	}
 
 	public String[] getUserDisplayOutput() {
-		ArrayList<String> output = new ArrayList<String>();
-		for (Argument argument : arguments) {
-			// TITLE
 
+        ArrayList<String> output = new ArrayList<String>();
+
+
+        for (Argument argument : arguments) {
+			// TITLE
 			String argumentType = "";
 			if (argument.getArgumentType() == Argument.ArgumentType.PRO) {
 				argumentType = "Pro";
@@ -421,6 +430,7 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 			output.add(argument.getID() + " (" + argumentType + ")" + " consists of");
 			output.add("");
 			output.add("Conclusion: " + argument.getTarget().getID() + ": " + argument.getTarget().getText());
+            argList.add(argument.getTarget().getTextNode());
 
 			// SOURCE CONJUNCTION TODO
 			if (argument.getSource() instanceof Conjunction) {
@@ -431,6 +441,7 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 					if (i == 0)
 						output.add("");
 					output.add("" + s.getID() + ": " + s.getText());
+                    argList.add(s.getTextNode());
 					if (i < conjunctionStatements.size() - 1) {
 						output.add("AND");
 					}
@@ -445,6 +456,7 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 				}
 				output.add("");
 				output.add("" + s.getID() + ": " + s.getText());
+                argList.add(s.getTextNode());
 			}
 
 			// /WARRANTS -- MAY BE CONJUNCTIONS OR STATEMENTS
@@ -459,6 +471,7 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 						if (i == 0)
 							output.add("");
 						output.add("" + s.getID() + ": " + s.getText());
+                        argList.add(s.getTextNode());
 						if (i < conjunctionBranches.size() - 1) {
 							output.add("AND");
 						}
@@ -468,21 +481,25 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 					Statement s = (Statement) w.getSource();
 					output.add("");
 					output.add("" + s.getID() + ": " + s.getText());
+                    argList.add(s.getTextNode());
 				} else if(w.getSource() instanceof MultiGeneralizationModel) {
 					MultiGeneralizationModel mgm = (MultiGeneralizationModel) w.getSource();
 					for(Statement g : mgm.getGeneralizations()) {
 						output.add("");
 						output.add(g.getID() + ": " + g.getText());
+                        argList.add(g.getTextNode());
 					}
 				} else {
 					throw new NotImplementedException();
 				}
 			}
+
 		}
 		String s[] = new String[output.size()];
 		for (int i = 0; i < output.size(); i++) {
 			s[i] = output.get(i);
 		}
+
 		return s;
 	}
 
@@ -899,4 +916,9 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 		source = null;
 		target = null;
 	}
+
+    //CHANGES- Tobey 7/25/13
+    public ArrayList<ArgStructure.Node> getFinalArgument(){
+        return argList;
+    }
 }

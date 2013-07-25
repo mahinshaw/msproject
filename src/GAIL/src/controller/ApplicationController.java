@@ -27,6 +27,7 @@ import GAIL.src.model.MultiGeneralizationFactory;
 import GAIL.src.model.MultiGeneralizationModel;
 import GAIL.src.model.Statement;
 import GAIL.src.view.StatementView;
+import GAIL.src.controller.EdgeController;
 
 
 public class ApplicationController implements MouseListener, ActionListener {
@@ -305,6 +306,15 @@ public class ApplicationController implements MouseListener, ActionListener {
         ArrayList<ArgStructure> argArray = new ArrayList<ArgStructure>();
         argArray.add(statementController.getArgOutput());
         writer.writeXML(argArray, currentProblem);
+
+        //CHANGES- Tobey 7/25/13
+        //TEST
+        System.out.println("------ARGUMENT---------\n");
+        ArrayList<ArgStructure.Node> e = new ArrayList<ArgStructure.Node>(edgeController.getFinalArgument());
+        for (ArgStructure.Node n : e){
+            System.out.println(n.getArgType()+" "+n.getText());
+        }
+
 	}
 
 	@Override
