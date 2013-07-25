@@ -20,9 +20,17 @@ import java.util.Date;
  * Email: mahinshaw@gmail.com
  * Date: 7/22/13
  * github: https://github.com/mahinshaw/msproject
+ *
+ * This class is used to output the information passed from an array of ArgStructures and print them as
+ * arguments in XML.
  */
 public class XMLWriter {
 
+    /**
+     * This class handles the writing of the xml.
+     * @param argArray - arraylist of ArgStructures to be written.
+     * @param qIndex - Index of the question being answered in the questions arraylist.
+     */
     public void writeXML(ArrayList<ArgStructure> argArray, int qIndex){
         int argCount = argArray.size();
         int index = 0;
@@ -84,6 +92,10 @@ public class XMLWriter {
         }
     }
 
+    /**
+     * This method was reused from the GAIL src code.
+     * @return - A timestamp that signifies the individual xml file.
+     */
     public String getTimeStamp() {
         Calendar ca = Calendar.getInstance();
         String hour = "" + ca.get(Calendar.HOUR_OF_DAY);
