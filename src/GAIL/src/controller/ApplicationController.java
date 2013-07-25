@@ -315,6 +315,8 @@ public class ApplicationController implements MouseListener, ActionListener {
             System.out.println(n.getArgType()+" "+n.getText());
         }
 
+        writer.writeXML(edgeController.getArgStructureArrayList(), currentProblem);
+
 	}
 
 	@Override

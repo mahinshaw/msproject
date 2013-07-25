@@ -47,7 +47,7 @@ public class XMLWriter {
             // append the question to the session
             Element question = document.createElement("Question");
             session.appendChild(question);
-            question.appendChild(document.createTextNode(argArray.get(index).getQuestions().get(qIndex)));
+            //question.appendChild(document.createTextNode(argArray.get(index).getQuestions().get(qIndex)));
 
             Element argument = document.createElement("Argument");
             Attr argIndex = document.createAttribute("arg");
@@ -55,26 +55,26 @@ public class XMLWriter {
             Element data = document.createElement("Data");
             Element generalization = document.createElement("Generalization");
 
-            for (ArgStructure arg : argArray){
+            for (int i =0; i < argArray.size(); i++){
                 // append argument
-                argIndex.setValue(Integer.toString(index));
+                argIndex.setValue(Integer.toString(i));
                 argument.setAttributeNode(argIndex);
                 session.appendChild(argument);
 
                 // append hypothesis to argument as children
-                for (ArgStructure.Node hyp : arg.getHypothesisList()){
+                for (ArgStructure.Node hyp : argArray.get(i).getHypothesisList()){
                     hypothesis.appendChild(document.createTextNode("Node " + hyp.getNode_id()));
                     argument.appendChild(hypothesis);
                 }
 
                 // append data to argument as children
-                for (ArgStructure.Node dat : arg.getDataList()){
+                for (ArgStructure.Node dat : argArray.get(i).getDataList()){
                     data.appendChild(document.createTextNode("Node " + dat.getNode_id()));
                     argument.appendChild(data);
                 }
 
                 // append generalizations to argument as children
-                for (ArgStructure.Node gen : arg.getGeneralizationList()){
+                for (ArgStructure.Node gen : argArray.get(i).getGeneralizationList()){
                     generalization.appendChild(document.createTextNode("Node " + gen.getNode_id()));
                     argument.appendChild(generalization);
                 }
