@@ -34,10 +34,10 @@ public class Interface {
             DefaultHandler handler = new DefaultHandler() {
                 ArrayList<String> holdValues;
 
-                boolean person_name = false, gender = false, gene_id = false, gene_name = false, mutated = false, phyType = false;
-                boolean autosomal_type = false, protein_id = false, protein_name = false, normal = false, quantity = false;
+                boolean person_name = false, gender = false, gene_id = false, gene_name = false, mutated = false, description = false;
+                boolean autosomal_type = false, protein_id = false, protein_name = false, normal = false, quantity = false, location = false;
                 boolean symptom_id = false, symptom_name = false, degree = false, influence_type = false, influence_parent = false;
-                boolean influence_child = false, type = false, child = false, parent = false, chlorideLevel = false, typeTest = false;
+                boolean influence_child = false, type = false, child = false, parent = false, age = false, testName = false, testResult = false;
                 int count = 0, size = 0;
 
                 public void startElement(String str, String local, String name, Attributes attribute) {
@@ -51,6 +51,9 @@ public class Interface {
                     }
                     if (name.equalsIgnoreCase("gender")) {
                         gender = true;
+                    }
+                    if (name.equalsIgnoreCase("age")){
+                        age = true;
                     }
 
                     if (name.equalsIgnoreCase("genotype")) {
@@ -118,22 +121,17 @@ public class Interface {
                     if (name.equalsIgnoreCase("parent")) {
                         parent = true;
                     }
+                    if (name.equalsIgnoreCase("test")){
+                        addVar(attribute.getValue("node_id"));
+                        addVar(attribute.getValue("person_id"));
+                    }
+
+                    if (name.equalsIgnoreCase("testName")){
+                        testName = true;
+                    }
+
                     if (name.equalsIgnoreCase("testResult")){
-                        addVar(attribute.getValue("node_id"));
-                        addVar(attribute.getValue("person_id"));
-                    }
-
-                    if (name.equalsIgnoreCase("chlorideLevel")){
-                        chlorideLevel = true;
-                    }
-
-                    if (name.equalsIgnoreCase("testType")){
-                        addVar(attribute.getValue("node_id"));
-                        addVar(attribute.getValue("person_id"));
-                    }
-
-                    if (name.equalsIgnoreCase("typeTest")){
-                        typeTest = true;
+                        testResult = true;
                     }
 
                     if (name.equalsIgnoreCase("physiology")){
@@ -141,8 +139,12 @@ public class Interface {
                         addVar(attribute.getValue("person_id"));
                     }
 
-                    if (name.equalsIgnoreCase("phyType")){
-                        typeTest = true;
+                    if (name.equalsIgnoreCase("bodyLocation")){
+                        location = true;
+                    }
+
+                    if (name.equalsIgnoreCase("description")){
+                        description = true;
                     }
 
                 }
@@ -161,7 +163,12 @@ public class Interface {
                     if (gender) {
                         addVar(new String(c, start, length));
                         gender = false;
+                    }
+                    if (age){
+                        addVar(new String(c, start, length));
+                        age = false;
                         print(1);
+
                     }
                     if (gene_id) {
                         addVar(new String(c, start, length));
@@ -246,22 +253,26 @@ public class Interface {
                         }
 
                     }
-                    if (chlorideLevel){
+                    if (testName){
                         addVar(new String(c, start, length));
-                        chlorideLevel = false;
+                        testName = false;
+                    }
+
+                    if (testResult){
+                        addVar(new String(c, start, length));
+                        testResult = false;
                         print(7);
                     }
 
-                    if (typeTest){
+                    if (location){
                         addVar(new String(c, start, length));
-                        typeTest = false;
-                        print(8);
+                        location = false;
                     }
 
-                    if (phyType){
+                    if (description){
                         addVar(new String(c, start, length));
-                        phyType = false;
-                        print(9);
+                        description = false;
+                        print(8);
                     }
 
                 }
@@ -281,11 +292,11 @@ public class Interface {
                 public void print(int h) {
                         int size = 0;
                         switch (h){
-                            case 1: graph.createPerson(Integer.parseInt(getArray().get(size)), getArray().get(++size), getArray().get(++size).charAt(0));
+                            case 1: graph.createPerson(Integer.parseInt(getArray().get(size)), getArray().get(++size), getArray().get(++size).charAt(0),Integer.parseInt(getArray().get(++size)));
                                 size = 0;
                                 break;
                             case 2: graph.createGenotype(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
-                                    getArray().get(++size), getArray().get(+size), getArray().get(++size), getArray().get(++size));
+                                    getArray().get(++size), getArray().get(++size), getArray().get(++size), getArray().get(++size));
                                  size = 0;
                                 break;
                             case 3: graph.createBiochemistry(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
@@ -308,15 +319,11 @@ public class Interface {
                                 size = 0;
                                 break;
                             case 7:
-                                graph.createTestResult(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), Boolean.parseBoolean(getArray().get(++size)));
+                                graph.createTest(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)));
                                 size = 0;
                                 break;
                             case 8:
-                                graph.createTestType(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size));
-                                size = 0;
-                                break;
-                            case 9:
-                                graph.createPhysiology(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size));
+                                graph.createPhysiology(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size), getArray().get(++size));
                                 size = 0;
                                 break;
                         }

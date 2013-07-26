@@ -15,10 +15,11 @@
         <!ATTLIST generalizations gen CDATA #REQUIRED>
         <!ATTLIST generalizations node_id CDATA #REQUIRED>
         <!ELEMENT genie (KB_Node, KB_Arc, Argument)>
-        <!ELEMENT KB_Node (person+, genotype+, biochemistry+, symptom+, testType+, testResult+, physiology+)>
-        <!ELEMENT person (person_name, gender, family)>
+        <!ELEMENT KB_Node (person+, genotype+, biochemistry+, symptom+, test+, physiology+)>
+        <!ELEMENT person (person_name, gender, age, family)>
         <!ELEMENT person_name (#PCDATA)>
         <!ELEMENT gender (#PCDATA)>
+        <!ELEMENT age (#PCDATA)>
         <!ELEMENT family (#PCDATA)>
         <!ATTLIST person person_id CDATA #REQUIRED>
         <!ELEMENT biochemistry (protein_id, protein_name, normal, quantity)>
@@ -48,18 +49,17 @@
         <!ELEMENT autosomal_type (#PCDATA)>
         <!ELEMENT disease (#PCDATA)>
         <!ELEMENT cell (#PCDATA)>
-        <!ATTLIST testResult node_id CDATA #REQUIRED>
-        <!ATTLIST testResult person_id CDATA #REQUIRED>
-        <!ELEMENT testResult (chlorideLevel)>
-        <!ELEMENT chlorideLevel (#PCDATA)>
-        <!ATTLIST testType node_id CDATA #REQUIRED>
-        <!ATTLIST testType person_id CDATA #REQUIRED>
-        <!ELEMENT testType (typeTest)>
-        <!ELEMENT typeTest (#PCDATA)>
+        <!ATTLIST test node_id CDATA #REQUIRED>
+        <!ATTLIST test person_id CDATA #REQUIRED>
+        <!ELEMENT test (testName, testResult)>
+        <!ELEMENT testName (#PCDATA)>
+        <!ELEMENT testResult (#PCDATA)>
         <!ATTLIST physiology node_id CDATA #REQUIRED>
         <!ATTLIST physiology person_id CDATA #REQUIRED>
-        <!ELEMENT physiology (phyType)>
-        <!ELEMENT phyType (#PCDATA)>
+        <!ATTLIST physioligy certaintity CDATA #REQUIRED>
+        <!ELEMENT physiology (bodyLocation, description)>
+        <!ELEMENT bodyLocation (#PCDATA)>
+        <!ELEMENT description (#PCDATA)>
         <!ELEMENT KB_Arc (influence_arc+, synergy_arc_set+)>
         <!ATTLIST synergy_arc_set syn_id CDATA #REQUIRED>
         <!ELEMENT synergy_arc_set (type, child, parent+)>
@@ -71,14 +71,12 @@
         <!ELEMENT influence_type (#PCDATA)>
         <!ELEMENT influence_parent (#PCDATA)>
         <!ELEMENT influence_child (#PCDATA)>
-        <!ELEMENT Argument (argument_id, scheme, argument_data, warrant, conclusion, proposition, generalization)>
+        <!ELEMENT Argument (argument_id, scheme, argument_data, warrant, conclusion, generalization)>
         <!ELEMENT argument_id (#PCDATA)>
         <!ELEMENT scheme (#PCDATA)>
         <!ELEMENT argument_data (#PCDATA)>
         <!ELEMENT warrant (#PCDATA)>
         <!ELEMENT conclusion (#PCDATA)>
-        <!ELEMENT proposition (prop_id)>
-        <!ELEMENT prop_id (#PCDATA)>
         <!ELEMENT generalization (generalization_path)>
         <!ELEMENT generalization_path (#PCDATA)>
         ]>
@@ -118,60 +116,64 @@
             <person person_id="1">
                 <person_name>Mother</person_name>
                 <gender>F</gender>
+                <age>32</age>
                 <family> </family>
             </person>
             <person person_id="2">
                 <person_name>Father</person_name>
                 <gender>M</gender>
+                <age>33</age>
                 <family> </family>
             </person>
             <person person_id="3">
                 <person_name>JB</person_name>
                 <gender>F</gender>
+                <age>2</age>
                 <family>1 2</family>
             </person>
             <person person_id="4">
                 <person_name>Brother</person_name>
                 <gender>M</gender>
+                <age>3</age>
                 <family>1 2</family>
             </person>
             <genotype node_id="1" person_id="1" certainty="">
                 <gene_id>FLAG</gene_id>
-                <gene_name>CF</gene_name>
+                <gene_name>CFTR</gene_name>
                 <mutated>1</mutated>
                 <autosomal_type>recessive</autosomal_type>
-                <disease>FLAG</disease>
+                <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
             </genotype>
             <genotype node_id="2" person_id="2" certainty="">
                 <gene_id>FLAG</gene_id>
-                <gene_name>CF</gene_name>
+                <gene_name>CFTR</gene_name>
                 <mutated>1</mutated>
                 <autosomal_type>recessive</autosomal_type>
-                <disease>FLAG</disease>
+                <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
             </genotype>
             <genotype node_id="3" person_id="3" certainty="">
                 <gene_id>FLAG</gene_id>
-                <gene_name>CF</gene_name>
+                <gene_name>CFTR</gene_name>
                 <mutated>2</mutated>
-                <autosomal_type>dominant</autosomal_type>
-                <disease>CF</disease>
+                <autosomal_type>recessive</autosomal_type>
+                <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
             </genotype>
             <genotype node_id="7" person_id="4" certainty="">
                 <gene_id>FLAG</gene_id>
-                <gene_name>CF</gene_name>
+                <gene_name>CFTR</gene_name>
                 <mutated>2</mutated>
-                <autosomal_type>dominant</autosomal_type>
-                <disease>CF</disease>
+                <autosomal_type>recessive</autosomal_type>
+                <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
             </genotype>
             <biochemistry node_id="4" person_id="3" certainty="">
                 <protein_id>FLAG</protein_id>
                 <protein_name>CF</protein_name>
                 <normal>false</normal>
-                <quantity>high</quantity>
+                <quantity>normal</quantity>
             </biochemistry>
              <symptom node_id="5" person_id="3" certainty="">
                 <symptom_id>FLAG</symptom_id>
@@ -188,20 +190,13 @@
                 <symptom_name>Upper respiratory infections</symptom_name>
                 <degree>absent</degree>
             </symptom>
-            <testType node_id="6" person_id="3">
-                <typeTest>Sweat Chloride Test</typeTest>
-            </testType>
-            <testResult node_id = "10" person_id="3">
-                <chlorideLevel>true</chlorideLevel>
-            </testResult>
+            <test node_id = "10" person_id="3">
+                <testName>Sweat Chloride Test</testName>
+                <testResult>True</testResult>
+            </test>
             <physiology node_id="11" person_id="3">
-                <phyType>Lung secretions</phyType>
-            </physiology>
-            <physiology node_id="12" person_id="2">
-                <phyType>Lung secretions</phyType>
-            </physiology>
-            <physiology node_id="13" person_id="1">
-                <phyType>Lung secretions</phyType>
+                <bodyLocation>Lung secretions</bodyLocation>
+                <description>Thickened Mucus</description>
             </physiology>
         </KB_Node>
         <KB_Arc>
@@ -227,55 +222,34 @@
             </influence_arc>
             <influence_arc arc_id="5">
                 <influence_type>+</influence_type>
-                <influence_parent>6</influence_parent>
-                <influence_child>10</influence_child>
-            </influence_arc>
-            <influence_arc arc_id="6">
-                <influence_type>+</influence_type>
                 <influence_parent>4</influence_parent>
                 <influence_child>11</influence_child>
             </influence_arc>
-            <influence_arc arc_id="7">
+            <influence_arc arc_id="6">
                 <influence_type>+</influence_type>
                 <influence_parent>11</influence_parent>
                 <influence_child>5</influence_child>
             </influence_arc>
-            <influence_arc arc_id="8">
+            <influence_arc arc_id="7">
                 <influence_type>+</influence_type>
                 <influence_parent>2</influence_parent>
                 <influence_child>8</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="8">
+                <influence_type>+</influence_type>
+                <influence_parent>1</influence_parent>
+                <influence_child>9</influence_child>
             </influence_arc>
             <influence_arc arc_id="9">
                 <influence_type>+</influence_type>
-                <influence_parent>12</influence_parent>
-                <influence_child>8</influence_child>
-            </influence_arc>
-            <influence_arc arc_id="10">
-                <influence_type>+</influence_type>
-                <influence_parent>1</influence_parent>
-                <influence_child>9</influence_child>
-            </influence_arc>
-            <influence_arc arc_id="11">
-                <influence_type>+</influence_type>
-                <influence_parent>13</influence_parent>
-                <influence_child>9</influence_child>
-            </influence_arc>
-            <influence_arc arc_id="12">
-                <influence_type>+</influence_type>
                 <influence_parent>1</influence_parent>
                 <influence_child>7</influence_child>
             </influence_arc>
-            <influence_arc arc_id="13">
+            <influence_arc arc_id="10">
                 <influence_type>+</influence_type>
                 <influence_parent>2</influence_parent>
                 <influence_child>7</influence_child>
             </influence_arc>
-            <synergy_arc_set syn_id="1">
-                <type>Y+</type>
-                <child>10</child>
-                <parent>6</parent>
-                <parent>4</parent>
-            </synergy_arc_set>
             <synergy_arc_set syn_id="2">
                 <type>X0</type>
                 <child>3</child>
@@ -288,18 +262,6 @@
                 <parent>1</parent>
                 <parent>2</parent>
             </synergy_arc_set>
-            <synergy_arc_set syn_id="4">
-                <type>Y-</type>
-                <child>9</child>
-                <parent>1</parent>
-                <parent>13</parent>
-            </synergy_arc_set>
-            <synergy_arc_set syn_id="5">
-                <type>Y-</type>
-                <child>8</child>
-                <parent>2</parent>
-                <parent>12</parent>
-            </synergy_arc_set>
         </KB_Arc>
         <Argument>
             <argument_id></argument_id>
@@ -307,9 +269,6 @@
             <argument_data></argument_data>
             <warrant></warrant>
             <conclusion></conclusion>
-            <proposition>
-                <prop_id></prop_id>
-            </proposition>
             <generalization>
                 <generalization_path></generalization_path>
             </generalization>
