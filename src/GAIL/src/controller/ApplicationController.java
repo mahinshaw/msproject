@@ -303,17 +303,9 @@ public class ApplicationController implements MouseListener, ActionListener {
 
         // Added July 23, Mark Hinshaw
         XMLWriter writer = new XMLWriter();
-        ArrayList<ArgStructure> argArray = new ArrayList<ArgStructure>();
-        argArray.add(statementController.getArgOutput());
-        writer.writeXML(argArray, currentProblem);
 
         //CHANGES- Tobey 7/25/13
         //TEST
-        System.out.println("------ARGUMENT---------\n");
-        ArrayList<ArgStructure.Node> e = new ArrayList<ArgStructure.Node>(edgeController.getFinalArgument());
-        for (ArgStructure.Node n : e){
-            System.out.println(n.getArgType()+" "+n.getText());
-        }
 
         writer.writeXML(edgeController.getArgStructureArrayList(), currentProblem);
 
