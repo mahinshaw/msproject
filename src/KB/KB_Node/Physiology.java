@@ -6,23 +6,33 @@ package KB.KB_Node;
  */
 public class Physiology extends KB_Node {
 
-    private String type;
+    private String location;
+    private String description;
 
-    public Physiology(int id, int person_id, String type){
-           super(id, person_id);
-           this.type = type;
+    public Physiology(int id, int person_id, String location, String description){
+        super(id, person_id);
+        this.location = location;
+        this.description = description;
     }
 
-    public String getType(){
-        return type;
+    public String getLocation(){
+        return location;
+    }
+
+    public String getDescription(){
+        return description;
     }
 
     public void setType(String type){
-        this.type = type;
+        this.location = type;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
     public String toString(){
-        return super.toString()+"Physiology: "+this.type+"\n";
+        return super.toString()+"Type: "+this.location+"\nDescription: "+this.description+"\n";
     }
 
 }

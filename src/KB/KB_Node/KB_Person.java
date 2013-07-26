@@ -17,15 +17,16 @@ public class KB_Person {
     private final String name;
     // 'm' for male; 'f' for female;
     private final char gender;
+    private final int age;
     // list for parents
     private ArrayList<KB_Person> parents;
 
-    public KB_Person(int id, String name, char gender){
+    public KB_Person(int id, String name, char gender, int age){
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.parents = new ArrayList<KB_Person>();
-
+        this.age = age;
     }
 
     public int getId() {
@@ -38,6 +39,10 @@ public class KB_Person {
 
     public char getGender() {
         return gender;
+    }
+
+    public int getAge(){
+        return age;
     }
 
     public ArrayList<KB_Person> getParents() {
@@ -60,6 +65,7 @@ public class KB_Person {
         return "Person ID: " + this.id + "\n" +
                 "Name: " + this.name + "\n" +
                 "Gender: " + this.gender + "\n" +
-                "Parents: " + parentString + "\n";
+                "Parents: " + parentString +
+                "\nAge: "+this.age+"\n";
     }
 }

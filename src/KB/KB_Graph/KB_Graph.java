@@ -38,8 +38,8 @@ public class KB_Graph {
         }
     }
 
-    public void createPerson(int id, String name, char gender) {
-        this.addPerson(new KB_Person(id, name, gender));
+    public void createPerson(int id, String name, char gender, int age) {
+        this.addPerson(new KB_Person(id, name, gender, age));
     }
 
     public void createGenotype(int id, int person_id, String gene_id, String gene_name, String mutated, String autosomal_type) {
@@ -54,16 +54,12 @@ public class KB_Graph {
         this.addNode(new Symptom(id, person_id, symptom_id, symptom_name, degree));
     }
 
-    public void createTestResult(int id, int person_id, boolean result){
-        this.addNode(new TestResult(id, person_id, result));
+    public void createTest(int id, int person_id, String testType, boolean result){
+        this.addNode(new Test(id, person_id, testType, result));
     }
 
-    public void createTestType(int id, int person_id, String testType){
-        this.addNode(new TestType(id, person_id, testType));
-    }
-
-    public void createPhysiology(int id, int person_id, String phyType){
-        this.addNode(new Physiology(id, person_id, phyType));
+    public void createPhysiology(int id, int person_id, String location, String description){
+        this.addNode(new Physiology(id, person_id, location, description));
     }
     public void createInfluenceArc(String type, int parentNodeID, int childNodeID) {
         // will throw outOfBoundsException of findKB_NodeIndex returns -1.
