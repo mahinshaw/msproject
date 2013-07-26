@@ -38,9 +38,7 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 	boolean isBranch;
 
     //CHANGES- Tobey 7/25/13
-    private ArrayList<ArgStructure.Node> argList;
     private ArrayList<ArgStructure> argStructureArrayList;
-    private ArgStructure argStructure;
 
 	public EdgeController(ApplicationController ac) {
 		argumentCount = 0;
@@ -54,8 +52,6 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 
         //CHANGES- Tobey 7/25/13
         argStructureArrayList = new ArrayList<ArgStructure>();
-        argList = new ArrayList<ArgStructure.Node>();
-        argStructure = ArgStructure.create();
 	}
 
 	private void setApplicationController(ApplicationController ac) {
@@ -421,7 +417,6 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 
 
         for (Argument argument : arguments) {
-            argStructure.clear();
 			// TITLE
 			String argumentType = "";
 			if (argument.getArgumentType() == Argument.ArgumentType.PRO) {
@@ -435,7 +430,7 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 			output.add(argument.getID() + " (" + argumentType + ")" + " consists of");
 			output.add("");
 			output.add("Conclusion: " + argument.getTarget().getID() + ": " + argument.getTarget().getText());
-            argStructure.insertNewNode(argument.getTarget().getTextNode());
+            argument.getArgStructure().insertNewNode(argument.getTarget().getTextNode());
 
 			// SOURCE CONJUNCTION TODO
 			if (argument.getSource() instanceof Conjunction) {
@@ -446,7 +441,7 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 					if (i == 0)
 						output.add("");
 					output.add("" + s.getID() + ": " + s.getText());
-                    argStructure.insertNewNode(s.getTextNode());
+                    argument.getArgStructure().insertNewNode(s.getTextNode());
 					if (i < conjunctionStatements.size() - 1) {
 						output.add("AND");
 					}
@@ -461,7 +456,7 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 				}
 				output.add("");
 				output.add("" + s.getID() + ": " + s.getText());
-                argStructure.insertNewNode(s.getTextNode());
+                argument.getArgStructure().insertNewNode(s.getTextNode());
 			}
 
 			// /WARRANTS -- MAY BE CONJUNCTIONS OR STATEMENTS
@@ -476,7 +471,7 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 						if (i == 0)
 							output.add("");
 						output.add("" + s.getID() + ": " + s.getText());
-                        argStructure.insertNewNode(s.getTextNode());
+                        argument.getArgStructure().insertNewNode(s.getTextNode());
 						if (i < conjunctionBranches.size() - 1) {
 							output.add("AND");
 						}
@@ -486,19 +481,19 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 					Statement s = (Statement) w.getSource();
 					output.add("");
 					output.add("" + s.getID() + ": " + s.getText());
-                    argStructure.insertNewNode(s.getTextNode());
+                    argument.getArgStructure().insertNewNode(s.getTextNode());
 				} else if(w.getSource() instanceof MultiGeneralizationModel) {
 					MultiGeneralizationModel mgm = (MultiGeneralizationModel) w.getSource();
 					for(Statement g : mgm.getGeneralizations()) {
 						output.add("");
 						output.add(g.getID() + ": " + g.getText());
-                        argStructure.insertNewNode(g.getTextNode());
+                        argument.getArgStructure().insertNewNode(g.getTextNode());
 					}
 				} else {
 					throw new NotImplementedException();
 				}
 			}
-            argStructureArrayList.add(argStructure);
+            argStructureArrayList.add(argument.getArgStructure());
 
 		}
 		String s[] = new String[output.size()];
@@ -924,10 +919,6 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 	}
 
     //CHANGES- Tobey 7/25/13
-    public ArrayList<ArgStructure.Node> getFinalArgument(){
-        return argList;
-    }
-
     public ArrayList getArgStructureArrayList(){
         return argStructureArrayList;
     }

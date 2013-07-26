@@ -47,34 +47,41 @@ public class XMLWriter {
             // append the question to the session
             Element question = document.createElement("Question");
             session.appendChild(question);
-            //question.appendChild(document.createTextNode(argArray.get(index).getQuestions().get(qIndex)));
+            if (!argArray.get(index).getQuestions().isEmpty()){
+                question.appendChild(document.createTextNode(argArray.get(index).getQuestions().get(qIndex)));
+            }
+            else {
+                question.appendChild(document.createTextNode("No question was passed."));
+            }
 
-            Element argument = document.createElement("Argument");
-            Attr argIndex = document.createAttribute("arg");
-            Element hypothesis = document.createElement("Hypothesis");
-            Element data = document.createElement("Data");
-            Element generalization = document.createElement("Generalization");
-
-            for (int i =0; i < argArray.size(); i++){
+            for (int i =0; i < argCount; i++){
                 // append argument
-                argIndex.setValue(Integer.toString(i));
+                Element argument = document.createElement("Argument");
+                Attr argIndex = document.createAttribute("arg");
                 argument.setAttributeNode(argIndex);
+                argIndex.setValue(Integer.toString(i));
                 session.appendChild(argument);
 
                 // append hypothesis to argument as children
                 for (ArgStructure.Node hyp : argArray.get(i).getHypothesisList()){
+                    Element hypothesis = document.createElement("Hypothesis");
+                    System.out.println("Hyp node id: "+hyp.getNode_id());
                     hypothesis.appendChild(document.createTextNode("Node " + hyp.getNode_id()));
                     argument.appendChild(hypothesis);
                 }
 
                 // append data to argument as children
                 for (ArgStructure.Node dat : argArray.get(i).getDataList()){
+                    Element data = document.createElement("Data");
+                    System.out.println("Dat node id: "+dat.getNode_id());
                     data.appendChild(document.createTextNode("Node " + dat.getNode_id()));
                     argument.appendChild(data);
                 }
 
                 // append generalizations to argument as children
                 for (ArgStructure.Node gen : argArray.get(i).getGeneralizationList()){
+                    Element generalization = document.createElement("Generalization");
+                    System.out.println("Gen node id: "+gen.getNode_id());
                     generalization.appendChild(document.createTextNode("Node " + gen.getNode_id()));
                     argument.appendChild(generalization);
                 }
