@@ -65,24 +65,39 @@ public class XMLWriter {
                 // append hypothesis to argument as children
                 for (ArgStructure.Node hyp : argArray.get(i).getHypothesisList()){
                     Element hypothesis = document.createElement("Hypothesis");
+                    Element node = document.createElement("Node");
+                    Element text = document.createElement("Text");
                     System.out.println("Hyp node id: "+hyp.getNode_id());
-                    hypothesis.appendChild(document.createTextNode("Node " + hyp.getNode_id()));
+                    node.appendChild(document.createTextNode("Node " + hyp.getNode_id()));
+                    text.appendChild(document.createTextNode("Node " + hyp.getText()));
+                    hypothesis.appendChild(node);
+                    hypothesis.appendChild(text);
                     argument.appendChild(hypothesis);
                 }
 
                 // append data to argument as children
                 for (ArgStructure.Node dat : argArray.get(i).getDataList()){
                     Element data = document.createElement("Data");
+                    Element node = document.createElement("Node");
+                    Element text = document.createElement("Text");
                     System.out.println("Dat node id: "+dat.getNode_id());
-                    data.appendChild(document.createTextNode("Node " + dat.getNode_id()));
+                    node.appendChild(document.createTextNode("Node " + dat.getNode_id()));
+                    text.appendChild(document.createTextNode("Node " + dat.getText()));
+                    data.appendChild(node);
+                    data.appendChild(text);
                     argument.appendChild(data);
                 }
 
                 // append generalizations to argument as children
                 for (ArgStructure.Node gen : argArray.get(i).getGeneralizationList()){
                     Element generalization = document.createElement("Generalization");
+                    Element node = document.createElement("Node");
+                    Element text = document.createElement("Text");
                     System.out.println("Gen node id: "+gen.getNode_id());
-                    generalization.appendChild(document.createTextNode("Node " + gen.getNode_id()));
+                    node.appendChild(document.createTextNode("Node " + gen.getNode_id()));
+                    text.appendChild(document.createTextNode("Node " + gen.getText()));
+                    generalization.appendChild(node);
+                    generalization.appendChild(text);
                     argument.appendChild(generalization);
                 }
             }
