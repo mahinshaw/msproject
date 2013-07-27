@@ -10,8 +10,8 @@ import java.util.ArrayList;
 /**
  * User: Tshering Tobgay
  * Date: 7/19/13
- * Get data from XML file and output to GUI.
  * Get data from XML file and add to ArgStructure
+ * Date from ArgStructur to GAIL
  */
 public class xmlReader {
 
