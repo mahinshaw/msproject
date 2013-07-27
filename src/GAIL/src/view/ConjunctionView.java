@@ -55,8 +55,8 @@ public class ConjunctionView extends NodeView implements MouseListener, MouseMot
 		BufferedImage xImg = null;
 		BufferedImage qImg = null;
 		try {
-			xImg = ImageIO.read(new File("image/xwhite.png"));
-			qImg = ImageIO.read(new File("image/qwhite.png"));
+			xImg = ImageIO.read(new File("src/GAIL/image/xwhite.png"));
+			qImg = ImageIO.read(new File("src/GAIL/image/qwhite.png"));
 		} catch (IOException de) {
 		}
 		textLabel = new JLabel("  " + ID + "  ");
