@@ -87,7 +87,6 @@ public class KB_Graph {
             parent = nodelist.get(findKB_NodeIndex(parentNodeIDs[i]));
             parents.add(parent);
         }
-        System.out.println("Number of parents: " + parents.size());
 
         //add the arc to all the parent nodes
         for (KB_Node node : parents) {

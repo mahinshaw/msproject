@@ -17,21 +17,12 @@ public class TestDriver {
         graph.createPerson(2, "Dad", 'm', 33);
         graph.createPerson(3, "JB", 'm', 2);
         graph.createPerson(4, "Brother", 'm', 3);
-<<<<<<< HEAD
-        graph.createGenotype(1, 1, "1", "CF", "false", "autosomeType", "Cystic F.");
-        graph.createGenotype(2, 2, "1", "CF", "false", "autosomeType", "Cystic F.");
-        graph.createGenotype(3, 3, "1", "CF", "true", "autosomeType", "Cystic F.");
-        graph.createGenotype(4, 4, "1", "CF", "true", "autosomeType", "Cystic F.");
-       // graph.createBiochemistry(5, 3, "2", "CF Protein", false, "2");
-       // graph.createBiochemistry(6, 4, "2", "CF Protein", false, "2");
-        //graph.createSymptom(7, 3, "3", "Fluid in Lungs", "severe");
-=======
 
         // Nodes
-        graph.createGenotype(1, 1, "1", "CF", "false", "recessive");
-        graph.createGenotype(2, 2, "1", "CF", "false", "recessive");
-        graph.createGenotype(3, 3, "1", "CF", "true", "recessive");
-        graph.createGenotype(7, 4, "1", "CF", "true", "autosomeType");
+        graph.createGenotype(1, 1, "1", "CF", "false", "recessive", "CF");
+        graph.createGenotype(2, 2, "1", "CF", "false", "recessive", "CF");
+        graph.createGenotype(3, 3, "1", "CF", "true", "recessive", "CF");
+        graph.createGenotype(7, 4, "1", "CF", "true", "autosomeType", "CF");
         graph.createBiochemistry(4, 3, "2", "CF Protein", false, "2");
         graph.createSymptom(5, 3, "3", "Fluid in Lungs", "severe");
         graph.createSymptom(8, 2, "3", "Upper Resp Inf", "none");
@@ -40,7 +31,6 @@ public class TestDriver {
         graph.createPhysiology(11, 3, "lungs", "thickened mucus");
 
         //arcs
->>>>>>> graph
         int[] ids = {1, 2};
         graph.createSynergyArc("X0", 3, ids);
         graph.createSynergyArc("X0", 7, ids);
