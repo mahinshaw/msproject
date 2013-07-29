@@ -70,7 +70,7 @@ public class KB_Graph {
     }
 
     /**
-     * CHANGED: Disabled function to find all parent nodes for now - Tobey
+     *
      * @param type
      * @param childNodeID
      * @param parentNodeIDs
@@ -82,22 +82,17 @@ public class KB_Graph {
         ArrayList<KB_Node> parents = new ArrayList<KB_Node>();
 
         // find all the parent nodes by nodeID
-        /*int ids = 0;
-        for(int i : parentNodeIDs){
-            parent = nodelist.get(findKB_NodeIndex(parentNodeIDs[i-1]));
-            if (parents.add(parent)){
-                ids++;
-            }
-            if (ids >= parentNodeIDs.length) { break; }
-        }   */
+        int ids = 0;
+        for(int i = 0; i < parentNodeIDs.length; i++){
+            parent = nodelist.get(findKB_NodeIndex(parentNodeIDs[i]));
+            parents.add(parent);
+        }
+        System.out.println("Number of parents: " + parents.size());
 
         //add the arc to all the parent nodes
         for (KB_Node node : parents) {
             node.addArc(new Synergy_Arc(type, parents, child));
         }
-
-        // add the arc to the child node
-        child.addArc(new Synergy_Arc(type, parents, child));
     }
 
     public int findKB_NodeIndex(int node_id){
