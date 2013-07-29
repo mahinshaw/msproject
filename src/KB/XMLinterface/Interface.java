@@ -36,7 +36,7 @@ public class Interface {
 
                 boolean person_name = false, gender = false, gene_id = false, gene_name = false, mutated = false, description = false;
                 boolean autosomal_type = false, protein_id = false, protein_name = false, normal = false, quantity = false, location = false;
-                boolean symptom_id = false, symptom_name = false, degree = false, influence_type = false, influence_parent = false;
+                boolean symptom_id = false, symptom_name = false, degree = false, influence_type = false, influence_parent = false, disease = false;
                 boolean influence_child = false, type = false, child = false, parent = false, age = false, testName = false, testResult = false;
                 int count = 0, size = 0;
 
@@ -71,6 +71,10 @@ public class Interface {
                     }
                     if (name.equalsIgnoreCase("autosomal_type")) {
                         autosomal_type = true;
+                    }
+
+                    if (name.equalsIgnoreCase("disease")){
+                        disease = true;
                     }
 
                     if (name.equalsIgnoreCase("biochemistry")) {
@@ -185,6 +189,10 @@ public class Interface {
                     if (autosomal_type) {
                         addVar(new String(c, start, length));
                         autosomal_type = false;
+                    }
+                    if (disease){
+                        addVar(new String(c, start, length));
+                        disease = false;
                         print(2);
                     }
                     if (protein_id) {
@@ -296,15 +304,15 @@ public class Interface {
                                 size = 0;
                                 break;
                             case 2: graph.createGenotype(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
-                                    getArray().get(++size), getArray().get(++size), getArray().get(++size), getArray().get(++size));
+                                    getArray().get(++size), getArray().get(++size), getArray().get(++size), getArray().get(++size), getArray().get(++size));
                                  size = 0;
                                 break;
                             case 3: graph.createBiochemistry(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
-                                    getArray().get(++size), getArray().get(+size), Boolean.parseBoolean(getArray().get(++size)), getArray().get(++size));
+                                    getArray().get(++size), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)), getArray().get(++size));
                                 size =0;
                                 break;
                             case 4: graph.createSymptom(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
-                                    getArray().get(++size), getArray().get(+size), getArray().get(++size));
+                                    getArray().get(++size), getArray().get(++size), getArray().get(++size));
                                 size = 0;
                                 break;
                             case 5: graph.createInfluenceArc(getArray().get(size), Integer.parseInt(getArray().get(++size)), Integer.parseInt(getArray().get(++size)));

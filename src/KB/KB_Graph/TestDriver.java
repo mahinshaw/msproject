@@ -16,10 +16,10 @@ public class TestDriver {
         graph.createPerson(2, "Dad", 'm', 33);
         graph.createPerson(3, "JB", 'm', 2);
         graph.createPerson(4, "Brother", 'm', 3);
-        graph.createGenotype(1, 1, "1", "CF", "false", "autosomeType");
-        graph.createGenotype(2, 2, "1", "CF", "false", "autosomeType");
-        graph.createGenotype(3, 3, "1", "CF", "true", "autosomeType");
-        graph.createGenotype(4, 4, "1", "CF", "true", "autosomeType");
+        graph.createGenotype(1, 1, "1", "CF", "false", "autosomeType", "Cystic F.");
+        graph.createGenotype(2, 2, "1", "CF", "false", "autosomeType", "Cystic F.");
+        graph.createGenotype(3, 3, "1", "CF", "true", "autosomeType", "Cystic F.");
+        graph.createGenotype(4, 4, "1", "CF", "true", "autosomeType", "Cystic F.");
        // graph.createBiochemistry(5, 3, "2", "CF Protein", false, "2");
        // graph.createBiochemistry(6, 4, "2", "CF Protein", false, "2");
         //graph.createSymptom(7, 3, "3", "Fluid in Lungs", "severe");

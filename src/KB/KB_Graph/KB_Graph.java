@@ -42,8 +42,8 @@ public class KB_Graph {
         this.addPerson(new KB_Person(id, name, gender, age));
     }
 
-    public void createGenotype(int id, int person_id, String gene_id, String gene_name, String mutated, String autosomal_type) {
-        this.addNode(new Genotype(id, person_id, gene_id, gene_name, mutated, autosomal_type));
+    public void createGenotype(int id, int person_id, String gene_id, String gene_name, String mutated, String autosomal_type, String disease) {
+        this.addNode(new Genotype(id, person_id, gene_id, gene_name, mutated, autosomal_type, disease));
     }
 
     public void createBiochemistry(int id, int person_id, String protein_id, String protein_name, boolean normal, String quantity) {
