@@ -200,16 +200,6 @@
             </physiology>
         </KB_Node>
         <KB_Arc>
-            <influence_arc arc_id="1">
-                <influence_type>+</influence_type>
-                <influence_parent>1</influence_parent>
-                <influence_child>3</influence_child>
-            </influence_arc>
-            <influence_arc arc_id="2">
-                <influence_type>+</influence_type>
-                <influence_parent>2</influence_parent>
-                <influence_child>3</influence_child>
-            </influence_arc>
             <influence_arc arc_id="3">
                 <influence_type>+</influence_type>
                 <influence_parent>3</influence_parent>
@@ -239,16 +229,6 @@
                 <influence_type>+</influence_type>
                 <influence_parent>1</influence_parent>
                 <influence_child>9</influence_child>
-            </influence_arc>
-            <influence_arc arc_id="9">
-                <influence_type>+</influence_type>
-                <influence_parent>1</influence_parent>
-                <influence_child>7</influence_child>
-            </influence_arc>
-            <influence_arc arc_id="10">
-                <influence_type>+</influence_type>
-                <influence_parent>2</influence_parent>
-                <influence_child>7</influence_child>
             </influence_arc>
             <synergy_arc_set syn_id="2">
                 <type>X0</type>
