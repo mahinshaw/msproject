@@ -134,5 +134,12 @@ public class KB_Graph {
 
         return str.toString();
     }
+
+    // this method is intended to clear flags in nodelist - set them to false
+    public void clearFlags(){
+        for (KB_Node node : nodelist){
+            node.setFlag(false);
+        }
+    }
 }
 
