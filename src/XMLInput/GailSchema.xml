@@ -171,7 +171,7 @@
             </genotype>
             <biochemistry node_id="4" person_id="3" certainty="">
                 <protein_id>FLAG</protein_id>
-                <protein_name>CF</protein_name>
+                <protein_name>CFTR</protein_name>
                 <normal>false</normal>
                 <quantity>normal</quantity>
             </biochemistry>
