@@ -16,14 +16,15 @@ import java.util.ArrayList;
  */
 public class Interface {
     private KB_Graph graph;
+    private String file;
 
-    protected Interface(String f){
-       xmlInterface(f);
+    public Interface(String file){
+        this.file = file;
+        this.graph = new KB_Graph();
+        xmlInterface();
     }
 
-    private void xmlInterface(String f){
-
-        setGraph();
+    private void xmlInterface(){
 
         try {
             SAXParserFactory parserFactory;
@@ -59,6 +60,7 @@ public class Interface {
                     if (name.equalsIgnoreCase("genotype")) {
                         addVar(attribute.getValue("node_id"));
                         addVar(attribute.getValue("person_id"));
+                        addVar("H");
                     }
                     if (name.equalsIgnoreCase("gene_id")) {
                         gene_id = true;
@@ -80,6 +82,7 @@ public class Interface {
                     if (name.equalsIgnoreCase("biochemistry")) {
                         addVar(attribute.getValue("node_id"));
                         addVar(attribute.getValue("person_id"));
+                        addVar("G");
                     }
                     if (name.equalsIgnoreCase("protein_id")) {
                         protein_id = true;
@@ -96,6 +99,7 @@ public class Interface {
                     if (name.equalsIgnoreCase("symptom")) {
                         addVar(attribute.getValue("node_id"));
                         addVar(attribute.getValue("person_id"));
+                        addVar("D");
                     }
                     if (name.equalsIgnoreCase("symptom_id")) {
                         symptom_id = true;
@@ -128,6 +132,7 @@ public class Interface {
                     if (name.equalsIgnoreCase("test")){
                         addVar(attribute.getValue("node_id"));
                         addVar(attribute.getValue("person_id"));
+                        addVar("D");
                     }
 
                     if (name.equalsIgnoreCase("testName")){
@@ -141,6 +146,7 @@ public class Interface {
                     if (name.equalsIgnoreCase("physiology")){
                         addVar(attribute.getValue("node_id"));
                         addVar(attribute.getValue("person_id"));
+                        addVar("G");
                     }
 
                     if (name.equalsIgnoreCase("bodyLocation")){
@@ -303,15 +309,15 @@ public class Interface {
                             case 1: graph.createPerson(Integer.parseInt(getArray().get(size)), getArray().get(++size), getArray().get(++size).charAt(0),Integer.parseInt(getArray().get(++size)));
                                 size = 0;
                                 break;
-                            case 2: graph.createGenotype(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
+                            case 2: graph.createGenotype(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0),
                                     getArray().get(++size), getArray().get(++size), getArray().get(++size), getArray().get(++size), getArray().get(++size));
                                  size = 0;
                                 break;
-                            case 3: graph.createBiochemistry(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
+                            case 3: graph.createBiochemistry(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0),
                                     getArray().get(++size), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)), getArray().get(++size));
                                 size =0;
                                 break;
-                            case 4: graph.createSymptom(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
+                            case 4: graph.createSymptom(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0),
                                     getArray().get(++size), getArray().get(++size), getArray().get(++size));
                                 size = 0;
                                 break;
@@ -327,11 +333,11 @@ public class Interface {
                                 size = 0;
                                 break;
                             case 7:
-                                graph.createTest(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)));
+                                graph.createTest(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)));
                                 size = 0;
                                 break;
                             case 8:
-                                graph.createPhysiology(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size), getArray().get(++size));
+                                graph.createPhysiology(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0), getArray().get(++size), getArray().get(++size));
                                 size = 0;
                                 break;
                         }
@@ -339,7 +345,7 @@ public class Interface {
                 }
             };
 
-            saxParser.parse(f, handler);
+            saxParser.parse(file, handler);
 
 
         } catch (Exception e) {
@@ -347,11 +353,7 @@ public class Interface {
         }
     }
 
-    private void setGraph() {
-        graph = new KB_Graph();
-    }
-
-    protected KB_Graph getGraph(){
+    public KB_Graph getGraph(){
         return graph;
     }
 }

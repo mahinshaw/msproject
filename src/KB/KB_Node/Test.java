@@ -9,8 +9,8 @@ public class Test extends KB_Node{
     private String testType;
     private boolean result;
 
-    public Test(int id, int person_id, String testType, boolean result) {
-        super(id, person_id);
+    public Test(int id, int person_id, char type, String testType, boolean result) {
+        super(id, person_id, type);
         this.testType = testType;
         this.result = result;
     }

@@ -9,8 +9,8 @@ public class Physiology extends KB_Node {
     private String location;
     private String description;
 
-    public Physiology(int id, int person_id, String location, String description){
-        super(id, person_id);
+    public Physiology(int id, int person_id, char type, String location, String description){
+        super(id, person_id, type);
         this.location = location;
         this.description = description;
     }

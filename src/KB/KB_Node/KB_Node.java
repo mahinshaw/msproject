@@ -14,6 +14,7 @@ public class KB_Node {
     private final int id;
     private int person_id;
     private String certainty;
+    private char type;
 
     // list of Arcs(Edges) - only initialized in constructor.
     private ArrayList<KB_Arc> arcs;
@@ -21,12 +22,13 @@ public class KB_Node {
     // flag will be used for argument generator - initialized as false - true of added.
     private boolean flag;
 
-    public KB_Node(int id, int person_id) {
+    public KB_Node(int id, int person_id, char type) {
         this.id = id;
         this.person_id = person_id;
         this.certainty = null;
         this.arcs = new ArrayList<KB_Arc>();
         this.flag = false;
+        this.type = type;
     }
 
     public int getId(){
@@ -59,6 +61,10 @@ public class KB_Node {
         return flag;
     }
 
+    public char getType(){
+        return type;
+    }
+
     public void setFlag(boolean f){
         this.flag = f;
     }
@@ -77,6 +83,7 @@ public class KB_Node {
 
     public String toString(){
         return "Node ID: " + this.id + "\n" +
+                "Node Type: "+this.type+ "\n"+
                 "Person ID: " + this.person_id + "\n" +
                 "Certainty: " + this.certainty + "\n";
     }

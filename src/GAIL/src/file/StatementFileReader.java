@@ -3,8 +3,10 @@ package GAIL.src.file;
 import java.io.File;
 import java.util.ArrayList;
 
+import ArgGen.ArgBuilder;
 import GAIL.src.XMLHandler.xmlReader;
 import GAIL.src.controller.StatementController;
+import KB.XMLinterface.Interface;
 
 public class StatementFileReader {
 
@@ -12,9 +14,11 @@ public class StatementFileReader {
 	private final char DELIMETER = '@';      */
 	private final String FOLDER = "src/XMLInput/";
 	StatementController statementController;
+    ArgBuilder argBuilder;
     xmlReader reader;
+    Interface xmlInterface;
 
-	public StatementFileReader(StatementController statementController) {
+    public StatementFileReader(StatementController statementController) {
         this.statementController = statementController;
 	}
 
@@ -26,6 +30,10 @@ public class StatementFileReader {
          */
         reader = new xmlReader(FOLDER+fileName);
         reader.readFile();
+        xmlInterface = new Interface(FOLDER+fileName);
+
+        //TODO Test for ArgGen- Tobey 8/2/2013
+        argBuilder = new ArgBuilder(xmlInterface.getGraph(), xmlInterface.getGraph().getNodelist().get(2));
 
         //TODO Object file transfers. Empty ArrayList for now - Tobey
         ArrayList<String> problemText = new ArrayList<String>(reader.getProblemText());
@@ -81,6 +89,7 @@ public class StatementFileReader {
 
 	//statementController.setText(problemText, hypothText, dataText, genText);
       statementController.setText(reader.getArg());
+
 
     }
 
