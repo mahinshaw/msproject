@@ -86,6 +86,6 @@ public class KB_Node {
         for (KB_Arc arc : arcs){
             aList += arc.getChild().getId() + " ";
         }
-        return  "List of adjacent nodes: " + aList + "\n";
+        return  "List of child(ren): " + aList + "\n";
     }
 }

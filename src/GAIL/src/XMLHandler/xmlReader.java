@@ -62,7 +62,7 @@ public class xmlReader {
 
             if (nodeN.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) nodeN;
-                arg.insertNewNode(Integer.parseInt(element.getAttribute(nodeID)), element.getTextContent(), argType);
+                arg.insertNewNode(element.getAttribute(nodeID), element.getTextContent(), argType);
             }
         }
     }

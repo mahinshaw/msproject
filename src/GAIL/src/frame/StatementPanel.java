@@ -88,9 +88,9 @@ public class StatementPanel extends JPanel {
 
         ArgStructure.Node textNode;
 		TextPane textPane;
-		String text;
+		String text, node_id;
         char argType;
-        int node_id, id;
+        int id;
 
 		public StatementUnit(ArgStructure.Node textNode) {
 			String name = "";
@@ -158,7 +158,7 @@ public class StatementPanel extends JPanel {
 			return text;
 		}
 
-        public int getNodeID(){
+        public String getNodeID(){
             return node_id;
         }
 

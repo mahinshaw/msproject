@@ -103,13 +103,13 @@
         <data datum="d4" node_id="8">J.B.'s father does not have a history of respiratory problems.</data>
         <data datum="d5" node_id="10">Test result: J.B.'s chloride level is 75 mmol/L.</data>
         <data datum="d6" node_id="7">J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.</data>
-        <generalizations gen="g1" node_id="4">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, it cannot perform its normal function.</generalizations>
-        <generalizations gen="g2" node_id="11">People with CFTR gene dysfunction often have viscous secretions in the lungs, which provides a medium for growth of bacteria, and which may result in frequent respiratory infections.</generalizations>
+        <generalizations gen="g1" node_id="I1">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, it cannot perform its normal function.</generalizations>
+        <generalizations gen="g2" node_id="I3">People with CFTR gene dysfunction often have viscous secretions in the lungs, which provides a medium for growth of bacteria, and which may result in frequent respiratory infections.</generalizations>
         <generalizations gen="g3" node_id="200">Dysfunction of CFTR may affect the pancreas. Pancreatic abnormality may result in malnutrition and poor growth.</generalizations>
-        <generalizations gen="g4" node_id="4">Cystic fibrosis is inherited in an autosomal recessive manner, which means that an individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one from the father.</generalizations>
+        <generalizations gen="g4" node_id="S1">Cystic fibrosis is inherited in an autosomal recessive manner, which means that an individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one from the father.</generalizations>
         <generalizations gen="g5" node_id="200">If one parent is a carrier (has one copy of the mutation) and the other parent has no copies of the mutation, each offspring has a 25 percent chance of being a carrier.</generalizations>
         <generalizations gen="g6" node_id="200">Although cystic fibrosis classically manifests in early childhood, approximately 4 percent of patients are diagnosed in adulthood.</generalizations>
-        <generalizations gen="g7" node_id="6">In the absence of functional CFTR, sweat has an increased sodium chloride content. Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).</generalizations>
+        <generalizations gen="g7" node_id="I2">In the absence of functional CFTR, sweat has an increased sodium chloride content. Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).</generalizations>
     </ui>
     <genie>
         <KB_Node>
@@ -200,43 +200,43 @@
             </physiology>
         </KB_Node>
         <KB_Arc>
-            <influence_arc arc_id="3">
+            <influence_arc arc_id="I1">
                 <influence_type>+</influence_type>
                 <influence_parent>3</influence_parent>
                 <influence_child>4</influence_child>
             </influence_arc>
-            <influence_arc arc_id="4">
+            <influence_arc arc_id="I2">
                 <influence_type>+</influence_type>
                 <influence_parent>4</influence_parent>
                 <influence_child>10</influence_child>
             </influence_arc>
-            <influence_arc arc_id="5">
+            <influence_arc arc_id="I3">
                 <influence_type>+</influence_type>
                 <influence_parent>4</influence_parent>
                 <influence_child>11</influence_child>
             </influence_arc>
-            <influence_arc arc_id="6">
+            <influence_arc arc_id="I4">
                 <influence_type>+</influence_type>
                 <influence_parent>11</influence_parent>
                 <influence_child>5</influence_child>
             </influence_arc>
-            <influence_arc arc_id="7">
+            <influence_arc arc_id="I5">
                 <influence_type>+</influence_type>
                 <influence_parent>2</influence_parent>
                 <influence_child>8</influence_child>
             </influence_arc>
-            <influence_arc arc_id="8">
+            <influence_arc arc_id="I6">
                 <influence_type>+</influence_type>
                 <influence_parent>1</influence_parent>
                 <influence_child>9</influence_child>
             </influence_arc>
-            <synergy_arc_set syn_id="2">
+            <synergy_arc_set syn_id="S1">
                 <type>X0</type>
                 <child>3</child>
                 <parent>1</parent>
                 <parent>2</parent>
             </synergy_arc_set>
-            <synergy_arc_set syn_id="3">
+            <synergy_arc_set syn_id="S2">
                 <type>X0</type>
                 <child>7</child>
                 <parent>1</parent>

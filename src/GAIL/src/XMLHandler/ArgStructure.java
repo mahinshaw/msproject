@@ -65,12 +65,12 @@ public class ArgStructure {
     }
 
     //create a new node
-    private Node createNode(int node_id, String text, char argType){
+    private Node createNode(String node_id, String text, char argType){
         return new Node(this.index++, node_id, text, argType);
     }
 
     //create and insert a new node
-    public void insertNewNode(int node_id, String text, char argType){
+    public void insertNewNode(String node_id, String text, char argType){
         this.addNode(createNode(node_id, text, argType));
     }
 
@@ -131,11 +131,11 @@ public class ArgStructure {
     public class Node {
 
         private final int id;
-        private final int node_id;
+        private final String node_id;
         private final String text;
         private final char argType;
 
-        private Node(int id, int node_id, String text, char argType){
+        private Node(int id, String node_id, String text, char argType){
             this.id = id;
             this.node_id = node_id;
             this.text = text;
@@ -146,7 +146,7 @@ public class ArgStructure {
             return this.id;
         }
 
-        public int getNode_id() {
+        public String getNode_id() {
             return node_id;
         }
 
