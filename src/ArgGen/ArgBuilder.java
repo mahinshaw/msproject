@@ -4,6 +4,7 @@ import KB.KB_Graph.KB_Graph;
 import KB.KB_Node.KB_Node;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: Tshering Tobgay
@@ -13,9 +14,8 @@ public class ArgBuilder {
 
     private KB_Graph graph;
     private KB_Node rootNode;
-    private KB_Node dataNode;
-    private ArrayList<KB_Node> genNodes;
-    private ArrayList<KB_Node> argList;
+    private ArrayList<ArrayList<KB_Node>> pathList;
+    private E2C e2c;
     private final char HYPO;
     private final char DATA;
 
@@ -23,45 +23,27 @@ public class ArgBuilder {
     public ArgBuilder(KB_Graph graph, KB_Node rootNode) {
         this.graph = graph;
         this.rootNode = rootNode;
-        this.genNodes = new ArrayList<KB_Node>();
-        this.argList = new ArrayList<KB_Node>();
+        this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.HYPO = 'H';
         this.DATA = 'D';
+        e2c = new E2C(this.rootNode, this.DATA);
         findArgument();
     }
 
     public void findArgument() {
         if (checkHypo()) {
-            argList.add(E2C());
+            pathList = new ArrayList<ArrayList<KB_Node>>(e2c.getPathList());
         }
-    }
-
-    private KB_Node E2C() {
-     /*   if (rootNode.getChildren().isEmpty()) {
-            System.out.println("No children for:\n "+rootNode.toString());
-        } else{
-            for (KB_Node k : rootNode.getChildren()){
-                System.out.println("Children:\n "+k.toString());
+        /**
+         * Test output
+         */
+        System.out.println("Path for E2C");
+        for (List<KB_Node> n : pathList) {
+            for (KB_Node x : n) {
+                System.out.print(x.getId()+" ");
             }
-        }         */
-
-        traverseGraph(rootNode, argList);
-        for (KB_Node n : argList) {
-            System.out.println("--> " + n.toString() + "\n");
+            System.out.println("\n-----------");
         }
-
-
-        return null;  //To change body of created methods use File | Settings | File Templates.
-    }
-
-    private void traverseGraph(KB_Node root, ArrayList<KB_Node> pathList) {
-        pathList.add(root);
-        for (KB_Node n : root.getChildren()) {
-            if (!pathList.contains(n)) {
-                traverseGraph(n, pathList);
-            }
-        }
-
     }
 
     private boolean checkHypo() {
