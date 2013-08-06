@@ -11,8 +11,10 @@ public class ArgumentTree {
     private ArgumentTree leftChild;
     private ArgumentTree rightChild;
 
-    public ArgumentTree(Argument argument){
+    private ArgumentTree(Argument argument){
         this.root = argument;
+        this.leftChild = null;
+        this.rightChild = null;
     }
 
     public Argument getRoot(){
@@ -25,5 +27,33 @@ public class ArgumentTree {
 
     public ArgumentTree getRightChild(){
         return this.rightChild;
+    }
+
+    public void addSubArgument(Argument argument){
+        if (leftChild.equals(null) && !argument.isHypothesis()){
+            leftChild = createArgumentTree(argument);
+        }
+        else if (!argument.isHypothesis()){
+            rightChild = createArgumentTree(argument);
+        }
+        else {
+            System.out.println("The argument is a full argument");
+        }
+    }
+
+    public void addSubHypothesis(Argument argument){
+        if (leftChild.equals(null) && argument.isHypothesis()){
+            leftChild = createArgumentTree(argument);
+        }
+        else if (argument.isHypothesis()){
+            rightChild = createArgumentTree(argument);
+        }
+        else {
+            System.out.println("The argument is only a hypothesis.");
+        }
+    }
+
+    public static ArgumentTree createArgumentTree(Argument argument){
+        return new ArgumentTree(argument);
     }
 }

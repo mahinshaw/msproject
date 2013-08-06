@@ -42,12 +42,25 @@ public class Argument {
         return datum;
     }
 
+    public void addGeneralization(int arcID, String text){
+        this.generalizations.add(new Generalization(arcID, text));
+    }
+
     public String getTypeofArgument(){
         if(datum == null && generalizations.isEmpty()){
             return "Hypothesis only";
         }
         else {
             return "Full Argument";
+        }
+    }
+
+    public boolean isHypothesis(){
+        if (datum.equals(null) && generalizations.isEmpty()){
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
