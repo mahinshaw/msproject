@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Argument {
 
-    private final String ARGID;
+    private final int ARGID;
     private final Hypothesis hypothesis;
     private final List<Generalization> generalizations;
     private final Datum datum;
@@ -26,7 +26,7 @@ public class Argument {
         this.datum = builder.datum;
     }
 
-    public String getARGID() {
+    public int getARGID() {
         return ARGID;
     }
 
@@ -65,12 +65,12 @@ public class Argument {
     }
 
     public static class Builder {
-        private String argID;
+        private int argID;
         private Hypothesis hypothesis;
         private List<Generalization> generalizations = new ArrayList<Generalization>();
         private Datum datum = null;
 
-        public Builder setArgID(String argID){
+        public Builder setArgID(int argID){
             this.argID = argID;
             return this;
         }
@@ -85,7 +85,7 @@ public class Argument {
             return this;
         }
 
-        public Builder setDatum(int kbNodeID, String text){
+        public Builder setDatum(String kbNodeID, String text){
             this.datum = new Datum(kbNodeID, text);
             return this;
         }
@@ -98,7 +98,7 @@ public class Argument {
     public static class Hypothesis {
         private final String KBNODEID;
         private final String TEXT;
-        private final String TYPE = "Hypothesis";
+        private final char TYPE = 'H';
 
         public Hypothesis(String kbNodeID, String text){
             this.KBNODEID = kbNodeID;
@@ -113,7 +113,7 @@ public class Argument {
             return TEXT;
         }
 
-        public String getTYPE(){
+        public char getTYPE(){
             return TYPE;
         }
     }
@@ -121,7 +121,7 @@ public class Argument {
     public static class Generalization {
         private final String KBARCID;
         private final String TEXT;
-        private final String TYPE = "Generalization";
+        private final char TYPE = 'G';
 
         public Generalization(String kbArcID, String text){
             this.KBARCID = kbArcID;
@@ -136,22 +136,22 @@ public class Argument {
             return TEXT;
         }
 
-        public String getTYPE() {
+        public char getTYPE() {
             return TYPE;
         }
     }
 
     public static class Datum {
-        private final int KBNODEID;
+        private final String KBNODEID;
         private final String TEXT;
-        private final String TYPE = "Datum";
+        private final char TYPE = 'D';
 
-        public Datum(int kbNodeID, String text){
+        public Datum(String kbNodeID, String text){
             this.KBNODEID = kbNodeID;
             this.TEXT = text;
         }
 
-        public int getKBNODEID() {
+        public String getKBNODEID() {
             return KBNODEID;
         }
 
@@ -159,7 +159,7 @@ public class Argument {
             return TEXT;
         }
 
-        public String getTYPE() {
+        public char getTYPE() {
             return TYPE;
         }
     }
