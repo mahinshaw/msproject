@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Argument {
 
-    private final int ARGID;
+    private final String ARGID;
     private final Hypothesis hypothesis;
     private final List<Generalization> generalizations;
     private final Datum datum;
@@ -26,7 +26,7 @@ public class Argument {
         this.datum = builder.datum;
     }
 
-    public int getARGID() {
+    public String getARGID() {
         return ARGID;
     }
 
@@ -42,7 +42,7 @@ public class Argument {
         return datum;
     }
 
-    public void addGeneralization(int arcID, String text){
+    public void addGeneralization(String arcID, String text){
         this.generalizations.add(new Generalization(arcID, text));
     }
 
@@ -65,22 +65,22 @@ public class Argument {
     }
 
     public static class Builder {
-        private int argID;
+        private String argID;
         private Hypothesis hypothesis;
         private List<Generalization> generalizations = new ArrayList<Generalization>();
         private Datum datum = null;
 
-        public Builder setArgID(int argID){
+        public Builder setArgID(String argID){
             this.argID = argID;
             return this;
         }
 
-        public Builder setHypothesis(int kbNodeID, String text){
+        public Builder setHypothesis(String kbNodeID, String text){
             this.hypothesis = new Hypothesis(kbNodeID, text);
             return this;
         }
 
-        public Builder addGeneralization(int kbArcID, String text){
+        public Builder addGeneralization(String kbArcID, String text){
             this.generalizations.add(new Generalization(kbArcID, text));
             return this;
         }
@@ -96,16 +96,16 @@ public class Argument {
     }
 
     public static class Hypothesis {
-        private final int KBNODEID;
+        private final String KBNODEID;
         private final String TEXT;
         private final String TYPE = "Hypothesis";
 
-        public Hypothesis(int kbNodeID, String text){
+        public Hypothesis(String kbNodeID, String text){
             this.KBNODEID = kbNodeID;
             this.TEXT = text;
         }
 
-        public int getKBNODEID(){
+        public String getKBNODEID(){
             return KBNODEID;
         }
 
@@ -119,16 +119,16 @@ public class Argument {
     }
 
     public static class Generalization {
-        private final int KBARCID;
+        private final String KBARCID;
         private final String TEXT;
         private final String TYPE = "Generalization";
 
-        public Generalization(int kbArcID, String text){
+        public Generalization(String kbArcID, String text){
             this.KBARCID = kbArcID;
             this.TEXT = text;
         }
 
-        public int getKBARCID() {
+        public String getKBARCID() {
             return KBARCID;
         }
 
