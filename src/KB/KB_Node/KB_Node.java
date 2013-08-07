@@ -81,6 +81,10 @@ public class KB_Node {
         arcs.add(arc);
     }
 
+    public void setType(char type){
+        this.type = type;
+    }
+
     public String toString(){
         return "Node ID: " + this.id + "\n" +
                 "Node Type: "+this.type+ "\n"+

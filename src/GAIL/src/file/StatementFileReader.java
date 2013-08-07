@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import ArgGen.ArgBuilder;
+import ArgGen.ArgumentGenerator;
 import GAIL.src.XMLHandler.xmlReader;
 import GAIL.src.controller.StatementController;
 import KB.XMLinterface.Interface;
@@ -33,7 +34,8 @@ public class StatementFileReader {
         xmlInterface = new Interface(FOLDER+fileName);
 
         //TODO Test for ArgGen- Tobey 8/2/2013
-        argBuilder = new ArgBuilder(xmlInterface.getGraph(), xmlInterface.getGraph().getNodelist().get(2));
+        ArgumentGenerator argGen = new ArgumentGenerator(xmlInterface.getGraph(), xmlInterface.getGraph().getNodelist().get(2));
+        argGen.addArgument();
 
         //TODO Object file transfers. Empty ArrayList for now - Tobey
         ArrayList<String> problemText = new ArrayList<String>(reader.getProblemText());
