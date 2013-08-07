@@ -29,12 +29,20 @@ public class ArgumentTree {
         return this.rightChild;
     }
 
+    public boolean isEmptyChild(ArgumentTree tree){
+        if (tree == null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void addSubArgument(Argument argument){
-        if (leftChild.equals(null) && !argument.isHypothesis()){
-            leftChild = createArgumentTree(argument);
+        if (isEmptyChild(leftChild) && !argument.isHypothesis()){
+            this.leftChild = createArgumentTree(argument);
         }
         else if (!argument.isHypothesis()){
-            rightChild = createArgumentTree(argument);
+            this.rightChild = createArgumentTree(argument);
         }
         else {
             System.out.println("The argument is a full argument");

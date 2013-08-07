@@ -56,7 +56,7 @@ public class Argument {
     }
 
     public boolean isHypothesis(){
-        if (datum.equals(null) && generalizations.isEmpty()){
+        if (datum == null && generalizations.isEmpty()){
             return true;
         }
         else {
