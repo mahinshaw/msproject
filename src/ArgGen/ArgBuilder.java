@@ -20,30 +20,24 @@ public class ArgBuilder {
     private final char DATA;
 
 
-    public ArgBuilder(KB_Graph graph, KB_Node rootNode) {
+    public ArgBuilder(KB_Graph graph, KB_Node rootNode, char hypo, char data) {
         this.graph = graph;
         this.rootNode = rootNode;
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
-        this.HYPO = 'H';
-        this.DATA = 'D';
+        this.HYPO = hypo;
+        this.DATA = data;
         e2c = new E2C(this.rootNode, this.DATA);
-        findArgument();
     }
 
+    /**
+     * Method to find different arguments
+     */
     public void findArgument() {
+
         if (checkHypo()) {
             pathList = new ArrayList<ArrayList<KB_Node>>(e2c.getPathList());
         }
-        /**
-         * Test output
-         */
-        System.out.println("Path for E2C");
-        for (List<KB_Node> n : pathList) {
-            for (KB_Node x : n) {
-                System.out.print(x.getId()+" ");
-            }
-            System.out.println("\n-----------");
-        }
+
     }
 
     private boolean checkHypo() {
@@ -52,6 +46,10 @@ public class ArgBuilder {
             hold = false;
         }
         return hold;
+    }
+
+    public ArrayList<ArrayList<KB_Node>> getPathList(){
+        return pathList;
     }
 
 }

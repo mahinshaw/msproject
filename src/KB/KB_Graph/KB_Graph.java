@@ -143,11 +143,15 @@ public class KB_Graph {
     }
 
     /**
-     * Changes - Tobey
-     * @return nodeList
+     * Returns the ArcID between two nodes
+     * @param x
+     * @param y
+     * @return
      */
-    public ArrayList<KB_Node> getNodeList(){
-        return nodelist;
-    }
+   public String findArcID(KB_Node x, KB_Node y){
+
+
+       return null;
+   }
 }
 
