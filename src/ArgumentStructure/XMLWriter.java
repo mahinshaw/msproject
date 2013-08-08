@@ -55,33 +55,8 @@ public class XMLWriter {
                 argIndex.setValue(Integer.toString(tree.getRoot().getARGID()));
                 session.appendChild(argument);
 
+                // print arguments in each tree.
                 addArgument(document, argument, tree);
-
-//                // find out if the root is a hypothesis
-//                if (tree.getRoot().isHypothesis()) {
-//                    // if the root is a hypothesis, print hypothesis, then print left and right children as sub-arguments
-//                    Element hypothesis = document.createElement("Hypothesis");
-//                    Element subarg1 = document.createElement("SubArgument");
-//                    Element subarg2 = document.createElement("SubArgument");
-//                    Element node = document.createElement("Node");
-//                    Element text = document.createElement("Text");
-//                    node.appendChild(document.createTextNode("Node " + tree.getRoot().getHypothesis().getKBNODEID()));
-//                    text.appendChild(document.createTextNode("Text " + tree.getRoot().getHypothesis().getTEXT()));
-//                    hypothesis.appendChild(node);
-//                    hypothesis.appendChild(text);
-//                    argument.appendChild(hypothesis);
-//                    // append left child
-//                    addArgument(document, subarg1, tree.getLeftChild());
-//                    // append right child
-//                    addArgument(document, subarg2, tree.getRightChild());
-//                    hypothesis.appendChild(subarg1);
-//                    hypothesis.appendChild(subarg2);
-//
-//                } else {
-//                    // there should be no children.  Print the argument
-//                    addArgument(document, argument, tree);
-//                }
-
             }
 
             TransformerFactory tFactory = TransformerFactory.newInstance();
