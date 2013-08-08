@@ -47,7 +47,7 @@ public class Argument {
     }
 
     public String getTypeofArgument(){
-        if(datum == null && generalizations.isEmpty()){
+        if(datum == null){
             return "Hypothesis only";
         }
         else {
@@ -56,7 +56,7 @@ public class Argument {
     }
 
     public boolean isHypothesis(){
-        if (datum == null && generalizations.isEmpty()){
+        if (datum == null){
             return true;
         }
         else {
@@ -70,23 +70,23 @@ public class Argument {
         private List<Generalization> generalizations = new ArrayList<Generalization>();
         private Datum datum = null;
 
-        public Builder setArgID(int argID){
+        public Builder argID(int argID){
             this.argID = argID;
             return this;
         }
 
-        public Builder setHypothesis(String kbNodeID, String text){
-            this.hypothesis = new Hypothesis(kbNodeID, text);
+        public Builder hypothesis(Hypothesis hypothesis){
+            this.hypothesis = hypothesis;
             return this;
         }
 
-        public Builder addGeneralization(String kbArcID, String text){
-            this.generalizations.add(new Generalization(kbArcID, text));
+        public Builder generalizations(ArrayList<Generalization> generalizations){
+            this.generalizations = generalizations;
             return this;
         }
 
-        public Builder setDatum(String kbNodeID, String text){
-            this.datum = new Datum(kbNodeID, text);
+        public Builder datum(Datum datum){
+            this.datum = datum;
             return this;
         }
 

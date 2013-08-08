@@ -67,7 +67,7 @@ public class XMLWriter {
                     Element node = document.createElement("Node");
                     Element text = document.createElement("Text");
                     node.appendChild(document.createTextNode("Node " + tree.getRoot().getHypothesis().getKBNODEID()));
-                    text.appendChild(document.createTextNode("Node " + tree.getRoot().getHypothesis().getTEXT()));
+                    text.appendChild(document.createTextNode("Text " + tree.getRoot().getHypothesis().getTEXT()));
                     hypothesis.appendChild(node);
                     hypothesis.appendChild(text);
                     argument.appendChild(hypothesis);
@@ -106,7 +106,7 @@ public class XMLWriter {
         hNode.appendChild(document.createTextNode("Node " + tree.getRoot().getHypothesis().getKBNODEID()));
         hText.appendChild(document.createTextNode(tree.getRoot().getHypothesis().getTEXT()));
         hypothesis.appendChild(hNode);
-        hypothesis.appendChild(hNode);
+        hypothesis.appendChild(hText);
         element.appendChild(hypothesis);
 
         // append the generalizations to the element
