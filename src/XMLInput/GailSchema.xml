@@ -137,6 +137,7 @@
                 <age>3</age>
                 <family>1 2</family>
             </person>
+            <!-- Mother nodes -->
             <genotype node_id="1" person_id="1" certainty="">
                 <gene_id>FLAG</gene_id>
                 <gene_name>CFTR</gene_name>
@@ -145,7 +146,24 @@
                 <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
             </genotype>
-            <genotype node_id="2" person_id="2" certainty="">
+            <genotype node_id="2" person_id="1" certainty="">
+                <gene_id>FLAG</gene_id>
+                <gene_name>CFTR</gene_name>
+                <mutated>not 2</mutated>
+                <autosomal_type>recessive</autosomal_type>
+                <disease>Cystic Fibrosis</disease>
+                <cell>FLAG</cell>
+            </genotype>
+            <genotype node_id="3" person_id="1" certainty="">
+                <gene_id>FLAG</gene_id>
+                <gene_name>CFTR</gene_name>
+                <mutated>1 or 2</mutated>
+                <autosomal_type>recessive</autosomal_type>
+                <disease>Cystic Fibrosis</disease>
+                <cell>FLAG</cell>
+            </genotype>
+            <!-- Father nodes -->
+            <genotype node_id="4" person_id="2" certainty="">
                 <gene_id>FLAG</gene_id>
                 <gene_name>CFTR</gene_name>
                 <mutated>1</mutated>
@@ -153,7 +171,24 @@
                 <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
             </genotype>
-            <genotype node_id="3" person_id="3" certainty="">
+            <genotype node_id="5" person_id="2" certainty="">
+                <gene_id>FLAG</gene_id>
+                <gene_name>CFTR</gene_name>
+                <mutated>1 or 2</mutated>
+                <autosomal_type>recessive</autosomal_type>
+                <disease>Cystic Fibrosis</disease>
+                <cell>FLAG</cell>
+            </genotype>
+            <genotype node_id="6" person_id="2" certainty="">
+                <gene_id>FLAG</gene_id>
+                <gene_name>CFTR</gene_name>
+                <mutated>not 2</mutated>
+                <autosomal_type>recessive</autosomal_type>
+                <disease>Cystic Fibrosis</disease>
+                <cell>FLAG</cell>
+            </genotype>
+            <!-- J.B. Node -->
+            <genotype node_id="7" person_id="3" certainty="">
                 <gene_id>FLAG</gene_id>
                 <gene_name>CFTR</gene_name>
                 <mutated>2</mutated>
@@ -161,7 +196,8 @@
                 <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
             </genotype>
-            <genotype node_id="7" person_id="4" certainty="">
+            <!-- Brother Node-->
+            <genotype node_id="8" person_id="4" certainty="">
                 <gene_id>FLAG</gene_id>
                 <gene_name>CFTR</gene_name>
                 <mutated>2</mutated>
@@ -169,78 +205,127 @@
                 <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
             </genotype>
-            <biochemistry node_id="4" person_id="3" certainty="">
+            <biochemistry node_id="9" person_id="3" certainty="">
                 <protein_id>FLAG</protein_id>
                 <protein_name>CFTR</protein_name>
                 <normal>false</normal>
                 <quantity>normal</quantity>
             </biochemistry>
-             <symptom node_id="5" person_id="3" certainty="">
+             <symptom node_id="10" person_id="3" certainty="">
                 <symptom_id>FLAG</symptom_id>
                 <symptom_name>Frequent cough and upper respiratory infections</symptom_name>
                 <degree>severe</degree>
             </symptom>
-            <symptom node_id="8" person_id="2" certainty="">
+            <symptom node_id="11" person_id="2" certainty="">
                 <symptom_id>FLAG</symptom_id>
                 <symptom_name>Upper respiratory infections</symptom_name>
                 <degree>absent</degree>
             </symptom>
-            <symptom node_id="9" person_id="1" certainty="">
+            <symptom node_id="12" person_id="1" certainty="">
                 <symptom_id>FLAG</symptom_id>
                 <symptom_name>Upper respiratory infections</symptom_name>
                 <degree>absent</degree>
             </symptom>
-            <test node_id = "10" person_id="3">
+            <symptom node_id="13" person_id="3" certainty="">
+                <symptom_id>FLAG</symptom_id>
+                <symptom_name>Malnutrition and poor growth</symptom_name>
+                <degree>absent</degree>
+            </symptom>
+            <test node_id = "14" person_id="3">
                 <testName>Sweat Chloride Test</testName>
                 <testResult>True</testResult>
             </test>
-            <physiology node_id="11" person_id="3">
+            <physiology node_id="15" person_id="3">
                 <bodyLocation>Lung secretions</bodyLocation>
                 <description>Thickened Mucus</description>
+            </physiology>
+            <physiology node_id="16" person_id="3">
+                <bodyLocation>Pancreas Abnormal</bodyLocation>
+                <description>absent</description>
             </physiology>
         </KB_Node>
         <KB_Arc>
             <influence_arc arc_id="I1">
                 <influence_type>+</influence_type>
-                <influence_parent>3</influence_parent>
-                <influence_child>4</influence_child>
+                <influence_parent>7</influence_parent>
+                <influence_child>9</influence_child>
             </influence_arc>
             <influence_arc arc_id="I2">
                 <influence_type>+</influence_type>
-                <influence_parent>4</influence_parent>
-                <influence_child>10</influence_child>
+                <influence_parent>9</influence_parent>
+                <influence_child>14</influence_child>
             </influence_arc>
             <influence_arc arc_id="I3">
+                <influence_type>+</influence_type>
+                <influence_parent>9</influence_parent>
+                <influence_child>15</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I4">
+                <influence_type>+</influence_type>
+                <influence_parent>15</influence_parent>
+                <influence_child>10</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I5">
                 <influence_type>+</influence_type>
                 <influence_parent>4</influence_parent>
                 <influence_child>11</influence_child>
             </influence_arc>
-            <influence_arc arc_id="I4">
-                <influence_type>+</influence_type>
-                <influence_parent>11</influence_parent>
-                <influence_child>5</influence_child>
-            </influence_arc>
-            <influence_arc arc_id="I5">
-                <influence_type>+</influence_type>
-                <influence_parent>2</influence_parent>
-                <influence_child>8</influence_child>
-            </influence_arc>
             <influence_arc arc_id="I6">
                 <influence_type>+</influence_type>
                 <influence_parent>1</influence_parent>
-                <influence_child>9</influence_child>
+                <influence_child>12</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I7">
+                <influence_type>+</influence_type>
+                <influence_parent>1</influence_parent>
+                <influence_child>2</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I8">
+                <influence_type>+</influence_type>
+                <influence_parent>1</influence_parent>
+                <influence_child>3</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I9">
+                <influence_type>+</influence_type>
+                <influence_parent>2</influence_parent>
+                <influence_child>5</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I10">
+                <influence_type>+</influence_type>
+                <influence_parent>4</influence_parent>
+                <influence_child>6</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I11">
+                <influence_type>+</influence_type>
+                <influence_parent>2</influence_parent>
+                <influence_child>12</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I12">
+                <influence_type>+</influence_type>
+                <influence_parent>6</influence_parent>
+                <influence_child>8</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I13">
+                <influence_type>+</influence_type>
+                <influence_parent>9</influence_parent>
+                <influence_child>16</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I14">
+                <influence_type>+</influence_type>
+                <influence_parent>16</influence_parent>
+                <influence_child>13</influence_child>
             </influence_arc>
             <synergy_arc_set syn_id="S1">
                 <type>X0</type>
-                <child>3</child>
-                <parent>1</parent>
-                <parent>2</parent>
+                <child>7</child>
+                <parent>3</parent>
+                <parent>5</parent>
             </synergy_arc_set>
             <synergy_arc_set syn_id="S2">
                 <type>X0</type>
-                <child>7</child>
-                <parent>1</parent>
-                <parent>2</parent>
+                <child>8</child>
+                <parent>3</parent>
+                <parent>5</parent>
             </synergy_arc_set>
         </KB_Arc>
         <Argument>

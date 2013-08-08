@@ -1,6 +1,5 @@
 package ArgumentStructure;
 
-import GAIL.src.XMLHandler.ArgStructure;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -28,8 +27,6 @@ public class XMLWriter {
 
 
     public void writeXML(ArrayList<ArgumentTree> trees, String q) {
-        int argCount = trees.size();
-
         try {
             DocumentBuilderFactory docFac = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = docFac.newDocumentBuilder();
@@ -58,31 +55,8 @@ public class XMLWriter {
                 argIndex.setValue(Integer.toString(tree.getRoot().getARGID()));
                 session.appendChild(argument);
 
-                // find out if the root is a hypothesis
-                if (tree.getRoot().isHypothesis()) {
-                    // if the root is a hypothesis, print hypothesis, then print left and right children as sub-arguments
-                    Element hypothesis = document.createElement("Hypothesis");
-                    Element subarg1 = document.createElement("SubArgument");
-                    Element subarg2 = document.createElement("SubArgument");
-                    Element node = document.createElement("Node");
-                    Element text = document.createElement("Text");
-                    node.appendChild(document.createTextNode("Node " + tree.getRoot().getHypothesis().getKBNODEID()));
-                    text.appendChild(document.createTextNode("Text " + tree.getRoot().getHypothesis().getTEXT()));
-                    hypothesis.appendChild(node);
-                    hypothesis.appendChild(text);
-                    argument.appendChild(hypothesis);
-                    // append left child
-                    addArgument(document, subarg1, tree.getLeftChild());
-                    // append right child
-                    addArgument(document, subarg2, tree.getRightChild());
-                    hypothesis.appendChild(subarg1);
-                    hypothesis.appendChild(subarg2);
-
-                } else {
-                    // there should be no children.  Print the argument
-                    addArgument(document, argument, tree);
-                }
-
+                // print arguments in each tree.
+                addArgument(document, argument, tree);
             }
 
             TransformerFactory tFactory = TransformerFactory.newInstance();
@@ -97,6 +71,13 @@ public class XMLWriter {
 
     }
 
+    /**
+     * This method prints the agrument of the specified tree.
+     *
+     * @param document - the document to be printed to.
+     * @param element  - The element to append to.
+     * @param tree     - The tree (Single Argument/Node) to be printed
+     */
     private void addArgument(Document document, Element element, ArgumentTree tree) {
 
         //append the hypothesis to element
@@ -110,7 +91,7 @@ public class XMLWriter {
         element.appendChild(hypothesis);
 
         // append the generalizations to the element
-        for (Argument.Generalization g : tree.getRoot().getGeneralizations()){
+        for (Argument.Generalization g : tree.getRoot().getGeneralizations()) {
             Element generalization = document.createElement("Generalization");
             Element gNode = document.createElement("Node");
             Element gText = document.createElement("Text");
@@ -123,12 +104,32 @@ public class XMLWriter {
 
         // append the data to the element
         Element data = document.createElement("Data");
-        Element dNode = document.createElement("Node");
-        Element dText = document.createElement("Text");
-        dNode.appendChild(document.createTextNode("Node " + tree.getRoot().getDatum().getKBNODEID()));
-        dText.appendChild(document.createTextNode(tree.getRoot().getDatum().getTEXT()));
-        data.appendChild(dNode);
-        data.appendChild(dText);
+        // if the tree has children recurse in the data node with subargument tags
+        if (tree.hasLeftChild() || tree.hasRightChild()) {
+            // left child
+            if (tree.hasLeftChild()) {
+                Element subArg1 = document.createElement("SubArgument");
+                addArgument(document, subArg1, tree.getLeftChild());
+                data.appendChild(subArg1);
+            }
+            if (tree.hasRightChild()) {
+                //right child
+                Element subArg2 = document.createElement("SubArgument");
+                addArgument(document, subArg2, tree.getRightChild());
+                data.appendChild(subArg2);
+            }
+        }
+        //if no children print the data
+        else if (!tree.hasLeftChild() && !tree.hasRightChild()) {
+            Element dNode = document.createElement("Node");
+            Element dText = document.createElement("Text");
+            dNode.appendChild(document.createTextNode("Node " + tree.getRoot().getDatum().getKBNODEID()));
+            dText.appendChild(document.createTextNode(tree.getRoot().getDatum().getTEXT()));
+            data.appendChild(dNode);
+            data.appendChild(dText);
+        }
+
+        //append the data node
         element.appendChild(data);
 
     }
