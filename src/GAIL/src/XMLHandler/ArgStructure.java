@@ -1,17 +1,17 @@
 package GAIL.src.XMLHandler;
 
+import KB.KB_Node.KB_Node;
+
 import java.util.ArrayList;
 
 /**
- *
  * User: Mark Hinshaw
  * Email: mahinshaw@gmail.com
  * Date: 7/19/13
  * github: https://github.com/mahinshaw/msproject
- *
+ * <p/>
  * The intent of this class is to be a hub for data passed in and out of GAIL.  This structure will be used to load
  * questions into gail as well as node data specific to the questions and argument information.
- *
  */
 public class ArgStructure {
 
@@ -32,9 +32,10 @@ public class ArgStructure {
 
     /**
      * initializes an empty ArgStructure
+     *
      * @index - starts from 0.
      */
-    private ArgStructure(){
+    private ArgStructure() {
         this.index = 0;
         this.questions = new ArrayList<String>();
         nodeList = new ArrayList<Node>();
@@ -45,11 +46,12 @@ public class ArgStructure {
 
     /**
      * This class adds node to nodelist as well as the
+     *
      * @param node
      */
-    private void addNode(Node node){
+    private void addNode(Node node) {
         nodeList.add(node);
-        switch (node.argType){
+        switch (node.argType) {
             case 'h':
                 hypothesisList.add(node);
                 break;
@@ -65,27 +67,27 @@ public class ArgStructure {
     }
 
     //create a new node
-    private Node createNode(String node_id, String text, char argType){
+    private Node createNode(String node_id, String text, char argType) {
         return new Node(this.index++, node_id, text, argType);
     }
 
     //create and insert a new node
-    public void insertNewNode(String node_id, String text, char argType){
+    public void insertNewNode(String node_id, String text, char argType) {
         this.addNode(createNode(node_id, text, argType));
     }
 
     //insert a created node.  Must be passed from another structure.
-    public void insertNewNode(Node n){
+    public void insertNewNode(Node n) {
         this.addNode(n);
     }
 
     // load the questions array with an arraylist.
-    public void insertQuestions(ArrayList<String> questions){
+    public void insertQuestions(ArrayList<String> questions) {
         this.questions.addAll(questions);
     }
 
     // add an individual question.
-    public void addQuestion(String q){
+    public void addQuestion(String q) {
         this.questions.add(q);
     }
 
@@ -110,11 +112,21 @@ public class ArgStructure {
     }
 
     //create a static data structure.
-    public static ArgStructure create(){
+    public static ArgStructure create() {
         return new ArgStructure();
     }
 
-    public void clear(){
+    public String getText(String s) {
+        String str = " ";
+        for (Node n : nodeList) {
+            if (n.getNode_id().equalsIgnoreCase(s)) {
+                str = n.getText();
+            }
+        }
+        return str;
+    }
+
+    public void clear() {
         this.index = 0;
         this.questions.clear();
         this.nodeList.clear();
@@ -126,8 +138,8 @@ public class ArgStructure {
 
 
     /**
-    * This class is only intended for use by ArgStructure class.
-    */
+     * This class is only intended for use by ArgStructure class.
+     */
     public class Node {
 
         private final int id;
@@ -135,14 +147,14 @@ public class ArgStructure {
         private final String text;
         private final char argType;
 
-        private Node(int id, String node_id, String text, char argType){
+        private Node(int id, String node_id, String text, char argType) {
             this.id = id;
             this.node_id = node_id;
             this.text = text;
             this.argType = argType;
         }
 
-        public int getId(){
+        public int getId() {
             return this.id;
         }
 

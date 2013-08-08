@@ -34,7 +34,7 @@ public class StatementFileReader {
         xmlInterface = new Interface(FOLDER+fileName);
 
         //TODO Test for ArgGen- Tobey 8/2/2013
-        ArgumentGenerator argGen = new ArgumentGenerator(xmlInterface.getGraph(), xmlInterface.getGraph().getNodelist().get(2));
+        ArgumentGenerator argGen = new ArgumentGenerator(xmlInterface.getGraph().getNodelist().get(2), reader.getArg());
         argGen.addArgument();
 
         //TODO Object file transfers. Empty ArrayList for now - Tobey
