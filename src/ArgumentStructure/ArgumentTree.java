@@ -25,8 +25,26 @@ public class ArgumentTree {
         return this.leftChild;
     }
 
+    public boolean hasLeftChild(){
+        if (this.leftChild == null){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     public ArgumentTree getRightChild(){
         return this.rightChild;
+    }
+
+    public boolean hasRightChild(){
+        if (this.rightChild == null){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     public boolean isEmptyChild(ArgumentTree tree){
