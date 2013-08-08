@@ -305,6 +305,16 @@
                 <influence_parent>6</influence_parent>
                 <influence_child>8</influence_child>
             </influence_arc>
+            <influence_arc arc_id="I13">
+                <influence_type>+</influence_type>
+                <influence_parent>9</influence_parent>
+                <influence_child>16</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I14">
+                <influence_type>+</influence_type>
+                <influence_parent>16</influence_parent>
+                <influence_child>13</influence_child>
+            </influence_arc>
             <synergy_arc_set syn_id="S1">
                 <type>X0</type>
                 <child>7</child>
