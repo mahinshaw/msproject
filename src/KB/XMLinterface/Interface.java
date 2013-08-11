@@ -110,6 +110,10 @@ public class Interface {
                     if (name.equalsIgnoreCase("degree")) {
                         degree = true;
                     }
+
+                    if (name.equalsIgnoreCase("influence_arc")){
+                        addVar(attribute.getValue("arc_id"));
+                    }
                     if (name.equalsIgnoreCase("influence_type")) {
                         influence_type = true;
                     }
@@ -120,6 +124,9 @@ public class Interface {
                         influence_child = true;
                     }
 
+                    if (name.equalsIgnoreCase("synergy_arc_set")){
+                        addVar(attribute.getValue("syn_id"));
+                    }
                     if (name.equalsIgnoreCase("type")) {
                         type = true;
                     }
@@ -321,15 +328,15 @@ public class Interface {
                                     getArray().get(++size), getArray().get(++size), getArray().get(++size));
                                 size = 0;
                                 break;
-                            case 5: graph.createInfluenceArc(getArray().get(size), Integer.parseInt(getArray().get(++size)), Integer.parseInt(getArray().get(++size)));
+                            case 5: graph.createInfluenceArc(getArray().get(size), getArray().get(++size), Integer.parseInt(getArray().get(++size)), Integer.parseInt(getArray().get(++size)));
                                 size = 0;
                                 break;
                             case 6:
-                                int[] parents = new int[getArray().size()-2];
+                                int[] parents = new int[getArray().size()-3];
                                 for (int i =0; i< parents.length; i++){
                                     parents[i] = Integer.parseInt(getArray().get((getArray().size()-i)-1));
                                 }
-                                graph.createSynergyArc(getArray().get(size), Integer.parseInt(getArray().get(++size)), parents);
+                                graph.createSynergyArc(getArray().get(size), getArray().get(++size), Integer.parseInt(getArray().get(++size)), parents);
                                 size = 0;
                                 break;
                             case 7:

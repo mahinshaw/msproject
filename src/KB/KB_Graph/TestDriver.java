@@ -33,14 +33,14 @@ public class TestDriver {
 
         //arcs
         int[] ids = {1, 2};
-        graph.createSynergyArc("X0", 3, ids);
-        graph.createSynergyArc("X0", 7, ids);
-        graph.createInfluenceArc("+", 3, 4);
-        graph.createInfluenceArc("+", 4, 10);
-        graph.createInfluenceArc("+", 4, 11);
-        graph.createInfluenceArc("+", 11, 5);
-        graph.createInfluenceArc("+", 2, 8);
-        graph.createInfluenceArc("+", 1, 9);
+        graph.createSynergyArc("S1", "X0", 3, ids);
+        graph.createSynergyArc("S2", "X0", 7, ids);
+        graph.createInfluenceArc("I1", "+", 3, 4);
+        graph.createInfluenceArc("I2", "+", 4, 10);
+        graph.createInfluenceArc("I3", "+", 4, 11);
+        graph.createInfluenceArc("I4", "+", 11, 5);
+        graph.createInfluenceArc("I5", "+", 2, 8);
+        graph.createInfluenceArc("I7", "+", 1, 9);
 
         System.out.println(graph.toString());
     }

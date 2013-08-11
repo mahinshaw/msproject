@@ -7,6 +7,7 @@ import ArgGen.ArgBuilder;
 import ArgGen.ArgumentGenerator;
 import GAIL.src.XMLHandler.xmlReader;
 import GAIL.src.controller.StatementController;
+import KB.KB_Node.KB_Node;
 import KB.XMLinterface.Interface;
 
 public class StatementFileReader {
@@ -34,7 +35,7 @@ public class StatementFileReader {
         xmlInterface = new Interface(FOLDER+fileName);
 
         //TODO Test for ArgGen- Tobey 8/2/2013
-        ArgumentGenerator argGen = new ArgumentGenerator(xmlInterface.getGraph().getNodelist().get(2), reader.getArg());
+        ArgumentGenerator argGen = new ArgumentGenerator(xmlInterface.getGraph().getNodelist().get(6), reader.getArg());
         argGen.addArgument();
 
         //TODO Object file transfers. Empty ArrayList for now - Tobey

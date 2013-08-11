@@ -27,13 +27,13 @@ public class KB_Graph {
     }
 
     public void addNode(KB_Node node) {
-        if (!nodelist.add(node)){
+        if (!nodelist.add(node)) {
             throw new IllegalArgumentException("The node was not added to the list of nodes");
         }
     }
 
     public void addPerson(KB_Person person) {
-        if (!personlist.add(person)){
+        if (!personlist.add(person)) {
             throw new IllegalArgumentException("The node was not added to the list of persons");
         }
     }
@@ -54,28 +54,28 @@ public class KB_Graph {
         this.addNode(new Symptom(id, person_id, type, symptom_id, symptom_name, degree));
     }
 
-    public void createTest(int id, int person_id, char type, String testType, boolean result){
+    public void createTest(int id, int person_id, char type, String testType, boolean result) {
         this.addNode(new Test(id, person_id, type, testType, result));
     }
 
-    public void createPhysiology(int id, int person_id, char type, String location, String description){
+    public void createPhysiology(int id, int person_id, char type, String location, String description) {
         this.addNode(new Physiology(id, person_id, type, location, description));
     }
-    public void createInfluenceArc(String type, int parentNodeID, int childNodeID) {
+
+    public void createInfluenceArc(String arc_id, String type, int parentNodeID, int childNodeID) {
         // will throw outOfBoundsException of findKB_NodeIndex returns -1.
         KB_Node parent = nodelist.get(findKB_NodeIndex(parentNodeID));
         KB_Node child = nodelist.get(findKB_NodeIndex(childNodeID));
 
-        parent.addArc(new Influence_Arc(type, parent, child));
+        parent.addArc(new Influence_Arc(arc_id, type, parent, child));
     }
 
     /**
-     *
      * @param type
      * @param childNodeID
      * @param parentNodeIDs
      */
-    public void createSynergyArc(String type, int childNodeID, int[] parentNodeIDs) {
+    public void createSynergyArc(String syn_id, String type, int childNodeID, int[] parentNodeIDs) {
         // will throw outOfBoundsException of findKB_NodeIndex returns -1.
         KB_Node child = nodelist.get(findKB_NodeIndex(childNodeID));
         KB_Node parent;
@@ -83,22 +83,22 @@ public class KB_Graph {
 
         // find all the parent nodes by nodeID
         int ids = 0;
-        for(int i = 0; i < parentNodeIDs.length; i++){
+        for (int i = 0; i < parentNodeIDs.length; i++) {
             parent = nodelist.get(findKB_NodeIndex(parentNodeIDs[i]));
             parents.add(parent);
         }
 
         //add the arc to all the parent nodes
         for (KB_Node node : parents) {
-            node.addArc(new Synergy_Arc(type, parents, child));
+            node.addArc(new Synergy_Arc(syn_id, type, parents, child));
         }
     }
 
-    public int findKB_NodeIndex(int node_id){
+    public int findKB_NodeIndex(int node_id) {
         // returns -1 if node is not in the list
         int index = -1;
         for (KB_Node node : nodelist) {
-            if (node.getId() == node_id){
+            if (node.getId() == node_id) {
                 index = nodelist.indexOf(node);
                 break;
             }
@@ -117,7 +117,7 @@ public class KB_Graph {
         //add people in the graph
         str.append("People in the graph:\n");
         str.append("---------------------\n");
-        for (KB_Person person : personlist){
+        for (KB_Person person : personlist) {
             str.append(person.toString() + "\n");
         }
 
@@ -136,22 +136,10 @@ public class KB_Graph {
     }
 
     // this method is intended to clear flags in nodelist - set them to false
-    public void clearFlags(){
-        for (KB_Node node : nodelist){
+    public void clearFlags() {
+        for (KB_Node node : nodelist) {
             node.setFlag(false);
         }
     }
-
-    /**
-     * Returns the ArcID between two nodes
-     * @param x
-     * @param y
-     * @return
-     */
-   public String findArcID(KB_Node x, KB_Node y){
-
-
-       return null;
-   }
 }
 

@@ -1,5 +1,6 @@
 package ArgGen;
 
+import KB.KB_Arc.KB_Arc;
 import KB.KB_Graph.KB_Graph;
 import KB.KB_Node.KB_Node;
 
@@ -37,7 +38,6 @@ public class ArgBuilder {
         if (checkHypo()) {
             pathList = new ArrayList<ArrayList<KB_Node>>(e2c.getPathList());
         }
-
     }
 
     private boolean checkHypo() {
@@ -48,8 +48,7 @@ public class ArgBuilder {
         return hold;
     }
 
-    public ArrayList<ArrayList<KB_Node>> getPathList(){
+    public ArrayList<ArrayList<KB_Node>> getPathList() {
         return pathList;
     }
-
 }
