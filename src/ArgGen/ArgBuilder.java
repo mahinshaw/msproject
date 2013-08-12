@@ -27,7 +27,7 @@ public class ArgBuilder {
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.HYPO = hypo;
         this.DATA = data;
-        e2c = new E2C(this.rootNode, this.DATA);
+        e2c = new E2C(this.rootNode, this.DATA, this.HYPO);
     }
 
     /**
