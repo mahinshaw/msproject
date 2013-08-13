@@ -5,6 +5,7 @@
         <!ELEMENT ui (question+, hypothesis+, data+, generalizations+)>
         <!ELEMENT question (#PCDATA)>
         <!ATTLIST question quest CDATA #REQUIRED>
+        <!ATTLIST question node_id CDATA #REQUIRED>
         <!ELEMENT hypothesis (#PCDATA)>
         <!ATTLIST hypothesis hypo CDATA #REQUIRED>
         <!ATTLIST hypothesis node_id CDATA #REQUIRED>
@@ -84,10 +85,10 @@
 <gail>
     <ui>
         <!--node_id 100 is false information and node_id 200 is unknown-->
-        <question quest="q1" >Give 2 arguments for the hypothesis that J.B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).</question>
-        <question quest="q2">Give one argument for the hypothesis that J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.</question>
-        <question quest="q3">Give one argument for the hypothesis that the mother does not have 2 mutated copies of the CFTR gene.</question>
-        <question quest="q4">Give one argument for the hypothesis that J.B.'s mother has 1 normal and 1 mutated copy of the CFTR gene.</question>
+        <question quest="q1" node_id="7">Give 2 arguments for the hypothesis that J.B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).</question>
+        <question quest="q2" node_id="3">Give one argument for the hypothesis that J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.</question>
+        <question quest="q3" node_id="2">Give one argument for the hypothesis that the mother does not have 2 mutated copies of the CFTR gene.</question>
+        <question quest="q4" node_id="1">Give one argument for the hypothesis that J.B.'s mother has 1 normal and 1 mutated copy of the CFTR gene.</question>
         <hypothesis hypo="h1" node_id ="7">J. B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).</hypothesis>
         <hypothesis hypo="h2" node_id ="100">J.B.'s mother does not have any CFTR gene mutations (both copies of the CFTR gene are normal).</hypothesis>
         <hypothesis hypo="h3" node_id ="3">J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.</hypothesis>

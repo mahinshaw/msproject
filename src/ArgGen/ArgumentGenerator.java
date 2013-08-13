@@ -29,6 +29,7 @@ public class ArgumentGenerator {
     private ArrayList<KB_Arc> gen;
     private ArgBuilder argBuilder;
     private ArgStructure arg;
+    private final String question;
 
     public enum TYPE {
         HYPO('H'), GEN('G'), DATA('D');
@@ -43,7 +44,7 @@ public class ArgumentGenerator {
         }
     }
 
-    public ArgumentGenerator(KB_Node rootNode, ArgStructure arg) {
+    public ArgumentGenerator(KB_Node rootNode, ArgStructure arg, String question) {
         this.pathArray = new ArrayList<List<KB_Node>>();
         this.argPath = new ArrayList<KB_Node>();
         this.arg = arg;
@@ -52,6 +53,7 @@ public class ArgumentGenerator {
         this.hypo = null;
         this.gen = new ArrayList<KB_Arc>();
         this.data = null;
+        this.question = question;
     }
 
     public void addNode(KB_Node node) {
@@ -81,7 +83,7 @@ public class ArgumentGenerator {
         }
 
         XMLWriter writer = new XMLWriter();
-        writer.writeXML(treeList, "TEST");
+        writer.writeXML(treeList, question);
     }
 
     private ArgumentTree createArguments(int i) {

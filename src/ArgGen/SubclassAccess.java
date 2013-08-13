@@ -6,7 +6,7 @@ package ArgGen;
  */
 public class SubclassAccess {
 
-    public SubclassAccess(){
+    public SubclassAccess(Object subclass){
 
     }
 }

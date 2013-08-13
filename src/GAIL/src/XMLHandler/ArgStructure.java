@@ -82,6 +82,7 @@ public class ArgStructure {
     }
 
     // load the questions array with an arraylist.
+
     public void insertQuestions(ArrayList<String> questions) {
         this.questions.addAll(questions);
     }

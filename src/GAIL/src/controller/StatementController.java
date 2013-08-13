@@ -3,12 +3,12 @@ package GAIL.src.controller;
 import GAIL.src.XMLHandler.ArgStructure;
 import GAIL.src.file.StatementFileReader;
 import GAIL.src.frame.StatementPanel;
+import GAIL.src.frame.StatementPanel.StatementUnit;
 import GAIL.src.model.Statement;
 import GAIL.src.model.Statement.StatementLabel;
 import GAIL.src.model.Statement.StatementSource;
 import GAIL.src.model.Statement.StatementType;
 import GAIL.src.view.StatementView;
-import GAIL.src.frame.StatementPanel.StatementUnit;
 
 import javax.swing.*;
 import java.awt.*;
@@ -512,7 +512,7 @@ public class StatementController implements ActionListener, MouseListener,
 
     // Added July 23, Mark Hinshaw
     public ArgStructure getArgOutput(){
-        argOutput.insertQuestions(problemTextArr);
+      //  argOutput.insertQuestions(problemTextArr);
         return this.argOutput;
     }
 }
