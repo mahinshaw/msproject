@@ -153,6 +153,7 @@ public class FileOpenerPopUp extends JFrame implements ListSelectionListener {
 			if (isSelected) {
 				button.setEnabled(true);
                 problemIndex = list.getSelectedIndex();
+                sc.setProblemIndex(problemIndex);
 				problemText = data[problemIndex];
 				setBackground(new Color(230, 240, 255));
 			} else {

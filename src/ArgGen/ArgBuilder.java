@@ -37,8 +37,8 @@ public class ArgBuilder {
      */
     public void findArgument() {
         if (checkHypo()) {
-            setPathList(e2c.getPathList());//E2C
-            setPathList(ne2c.getPathList());//NE2C
+            pathList.addAll(e2c.getPathList());//E2C
+            pathList.addAll(ne2c.getPathList());//NE2C
         }
 
     }
@@ -49,12 +49,6 @@ public class ArgBuilder {
             hold = false;
         }
         return hold;
-    }
-
-    public void setPathList(ArrayList<ArrayList<KB_Node>> path) {
-        for (ArrayList<KB_Node> k : path) {
-            pathList.add(k);
-        }
     }
 
     public ArrayList<ArrayList<KB_Node>> getPathList() {

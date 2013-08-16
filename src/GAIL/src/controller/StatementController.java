@@ -21,6 +21,7 @@ public class StatementController implements ActionListener, MouseListener,
 	private int nData;
 	private int nHypotheses;
 	private int nGeneralizations;
+    private int currentProbIndex;
 
 	private StatementFileReader statementFileReader;
 	private ArrayList<Statement> statements;
@@ -60,6 +61,7 @@ public class StatementController implements ActionListener, MouseListener,
 
         // Added July 23, Mark Hinshaw
         argOutput = ArgStructure.create();
+
 	}
 
 	public StatementFileReader getStatementFileReader() {
@@ -130,12 +132,15 @@ public class StatementController implements ActionListener, MouseListener,
 	}
 
     public void setProblemIndex(int index) {
+        currentProbIndex = index;
         applicationController.setCurrentProblem(index);
     }
+
 
 	public void setText(ArgStructure arg) {
 		this.problemTextArr = arg.getQuestions();
         argOutput.insertQuestions(arg.getQuestions());
+        setArgumentGenerator();
 		this.hypothTextArr = arg.getHypothesisList();
 		this.datumTextArr = arg.getDataList();
 		this.genTextArr = arg.getGeneralizationList();
@@ -514,5 +519,10 @@ public class StatementController implements ActionListener, MouseListener,
     public ArgStructure getArgOutput(){
       //  argOutput.insertQuestions(problemTextArr);
         return this.argOutput;
+    }
+
+
+    public void setArgumentGenerator(){
+       // System.out.println("HERE: "+currentProbIndex);
     }
 }
