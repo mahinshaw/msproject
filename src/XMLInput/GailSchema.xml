@@ -105,12 +105,14 @@
         <data datum="d5" node_id="14">Test result: J.B.'s chloride level is 75 mmol/L.</data>
         <data datum="d6" node_id="8">J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.</data>
         <generalizations gen="g1" node_id="I1">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, it cannot perform its normal function.</generalizations>
-        <generalizations gen="g2" node_id="I3">People with CFTR gene dysfunction often have viscous secretions in the lungs, which provides a medium for growth of bacteria, and which may result in frequent respiratory infections.</generalizations>
-        <generalizations gen="g3" node_id="200">Dysfunction of CFTR may affect the pancreas. Pancreatic abnormality may result in malnutrition and poor growth.</generalizations>
-        <generalizations gen="g4" node_id="S1">Cystic fibrosis is inherited in an autosomal recessive manner, which means that an individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one from the father.</generalizations>
-        <generalizations gen="g5" node_id="200">If one parent is a carrier (has one copy of the mutation) and the other parent has no copies of the mutation, each offspring has a 25 percent chance of being a carrier.</generalizations>
-        <generalizations gen="g6" node_id="200">Although cystic fibrosis classically manifests in early childhood, approximately 4 percent of patients are diagnosed in adulthood.</generalizations>
-        <generalizations gen="g7" node_id="I2">In the absence of functional CFTR, sweat has an increased sodium chloride content. Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).</generalizations>
+        <generalizations gen="g2" node_id="I3">People with CFTR gene dysfunction often have viscous secretions in the lungs.</generalizations>
+        <generalizations gen="g3" node_id="I4">Viscous secretion provides a medium for growth of bacteria, and which may result in frequent respiratory infections.</generalizations>
+        <generalizations gen="g4" node_id="I13">Dysfunction of CFTR may affect the pancreas.</generalizations>
+        <generalizations gen="g5" node_id="I14">Pancreatic abnormality may result in malnutrition and poor growth.</generalizations>
+        <generalizations gen="g6" node_id="S1">Cystic fibrosis is inherited in an autosomal recessive manner, which means that an individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one from the father.</generalizations>
+        <generalizations gen="g7" node_id="200">If one parent is a carrier (has one copy of the mutation) and the other parent has no copies of the mutation, each offspring has a 25 percent chance of being a carrier.</generalizations>
+        <generalizations gen="g8" node_id="200">Although cystic fibrosis classically manifests in early childhood, approximately 4 percent of patients are diagnosed in adulthood.</generalizations>
+        <generalizations gen="g9" node_id="I2">In the absence of functional CFTR, sweat has an increased sodium chloride content. Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).</generalizations>
     </ui>
     <genie>
         <KB_Node>
