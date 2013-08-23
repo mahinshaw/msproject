@@ -23,7 +23,7 @@ public class BranchView extends EdgeView {
 	
 	public BranchView(){
 		try{
-			xOrange= ImageIO.read(new File("image/xorange.png"));
+			xOrange= ImageIO.read(new File("src/GAIL/image/xorange.png"));
 		}catch(Exception e){}
 	}
 	
