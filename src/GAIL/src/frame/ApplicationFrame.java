@@ -31,7 +31,7 @@ public class ApplicationFrame extends JFrame {
 		ToolTipManager.sharedInstance().setInitialDelay(200);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setIconImage(new ImageIcon("image/icon.png").getImage());
+		setIconImage(new ImageIcon("src/GAIL/image/icon.png").getImage());
 		// create the major components
 		fileOpenerView = new FileOpenerPopUp(ac.getStatementController());
 		chatOptionsPopUp = new ChatOptionsPopUp(ac.getChatController(), this);
