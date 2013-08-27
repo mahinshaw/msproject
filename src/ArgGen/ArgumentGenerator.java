@@ -1,6 +1,6 @@
 package ArgGen;
 
-import ArgumentStructure.Argument;
+import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentFactory;
 import ArgumentStructure.ArgumentTree;
 import ArgumentStructure.XMLWriter;
@@ -94,8 +94,8 @@ public class ArgumentGenerator {
         for (KB_Arc k : gen) {
             argumentFactory.addGeneralization(k.getEdge_id(), arg.getText(String.valueOf(k.getEdge_id())));
         }
-        Argument argument = argumentFactory.createArgument(i);
-        ArgumentTree tree = ArgumentTree.createArgumentTree(argument);
+        ArgumentObject argumentObject = argumentFactory.createArgument(i);
+        ArgumentTree tree = ArgumentTree.createArgumentTree(argumentObject);
 
         return tree;
     }

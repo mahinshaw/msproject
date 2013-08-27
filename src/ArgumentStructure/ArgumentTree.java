@@ -7,17 +7,17 @@ package ArgumentStructure;
  * github: https://github.com/mahinshaw/msproject
  */
 public class ArgumentTree {
-    private Argument root;
+    private ArgumentObject root;
     private ArgumentTree leftChild;
     private ArgumentTree rightChild;
 
-    private ArgumentTree(Argument argument){
-        this.root = argument;
+    private ArgumentTree(ArgumentObject argumentObject){
+        this.root = argumentObject;
         this.leftChild = null;
         this.rightChild = null;
     }
 
-    public Argument getRoot(){
+    public ArgumentObject getRoot(){
         return this.root;
     }
 
@@ -55,31 +55,31 @@ public class ArgumentTree {
         }
     }
 
-    public void addSubArgument(Argument argument){
-        if (isEmptyChild(leftChild) && !argument.isHypothesis()){
-            this.leftChild = createArgumentTree(argument);
+    public void addSubArgument(ArgumentObject argumentObject){
+        if (isEmptyChild(leftChild) && !argumentObject.isHypothesis()){
+            this.leftChild = createArgumentTree(argumentObject);
         }
-        else if (!argument.isHypothesis()){
-            this.rightChild = createArgumentTree(argument);
+        else if (!argumentObject.isHypothesis()){
+            this.rightChild = createArgumentTree(argumentObject);
         }
         else {
             System.out.println("The argument is a full argument");
         }
     }
 
-    public void addSubHypothesis(Argument argument){
-        if (leftChild.equals(null) && argument.isHypothesis()){
-            leftChild = createArgumentTree(argument);
+    public void addSubHypothesis(ArgumentObject argumentObject){
+        if (leftChild.equals(null) && argumentObject.isHypothesis()){
+            leftChild = createArgumentTree(argumentObject);
         }
-        else if (argument.isHypothesis()){
-            rightChild = createArgumentTree(argument);
+        else if (argumentObject.isHypothesis()){
+            rightChild = createArgumentTree(argumentObject);
         }
         else {
             System.out.println("The argument is only a hypothesis.");
         }
     }
 
-    public static ArgumentTree createArgumentTree(Argument argument){
-        return new ArgumentTree(argument);
+    public static ArgumentTree createArgumentTree(ArgumentObject argumentObject){
+        return new ArgumentTree(argumentObject);
     }
 }

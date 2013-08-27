@@ -12,14 +12,14 @@ import java.util.List;
  * This Structure will be used to compare student arguments to arguments created from the Argument Generator.
  *
  */
-public class Argument {
+public class ArgumentObject {
 
     private final int ARGID;
     private final Hypothesis hypothesis;
     private final List<Generalization> generalizations;
     private final Datum datum;
 
-    private Argument(Builder builder){
+    private ArgumentObject(Builder builder){
         this.ARGID = builder.argID;
         this.hypothesis = builder.hypothesis;
         this.generalizations = builder.generalizations;
@@ -90,8 +90,8 @@ public class Argument {
             return this;
         }
 
-        public Argument build(){
-            return new Argument(this);
+        public ArgumentObject build(){
+            return new ArgumentObject(this);
         }
     }
 

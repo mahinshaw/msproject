@@ -1,9 +1,9 @@
 package ArgumentStructure;
 
 import java.util.ArrayList;
-import ArgumentStructure.Argument.Hypothesis;
-import ArgumentStructure.Argument.Generalization;
-import ArgumentStructure.Argument.Datum;
+import ArgumentStructure.ArgumentObject.Hypothesis;
+import ArgumentStructure.ArgumentObject.Generalization;
+import ArgumentStructure.ArgumentObject.Datum;
 
 /**
  * User: Mark Hinshaw
@@ -19,7 +19,7 @@ import ArgumentStructure.Argument.Datum;
  */
 public class ArgumentFactory {
 
-    private Argument argument;
+    private ArgumentObject argumentObject;
     private Hypothesis hypothesis;
     private ArrayList<Generalization> generalizations;
     private Datum datum;
@@ -42,8 +42,8 @@ public class ArgumentFactory {
         generalizations.add(new Generalization(kbArcID, text));
     }
 
-    public Argument createArgument(int argID){
-        this.argument = new Argument.Builder().argID(argID).hypothesis(this.hypothesis).generalizations(this.generalizations).datum(this.datum).build();
-        return this.argument;
+    public ArgumentObject createArgument(int argID){
+        this.argumentObject = new ArgumentObject.Builder().argID(argID).hypothesis(this.hypothesis).generalizations(this.generalizations).datum(this.datum).build();
+        return this.argumentObject;
     }
 }
