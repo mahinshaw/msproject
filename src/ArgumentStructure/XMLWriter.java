@@ -91,13 +91,13 @@ public class XMLWriter {
         element.appendChild(hypothesis);
 
         // append the generalizations to the element
-        for (Argument.Generalization g : tree.getRoot().getGeneralizations()) {
+        for (ArgumentObject.Generalization g : tree.getRoot().getGeneralizations()) {
             Element generalization = document.createElement("Generalization");
-            Element gNode = document.createElement("Node");
+            Element gArc = document.createElement("Arc");
             Element gText = document.createElement("Text");
-            gNode.appendChild(document.createTextNode("Arc " + g.getKBARCID()));
+            gArc.appendChild(document.createTextNode("Arc " + g.getKBARCID()));
             gText.appendChild(document.createTextNode(g.getTEXT()));
-            generalization.appendChild(gNode);
+            generalization.appendChild(gArc);
             generalization.appendChild(gText);
             element.appendChild(generalization);
         }
