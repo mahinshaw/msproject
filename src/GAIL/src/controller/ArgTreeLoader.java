@@ -1,5 +1,6 @@
 package GAIL.src.controller;
 
+import ArgumentStructure.ArgumentFactory;
 import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentTree;
 import GAIL.src.model.Branch;
@@ -71,7 +72,7 @@ public class ArgTreeLoader {
             }
             //if there is only one, then the work is easy, load it into a tree.
             else if (arguments.size() == 1){
-
+                loadArgument(argumentTrees.get(0), arguments.get(0));
             }
         }
     }
@@ -80,7 +81,17 @@ public class ArgTreeLoader {
      * The following methods are private.  They handle the internal workings of the loader.
      */
 
-    private void insertArgument(ArgumentTree argumentTree, Argument argument){
+    private void loadArgument(ArgumentTree argumentTree, Argument argument){
+        ArgumentFactory argumentFactory = new ArgumentFactory();
+        if (argument.getSource() instanceof Statement){
+            Statement s = (Statement) argument.getSource();
+            if (s.getTextNode().getArgType() == 'h'){
+
+            }
+            else if (s.getTextNode().getArgType() == 'd'){
+
+            }
+        }
     }
 
 }
