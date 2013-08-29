@@ -91,7 +91,7 @@ public class XMLWriter {
         element.appendChild(hypothesis);
 
         // append the generalizations to the element
-        for (ArgumentObject.Generalization g : tree.getRoot().getGeneralizations()) {
+        for (Generalization g : tree.getRoot().getGeneralizations()) {
             Element generalization = document.createElement("Generalization");
             Element gArc = document.createElement("Arc");
             Element gText = document.createElement("Text");

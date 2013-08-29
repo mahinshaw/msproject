@@ -1,9 +1,6 @@
 package ArgumentStructure;
 
 import java.util.ArrayList;
-import ArgumentStructure.ArgumentObject.Hypothesis;
-import ArgumentStructure.ArgumentObject.Generalization;
-import ArgumentStructure.ArgumentObject.Datum;
 
 /**
  * User: Mark Hinshaw
