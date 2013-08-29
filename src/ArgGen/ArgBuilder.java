@@ -1,5 +1,6 @@
 package ArgGen;
 
+import GAIL.src.XMLHandler.ArgStructure;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Graph.KB_Graph;
 import KB.KB_Node.KB_Node;
@@ -22,13 +23,13 @@ public class ArgBuilder {
     private final char DATA;
 
 
-    public ArgBuilder(KB_Graph graph, KB_Node rootNode, char hypo, char data) {
+    public ArgBuilder(KB_Graph graph, KB_Node rootNode, char hypo, char data, ArgStructure arg) {
         this.graph = graph;
         this.rootNode = rootNode;
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.HYPO = hypo;
         this.DATA = data;
-        e2c = new E2C(this.rootNode, this.DATA, this.HYPO);
+        e2c = new E2C(this.rootNode, this.DATA, this.HYPO, arg);
         ne2c = new NE2C(this.rootNode, this.DATA, this.HYPO);
     }
 
