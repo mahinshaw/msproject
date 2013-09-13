@@ -37,55 +37,48 @@ public class ChainedE2C {
         KB_Arc arc = null;
         KB_Node datum = null;
         gen = new ArrayList<KB_Arc>();
-        int i = 1;
+        int argNo = 1;
 
         ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
 
         for (List<KB_Node> n : pathList) {
-            int z = 1;
+            int nodeIndex = 0;
             ArgumentTree tree = null;
-            ArgumentFactory argumentFactory = new ArgumentFactory();
-            treeList.add(createChainedE2C(n, n.get(0), i, z, arg, tree, argumentFactory));
-            i++;
+            ArgumentFactory argumentFactory = null;
+            treeList.add(createTree(n, arg, tree, argumentFactory, argNo, nodeIndex));
+            argNo++;
         }
 
-        //XMLWriter writer = new XMLWriter();
-        //writer.writeXML(treeList, "Test");
+        XMLWriter writer = new XMLWriter();
+        writer.writeXML(treeList, "Test");
 
     }
 
-    private ArgumentTree createChainedE2C(List<KB_Node> n, KB_Node kb_node, int i, int z, ArgStructure arg, ArgumentTree tree, ArgumentFactory argumentFactory) {
-        KB_Arc arc = null;
-
-        if (kb_node.getType() != 'D') {
-            argumentFactory.setHypothesis(String.valueOf(kb_node.getId()), arg.getText(String.valueOf(kb_node.getId())));
-            System.out.println(String.valueOf("Hypo: " + kb_node.getId()));
-
-            arc = findEdgeID(kb_node, n.get(z++));
-            System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
-            argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
-        }
-
-        if (kb_node.getType() == 'D') {
-            argumentFactory.setDatum(String.valueOf(kb_node.getId()), arg.getText(String.valueOf(kb_node.getId())));
-            ArgumentObject argumentObject = argumentFactory.createArgument(i);
+    private ArgumentTree createTree(List<KB_Node> n, ArgStructure arg, ArgumentTree tree, ArgumentFactory argumentFactory, int argNo, int nodeIndex) {
+        if (n.get(nodeIndex).getType() == 'D') {
+            argumentFactory.setDatum(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
+            ArgumentObject argumentObject = argumentFactory.createArgument(argNo);
             tree.addSubArgument(argumentObject);
-            System.out.println(String.valueOf("Data: " + kb_node.getId()) + "\n");
+            System.out.println(String.valueOf("Data: " + n.get(nodeIndex).getId()) + "\n");
             return tree;
         } else {
-            ArgumentObject argumentObject = argumentFactory.createArgument(i);
-            if (z == 2) {
-                System.out.println("HERE!");
+            argumentFactory = new ArgumentFactory();
+            argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
+            System.out.println(String.valueOf("Hypo: " + n.get(nodeIndex).getId()));
+
+            KB_Arc arc = findEdgeID(n.get(nodeIndex), n.get(++nodeIndex));
+            System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
+            argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
+
+            ArgumentObject argumentObject = argumentFactory.createArgument(argNo);
+            if (nodeIndex == 1) {
                 tree = ArgumentTree.createArgumentTree(argumentObject);
             } else {
                 tree.addSubArgument(argumentObject);
             }
 
-            kb_node = n.get(z - 1);
-
-            createChainedE2C(n, kb_node, i, z, arg, tree, argumentFactory);
+            createTree(n, arg, tree, argumentFactory, argNo, nodeIndex);
         }
-
         return tree;
     }
 
