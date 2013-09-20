@@ -45,7 +45,8 @@ public class ChainedE2C {
             int nodeIndex = 0;
             ArgumentTree tree = null;
             ArgumentFactory argumentFactory = null;
-            treeList.add(createTree(n, arg, tree, argumentFactory, argNo, nodeIndex));
+            ArgumentObject argumentObject = null;
+            treeList.add(createTree(n, arg, tree, argumentFactory, argumentObject, argNo, nodeIndex));
             argNo++;
         }
 
@@ -54,11 +55,11 @@ public class ChainedE2C {
 
     }
 
-    private ArgumentTree createTree(List<KB_Node> n, ArgStructure arg, ArgumentTree tree, ArgumentFactory argumentFactory, int argNo, int nodeIndex) {
+    private ArgumentTree createTree(List<KB_Node> n, ArgStructure arg, ArgumentTree tree, ArgumentFactory argumentFactory, ArgumentObject argumentObject, int argNo, int nodeIndex) {
         if (n.get(nodeIndex).getType() == 'D') {
             argumentFactory.setDatum(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
-            ArgumentObject argumentObject = argumentFactory.createArgument(argNo);
-            tree.addSubArgument(argumentObject);
+            ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo);
+            tree.addSubArgument(argumentObject2, argumentObject);
             System.out.println(String.valueOf("Data: " + n.get(nodeIndex).getId()) + "\n");
             return tree;
         } else {
@@ -70,14 +71,17 @@ public class ChainedE2C {
             System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
             argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
 
-            ArgumentObject argumentObject = argumentFactory.createArgument(argNo);
-            if (nodeIndex == 1) {
-                tree = ArgumentTree.createArgumentTree(argumentObject);
-            } else {
-                tree.addSubArgument(argumentObject);
-            }
+            ArgumentObject argumentObject1 = argumentFactory.createArgument(argNo);
 
-            createTree(n, arg, tree, argumentFactory, argNo, nodeIndex);
+            if (nodeIndex == 1) {
+                tree = ArgumentTree.createArgumentTree(argumentObject1);
+            }
+            else if (n.get(nodeIndex).getType() != 'D') {
+                tree.addSubArgument(argumentObject1, argumentObject);
+            } else{
+                argumentObject1 = argumentObject;
+            }
+            createTree(n, arg, tree, argumentFactory, argumentObject1, argNo, nodeIndex);
         }
         return tree;
     }
