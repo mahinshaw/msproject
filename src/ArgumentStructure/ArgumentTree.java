@@ -133,7 +133,7 @@ public class ArgumentTree {
      */
     public void addSubArgument(ArgumentObject insert, ArgumentObject parent){
         current = findArgumentObject(parent);
-        if (isEmptyChild(current.getLeftChild()) && !insert.isHypothesis()){
+        if (isEmptyChild(current.getLeftChild()) /*&& !insert.isHypothesis()*/){
             current.setLeftChild(new ArgumentTree(insert, current));
             current.getLeftChild().setParent(current);
         }

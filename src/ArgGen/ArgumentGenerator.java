@@ -49,7 +49,7 @@ public class ArgumentGenerator {
         this.argPath = new ArrayList<KB_Node>();
         this.arg = arg;
         this.rootNode = rootNode;
-        this.argBuilder = new ArgBuilder(this.kbGraph, this.rootNode, HYPO.getType(), TYPE.DATA.getType());
+        this.argBuilder = new ArgBuilder(this.kbGraph, this.rootNode, HYPO.getType(), TYPE.DATA.getType(), arg);
         this.hypo = null;
         this.gen = new ArrayList<KB_Arc>();
         this.data = null;
@@ -83,7 +83,7 @@ public class ArgumentGenerator {
         }
 
         XMLWriter writer = new XMLWriter();
-        writer.writeXML(treeList, question);
+      //  writer.writeXML(treeList, question);
     }
 
     private ArgumentTree createArguments(int i) {
