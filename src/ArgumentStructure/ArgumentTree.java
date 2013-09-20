@@ -21,20 +21,38 @@ public class ArgumentTree {
 
     /**
      * These fields will be used for navigating large trees; ie. search and insertion
-     * @head - this is a reference to the uppermost root.
+     * @param head - this is a reference to the uppermost root.
      */
     private ArgumentTree head;
     private ArgumentTree current;
 
     private boolean conjuction;
 
+    /**
+     * This first constructor is used for creating a tree.  Here the head is set, and the parent is null.
+     *
+     * @param argumentObject - this is the object that will become the root of the head.
+     */
+    private ArgumentTree(ArgumentObject argumentObject){
+        this.root = argumentObject;
+        this.leftChild = null;
+        this.rightChild = null;
+        this.conjuction = false;
+        this.parent = null;
+        this.head = this;
+    }
+
+    /**
+     * This constructor is used for adding subtrees.  The head cannot be set here.
+     * @param argumentObject - the object to be the root of this tree.
+     * @param parent - the parent of this tree.
+     */
     private ArgumentTree(ArgumentObject argumentObject, ArgumentTree parent){
         this.root = argumentObject;
         this.leftChild = null;
         this.rightChild = null;
         this.conjuction = false;
         this.parent = parent;
-        head = this;
     }
 
     public ArgumentObject getRoot(){
@@ -151,13 +169,13 @@ public class ArgumentTree {
     /**
      * This method is intended to create a new tree, which in turn will have subtrees.  If you wish to add subtrees to
      * an existing tree, then call a different method.  Else you will have a new tree with a null parent, creating a
-     * tree root.
+     * tree root.  This method is also the only way to set the head of the tree.
      *
      * @param argumentObject
      * @return
      */
     public static ArgumentTree createArgumentTree(ArgumentObject argumentObject){
-        return new ArgumentTree(argumentObject, null);
+        return new ArgumentTree(argumentObject);
     }
 
     public ArgumentTree findArgumentObject(ArgumentObject argumentObject){
