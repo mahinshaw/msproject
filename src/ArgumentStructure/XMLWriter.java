@@ -108,9 +108,9 @@ public class XMLWriter {
         if (tree.hasLeftChild() || tree.hasRightChild()) {
             // left child
             if (tree.hasLeftChild()) {
-                //Element subArg1 = document.createElement("SubArgument");
-                addArgument(document, data, tree.getLeftChild());
-                element.appendChild(data);
+                Element subArg1 = document.createElement("SubArgument");
+                addArgument(document, subArg1, tree.getLeftChild());
+                data.appendChild(subArg1);
             }
             if (tree.hasRightChild()) {
                 //right child

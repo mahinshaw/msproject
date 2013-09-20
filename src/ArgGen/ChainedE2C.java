@@ -51,7 +51,7 @@ public class ChainedE2C {
         }
 
         XMLWriter writer = new XMLWriter();
-        writer.writeXML(treeList, "Test");
+        writer.writeXML(treeList, "Chained E2C");
 
     }
 
