@@ -44,12 +44,13 @@ public class ArgumentGenerator {
         }
     }
 
-    public ArgumentGenerator(KB_Node rootNode, ArgStructure arg, String question) {
+    public ArgumentGenerator(KB_Node rootNode, ArgStructure arg, String question, ArrayList<KB_Node> graphNodes) {
+
         this.pathArray = new ArrayList<List<KB_Node>>();
         this.argPath = new ArrayList<KB_Node>();
         this.arg = arg;
         this.rootNode = rootNode;
-        this.argBuilder = new ArgBuilder(this.kbGraph, this.rootNode, HYPO.getType(), TYPE.DATA.getType(), arg);
+        this.argBuilder = new ArgBuilder(graphNodes, this.rootNode, HYPO.getType(), TYPE.DATA.getType(), arg);
         this.hypo = null;
         this.gen = new ArrayList<KB_Arc>();
         this.data = null;
@@ -83,14 +84,15 @@ public class ArgumentGenerator {
         }
 
         XMLWriter writer = new XMLWriter();
-      //  writer.writeXML(treeList, question);
+        //  writer.writeXML(treeList, question);
     }
 
     private ArgumentTree createArguments(int i) {
 
         ArgumentFactory argumentFactory = new ArgumentFactory();
         argumentFactory.setHypothesis(String.valueOf(hypo.getId()), arg.getText(String.valueOf(hypo.getId())));
-        argumentFactory.setDatum(String.valueOf(data.getId()), arg.getText(String.valueOf(data.getId())));
+        if (data != null)
+            argumentFactory.setDatum(String.valueOf(data.getId()), arg.getText(String.valueOf(data.getId())));
         for (KB_Arc k : gen) {
             argumentFactory.addGeneralization(k.getEdge_id(), arg.getText(String.valueOf(k.getEdge_id())));
         }
@@ -130,7 +132,7 @@ public class ArgumentGenerator {
                 }
                 i++;
             }
-           //str = parent.getArcs().get(n).getEdge_id();
+            //str = parent.getArcs().get(n).getEdge_id();
             arc = parent.getArcs().get(n);
 
         } else {

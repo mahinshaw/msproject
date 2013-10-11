@@ -66,8 +66,9 @@ public class KB_Graph {
         // will throw outOfBoundsException of findKB_NodeIndex returns -1.
         KB_Node parent = nodelist.get(findKB_NodeIndex(parentNodeID));
         KB_Node child = nodelist.get(findKB_NodeIndex(childNodeID));
+        ArrayList<KB_Node> parents = new ArrayList<KB_Node>();
 
-        parent.addArc(new Influence_Arc(arc_id, type, parent, child));
+        parent.addArc(new Influence_Arc(arc_id, type, parents, child));
     }
 
     /**

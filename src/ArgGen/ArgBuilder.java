@@ -4,6 +4,7 @@ import GAIL.src.XMLHandler.ArgStructure;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Graph.KB_Graph;
 import KB.KB_Node.KB_Node;
+import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,23 +15,25 @@ import java.util.List;
  */
 public class ArgBuilder {
 
-    private KB_Graph graph;
+    private ArrayList<KB_Node> graphNodes;
     private KB_Node rootNode;
     private ArrayList<ArrayList<KB_Node>> pathList;
     private E2C e2c;
     private NE2C ne2c;
+    private JE2C je2c;
     private final char HYPO;
     private final char DATA;
 
 
-    public ArgBuilder(KB_Graph graph, KB_Node rootNode, char hypo, char data, ArgStructure arg) {
-        this.graph = graph;
+    public ArgBuilder(ArrayList<KB_Node> graphNodes, KB_Node rootNode, char hypo, char data, ArgStructure arg) {
+        this.graphNodes= graphNodes;
         this.rootNode = rootNode;
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.HYPO = hypo;
         this.DATA = data;
         e2c = new E2C(this.rootNode, this.DATA, this.HYPO, arg);
         ne2c = new NE2C(this.rootNode, this.DATA, this.HYPO);
+        je2c = new JE2C(this.rootNode, this.graphNodes, arg);
     }
 
     /**
@@ -38,8 +41,11 @@ public class ArgBuilder {
      */
     public void findArgument() {
         if (checkHypo()) {
-            pathList.addAll(e2c.getPathList());//E2C
-            pathList.addAll(ne2c.getPathList());//NE2C
+            //TODO
+            //pathList.addAll(e2c.getPathList());//E2C
+            //pathList.addAll(ne2c.getPathList());//NE2C
+            //pathList.addAll(je2c.getPathList());//JE2C
+            je2c.getPathList();
         }
 
     }

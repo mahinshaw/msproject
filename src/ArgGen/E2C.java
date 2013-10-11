@@ -18,7 +18,6 @@ public class E2C {
     private ArrayList<ArrayList<KB_Node>> pathList;
     private final char DATA;
     private final char HYPO;
-    private final String TEST = "KB.KB_Node.Test";
     private ArgStructure arg;
 
 
