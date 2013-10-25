@@ -13,12 +13,13 @@ public class KB_Arc {
 
     private KB_Node child;
     private String edge_id;
+    private String type;
     private ArrayList<KB_Node> parents;
 
-    public KB_Arc(String edge_id, KB_Node child, ArrayList<KB_Node> parents) {
+    public KB_Arc(String edge_id, KB_Node child, String type) {
         this.edge_id = edge_id;
         this.child = child;
-        this.parents = parents;
+        this.type = type;
     }
 
     public KB_Node getChild() {
@@ -27,6 +28,14 @@ public class KB_Arc {
 
     public void setChild(KB_Node child) {
         this.child = child;
+    }
+
+    public String getType(){
+        return this.type;
+    }
+
+    public void setType(String type){
+        this.type = type;
     }
 
     public void setParents(ArrayList<KB_Node> parents) {

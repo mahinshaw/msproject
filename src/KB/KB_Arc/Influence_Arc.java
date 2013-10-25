@@ -16,7 +16,7 @@ public class Influence_Arc extends KB_Arc {
     private ArrayList<KB_Node> parents;
 
     public Influence_Arc(String arc_id, String type, ArrayList<KB_Node> parents, KB_Node child) {
-        super(arc_id, child, parents);
+        super(arc_id, child, type);
         this.type = type;
         this.parents = parents;
     }

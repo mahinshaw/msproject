@@ -8,19 +8,20 @@ import java.util.List;
  * Email: mahinshaw@gmail.com
  * Date: 8/2/13
  * github: https://github.com/mahinshaw/msproject
- *
+ * <p/>
  * This Structure will be used to compare student arguments to arguments created from the Argument Generator.
- *
  */
 public class ArgumentObject {
 
     private final int ARGID;
+    private String type;
     private final Hypothesis hypothesis;
     private final List<Generalization> generalizations;
     private final Datum datum;
 
-    private ArgumentObject(Builder builder){
+    private ArgumentObject(Builder builder) {
         this.ARGID = builder.argID;
+        this.type = builder.type;
         this.hypothesis = builder.hypothesis;
         this.generalizations = builder.generalizations;
         this.datum = builder.datum;
@@ -30,7 +31,11 @@ public class ArgumentObject {
         return ARGID;
     }
 
-    public Hypothesis getHypothesis(){
+    public String getType(){
+        return type;
+    }
+
+    public Hypothesis getHypothesis() {
         return hypothesis;
     }
 
@@ -42,55 +47,59 @@ public class ArgumentObject {
         return datum;
     }
 
-    public void addGeneralization(String arcID, String text){
+    public void addGeneralization(String arcID, String text) {
         this.generalizations.add(new Generalization(arcID, text));
     }
 
-    public String getTypeofArgument(){
-        if(datum == null){
+    public String getTypeofArgument() {
+        if (datum == null) {
             return "Hypothesis only";
-        }
-        else {
+        } else {
             return "Full Argument";
         }
     }
 
-    public boolean isHypothesis(){
-        if (datum == null){
+    public boolean isHypothesis() {
+        if (datum == null) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     public static class Builder {
         private int argID;
+        private String type;
         private Hypothesis hypothesis;
         private List<Generalization> generalizations = new ArrayList<Generalization>();
         private Datum datum = null;
 
-        public Builder argID(int argID){
+        public Builder argID(int argID) {
             this.argID = argID;
             return this;
         }
 
-        public Builder hypothesis(Hypothesis hypothesis){
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder hypothesis(Hypothesis hypothesis) {
             this.hypothesis = hypothesis;
             return this;
         }
 
-        public Builder generalizations(ArrayList<Generalization> generalizations){
+        public Builder generalizations(ArrayList<Generalization> generalizations) {
             this.generalizations = generalizations;
             return this;
         }
 
-        public Builder datum(Datum datum){
+        public Builder datum(Datum datum) {
             this.datum = datum;
             return this;
         }
 
-        public ArgumentObject build(){
+        public ArgumentObject build() {
             return new ArgumentObject(this);
         }
     }

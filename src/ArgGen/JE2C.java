@@ -31,7 +31,7 @@ public class JE2C {
         this.arg = arg;
     }
 
-    public void getPathList() {
+    public void findPath() {
 
         ArrayList<KB_Node> findParents = new ArrayList<KB_Node>();
         ArrayList<KB_Node> graphRoots = new ArrayList<KB_Node>();
@@ -86,7 +86,7 @@ public class JE2C {
                 argumentFactory.setDatum(Integer.toString(n.get(1).getId()), arg.getText(Integer.toString(n.get(1).getId())));
             //}
 
-            ArgumentObject argumentObject = argumentFactory.createArgument(i);
+            ArgumentObject argumentObject = argumentFactory.createArgument(i, "JE2C");
 
             ArgumentTree tree = ArgumentTree.createArgumentTree(argumentObject);
 
@@ -96,6 +96,7 @@ public class JE2C {
         XMLWriter writer = new XMLWriter();
         writer.writeXML(treeList, "JE2C");
     }
+
 
     /**
      * Find the parents of the child in the parameter

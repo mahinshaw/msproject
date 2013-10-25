@@ -39,8 +39,8 @@ public class ArgumentFactory {
         generalizations.add(new Generalization(kbArcID, text));
     }
 
-    public ArgumentObject createArgument(int argID){
-        this.argumentObject = new ArgumentObject.Builder().argID(argID).hypothesis(this.hypothesis).generalizations(this.generalizations).datum(this.datum).build();
+    public ArgumentObject createArgument(int argID, String type){
+        this.argumentObject = new ArgumentObject.Builder().argID(argID).type(type).hypothesis(this.hypothesis).generalizations(this.generalizations).datum(this.datum).build();
         return this.argumentObject;
     }
 }

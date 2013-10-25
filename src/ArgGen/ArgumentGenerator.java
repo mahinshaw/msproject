@@ -6,7 +6,6 @@ import ArgumentStructure.ArgumentTree;
 import ArgumentStructure.XMLWriter;
 import GAIL.src.XMLHandler.ArgStructure;
 import KB.KB_Arc.KB_Arc;
-import KB.KB_Graph.KB_Graph;
 import KB.KB_Node.KB_Node;
 
 import java.util.ArrayList;
@@ -14,21 +13,15 @@ import java.util.List;
 
 import static ArgGen.ArgumentGenerator.TYPE.HYPO;
 
-/**
- * User: Mark Hinshaw
- * Email: mahinshaw@gmail.com
- * Date: 7/30/13
- * github: https://github.com/mahinshaw/msproject
- */
 public class ArgumentGenerator {
 
     private List<List<KB_Node>> pathArray;
     private List<KB_Node> argPath;
-    private KB_Graph kbGraph;
     private KB_Node rootNode, hypo, data;
     private ArrayList<KB_Arc> gen;
     private ArgBuilder argBuilder;
     private ArgStructure arg;
+    private String argType;
     private final String question;
 
     public enum TYPE {
@@ -67,50 +60,51 @@ public class ArgumentGenerator {
 
     public void addArgument() {
         argBuilder.findArgument();
-        int i = 1;
         ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
+        int argNo = 1;
 
         for (List<KB_Node> n : argBuilder.getPathList()) {
-            int z = 1;
-            for (KB_Node x : n) {
-                initVariable(x);
-                if (z != n.size()) {
-                    gen.add(findEdgeID(x, n.get(z++)));
-                }
-            }
-            treeList.add(createArguments(i));
-            gen.clear();
-            i++;
+            int nodeIndex = 0;
+            argType = findArgType(argBuilder.getArgType().get(argNo-1));
+            ArgumentTree tree = null;
+            ArgumentFactory argumentFactory = null;
+            ArgumentObject argumentObject = null;
+            treeList.add(createTree(n, tree, argumentFactory, argumentObject, argNo, nodeIndex));
+            argNo++;
         }
 
         XMLWriter writer = new XMLWriter();
-        //  writer.writeXML(treeList, question);
+        writer.writeXML(treeList, question);
     }
 
-    private ArgumentTree createArguments(int i) {
+    private ArgumentTree createTree(List<KB_Node> n, ArgumentTree tree, ArgumentFactory argumentFactory, ArgumentObject argumentObject, int argNo, int nodeIndex) {
+        if (n.get(nodeIndex).getType() == 'D') {
+            argumentFactory.setDatum(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
+            ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo, argType);
+            tree.addSubArgument(argumentObject2, argumentObject);
+            System.out.println(String.valueOf("Data: " + n.get(nodeIndex).getId()) + "\n");
+            return tree;
+        } else {
+            argumentFactory = new ArgumentFactory();
+            argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
+            System.out.println(String.valueOf("Hypo: " + n.get(nodeIndex).getId()));
 
-        ArgumentFactory argumentFactory = new ArgumentFactory();
-        argumentFactory.setHypothesis(String.valueOf(hypo.getId()), arg.getText(String.valueOf(hypo.getId())));
-        if (data != null)
-            argumentFactory.setDatum(String.valueOf(data.getId()), arg.getText(String.valueOf(data.getId())));
-        for (KB_Arc k : gen) {
-            argumentFactory.addGeneralization(k.getEdge_id(), arg.getText(String.valueOf(k.getEdge_id())));
+            KB_Arc arc = findEdgeID(n.get(nodeIndex), n.get(++nodeIndex));
+            System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
+            argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
+
+            ArgumentObject argumentObject1 = argumentFactory.createArgument(argNo, argType);
+
+            if (nodeIndex == 1) {
+                tree = ArgumentTree.createArgumentTree(argumentObject1);
+            } else if (n.get(nodeIndex).getType() != 'D') {
+                tree.addSubArgument(argumentObject1, argumentObject);
+            } else {
+                argumentObject1 = argumentObject;
+            }
+            createTree(n, tree, argumentFactory, argumentObject1, argNo, nodeIndex);
         }
-        ArgumentObject argumentObject = argumentFactory.createArgument(i);
-        ArgumentTree tree = ArgumentTree.createArgumentTree(argumentObject);
-
         return tree;
-    }
-
-    private void initVariable(KB_Node x) {
-        switch (x.getType()) {
-            case 'H':
-                hypo = x;
-                break;
-            case 'D':
-                data = x;
-                break;
-        }
     }
 
     /**
@@ -139,6 +133,19 @@ public class ArgumentGenerator {
             str = "No ID found.";
         }
         return arc;
+    }
+
+    private String findArgType(int i) {
+        String argT="";
+        switch (i){
+            case 1: argT = "E2C";
+                break;
+            case 2: argT = "NE2C";
+                break;
+            case 3: argT = "JE2C";
+                break;
+        }
+        return argT;
     }
 }
 

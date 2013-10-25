@@ -18,6 +18,7 @@ public class ArgBuilder {
     private ArrayList<KB_Node> graphNodes;
     private KB_Node rootNode;
     private ArrayList<ArrayList<KB_Node>> pathList;
+    private ArrayList<Integer> argType;
     private E2C e2c;
     private NE2C ne2c;
     private JE2C je2c;
@@ -26,7 +27,7 @@ public class ArgBuilder {
 
 
     public ArgBuilder(ArrayList<KB_Node> graphNodes, KB_Node rootNode, char hypo, char data, ArgStructure arg) {
-        this.graphNodes= graphNodes;
+        this.graphNodes = graphNodes;
         this.rootNode = rootNode;
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.HYPO = hypo;
@@ -34,20 +35,35 @@ public class ArgBuilder {
         e2c = new E2C(this.rootNode, this.DATA, this.HYPO, arg);
         ne2c = new NE2C(this.rootNode, this.DATA, this.HYPO);
         je2c = new JE2C(this.rootNode, this.graphNodes, arg);
+        this.argType = new ArrayList<Integer>();
     }
 
     /**
-     * Method to find different arguments
+     * Call to different argument generators
+     * If not empty, get argument and argument type
      */
     public void findArgument() {
+        ArrayList<ArrayList<KB_Node>> hold;
         if (checkHypo()) {
-            //TODO
-            //pathList.addAll(e2c.getPathList());//E2C
-            //pathList.addAll(ne2c.getPathList());//NE2C
-            //pathList.addAll(je2c.getPathList());//JE2C
-            je2c.getPathList();
-        }
 
+            hold = e2c.getPathList();
+            if (!hold.isEmpty()) {
+                pathList.addAll(hold);//E2C
+                for (int y = 0; y < hold.size(); y++)
+                    argType.add(1);
+            }
+
+            hold = ne2c.getPathList();
+            if (!hold.isEmpty()) {
+                pathList.addAll(hold);//NE2C
+                for (int y = 0; y < hold.size(); y++)
+                    argType.add(2);
+            }
+
+            //pathList.addAll(je2c.getPathList());//JE2C
+
+            je2c.findPath();
+        }
     }
 
     private boolean checkHypo() {
@@ -60,5 +76,9 @@ public class ArgBuilder {
 
     public ArrayList<ArrayList<KB_Node>> getPathList() {
         return pathList;
+    }
+
+    public ArrayList<Integer> getArgType() {
+        return argType;
     }
 }

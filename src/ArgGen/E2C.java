@@ -1,6 +1,7 @@
 package ArgGen;
 
 import GAIL.src.XMLHandler.ArgStructure;
+import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
 import KB.KB_Node.Symptom;
 import KB.KB_Node.Test;
@@ -33,12 +34,10 @@ public class E2C {
 
     public ArrayList<ArrayList<KB_Node>> getPathList() {
         if (rootNode.getChildren().isEmpty()) {
-            System.out.println("No children for node " + rootNode.getId()+" (E2C Scheme)");
+            System.out.println("No children for node " + rootNode.getId() + " (E2C Scheme)");
         } else {
             traverseGraph(rootNode, tempList, pathList);
             pathList = getE2C(pathList);
-            ChainedE2C chained = new ChainedE2C();
-            chained.addArgument(pathList, arg);
         }
         return pathList;
     }
@@ -58,7 +57,7 @@ public class E2C {
         }
 
         for (KB_Node n : root.getChildren()) {
-            if (!argList.contains(n)) {
+            if (!argList.contains(n) && checkArcType(root, n)) {
                 traverseGraph(n, tempList, pathList);
             }
         }
@@ -118,5 +117,31 @@ public class E2C {
             i = 0;
         }
         return tempList;
+    }
+
+    /**
+     * Check to see if the edge type is the influence arc
+     *
+     * @return true if influence arc exits between two nodes
+     */
+    private boolean checkArcType(KB_Node parent, KB_Node child) {
+        boolean influence = false;
+        int i = 0, n = 0;
+        KB_Arc arc = null;
+
+        if (parent.getChildren().contains(child)) {
+            for (KB_Node m : parent.getChildren()) {
+                if (m.getId() == child.getId()) {
+                    n = i;
+                }
+                i++;
+            }
+            //str = parent.getArcs().get(n).getEdge_id();
+            arc = parent.getArcs().get(n);
+            if (arc.getType().equalsIgnoreCase("+")) {
+                influence = true;
+            }
+        }
+        return influence;
     }
 }

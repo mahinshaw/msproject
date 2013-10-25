@@ -50,9 +50,18 @@ public class XMLWriter {
 
                 // append argument
                 Element argument = document.createElement("Argument");
+
+                //append argument number
                 Attr argIndex = document.createAttribute("arg");
                 argument.setAttributeNode(argIndex);
                 argIndex.setValue(Integer.toString(tree.getRoot().getARGID()));
+
+
+                //append argument type
+                Attr argType = document.createAttribute("type");
+                argument.setAttributeNode(argType);
+                argType.setValue(tree.getRoot().getType());
+
                 session.appendChild(argument);
 
                 // print arguments in each tree.
@@ -108,15 +117,15 @@ public class XMLWriter {
         if (tree.hasLeftChild() || tree.hasRightChild()) {
             // left child
             if (tree.hasLeftChild()) {
-                Element subArg1 = document.createElement("SubArgument");
-                addArgument(document, subArg1, tree.getLeftChild());
-                data.appendChild(subArg1);
+               // Element subArg1 = document.createElement("SubArgument");
+                addArgument(document, data, tree.getLeftChild());
+               // data.appendChild(subArg1);
             }
             if (tree.hasRightChild()) {
                 //right child
-                Element subArg2 = document.createElement("SubArgument");
-                addArgument(document, subArg2, tree.getRightChild());
-                data.appendChild(subArg2);
+                //Element subArg2 = document.createElement("SubArgument");
+                addArgument(document, data, tree.getRightChild());
+                //data.appendChild(subArg2);
             }
         }
         //if no children print the data
