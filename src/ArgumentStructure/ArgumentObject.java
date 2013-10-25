@@ -18,28 +18,34 @@ public class ArgumentObject {
     private final Hypothesis hypothesis;
     private final List<Generalization> generalizations;
     private final Datum datum;
+    private final boolean isConjunction;
 
     private ArgumentObject(Builder builder){
         this.ARGID = builder.argID;
         this.hypothesis = builder.hypothesis;
         this.generalizations = builder.generalizations;
         this.datum = builder.datum;
+        this.isConjunction = builder.isConjunction;
     }
 
     public int getARGID() {
-        return ARGID;
+        return this.ARGID;
     }
 
     public Hypothesis getHypothesis(){
-        return hypothesis;
+        return this.hypothesis;
     }
 
     public List<Generalization> getGeneralizations() {
-        return generalizations;
+        return this.generalizations;
     }
 
     public Datum getDatum() {
-        return datum;
+        return this.datum;
+    }
+
+    public boolean getIsConjunction(){
+        return this.isConjunction;
     }
 
     public void addGeneralization(String arcID, String text){
@@ -69,6 +75,7 @@ public class ArgumentObject {
         private Hypothesis hypothesis;
         private List<Generalization> generalizations = new ArrayList<Generalization>();
         private Datum datum = null;
+        private boolean isConjunction = false;
 
         public Builder argID(int argID){
             this.argID = argID;
@@ -87,6 +94,11 @@ public class ArgumentObject {
 
         public Builder datum(Datum datum){
             this.datum = datum;
+            return this;
+        }
+
+        public Builder isConjunction(boolean isConjunction){
+            this.isConjunction = isConjunction;
             return this;
         }
 

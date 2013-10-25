@@ -301,13 +301,21 @@ public class ApplicationController implements MouseListener, ActionListener {
 		saveSessionLog();
 		saveFinalArgument();
 
+        /**
+         * Create a GraphBuilder which will output to the proper file.
+         * Added by Mark Hinshaw October 2013.
+         */
+        GraphBuilder gb = new GraphBuilder(statementController, edgeController, conjunctionController, (ArrayList<MultiGeneralizationModel>) multiGeneralizations);
+        ArgumentStructure.XMLWriter xmlWriter = new ArgumentStructure.XMLWriter();
+        xmlWriter.writeXML(gb.getArgumentTrees(), problems[currentProblem]);
+
         // Added July 23, Mark Hinshaw
-        XMLWriter writer = new XMLWriter();
+        //XMLWriter writer = new XMLWriter();
 
         //CHANGES- Tobey 7/25/13
         //TEST
 
-        writer.writeXML(edgeController.getArgStructureArrayList(), currentProblem);
+        //writer.writeXML(edgeController.getArgStructureArrayList(), currentProblem);
 
 	}
 

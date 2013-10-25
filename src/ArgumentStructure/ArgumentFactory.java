@@ -20,11 +20,13 @@ public class ArgumentFactory {
     private Hypothesis hypothesis;
     private ArrayList<Generalization> generalizations;
     private Datum datum;
+    private boolean isConjunction;
 
     public ArgumentFactory(){
         this.hypothesis = null;
         this.generalizations = new ArrayList<Generalization>();
         this.datum = null;
+        this.isConjunction = false;
     }
 
     public void setHypothesis(String kbNodeID, String text){
@@ -39,8 +41,12 @@ public class ArgumentFactory {
         generalizations.add(new Generalization(kbArcID, text));
     }
 
+    public void setIsConjunction(boolean isConjunction){
+        this.isConjunction = isConjunction;
+    }
+
     public ArgumentObject createArgument(int argID){
-        this.argumentObject = new ArgumentObject.Builder().argID(argID).hypothesis(this.hypothesis).generalizations(this.generalizations).datum(this.datum).build();
+        this.argumentObject = new ArgumentObject.Builder().argID(argID).hypothesis(this.hypothesis).generalizations(this.generalizations).datum(this.datum).isConjunction(this.isConjunction).build();
         return this.argumentObject;
     }
 }

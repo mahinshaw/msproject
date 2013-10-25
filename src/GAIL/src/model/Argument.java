@@ -95,7 +95,12 @@ public class Argument extends Edge {
 		edgeType = EdgeType.ARGUMENT;
 	}
 
-	public void setTarget(Statement target) {
+    @Override
+    public EdgeType getEdgeType() {
+        return edgeType;
+    }
+
+    public void setTarget(Statement target) {
 		this.target = target;
 	}
 
