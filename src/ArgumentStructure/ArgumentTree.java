@@ -137,7 +137,7 @@ public class ArgumentTree {
             current.setLeftChild(new ArgumentTree(insert, current));
             current.getLeftChild().setParent(current);
         }
-        else if (!insert.isHypothesis()){
+        else if (isEmptyChild(current.getRightChild())){
             current.setRightChild(new ArgumentTree(insert, current));
         }
         else {

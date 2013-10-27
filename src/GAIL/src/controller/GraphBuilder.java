@@ -26,7 +26,6 @@ import java.util.Set;
 public class GraphBuilder {
 
     // model data objects
-    private ArrayList<Statement> statements;
     private ArrayList<MultiGeneralizationModel> multiGeneralizations;
     private ArrayList<Branch> branches;
     private ArrayList<Conjunction> conjunctions;
@@ -48,17 +47,19 @@ public class GraphBuilder {
                         EdgeController edgeController,
                         ConjunctionController conjunctionController,
                         ArrayList<MultiGeneralizationModel> multiGeneralizations) {
-        this.statements = statementController.getStatements();
         this.multiGeneralizations = multiGeneralizations;
         this.branches = edgeController.getBranches();
         this.conjunctions = conjunctionController.getConjunctions();
         this.warrants = edgeController.getWarrants();
         this.arguments = edgeController.getArguments();
-        this.adjacencyMap = new LinkedHashMap<Node, LinkedList<Edge>>(statements.size());
+        this.adjacencyMap = new LinkedHashMap<Node, LinkedList<Edge>>();
+        this.hypotheses = new LinkedList<Statement>();
+        this.generalizations = new LinkedList<Statement>();
+        this.data = new LinkedList<Statement>();
         this.heads = new LinkedList<Statement>();
         this.argumentTrees = new ArrayList<ArgumentTree>(3);
         this.currentArgID = 0;
-        findTypes();
+        findTypes(statementController.getStatements());
         buildAdjacencyMap();
         findHeads();
         loadTrees();
@@ -77,7 +78,7 @@ public class GraphBuilder {
         return argumentTrees;
     }
 
-    private void findTypes() {
+    private void findTypes(ArrayList<Statement> statements) {
         for (Statement statement : statements) {
             if (statement.getType() == Statement.StatementType.HYPOTHESIS) {
                 this.hypotheses.push(statement);
@@ -169,6 +170,8 @@ public class GraphBuilder {
             next = getNextNode(current, edges, factory);
             // if next is null then we need to go to the next head.
             if (next.equals(null)) continue;
+            // create a tree for the new head
+            tree = null;
             tree = treeBuilder(next, parent, factory, tree);
             argumentTrees.add(tree);
 
@@ -194,7 +197,7 @@ public class GraphBuilder {
         // if the key already exists
         else if (adjacencyMap.containsKey(s)) {
             // check to see if the edge is already in the list.
-            if (!adjacencyMapContainsEdge(s, e))
+            if (adjacencyMapContainsEdge(s, e))
                 return;
             // if the edge is not there
             else {
@@ -241,12 +244,14 @@ public class GraphBuilder {
             // Target for a branch is always a conjunction - The Statement is the source.
             case BRANCH:
                 Branch b = (Branch)edge;
-                next = b.getTarget();
+                if(b.getTarget() == current)
+                    next = b.getSource();
+                else
+                    next = b.getTarget();
                 break;
         }
         //now that we have next, lets clean its edges.
-        edges = cleanEdges(current, adjacencyMap.get(next));
-        adjacencyMap.put(next, edges);
+        cleanEdges(current, next);
 
         return next;
     }
@@ -259,6 +264,10 @@ public class GraphBuilder {
                     factory.addGeneralization(s.getTextNode().getNode_id(), s.getTextNode().getText());
                 }
             }
+            else if (w.getSource() instanceof Statement && ((Statement) w.getSource()).getType() == Statement.StatementType.GENERALIZATION){
+                Statement s = (Statement) w.getSource();
+                factory.addGeneralization(s.getTextNode().getNode_id(), s.getTextNode().getText());
+            }
         }
     }
 
@@ -267,6 +276,7 @@ public class GraphBuilder {
         LinkedList<Edge> edges = adjacencyMap.get(current);
         // now remove current from adjacency list
         adjacencyMap.remove(current);
+        ArgumentObject nextParent;
 
         // base case: the next node is a data, and we return it
         if (current instanceof Statement && ((Statement) current).getType() == Statement.StatementType.DATA){
@@ -285,7 +295,9 @@ public class GraphBuilder {
                 parent = tree.getRoot();
             }
             else{
-                tree.addSubArgument(factory.createArgument(currentArgID), parent);
+                nextParent = factory.createArgument(currentArgID);
+                tree.addSubArgument(nextParent, parent);
+                parent = nextParent;
             }
             // since we have a conjunction we need to handle both the left and right child recursively.
             factory = new ArgumentFactory();
@@ -306,7 +318,9 @@ public class GraphBuilder {
                 parent = tree.getRoot();
             }
             else{
-                tree.addSubArgument(factory.createArgument(currentArgID), parent);
+                nextParent = factory.createArgument(currentArgID);
+                tree.addSubArgument(nextParent, parent);
+                parent = nextParent;
             }
             // since we have a Statement we need to handle it recursively
             factory = new ArgumentFactory();
@@ -332,19 +346,20 @@ public class GraphBuilder {
     /**
      * This method cleans edges that may have already been used by previous node.
      * @param current
-     * @param edges
+     * @param next
      * @return
      */
-    private LinkedList<Edge> cleanEdges(Node current, LinkedList<Edge> edges){
-        for (Edge e : edges){
+    private void cleanEdges(Node current, Node next){
+        LinkedList<Edge> edges = new LinkedList<Edge>();
+        for (Edge e : adjacencyMap.get(next)){
             switch (e.getEdgeType()) {
 
                 // find out if it is a source or a target
                 case ARGUMENT:
                     if (((Argument)e).getTarget() == current)
-                        edges.remove(current);
+                        edges.add(e);
                     else if (e.getSource() == current)
-                        edges.remove(current);
+                        edges.add(e);
                     break;
                 // warrants should not exist in this list - Target is always an argument.
                 case WARRANT:
@@ -352,10 +367,18 @@ public class GraphBuilder {
                 // Target for a branch is always a conjunction - The Statement is the source.
                 case BRANCH:
                     if(e.getSource() == current)
-                        edges.remove(current);
+                        edges.add(e);
                     break;
             }
         }
-        return edges;
+        for (Edge e : edges){
+            removeEdge(next, e);
+        }
+    }
+
+    private void removeEdge(Node n, Edge e){
+        LinkedList<Edge> edges = adjacencyMap.get(n);
+        edges.remove(e);
+        adjacencyMap.put(n, edges);
     }
 }

@@ -305,7 +305,11 @@ public class ApplicationController implements MouseListener, ActionListener {
          * Create a GraphBuilder which will output to the proper file.
          * Added by Mark Hinshaw October 2013.
          */
-        GraphBuilder gb = new GraphBuilder(statementController, edgeController, conjunctionController, (ArrayList<MultiGeneralizationModel>) multiGeneralizations);
+        ArrayList<MultiGeneralizationModel> mgmList = new ArrayList<MultiGeneralizationModel>();
+        for (MultiGeneralizationModel m : multiGeneralizations){
+            mgmList.add(m);
+        }
+        GraphBuilder gb = new GraphBuilder(statementController, edgeController, conjunctionController, mgmList);
         ArgumentStructure.XMLWriter xmlWriter = new ArgumentStructure.XMLWriter();
         xmlWriter.writeXML(gb.getArgumentTrees(), problems[currentProblem]);
 
