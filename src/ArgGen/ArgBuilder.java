@@ -4,6 +4,7 @@ import GAIL.src.XMLHandler.ArgStructure;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Graph.KB_Graph;
 import KB.KB_Node.KB_Node;
+import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,34 +15,59 @@ import java.util.List;
  */
 public class ArgBuilder {
 
-    private KB_Graph graph;
+    private ArrayList<KB_Node> graphNodes;
     private KB_Node rootNode;
     private ArrayList<ArrayList<KB_Node>> pathList;
+    private ArrayList<Integer> argType;
     private E2C e2c;
     private NE2C ne2c;
+    private JE2C je2c;
     private final char HYPO;
     private final char DATA;
 
 
-    public ArgBuilder(KB_Graph graph, KB_Node rootNode, char hypo, char data, ArgStructure arg) {
-        this.graph = graph;
+    public ArgBuilder(ArrayList<KB_Node> graphNodes, KB_Node rootNode, char hypo, char data, ArgStructure arg) {
+        this.graphNodes = graphNodes;
         this.rootNode = rootNode;
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.HYPO = hypo;
         this.DATA = data;
         e2c = new E2C(this.rootNode, this.DATA, this.HYPO, arg);
         ne2c = new NE2C(this.rootNode, this.DATA, this.HYPO);
+        je2c = new JE2C(this.rootNode, this.graphNodes, arg);
+        this.argType = new ArrayList<Integer>();
     }
 
     /**
-     * Method to find different arguments
+     * Call to different argument generators
+     * If not empty, get argument and argument type
      */
     public void findArgument() {
+        ArrayList<ArrayList<KB_Node>> hold;
         if (checkHypo()) {
-            pathList.addAll(e2c.getPathList());//E2C
-            pathList.addAll(ne2c.getPathList());//NE2C
-        }
 
+            hold = e2c.getPathList();
+            if (!hold.isEmpty()) {
+                pathList.addAll(hold);//E2C
+                for (int y = 0; y < hold.size(); y++)
+                    argType.add(1);
+            }
+
+            hold = ne2c.getPathList();
+            if (!hold.isEmpty()) {
+                pathList.addAll(hold);//NE2C
+                for (int y = 0; y < hold.size(); y++)
+                    argType.add(2);
+            }
+
+
+            hold = je2c.getPathList();
+            if (!hold.isEmpty()) {
+                pathList.addAll(hold);//NE2C
+                for (int y = 0; y < hold.size(); y++)
+                    argType.add(3);
+            }
+        }
     }
 
     private boolean checkHypo() {
@@ -54,5 +80,9 @@ public class ArgBuilder {
 
     public ArrayList<ArrayList<KB_Node>> getPathList() {
         return pathList;
+    }
+
+    public ArrayList<Integer> getArgType() {
+        return argType;
     }
 }

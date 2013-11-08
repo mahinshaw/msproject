@@ -1,10 +1,8 @@
 package KB.KB_Arc;
 
 import KB.KB_Node.KB_Node;
-import KB.KB_Node.KB_Person;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Author: Mark Hinshaw
@@ -17,7 +15,7 @@ public class Synergy_Arc extends KB_Arc {
     private ArrayList<KB_Node> parents;
 
     public Synergy_Arc(String syn_id, String type, ArrayList<KB_Node> parents, KB_Node child) {
-        super(syn_id, child);
+        super(syn_id, child, type);
         this.type = type;
         this.parents = parents;
     }
@@ -42,6 +40,11 @@ public class Synergy_Arc extends KB_Arc {
         this.parents.add(parent);
     }
 
+
+    @Override
+    public void setParents(ArrayList<KB_Node> parents) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     public String toString() {
         String parentIDs = "";

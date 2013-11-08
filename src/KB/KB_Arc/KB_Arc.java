@@ -2,6 +2,8 @@ package KB.KB_Arc;
 
 import KB.KB_Node.KB_Node;
 
+import java.util.ArrayList;
+
 /**
  * Author: Mark Hinshaw
  * Email: mahinshaw@gmail.com
@@ -11,10 +13,13 @@ public class KB_Arc {
 
     private KB_Node child;
     private String edge_id;
+    private String type;
+    private ArrayList<KB_Node> parents;
 
-    public KB_Arc(String edge_id, KB_Node child) {
+    public KB_Arc(String edge_id, KB_Node child, String type) {
         this.edge_id = edge_id;
         this.child = child;
+        this.type = type;
     }
 
     public KB_Node getChild() {
@@ -25,16 +30,32 @@ public class KB_Arc {
         this.child = child;
     }
 
-    public String getEdge_id(){
+    public String getType(){
+        return this.type;
+    }
+
+    public void setType(String type){
+        this.type = type;
+    }
+
+    public void setParents(ArrayList<KB_Node> parents) {
+        this.parents = parents;
+    }
+
+    public ArrayList<KB_Node> getParents(){
+        return parents;
+    }
+
+    public String getEdge_id() {
         return this.edge_id;
     }
 
-    public void setEdge_id(String edge_id){
+    public void setEdge_id(String edge_id) {
         this.edge_id = edge_id;
     }
 
     public String toString() {
-        return "Child node ID: " + this.child.getId() + "\n"+
-                "Edge_ID with parent_node: "+this.edge_id+"\n";
+        return "Child node ID: " + this.child.getId() + "\n" +
+                "Edge_ID with parent_node: " + this.edge_id + "\n";
     }
 }

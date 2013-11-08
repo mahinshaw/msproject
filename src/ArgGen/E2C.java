@@ -1,6 +1,7 @@
 package ArgGen;
 
 import GAIL.src.XMLHandler.ArgStructure;
+import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
 import KB.KB_Node.Symptom;
 import KB.KB_Node.Test;
@@ -18,9 +19,8 @@ public class E2C {
     private ArrayList<ArrayList<KB_Node>> pathList;
     private final char DATA;
     private final char HYPO;
-    private final String TEST = "KB.KB_Node.Test";
     private ArgStructure arg;
-
+    private ArgInfo argInfo = new ArgInfo();
 
     public E2C(KB_Node rootNode, char data, char hypo, ArgStructure arg) {
         this.rootNode = rootNode;
@@ -34,12 +34,10 @@ public class E2C {
 
     public ArrayList<ArrayList<KB_Node>> getPathList() {
         if (rootNode.getChildren().isEmpty()) {
-            System.out.println("No children for node " + rootNode.getId()+" (E2C Scheme)");
+            System.out.println("No children for node " + rootNode.getId() + " (E2C Scheme)");
         } else {
             traverseGraph(rootNode, tempList, pathList);
-            pathList = getE2C(pathList);
-            ChainedE2C chained = new ChainedE2C();
-            chained.addArgument(pathList, arg);
+            pathList = argInfo.getE2C(pathList);
         }
         return pathList;
     }
@@ -59,7 +57,7 @@ public class E2C {
         }
 
         for (KB_Node n : root.getChildren()) {
-            if (!argList.contains(n)) {
+            if (!argList.contains(n) && checkArcType(root, n)) {
                 traverseGraph(n, tempList, pathList);
             }
         }
@@ -91,33 +89,18 @@ public class E2C {
         return condition;
     }
 
-
     /**
-     * Check condition:
-     * No two hypothesis should exist in an E2C arg scheme
+     * Check to see if the edge type is the influence arc
      *
-     * @param allPaths
-     * @return
+     * @return true if influence arc exits between two nodes
      */
-    private ArrayList<ArrayList<KB_Node>> getE2C(ArrayList<ArrayList<KB_Node>> allPaths) {
-        int i = 0;
-        ArrayList<ArrayList<KB_Node>> tempList = new ArrayList<ArrayList<KB_Node>>();
+    private boolean checkArcType(KB_Node parent, KB_Node child) {
+        KB_Arc arc = argInfo.findEdge(parent, child);
+        boolean influence = false;
 
-        for (ArrayList<KB_Node> n : allPaths) {
-            for (KB_Node k : n) {
-                if (k.getType() == HYPO) {
-                    i++;
-                }
-            }
-            /**
-             * If there are more than one hypothesis in one argument path,
-             * it is not E2C argument
-             */
-            if (i == 1) {
-                tempList.add(n);
-            }
-            i = 0;
+        if (arc.getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.INFLUENCE.getType()))) {
+            influence = true;
         }
-        return tempList;
+        return influence;
     }
 }

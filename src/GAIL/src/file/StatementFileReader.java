@@ -53,7 +53,7 @@ public class StatementFileReader {
          Node ID: 15 and index 14
          Node ID: 16 and index 15
          */
-        ArgumentGenerator argGen = new ArgumentGenerator(xmlInterface.getGraph().getNodelist().get(6), reader.getArg(), reader.getArg().getQuestions().get(0));
+        ArgumentGenerator argGen = new ArgumentGenerator(xmlInterface.getGraph().getNodelist().get(0), reader.getArg(), reader.getArg().getQuestions().get(0), xmlInterface.getGraph().getNodelist());
         argGen.addArgument();
 
         statementController.setText(reader.getArg());

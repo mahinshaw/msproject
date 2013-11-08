@@ -1,5 +1,6 @@
 package ArgGen;
 
+import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
 import KB.KB_Node.Symptom;
 import KB.KB_Node.Test;
@@ -17,7 +18,7 @@ public class NE2C {
     private ArrayList<ArrayList<KB_Node>> pathList;
     private final char DATA;
     private final char HYPO;
-
+    private ArgInfo argInfo = new ArgInfo();
 
     public NE2C(KB_Node rootNode, char data, char hypo) {
         this.rootNode = rootNode;
@@ -33,6 +34,7 @@ public class NE2C {
             System.out.println("No children for node " + rootNode.getId()+" (NE2C Scheme)");
         } else {
             traverseGraph(rootNode, tempList, pathList);
+            pathList = argInfo.getE2C(pathList);
         }
         return pathList;
     }
@@ -52,7 +54,7 @@ public class NE2C {
         }
 
         for (KB_Node n : root.getChildren()) {
-            if (!argList.contains(n)) {
+            if (!argList.contains(n) && checkArcType(root, n)) {
                 traverseGraph(n, tempList, pathList);
             }
         }
@@ -84,4 +86,18 @@ public class NE2C {
         return condition;
     }
 
+    /**
+     * Check to see if the edge type is the influence arc
+     *
+     * @return true if influence arc exits between two nodes
+     */
+    private boolean checkArcType(KB_Node parent, KB_Node child) {
+        KB_Arc arc = argInfo.findEdge(parent, child);
+        boolean influence = false;
+
+        if (arc.getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.INFLUENCE.getType()))) {
+            influence = true;
+        }
+        return influence;
+    }
 }
