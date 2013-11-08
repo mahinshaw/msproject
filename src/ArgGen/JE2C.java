@@ -22,6 +22,7 @@ public class JE2C {
     private ArrayList<KB_Node> graphNodes;
     private ArrayList<KB_Node> rootParents;
     private ArgStructure arg;
+    private ArgInfo argInfo = new ArgInfo();
 
     public JE2C(KB_Node rootNode, ArrayList<KB_Node> graphNodes, ArgStructure arg) {
         this.rootNode = rootNode;
@@ -31,34 +32,17 @@ public class JE2C {
         this.arg = arg;
     }
 
-    public void findPath() {
-
-        ArrayList<KB_Node> findParents = new ArrayList<KB_Node>();
-        ArrayList<KB_Node> graphRoots = new ArrayList<KB_Node>();
-        ArrayList<KB_Node> rootParents = new ArrayList<KB_Node>();
-        KB_Node parent = null;
-        /**
-         * TODO: FIND ways to find all the roots of the graph
-         */
-        graphRoots.add(graphNodes.get(0));
-        graphRoots.add(graphNodes.get(3));
-        for (KB_Node g : graphRoots) {
-            rootParents = findParents(rootNode, g, findParents, parent);
-        }
-
-        setParents(rootParents);
-
-        if (getParents().isEmpty()) {
-            System.out.println("No parent(s) for node " + rootNode.getId() + " (JE2C Scheme)");
+    public ArrayList<ArrayList<KB_Node>> getPathList() {
+        if (rootNode.getChildren().isEmpty()) {
+            System.out.println("No child(ren) for node " + rootNode.getId() + " (JE2C Scheme)");
         } else {
-            traverseGraph(rootNode, getParents());
+            for (KB_Node n : rootNode.getChildren())
+                if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.SYNERGY.getType())))
+                    traverseGraph(n, rootNode, 1);
         }
+       // argGenerator(pathList);
 
-        for (KB_Node n : argList) {
-            System.out.println(n.getId());
-        }
-
-        argGenerator(getJE2C());
+        return pathList;
     }
 
     private void setParents(ArrayList<KB_Node> parents) {
@@ -78,12 +62,12 @@ public class JE2C {
 
             argumentFactory.setHypothesis(Integer.toString(n.get(0).getId()), arg.getText(Integer.toString(n.get(0).getId())));
 
-            KB_Arc arc = findEdgeID(n.get(1), n.get(0));
+            KB_Arc arc = findEdgeID(n.get(0), n.get(1));
             argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
 
             //TODO: Change it so that multiple data can be added
-           // for (KB_Node d : getParents()) {
-                argumentFactory.setDatum(Integer.toString(n.get(1).getId()), arg.getText(Integer.toString(n.get(1).getId())));
+            // for (KB_Node d : getParents()) {
+            argumentFactory.setDatum(Integer.toString(n.get(1).getId()), arg.getText(Integer.toString(n.get(1).getId())));
             //}
 
             ArgumentObject argumentObject = argumentFactory.createArgument(i, "JE2C");
@@ -97,36 +81,40 @@ public class JE2C {
         writer.writeXML(treeList, "JE2C");
     }
 
-
     /**
-     * Find the parents of the child in the parameter
-     * using BFS algorithm.
+     * Since the root has a X0 relation with its parent, check its other parent
      *
      * @param child
-     * @param root
-     * @param parents
-     * @param parent  @return
      */
-    private ArrayList<KB_Node> findParents(KB_Node child, KB_Node root, ArrayList<KB_Node> parents, KB_Node parent) {
-        if (root == child) {
-            parents.add(parent);
-        }
-        for (KB_Node n : root.getChildren()) {
-            parent = root;
-            findParents(child, n, parents, parent);
-        }
-        return parents;
-    }
+    private void traverseGraph(KB_Node child, KB_Node knownParent, int parentNo) {
+        ArrayList<KB_Node> argPath = new ArrayList<KB_Node>();
+        KB_Node otherParent = null;
+        String holdInflunce = "";
+        argPath.add(knownParent);
+        String arcID = argInfo.findEdge(knownParent, child).getEdge_id();
 
-    /**
-     * @param root
-     * @param rootParents
-     */
-    private void traverseGraph(KB_Node root, ArrayList<KB_Node> rootParents) {
-        argList.add(root);
-        for (KB_Node n : rootParents)
-            argList.add(n);
-        setJE2C(argList);
+        for (KB_Node p : argInfo.getParents(child, graphNodes)) {
+            //Find all parents other than rootNode
+            if (knownParent != p) {
+                holdInflunce = argInfo.findEdge(p, child).getType();
+                //Find parents with only synergy relation to child
+                if (holdInflunce.equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.SYNERGY.getType()))) {
+                    //Find the other parent for rootNode by edge ID among the synergy-related parents
+                    if (arcID.equalsIgnoreCase(argInfo.findEdge(p, child).getEdge_id())){
+                        otherParent = p;
+                        argPath.add(child);
+                    }
+                }
+            }
+        }
+        setJE2C(argPath);
+
+        //TODO add the other parent's(parentNo 2) argument to the pathList
+       /*
+        if (parentNo==2){
+            traverseGraph(child, otherParent, 2);
+        }
+         */
     }
 
     private void setJE2C(ArrayList<KB_Node> argList) {

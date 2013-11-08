@@ -20,7 +20,7 @@ public class E2C {
     private final char DATA;
     private final char HYPO;
     private ArgStructure arg;
-
+    private ArgInfo argInfo = new ArgInfo();
 
     public E2C(KB_Node rootNode, char data, char hypo, ArgStructure arg) {
         this.rootNode = rootNode;
@@ -37,7 +37,7 @@ public class E2C {
             System.out.println("No children for node " + rootNode.getId() + " (E2C Scheme)");
         } else {
             traverseGraph(rootNode, tempList, pathList);
-            pathList = getE2C(pathList);
+            pathList = argInfo.getE2C(pathList);
         }
         return pathList;
     }
@@ -89,58 +89,17 @@ public class E2C {
         return condition;
     }
 
-
-    /**
-     * Check condition:
-     * No two hypothesis should exist in an E2C arg scheme
-     *
-     * @param allPaths
-     * @return
-     */
-    private ArrayList<ArrayList<KB_Node>> getE2C(ArrayList<ArrayList<KB_Node>> allPaths) {
-        int i = 0;
-        ArrayList<ArrayList<KB_Node>> tempList = new ArrayList<ArrayList<KB_Node>>();
-
-        for (ArrayList<KB_Node> n : allPaths) {
-            for (KB_Node k : n) {
-                if (k.getType() == HYPO) {
-                    i++;
-                }
-            }
-            /**
-             * If there are more than one hypothesis in one argument path,
-             * it is not E2C argument
-             */
-            if (i == 1) {
-                tempList.add(n);
-            }
-            i = 0;
-        }
-        return tempList;
-    }
-
     /**
      * Check to see if the edge type is the influence arc
      *
      * @return true if influence arc exits between two nodes
      */
     private boolean checkArcType(KB_Node parent, KB_Node child) {
+        KB_Arc arc = argInfo.findEdge(parent, child);
         boolean influence = false;
-        int i = 0, n = 0;
-        KB_Arc arc = null;
 
-        if (parent.getChildren().contains(child)) {
-            for (KB_Node m : parent.getChildren()) {
-                if (m.getId() == child.getId()) {
-                    n = i;
-                }
-                i++;
-            }
-            //str = parent.getArcs().get(n).getEdge_id();
-            arc = parent.getArcs().get(n);
-            if (arc.getType().equalsIgnoreCase("+")) {
-                influence = true;
-            }
+        if (arc.getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.INFLUENCE.getType()))) {
+            influence = true;
         }
         return influence;
     }

@@ -46,7 +46,7 @@ public class XMLWriter {
             }
 
             for (ArgumentTree tree : trees) {
-                System.out.println("Tree1 " + tree.getRoot().getARGID());
+               System.out.println("Tree1 " + tree.getRoot().getARGID());
 
                 // append argument
                 Element argument = document.createElement("Argument");

@@ -60,9 +60,13 @@ public class ArgBuilder {
                     argType.add(2);
             }
 
-            //pathList.addAll(je2c.getPathList());//JE2C
 
-            je2c.findPath();
+            hold = je2c.getPathList();
+            if (!hold.isEmpty()) {
+                pathList.addAll(hold);//NE2C
+                for (int y = 0; y < hold.size(); y++)
+                    argType.add(3);
+            }
         }
     }
 

@@ -63,25 +63,36 @@ public class ArgumentGenerator {
         ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
         int argNo = 1;
 
-        for (List<KB_Node> n : argBuilder.getPathList()) {
-            int nodeIndex = 0;
-            argType = findArgType(argBuilder.getArgType().get(argNo-1));
-            ArgumentTree tree = null;
-            ArgumentFactory argumentFactory = null;
-            ArgumentObject argumentObject = null;
-            treeList.add(createTree(n, tree, argumentFactory, argumentObject, argNo, nodeIndex));
-            argNo++;
-        }
+        if (!argBuilder.getPathList().isEmpty()) {
 
-        XMLWriter writer = new XMLWriter();
-        writer.writeXML(treeList, question);
+            for (List<KB_Node> n : argBuilder.getPathList()) {
+                int nodeIndex = 0;
+                argType = findArgType(argBuilder.getArgType().get(argNo - 1));
+                ArgumentTree tree = null;
+                ArgumentFactory argumentFactory = null;
+                ArgumentObject argumentObject = null;
+                treeList.add(createTree(n, tree, argumentFactory, argumentObject, argNo, nodeIndex));
+                argNo++;
+            }
+
+            XMLWriter writer = new XMLWriter();
+            writer.writeXML(treeList, question);
+        }else{
+            System.out.println("Empty pathList: No arguments generated ~ ArgymentGenerator.java");
+        }
     }
 
     private ArgumentTree createTree(List<KB_Node> n, ArgumentTree tree, ArgumentFactory argumentFactory, ArgumentObject argumentObject, int argNo, int nodeIndex) {
-        if (n.get(nodeIndex).getType() == 'D') {
+        //if (n.get(nodeIndex).getType() == 'D') {
+        if (nodeIndex == n.size() - 1) {
             argumentFactory.setDatum(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
-            ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo, argType);
-            tree.addSubArgument(argumentObject2, argumentObject);
+            if (n.size() == 2) {
+                ArgumentObject argumentObject3 = argumentFactory.createArgument(argNo, argType);
+                tree = ArgumentTree.createArgumentTree(argumentObject3);
+            } else {
+                ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo, argType);
+                tree.addSubArgument(argumentObject2, argumentObject);
+            }
             System.out.println(String.valueOf("Data: " + n.get(nodeIndex).getId()) + "\n");
             return tree;
         } else {
@@ -93,14 +104,16 @@ public class ArgumentGenerator {
             System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
             argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
 
-            ArgumentObject argumentObject1 = argumentFactory.createArgument(argNo, argType);
-
-            if (nodeIndex == 1) {
-                tree = ArgumentTree.createArgumentTree(argumentObject1);
-            } else if (n.get(nodeIndex).getType() != 'D') {
-                tree.addSubArgument(argumentObject1, argumentObject);
-            } else {
-                argumentObject1 = argumentObject;
+           ArgumentObject argumentObject1 = null;
+            if (n.size() > 2) {
+                argumentObject1 = argumentFactory.createArgument(argNo, argType);
+                if (nodeIndex == 1) {
+                    tree = ArgumentTree.createArgumentTree(argumentObject1);
+                } else if (n.get(nodeIndex).getType() != 'D') {
+                    tree.addSubArgument(argumentObject1, argumentObject);
+                } else {
+                    argumentObject1 = argumentObject;
+                }
             }
             createTree(n, tree, argumentFactory, argumentObject1, argNo, nodeIndex);
         }
@@ -136,13 +149,16 @@ public class ArgumentGenerator {
     }
 
     private String findArgType(int i) {
-        String argT="";
-        switch (i){
-            case 1: argT = "E2C";
+        String argT = "";
+        switch (i) {
+            case 1:
+                argT = "E2C";
                 break;
-            case 2: argT = "NE2C";
+            case 2:
+                argT = "NE2C";
                 break;
-            case 3: argT = "JE2C";
+            case 3:
+                argT = "JE2C";
                 break;
         }
         return argT;
