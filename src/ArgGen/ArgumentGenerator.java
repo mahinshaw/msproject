@@ -87,10 +87,10 @@ public class ArgumentGenerator {
         if (nodeIndex == n.size() - 1) {
             argumentFactory.setDatum(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
             if (n.size() == 2) {
-                ArgumentObject argumentObject3 = argumentFactory.createArgument(argNo, argType);
+                ArgumentObject argumentObject3 = argumentFactory.createArgument(argNo);
                 tree = ArgumentTree.createArgumentTree(argumentObject3);
             } else {
-                ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo, argType);
+                ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo);
                 tree.addSubArgument(argumentObject2, argumentObject);
             }
             System.out.println(String.valueOf("Data: " + n.get(nodeIndex).getId()) + "\n");
@@ -106,7 +106,7 @@ public class ArgumentGenerator {
 
            ArgumentObject argumentObject1 = null;
             if (n.size() > 2) {
-                argumentObject1 = argumentFactory.createArgument(argNo, argType);
+                argumentObject1 = argumentFactory.createArgument(argNo);
                 if (nodeIndex == 1) {
                     tree = ArgumentTree.createArgumentTree(argumentObject1);
                 } else if (n.get(nodeIndex).getType() != 'D') {

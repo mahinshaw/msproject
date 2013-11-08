@@ -24,8 +24,8 @@ public class ArgDriver {
         argumentFactory2.addGeneralization("5", "generalization");
        // argumentFactory2.setDatum("4", "datum 4");
 
-        ArgumentObject argumentObject1 = argumentFactory1.createArgument(1, "ArgTYpe");
-        ArgumentObject argumentObject2 = argumentFactory2.createArgument(2, "ArgType");
+        ArgumentObject argumentObject1 = argumentFactory1.createArgument(1);
+        ArgumentObject argumentObject2 = argumentFactory2.createArgument(2);
         ArgumentTree tree2 = ArgumentTree.createArgumentTree(argumentObject1);
         tree2.addSubArgument(argumentObject2, argumentObject1);
 
@@ -40,7 +40,7 @@ public class ArgDriver {
 
        // ArgumentObject argumentObject1 = argumentFactory1.createArgument(1);
         //ArgumentObject argumentObject2 = argumentFactory2.createArgument(2);
-        ArgumentObject argumentObject3 = argumentFactory3.createArgument(2, "ArgType here");
+        ArgumentObject argumentObject3 = argumentFactory3.createArgument(2);
 
       //  System.out.println(argumentObject1.getTypeofArgument());
         //System.out.println(argumentObject2.getTypeofArgument());

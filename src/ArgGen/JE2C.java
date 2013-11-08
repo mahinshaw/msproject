@@ -70,7 +70,7 @@ public class JE2C {
             argumentFactory.setDatum(Integer.toString(n.get(1).getId()), arg.getText(Integer.toString(n.get(1).getId())));
             //}
 
-            ArgumentObject argumentObject = argumentFactory.createArgument(i, "JE2C");
+            ArgumentObject argumentObject = argumentFactory.createArgument(i);
 
             ArgumentTree tree = ArgumentTree.createArgumentTree(argumentObject);
 
