@@ -303,10 +303,25 @@ public class GraphBuilder {
             factory = new ArgumentFactory();
             factory.setIsConjunction(true);
 
+            // hasty fix - since we now have a conjunction we want to add it to the tree as a left child.
+            nextParent = factory.createArgument(currentArgID);
+            tree.addSubArgument(nextParent, parent);
+            parent = nextParent;
+
             // assume there are only two edges left; left and right.
             next = getNextNode(current, edges, factory);
+            // hasty fix
+            factory = new ArgumentFactory();
+            factory.setHypothesis(((Statement) next).getTextNode().getNode_id(), ((Statement) next).getTextNode().getText());
+            // get next again, since we loaded this node.
+            next = getNextNode(next, adjacencyMap.get(next), factory);
             tree = treeBuilder(next, parent, factory, tree);
             next = getNextNode(current, edges, factory);
+            // hasty fix
+            factory = new ArgumentFactory();
+            factory.setHypothesis(((Statement) next).getTextNode().getNode_id(), ((Statement) next).getTextNode().getText());
+            // get next again.
+            next = getNextNode(next, adjacencyMap.get(next), factory);
             tree = treeBuilder(next, parent, factory, tree);
 
             return tree;

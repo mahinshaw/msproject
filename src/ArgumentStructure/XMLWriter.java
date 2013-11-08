@@ -82,12 +82,17 @@ public class XMLWriter {
         //check and see if there is a conjunction
         if (tree.getRoot().getIsConjunction()) {
             Element conjunction = document.createElement("Conjunction");
+            Element conjunct1 = document.createElement("Conjunct1");
+            Element conjunct2 = document.createElement("Conjunct2");
             //conjunctions should have a left and right child, so add them
             if (tree.hasLeftChild())
-                addArgument(document, conjunction, tree.getLeftChild());
+                addArgument(document, conjunct1, tree.getLeftChild());
             if (tree.hasRightChild())
-                addArgument(document, conjunction, tree.getRightChild());
+                addArgument(document, conjunct2, tree.getRightChild());
+            conjunction.appendChild(conjunct1);
+            conjunction.appendChild(conjunct2);
             element.appendChild(conjunction);
+
 
         }
         else {
