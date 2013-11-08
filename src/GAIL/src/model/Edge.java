@@ -56,4 +56,6 @@ abstract public class Edge implements Serializable {
 
 	protected abstract void setEdgeType();
 
+    public abstract EdgeType getEdgeType();
+
 }

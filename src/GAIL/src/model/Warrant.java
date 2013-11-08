@@ -44,6 +44,11 @@ public class Warrant extends Edge implements Serializable {
 		edgeType = EdgeType.WARRANT;
 	}
 
+    @Override
+    public EdgeType getEdgeType() {
+        return edgeType;
+    }
+
 	// calls the warrant view object to draw this warrant
 	public void draw(Graphics g) {
 		view.draw(g);

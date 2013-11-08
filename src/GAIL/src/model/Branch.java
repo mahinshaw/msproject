@@ -31,6 +31,11 @@ public class Branch extends Edge implements Serializable {
 		edgeType = EdgeType.BRANCH;
 	}
 
+    @Override
+    public EdgeType getEdgeType() {
+        return edgeType;
+    }
+
 	public BranchView getView(){
 		return view;
 	}
