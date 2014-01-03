@@ -32,7 +32,7 @@ public class ArgBuilder {
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.HYPO = hypo;
         this.DATA = data;
-        e2c = new E2C(this.rootNode, this.DATA, this.HYPO, arg);
+        e2c = new E2C(this.rootNode, arg);
         ne2c = new NE2C(this.rootNode, this.DATA, this.HYPO);
         je2c = new JE2C(this.rootNode, this.graphNodes, arg);
         this.argType = new ArrayList<Integer>();
@@ -53,6 +53,7 @@ public class ArgBuilder {
                     argType.add(1);
             }
 
+            /*
             hold = ne2c.getPathList();
             if (!hold.isEmpty()) {
                 pathList.addAll(hold);//NE2C
@@ -60,13 +61,13 @@ public class ArgBuilder {
                     argType.add(2);
             }
 
-
             hold = je2c.getPathList();
             if (!hold.isEmpty()) {
                 pathList.addAll(hold);//NE2C
                 for (int y = 0; y < hold.size(); y++)
                     argType.add(3);
             }
+            */
         }
     }
 

@@ -9,14 +9,14 @@ public class Biochemistry extends KB_Node {
 
     private String protein_id;
     private String protein_name;
-    private boolean bioAbnormal;
+    private boolean abnormal;
     private String quantity;
 
     public Biochemistry(int id, int person_id, char type, String protein_id, String protein_name, boolean bioAbnormal, String quantity) {
         super(id, person_id, type);
         this.protein_id = protein_id;
         this.protein_name = protein_name;
-        this.bioAbnormal = bioAbnormal;
+        this.abnormal = bioAbnormal;
         this.quantity = quantity;
     }
 
@@ -37,11 +37,11 @@ public class Biochemistry extends KB_Node {
     }
 
     public boolean getbioAbnormal() {
-        return bioAbnormal;
+        return abnormal;
     }
 
     public void setbioAbnormal(boolean bioAbnormal) {
-        this.bioAbnormal = bioAbnormal;
+        this.abnormal = bioAbnormal;
     }
 
     public String getQuantity() {
@@ -56,7 +56,7 @@ public class Biochemistry extends KB_Node {
         return super.toString() +
                 "Protein ID: " + this.protein_id + "\n" +
                 "Protein name: " + this.protein_name + "\n" +
-                "Abnormal: " + this.bioAbnormal + "\n" +
+                "Abnormal: " + this.abnormal + "\n" +
                 "quantity: " + this.quantity + "\n";
     }
 }

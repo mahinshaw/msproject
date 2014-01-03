@@ -74,11 +74,10 @@ public class ArgumentGenerator {
                 treeList.add(createTree(n, tree, argumentFactory, argumentObject, argNo, nodeIndex));
                 argNo++;
             }
-
             XMLWriter writer = new XMLWriter();
             writer.writeXML(treeList, question);
         }else{
-            System.out.println("Empty pathList: No arguments generated ~ ArgymentGenerator.java");
+            System.out.println("\nEmpty pathList: No arguments generated ~ ArgymentGenerator.java");
         }
     }
 
