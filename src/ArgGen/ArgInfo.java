@@ -121,4 +121,53 @@ public class ArgInfo {
         }
         return arc;
     }
+    /**
+     * Returns the ArcID between two nodes
+     *
+     * @param parent
+     * @param child
+     * @return
+     */
+    public KB_Arc findEdgeID(KB_Node parent, KB_Node child) {
+        String str = " ";
+        int i = 0, n = 0;
+        KB_Arc arc = null;
+
+        if (parent.getChildren().contains(child)) {
+            for (KB_Node m : parent.getChildren()) {
+                if (m.getId() == child.getId()) {
+                    n = i;
+                }
+                i++;
+            }
+            //str = parent.getArcs().get(n).getEdge_id();
+            arc = parent.getArcs().get(n);
+
+        } else {
+            str = "No ID found.";
+        }
+        return arc;
+    }
+
+    /**
+     * Find the argument type based
+     * on the passed int parameter
+     * @param i
+     * @return
+     */
+    private String findArgType(int i) {
+        String argT = "";
+        switch (i) {
+            case 1:
+                argT = "E2C";
+                break;
+            case 2:
+                argT = "NE2C";
+                break;
+            case 3:
+                argT = "JE2C";
+                break;
+        }
+        return argT;
+    }
 }

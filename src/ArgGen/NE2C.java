@@ -16,17 +16,13 @@ public class NE2C {
     private ArrayList<KB_Node> tempList;
     private ArrayList<KB_Node> argList;
     private ArrayList<ArrayList<KB_Node>> pathList;
-    private final char DATA;
-    private final char HYPO;
     private ArgInfo argInfo = new ArgInfo();
 
-    public NE2C(KB_Node rootNode, char data, char hypo) {
+    public NE2C(KB_Node rootNode) {
         this.rootNode = rootNode;
         this.tempList = new ArrayList<KB_Node>();
         this.argList = new ArrayList<KB_Node>();
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
-        this.DATA = data;
-        this.HYPO = hypo;
     }
 
     public ArrayList<ArrayList<KB_Node>> getPathList() {

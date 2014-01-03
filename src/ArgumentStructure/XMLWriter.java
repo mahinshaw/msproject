@@ -24,9 +24,14 @@ import java.util.Date;
  * This class handles writitng xml documents based upon the Argument Tree.
  */
 public class XMLWriter {
+    /**
+     *
+     * @param trees    argument tree
+     * @param q   The current question
+     * @param argVal  PRO or CON argument (true or fasle, resp.)
+     */
 
-
-    public void writeXML(ArrayList<ArgumentTree> trees, String q) {
+    public void writeXML(ArrayList<ArgumentTree> trees, String q, boolean argVal) {
         try {
             DocumentBuilderFactory docFac = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = docFac.newDocumentBuilder();
@@ -44,6 +49,10 @@ public class XMLWriter {
             } else {
                 question.appendChild(document.createTextNode("No question was passed."));
             }
+            //Print out whether the argument is pro (true) or con (false)
+           Element argumentVal = document.createElement("PRO");
+            session.appendChild(argumentVal);
+            argumentVal.appendChild(document.createTextNode(String.valueOf(argVal)));
 
             for (ArgumentTree tree : trees) {
                 System.out.println("Tree1 " + tree.getRoot().getARGID());

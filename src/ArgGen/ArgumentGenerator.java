@@ -11,53 +11,28 @@ import KB.KB_Node.KB_Node;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ArgGen.ArgumentGenerator.TYPE.HYPO;
-
 public class ArgumentGenerator {
 
-    private List<List<KB_Node>> pathArray;
-    private List<KB_Node> argPath;
-    private KB_Node rootNode, hypo, data;
-    private ArrayList<KB_Arc> gen;
+    private KB_Node rootNode;
     private ArgBuilder argBuilder;
     private ArgStructure arg;
-    private String argType;
+    private boolean argType;
     private final String question;
-
-    public enum TYPE {
-        HYPO('H'), GEN('G'), DATA('D');
-        private char type;
-
-        TYPE(char d) {
-            type = d;
-        }
-
-        public char getType() {
-            return type;
-        }
-    }
+    private ArgInfo argInfo = new ArgInfo();
 
     public ArgumentGenerator(KB_Node rootNode, ArgStructure arg, String question, ArrayList<KB_Node> graphNodes) {
-
-        this.pathArray = new ArrayList<List<KB_Node>>();
-        this.argPath = new ArrayList<KB_Node>();
         this.arg = arg;
         this.rootNode = rootNode;
-        this.argBuilder = new ArgBuilder(graphNodes, this.rootNode, HYPO.getType(), TYPE.DATA.getType(), arg);
-        this.hypo = null;
-        this.gen = new ArrayList<KB_Arc>();
-        this.data = null;
+        this.argBuilder = new ArgBuilder(graphNodes, this.rootNode, arg);
         this.question = question;
+        this.argType = false;
     }
 
-    public void addNode(KB_Node node) {
-        argPath.add(node);
-    }
-
-    public void addPath(List<KB_Node> path) {
-        pathArray.add(path);
-    }
-
+    /**
+     * This method builds the argument
+     * from ArgBuilder. Arguments are called from ArgBuilder
+     * based on the selected question.
+     */
     public void addArgument() {
         argBuilder.findArgument();
         ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
@@ -66,7 +41,8 @@ public class ArgumentGenerator {
         if (!argBuilder.getPathList().isEmpty()) {
             for (List<KB_Node> n : argBuilder.getPathList()) {
                 int nodeIndex = 0;
-                argType = findArgType(argBuilder.getArgType().get(argNo - 1));
+                //argType = findArgType(argBuilder.getArgType().get(argNo - 1));
+                argType = argBuilder.getArgType();
                 ArgumentTree tree = null;
                 ArgumentFactory argumentFactory = null;
                 ArgumentObject argumentObject = null;
@@ -74,12 +50,22 @@ public class ArgumentGenerator {
                 argNo++;
             }
             XMLWriter writer = new XMLWriter();
-            writer.writeXML(treeList, question);
+            writer.writeXML(treeList, question, argType);
         }else{
             System.out.println("\nEmpty pathList: No arguments generated ~ ArgymentGenerator.java");
         }
     }
 
+    /**
+     * This builds the actual argument fro the tree
+     * @param n
+     * @param tree
+     * @param argumentFactory
+     * @param argumentObject
+     * @param argNo
+     * @param nodeIndex
+     * @return
+     */
     private ArgumentTree createTree(List<KB_Node> n, ArgumentTree tree, ArgumentFactory argumentFactory, ArgumentObject argumentObject, int argNo, int nodeIndex) {
         //if (n.get(nodeIndex).getType() == 'D') {
         if (nodeIndex == n.size() - 1) {
@@ -98,7 +84,7 @@ public class ArgumentGenerator {
             argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
             System.out.println(String.valueOf("Hypo: " + n.get(nodeIndex).getId()));
 
-            KB_Arc arc = findEdgeID(n.get(nodeIndex), n.get(++nodeIndex));
+            KB_Arc arc = argInfo.findEdgeID(n.get(nodeIndex), n.get(++nodeIndex));
             System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
             argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
 
@@ -117,50 +103,6 @@ public class ArgumentGenerator {
             createTree(n, tree, argumentFactory, argumentObject1, argNo, nodeIndex);
         }
         return tree;
-    }
-
-    /**
-     * Returns the ArcID between two nodes
-     *
-     * @param parent
-     * @param child
-     * @return
-     */
-    public KB_Arc findEdgeID(KB_Node parent, KB_Node child) {
-        String str = " ";
-        int i = 0, n = 0;
-        KB_Arc arc = null;
-
-        if (parent.getChildren().contains(child)) {
-            for (KB_Node m : parent.getChildren()) {
-                if (m.getId() == child.getId()) {
-                    n = i;
-                }
-                i++;
-            }
-            //str = parent.getArcs().get(n).getEdge_id();
-            arc = parent.getArcs().get(n);
-
-        } else {
-            str = "No ID found.";
-        }
-        return arc;
-    }
-
-    private String findArgType(int i) {
-        String argT = "";
-        switch (i) {
-            case 1:
-                argT = "E2C";
-                break;
-            case 2:
-                argT = "NE2C";
-                break;
-            case 3:
-                argT = "JE2C";
-                break;
-        }
-        return argT;
     }
 }
 

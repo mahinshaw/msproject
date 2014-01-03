@@ -40,7 +40,7 @@ public class JE2C {
                 if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.SYNERGY.getType())))
                     traverseGraph(n, rootNode, 1);
         }
-       // argGenerator(pathList);
+        argGenerator(pathList);
 
         return pathList;
     }
@@ -59,26 +59,20 @@ public class JE2C {
 
         for (List<KB_Node> n : pathList) {
             ArgumentFactory argumentFactory = new ArgumentFactory();
-
             argumentFactory.setHypothesis(Integer.toString(n.get(0).getId()), arg.getText(Integer.toString(n.get(0).getId())));
-
-            KB_Arc arc = findEdgeID(n.get(0), n.get(1));
+            KB_Arc arc = argInfo.findEdgeID(n.get(0), n.get(1));
             argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
 
             //TODO: Change it so that multiple data can be added
             // for (KB_Node d : getParents()) {
             argumentFactory.setDatum(Integer.toString(n.get(1).getId()), arg.getText(Integer.toString(n.get(1).getId())));
-            //}
-
             ArgumentObject argumentObject = argumentFactory.createArgument(i);
-
             ArgumentTree tree = ArgumentTree.createArgumentTree(argumentObject);
-
             treeList.add(tree);
             i++;
         }
         XMLWriter writer = new XMLWriter();
-        writer.writeXML(treeList, "JE2C");
+        writer.writeXML(treeList, "JE2C", true);
     }
 
     /**
@@ -100,7 +94,7 @@ public class JE2C {
                 //Find parents with only synergy relation to child
                 if (holdInflunce.equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.SYNERGY.getType()))) {
                     //Find the other parent for rootNode by edge ID among the synergy-related parents
-                    if (arcID.equalsIgnoreCase(argInfo.findEdge(p, child).getEdge_id())){
+                    if (arcID.equalsIgnoreCase(argInfo.findEdge(p, child).getEdge_id())) {
                         otherParent = p;
                         argPath.add(child);
                     }
@@ -130,26 +124,24 @@ public class JE2C {
      *
      * @param parent
      * @param child
-     * @return
-     */
-    public KB_Arc findEdgeID(KB_Node parent, KB_Node child) {
-        String str = " ";
-        int i = 0, n = 0;
-        KB_Arc arc = null;
+     * @return public KB_Arc findEdgeID(KB_Node parent, KB_Node child) {
+    String str = " ";
+    int i = 0, n = 0;
+    KB_Arc arc = null;
 
-        if (parent.getChildren().contains(child)) {
-            for (KB_Node m : parent.getChildren()) {
-                if (m.getId() == child.getId()) {
-                    n = i;
-                }
-                i++;
-            }
-            //str = parent.getArcs().get(n).getEdge_id();
-            arc = parent.getArcs().get(n);
-
-        } else {
-            System.out.println("No ID found.");
-        }
-        return arc;
+    if (parent.getChildren().contains(child)) {
+    for (KB_Node m : parent.getChildren()) {
+    if (m.getId() == child.getId()) {
+    n = i;
     }
+    i++;
+    }
+    //str = parent.getArcs().get(n).getEdge_id();
+    arc = parent.getArcs().get(n);
+
+    } else {
+    System.out.println("No ID found.");
+    }
+    return arc;
+    }   */
 }
