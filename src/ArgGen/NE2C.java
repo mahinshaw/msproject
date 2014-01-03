@@ -34,7 +34,7 @@ public class NE2C {
             System.out.println("No children for node " + rootNode.getId()+" (NE2C Scheme)");
         } else {
             traverseGraph(rootNode, tempList, pathList);
-            pathList = argInfo.getE2C(pathList);
+            pathList =pathList;
         }
         return pathList;
     }
@@ -46,7 +46,8 @@ public class NE2C {
         if (root.getChildren().size() > 1) {
             tempList = new ArrayList<KB_Node>(argList);
         }
-        if (root.getType() == DATA) {
+       // if (root.getType() == DATA) {
+        if (root.getChildren().isEmpty()) {
             if (checkConditions(root)) {
                 pathList.add(argList);
             }

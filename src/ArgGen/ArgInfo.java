@@ -11,20 +11,6 @@ import java.util.Stack;
  * Date: 10/24/13
  */
 public class ArgInfo {
-
-    public enum TYPE {
-        HYPO('H'), GEN('G'), DATA('D');
-        private char type;
-
-        TYPE(char d) {
-            type = d;
-        }
-
-        public char getType() {
-            return type;
-        }
-    }
-
     public enum ArcTYPE{
         INFLUENCE("+"), SYNERGY("X0");
         private String type;
@@ -134,34 +120,5 @@ public class ArgInfo {
             System.out.println("No ID found.");
         }
         return arc;
-    }
-
-    /**
-     * Check condition:
-     * No two hypothesis should exist in an E2C or NE2C arg scheme
-     *
-     * @param allPaths
-     * @return
-     */
-    public ArrayList<ArrayList<KB_Node>> getE2C(ArrayList<ArrayList<KB_Node>> allPaths) {
-        int i = 0;
-        ArrayList<ArrayList<KB_Node>> tempList = new ArrayList<ArrayList<KB_Node>>();
-
-        for (ArrayList<KB_Node> n : allPaths) {
-            for (KB_Node k : n) {
-                if (k.getType() == TYPE.HYPO.getType()) {
-                    i++;
-                }
-            }
-            /**
-             * If there are more than one hypothesis in one argument path,
-             * it is not E2C argument
-             */
-            if (i == 1) {
-                tempList.add(n);
-            }
-            i = 0;
-        }
-        return tempList;
     }
 }

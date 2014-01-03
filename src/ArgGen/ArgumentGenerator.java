@@ -64,7 +64,6 @@ public class ArgumentGenerator {
         int argNo = 1;
 
         if (!argBuilder.getPathList().isEmpty()) {
-
             for (List<KB_Node> n : argBuilder.getPathList()) {
                 int nodeIndex = 0;
                 argType = findArgType(argBuilder.getArgType().get(argNo - 1));
@@ -108,7 +107,8 @@ public class ArgumentGenerator {
                 argumentObject1 = argumentFactory.createArgument(argNo);
                 if (nodeIndex == 1) {
                     tree = ArgumentTree.createArgumentTree(argumentObject1);
-                } else if (n.get(nodeIndex).getType() != 'D') {
+                } //else if (n.get(nodeIndex).getType() != 'D') {
+                else if (!n.get(nodeIndex).getChildren().isEmpty()){
                     tree.addSubArgument(argumentObject1, argumentObject);
                 } else {
                     argumentObject1 = argumentObject;

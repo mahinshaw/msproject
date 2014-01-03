@@ -32,7 +32,7 @@ public class ArgBuilder {
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.HYPO = hypo;
         this.DATA = data;
-        e2c = new E2C(this.rootNode, arg);
+        e2c = new E2C(this.rootNode);
         ne2c = new NE2C(this.rootNode, this.DATA, this.HYPO);
         je2c = new JE2C(this.rootNode, this.graphNodes, arg);
         this.argType = new ArrayList<Integer>();
@@ -44,14 +44,14 @@ public class ArgBuilder {
      */
     public void findArgument() {
         ArrayList<ArrayList<KB_Node>> hold;
-        if (checkHypo()) {
+        // if (checkHypo()) {
 
-            hold = e2c.getPathList();
-            if (!hold.isEmpty()) {
-                pathList.addAll(hold);//E2C
-                for (int y = 0; y < hold.size(); y++)
-                    argType.add(1);
-            }
+        hold = e2c.getPathList();
+        if (!hold.isEmpty()) {
+            pathList.addAll(hold);//E2C
+            for (int y = 0; y < hold.size(); y++)
+                argType.add(1);
+        }
 
             /*
             hold = ne2c.getPathList();
@@ -68,15 +68,7 @@ public class ArgBuilder {
                     argType.add(3);
             }
             */
-        }
-    }
-
-    private boolean checkHypo() {
-        boolean hold = true;
-        if (rootNode.getType() != HYPO) {
-            hold = false;
-        }
-        return hold;
+        //}
     }
 
     public ArrayList<ArrayList<KB_Node>> getPathList() {

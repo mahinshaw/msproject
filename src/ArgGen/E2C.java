@@ -1,6 +1,5 @@
 package ArgGen;
 
-import GAIL.src.XMLHandler.ArgStructure;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.*;
 
@@ -15,23 +14,22 @@ public class E2C {
     private ArrayList<KB_Node> tempList;
     private ArrayList<KB_Node> argList;
     private ArrayList<ArrayList<KB_Node>> pathList;
-    private ArgStructure arg;
     private ArgInfo argInfo = new ArgInfo();
 
-    public E2C(KB_Node rootNode, ArgStructure arg) {
+    public E2C(KB_Node rootNode) {
         this.rootNode = rootNode;
         this.tempList = new ArrayList<KB_Node>();
         this.argList = new ArrayList<KB_Node>();
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
-        this.arg = arg;
     }
 
     public ArrayList<ArrayList<KB_Node>> getPathList() {
         if (rootNode.getChildren().isEmpty()) {
             System.out.println("No children for node " + rootNode.getId() + " (E2C Scheme)");
         } else {
-            traverseGraph(rootNode, tempList, pathList);
-            pathList = argInfo.getE2C(pathList);
+            ArrayList<ArrayList<KB_Node>> tempPath = new ArrayList<ArrayList<KB_Node>>();
+            traverseGraph(rootNode, tempList, tempPath);
+            pathList = tempPath;
         }
         return pathList;
     }
@@ -62,7 +60,6 @@ public class E2C {
      * @param node
      * @return
      */
-
     private boolean checkConditions(KB_Node node) {
         boolean condition = false;
         if (node instanceof Test) {

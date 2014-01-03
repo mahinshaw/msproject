@@ -20,10 +20,6 @@ public class KB_Node {
     // list of Arcs(Edges) - only initialized in constructor.
     private ArrayList<KB_Arc> arcs;
 
-    //Finding parents variables
-    private ArrayList<KB_Node> parents;
-    KB_Node parent;
-
     // flag will be used for argument generator - initialized as false - true of added.
     private boolean flag;
 
@@ -34,7 +30,6 @@ public class KB_Node {
         this.arcs = new ArrayList<KB_Arc>();
         this.flag = false;
         this.type = type;
-        this.parents = new ArrayList<KB_Node>();
     }
 
     public int getId() {
@@ -63,25 +58,6 @@ public class KB_Node {
         return children;
     }
 
-    /**
-     * Find the parents of the child in the parameter
-     * using BFS algorithm.
-     *
-     * @param child the child whose parent(s) to be found
-     * @param root set the roots of the graph
-     * @return arrayList of parent(s)
-
-    public ArrayList<KB_Node> getParents(KB_Node child, KB_Node root) {
-        if (root == child) {
-            parents.add(parent);
-        }
-        for (KB_Node n : root.getChildren()) {
-            parent = root;
-            getParents(child, n);
-        }
-        return parents;
-    }
-        */
     public boolean getFlag() {
         return flag;
     }
