@@ -39,6 +39,7 @@ public class Interface {
                 boolean autosomal_type = false, protein_id = false, protein_name = false, normal = false, quantity = false, location = false;
                 boolean symptom_id = false, symptom_name = false, degree = false, influence_type = false, influence_parent = false, disease = false;
                 boolean influence_child = false, type = false, child = false, parent = false, age = false, testName = false, testResult = false;
+                boolean symAbnormal = false, testAbnormal=false, phyAbnormal=false;
                 int count = 0, size = 0;
 
                 public void startElement(String str, String local, String name, Attributes attribute) {
@@ -90,7 +91,7 @@ public class Interface {
                     if (name.equalsIgnoreCase("protein_name")) {
                         protein_name = true;
                     }
-                    if (name.equalsIgnoreCase("normal")) {
+                    if (name.equalsIgnoreCase("bioAbnormal")) {
                         normal = true;
                     }
                     if (name.equalsIgnoreCase("quantity")) {
@@ -109,6 +110,9 @@ public class Interface {
                     }
                     if (name.equalsIgnoreCase("degree")) {
                         degree = true;
+                    }
+                    if (name.equalsIgnoreCase("symAbnormal")){
+                        symAbnormal = true;
                     }
 
                     if (name.equalsIgnoreCase("influence_arc")){
@@ -145,7 +149,9 @@ public class Interface {
                     if (name.equalsIgnoreCase("testName")){
                         testName = true;
                     }
-
+                    if (name.equalsIgnoreCase("testAbnormal")){
+                        testAbnormal = true;
+                    }
                     if (name.equalsIgnoreCase("testResult")){
                         testResult = true;
                     }
@@ -159,9 +165,11 @@ public class Interface {
                     if (name.equalsIgnoreCase("bodyLocation")){
                         location = true;
                     }
-
                     if (name.equalsIgnoreCase("description")){
                         description = true;
+                    }
+                    if (name.equalsIgnoreCase("phyAbnormal")){
+                        phyAbnormal = true;
                     }
 
                 }
@@ -185,7 +193,6 @@ public class Interface {
                         addVar(new String(c, start, length));
                         age = false;
                         print(1);
-
                     }
                     if (gene_id) {
                         addVar(new String(c, start, length));
@@ -236,6 +243,10 @@ public class Interface {
                     if (degree) {
                         addVar(new String(c, start, length));
                         degree = false;
+                    }
+                    if (symAbnormal){
+                        addVar(new String(c, start, length));
+                        symAbnormal = false;
                         print(4);
                     }
 
@@ -278,7 +289,10 @@ public class Interface {
                         addVar(new String(c, start, length));
                         testName = false;
                     }
-
+                    if (testAbnormal){
+                        addVar(new String(c, start, length));
+                        testAbnormal = false;
+                    }
                     if (testResult){
                         addVar(new String(c, start, length));
                         testResult = false;
@@ -289,10 +303,13 @@ public class Interface {
                         addVar(new String(c, start, length));
                         location = false;
                     }
-
                     if (description){
                         addVar(new String(c, start, length));
                         description = false;
+                    }
+                    if(phyAbnormal){
+                        addVar(new String(c, start, length));
+                        phyAbnormal = false;
                         print(8);
                     }
 
@@ -325,7 +342,7 @@ public class Interface {
                                 size =0;
                                 break;
                             case 4: graph.createSymptom(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0),
-                                    getArray().get(++size), getArray().get(++size), getArray().get(++size));
+                                    getArray().get(++size), getArray().get(++size), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)));
                                 size = 0;
                                 break;
                             case 5: graph.createInfluenceArc(getArray().get(size), getArray().get(++size), Integer.parseInt(getArray().get(++size)), Integer.parseInt(getArray().get(++size)));
@@ -340,11 +357,11 @@ public class Interface {
                                 size = 0;
                                 break;
                             case 7:
-                                graph.createTest(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)));
+                                graph.createTest(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)), getArray().get(++size));
                                 size = 0;
                                 break;
                             case 8:
-                                graph.createPhysiology(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0), getArray().get(++size), getArray().get(++size));
+                                graph.createPhysiology(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0), getArray().get(++size), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)));
                                 size = 0;
                                 break;
                         }

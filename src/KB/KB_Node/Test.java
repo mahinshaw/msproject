@@ -7,11 +7,13 @@ package KB.KB_Node;
 public class Test extends KB_Node{
 
     private String testType;
-    private boolean result;
+    private String result;
+    private boolean testAbrnomal;
 
-    public Test(int id, int person_id, char type, String testType, boolean result) {
+    public Test(int id, int person_id, char type, String testType, boolean testAbnromal, String result) {
         super(id, person_id, type);
         this.testType = testType;
+        this.testAbrnomal = testAbnromal;
         this.result = result;
     }
 
@@ -19,7 +21,7 @@ public class Test extends KB_Node{
         return testType;
     }
 
-    public boolean getResult(){
+    public String getResult(){
         return result;
     }
 
@@ -27,12 +29,21 @@ public class Test extends KB_Node{
         this.testType = testType;
     }
 
-    public void setResult(boolean result) {
+    public void setResult(String result) {
         this.result = result;
+    }
+
+    public boolean getTestAbnormal(){
+        return testAbrnomal;
+    }
+
+    public void setTestAbrnomal(boolean testAbrnomal){
+        this.testAbrnomal=testAbrnomal;
     }
 
     public String toString() {
         return super.toString() +
-                "Test Type: " + this.testType + "\nTest Result: "+this.result+"\n";
+                "Test Type: " + this.testType + "\nTest Result: "+this.result+"\n"
+                +"Abnormal: "+this.testAbrnomal+"\n";
     }
 }

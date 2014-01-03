@@ -23,21 +23,22 @@
         <!ELEMENT age (#PCDATA)>
         <!ELEMENT family (#PCDATA)>
         <!ATTLIST person person_id CDATA #REQUIRED>
-        <!ELEMENT biochemistry (protein_id, protein_name, normal, quantity)>
+        <!ELEMENT biochemistry (protein_id, protein_name, bioAbnormal, quantity)>
         <!ATTLIST biochemistry node_id CDATA #REQUIRED>
         <!ATTLIST biochemistry person_id CDATA #REQUIRED>
         <!ATTLIST biochemistry certainty CDATA #REQUIRED>
         <!ELEMENT protein_id (#PCDATA)>
         <!ELEMENT protein_name (#PCDATA)>
-        <!ELEMENT normal (#PCDATA)>
+        <!ELEMENT bioAbnormal (#PCDATA)>
         <!ELEMENT quantity (#PCDATA)>
-        <!ELEMENT symptom (symptom_id, symptom_name, degree)>
+        <!ELEMENT symptom (symptom_id, symptom_name, degree, symAbnormal)>
         <!ATTLIST symptom node_id CDATA #REQUIRED>
         <!ATTLIST symptom person_id CDATA #REQUIRED>
         <!ATTLIST symptom certainty CDATA #REQUIRED>
         <!ELEMENT symptom_id (#PCDATA)>
         <!ELEMENT symptom_name (#PCDATA)>
         <!ELEMENT degree (#PCDATA)>
+        <!ELEMENT symAbnormal (#PCDATA)>
         <!ELEMENT genotype (gene_id, gene_name, mutated, autosomal_type, disease, cell)>
         <!ATTLIST genotype node_id CDATA #REQUIRED>
         <!ATTLIST genotype person_id CDATA #REQUIRED>
@@ -52,15 +53,17 @@
         <!ELEMENT cell (#PCDATA)>
         <!ATTLIST test node_id CDATA #REQUIRED>
         <!ATTLIST test person_id CDATA #REQUIRED>
-        <!ELEMENT test (testName, testResult)>
+        <!ELEMENT test (testName, testAbnormal, testResult)>
         <!ELEMENT testName (#PCDATA)>
+        <!ELEMENT testAbnormal (#PCDATA)>
         <!ELEMENT testResult (#PCDATA)>
         <!ATTLIST physiology node_id CDATA #REQUIRED>
         <!ATTLIST physiology person_id CDATA #REQUIRED>
         <!ATTLIST physioligy certaintity CDATA #REQUIRED>
-        <!ELEMENT physiology (bodyLocation, description)>
+        <!ELEMENT physiology (bodyLocation, description, phyAbnormal)>
         <!ELEMENT bodyLocation (#PCDATA)>
         <!ELEMENT description (#PCDATA)>
+        <!ELEMENT phyAbnormal (#PCDATA)>
         <!ELEMENT KB_Arc (influence_arc+, synergy_arc_set+)>
         <!ATTLIST synergy_arc_set syn_id CDATA #REQUIRED>
         <!ELEMENT synergy_arc_set (type, child, parent+)>
@@ -212,40 +215,47 @@
             <biochemistry node_id="9" person_id="3" certainty="">
                 <protein_id>FLAG</protein_id>
                 <protein_name>CFTR</protein_name>
-                <normal>false</normal>
+                <bioAbnormal>true</bioAbnormal>
                 <quantity>normal</quantity>
             </biochemistry>
              <symptom node_id="10" person_id="3" certainty="">
                 <symptom_id>FLAG</symptom_id>
                 <symptom_name>Frequent cough and upper respiratory infections</symptom_name>
                 <degree>severe</degree>
+                 <symAbnormal>true</symAbnormal>
             </symptom>
             <symptom node_id="11" person_id="2" certainty="">
                 <symptom_id>FLAG</symptom_id>
                 <symptom_name>Upper respiratory infections</symptom_name>
                 <degree>absent</degree>
+                <symAbnormal>false</symAbnormal>
             </symptom>
             <symptom node_id="12" person_id="1" certainty="">
                 <symptom_id>FLAG</symptom_id>
                 <symptom_name>Upper respiratory infections</symptom_name>
                 <degree>absent</degree>
+                <symAbnormal>false</symAbnormal>
             </symptom>
             <symptom node_id="13" person_id="3" certainty="">
                 <symptom_id>FLAG</symptom_id>
                 <symptom_name>Malnutrition and poor growth</symptom_name>
                 <degree>absent</degree>
+                <symAbnormal>false</symAbnormal>
             </symptom>
             <test node_id = "14" person_id="3">
                 <testName>Sweat Chloride Test</testName>
-                <testResult>True</testResult>
+                <testAbnormal>true</testAbnormal>
+                <testResult>75 mmol/L.</testResult>
             </test>
             <physiology node_id="15" person_id="3">
                 <bodyLocation>Lung secretions</bodyLocation>
                 <description>Thickened Mucus</description>
+                <phyAbnormal>true</phyAbnormal>
             </physiology>
             <physiology node_id="16" person_id="3">
                 <bodyLocation>Pancreas Abnormal</bodyLocation>
                 <description>absent</description>
+                <phyAbnormal>false</phyAbnormal>
             </physiology>
         </KB_Node>
         <KB_Arc>

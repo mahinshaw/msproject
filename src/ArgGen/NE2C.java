@@ -74,7 +74,7 @@ public class NE2C {
 
         if (node instanceof Test) {
             // Test test = (Test) node;
-            boolean hold = ((Test) node).getResult();
+            boolean hold = ((Test) node).getTestAbnormal();
             condition = !hold;
         } else if (node instanceof Symptom) {
             String deg = "absent";
