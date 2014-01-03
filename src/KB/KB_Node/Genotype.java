@@ -14,8 +14,8 @@ public class Genotype extends KB_Node {
     private String disease;
     private String cell;
 
-    public Genotype(int id, int person_id, char type, String gene_id, String gene_name, String mutated, String autosomal_type, String disease) {
-        super(id, person_id, type);
+    public Genotype(int id, int person_id, String gene_id, String gene_name, String mutated, String autosomal_type, String disease) {
+        super(id, person_id);
         this.gene_id = gene_id;
         this.gene_name = gene_name;
         this.mutated = mutated;

@@ -10,10 +10,10 @@ public class Test extends KB_Node{
     private String result;
     private boolean abrnomal;
 
-    public Test(int id, int person_id, char type, String testType, boolean testAbnromal, String result) {
-        super(id, person_id, type);
+    public Test(int id, int person_id, String testType, boolean testAbnormal, String result) {
+        super(id, person_id);
         this.testType = testType;
-        this.abrnomal = testAbnromal;
+        this.abrnomal = testAbnormal;
         this.result = result;
     }
 
@@ -37,8 +37,8 @@ public class Test extends KB_Node{
         return abrnomal;
     }
 
-    public void setTestAbrnomal(boolean testAbrnomal){
-        this.abrnomal=testAbrnomal;
+    public void setTestAbrnomal(boolean testAbnormal){
+        this.abrnomal=testAbnormal;
     }
 
     public String toString() {

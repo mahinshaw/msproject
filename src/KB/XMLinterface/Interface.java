@@ -18,13 +18,13 @@ public class Interface {
     private KB_Graph graph;
     private String file;
 
-    public Interface(String file){
+    public Interface(String file) {
         this.file = file;
         this.graph = new KB_Graph();
         xmlInterface();
     }
 
-    private void xmlInterface(){
+    private void xmlInterface() {
 
         try {
             SAXParserFactory parserFactory;
@@ -35,12 +35,60 @@ public class Interface {
             DefaultHandler handler = new DefaultHandler() {
                 ArrayList<String> holdValues;
 
-                boolean person_name = false, gender = false, gene_id = false, gene_name = false, mutated = false, description = false;
-                boolean autosomal_type = false, protein_id = false, protein_name = false, normal = false, quantity = false, location = false;
-                boolean symptom_id = false, symptom_name = false, degree = false, influence_type = false, influence_parent = false, disease = false;
-                boolean influence_child = false, type = false, child = false, parent = false, age = false, testName = false, testResult = false;
-                boolean symAbnormal = false, testAbnormal=false, phyAbnormal=false;
-                int count = 0, size = 0;
+                boolean person_name = false
+                        ,
+                        gender = false
+                        ,
+                        gene_id = false
+                        ,
+                        gene_name = false
+                        ,
+                        mutated = false
+                        ,
+                        description = false;
+                boolean autosomal_type = false
+                        ,
+                        protein_id = false
+                        ,
+                        protein_name = false
+                        ,
+                        normal = false
+                        ,
+                        quantity = false
+                        ,
+                        location = false;
+                boolean symptom_id = false
+                        ,
+                        symptom_name = false
+                        ,
+                        degree = false
+                        ,
+                        influence_type = false
+                        ,
+                        influence_parent = false
+                        ,
+                        disease = false;
+                boolean influence_child = false
+                        ,
+                        type = false
+                        ,
+                        child = false
+                        ,
+                        parent = false
+                        ,
+                        age = false
+                        ,
+                        testName = false
+                        ,
+                        testResult = false;
+                boolean symAbnormal = false
+                        ,
+                        testAbnormal = false
+                        ,
+                        phyAbnormal = false;
+                int count = 0
+                        ,
+                        size = 0;
 
                 public void startElement(String str, String local, String name, Attributes attribute) {
 
@@ -54,14 +102,13 @@ public class Interface {
                     if (name.equalsIgnoreCase("gender")) {
                         gender = true;
                     }
-                    if (name.equalsIgnoreCase("age")){
+                    if (name.equalsIgnoreCase("age")) {
                         age = true;
                     }
 
                     if (name.equalsIgnoreCase("genotype")) {
                         addVar(attribute.getValue("node_id"));
                         addVar(attribute.getValue("person_id"));
-                        addVar("H");
                     }
                     if (name.equalsIgnoreCase("gene_id")) {
                         gene_id = true;
@@ -76,14 +123,13 @@ public class Interface {
                         autosomal_type = true;
                     }
 
-                    if (name.equalsIgnoreCase("disease")){
+                    if (name.equalsIgnoreCase("disease")) {
                         disease = true;
                     }
 
                     if (name.equalsIgnoreCase("biochemistry")) {
                         addVar(attribute.getValue("node_id"));
                         addVar(attribute.getValue("person_id"));
-                        addVar("G");
                     }
                     if (name.equalsIgnoreCase("protein_id")) {
                         protein_id = true;
@@ -100,7 +146,7 @@ public class Interface {
                     if (name.equalsIgnoreCase("symptom")) {
                         addVar(attribute.getValue("node_id"));
                         addVar(attribute.getValue("person_id"));
-                        addVar("D");
+                        //addVar("D");
                     }
                     if (name.equalsIgnoreCase("symptom_id")) {
                         symptom_id = true;
@@ -111,11 +157,11 @@ public class Interface {
                     if (name.equalsIgnoreCase("degree")) {
                         degree = true;
                     }
-                    if (name.equalsIgnoreCase("symAbnormal")){
+                    if (name.equalsIgnoreCase("symAbnormal")) {
                         symAbnormal = true;
                     }
 
-                    if (name.equalsIgnoreCase("influence_arc")){
+                    if (name.equalsIgnoreCase("influence_arc")) {
                         addVar(attribute.getValue("arc_id"));
                     }
                     if (name.equalsIgnoreCase("influence_type")) {
@@ -128,7 +174,7 @@ public class Interface {
                         influence_child = true;
                     }
 
-                    if (name.equalsIgnoreCase("synergy_arc_set")){
+                    if (name.equalsIgnoreCase("synergy_arc_set")) {
                         addVar(attribute.getValue("syn_id"));
                     }
                     if (name.equalsIgnoreCase("type")) {
@@ -140,35 +186,33 @@ public class Interface {
                     if (name.equalsIgnoreCase("parent")) {
                         parent = true;
                     }
-                    if (name.equalsIgnoreCase("test")){
+                    if (name.equalsIgnoreCase("test")) {
                         addVar(attribute.getValue("node_id"));
                         addVar(attribute.getValue("person_id"));
-                        addVar("D");
                     }
 
-                    if (name.equalsIgnoreCase("testName")){
+                    if (name.equalsIgnoreCase("testName")) {
                         testName = true;
                     }
-                    if (name.equalsIgnoreCase("testAbnormal")){
+                    if (name.equalsIgnoreCase("testAbnormal")) {
                         testAbnormal = true;
                     }
-                    if (name.equalsIgnoreCase("testResult")){
+                    if (name.equalsIgnoreCase("testResult")) {
                         testResult = true;
                     }
 
-                    if (name.equalsIgnoreCase("physiology")){
+                    if (name.equalsIgnoreCase("physiology")) {
                         addVar(attribute.getValue("node_id"));
                         addVar(attribute.getValue("person_id"));
-                        addVar("G");
                     }
 
-                    if (name.equalsIgnoreCase("bodyLocation")){
+                    if (name.equalsIgnoreCase("bodyLocation")) {
                         location = true;
                     }
-                    if (name.equalsIgnoreCase("description")){
+                    if (name.equalsIgnoreCase("description")) {
                         description = true;
                     }
-                    if (name.equalsIgnoreCase("phyAbnormal")){
+                    if (name.equalsIgnoreCase("phyAbnormal")) {
                         phyAbnormal = true;
                     }
 
@@ -189,7 +233,7 @@ public class Interface {
                         addVar(new String(c, start, length));
                         gender = false;
                     }
-                    if (age){
+                    if (age) {
                         addVar(new String(c, start, length));
                         age = false;
                         print(1);
@@ -210,7 +254,7 @@ public class Interface {
                         addVar(new String(c, start, length));
                         autosomal_type = false;
                     }
-                    if (disease){
+                    if (disease) {
                         addVar(new String(c, start, length));
                         disease = false;
                         print(2);
@@ -244,7 +288,7 @@ public class Interface {
                         addVar(new String(c, start, length));
                         degree = false;
                     }
-                    if (symAbnormal){
+                    if (symAbnormal) {
                         addVar(new String(c, start, length));
                         symAbnormal = false;
                         print(4);
@@ -285,29 +329,29 @@ public class Interface {
                         }
 
                     }
-                    if (testName){
+                    if (testName) {
                         addVar(new String(c, start, length));
                         testName = false;
                     }
-                    if (testAbnormal){
+                    if (testAbnormal) {
                         addVar(new String(c, start, length));
                         testAbnormal = false;
                     }
-                    if (testResult){
+                    if (testResult) {
                         addVar(new String(c, start, length));
                         testResult = false;
                         print(7);
                     }
 
-                    if (location){
+                    if (location) {
                         addVar(new String(c, start, length));
                         location = false;
                     }
-                    if (description){
+                    if (description) {
                         addVar(new String(c, start, length));
                         description = false;
                     }
-                    if(phyAbnormal){
+                    if (phyAbnormal) {
                         addVar(new String(c, start, length));
                         phyAbnormal = false;
                         print(8);
@@ -328,43 +372,48 @@ public class Interface {
                 }
 
                 public void print(int h) {
-                        int size = 0;
-                        switch (h){
-                            case 1: graph.createPerson(Integer.parseInt(getArray().get(size)), getArray().get(++size), getArray().get(++size).charAt(0),Integer.parseInt(getArray().get(++size)));
-                                size = 0;
-                                break;
-                            case 2: graph.createGenotype(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0),
+                    int size = 0;
+                    switch (h) {
+                        case 1:
+                            graph.createPerson(Integer.parseInt(getArray().get(size)), getArray().get(++size), getArray().get(++size).charAt(0), Integer.parseInt(getArray().get(++size)));
+                            size = 0;
+                            break;
+                        case 2:
+                            graph.createGenotype(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
                                     getArray().get(++size), getArray().get(++size), getArray().get(++size), getArray().get(++size), getArray().get(++size));
-                                 size = 0;
-                                break;
-                            case 3: graph.createBiochemistry(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0),
+                            size = 0;
+                            break;
+                        case 3:
+                            graph.createBiochemistry(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
                                     getArray().get(++size), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)), getArray().get(++size));
-                                size =0;
-                                break;
-                            case 4: graph.createSymptom(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0),
+                            size = 0;
+                            break;
+                        case 4:
+                            graph.createSymptom(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
                                     getArray().get(++size), getArray().get(++size), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)));
-                                size = 0;
-                                break;
-                            case 5: graph.createInfluenceArc(getArray().get(size), getArray().get(++size), Integer.parseInt(getArray().get(++size)), Integer.parseInt(getArray().get(++size)));
-                                size = 0;
-                                break;
-                            case 6:
-                                int[] parents = new int[getArray().size()-3];
-                                for (int i =0; i< parents.length; i++){
-                                    parents[i] = Integer.parseInt(getArray().get((getArray().size()-i)-1));
-                                }
-                                graph.createSynergyArc(getArray().get(size), getArray().get(++size), Integer.parseInt(getArray().get(++size)), parents);
-                                size = 0;
-                                break;
-                            case 7:
-                                graph.createTest(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)), getArray().get(++size));
-                                size = 0;
-                                break;
-                            case 8:
-                                graph.createPhysiology(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size).charAt(0), getArray().get(++size), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)));
-                                size = 0;
-                                break;
-                        }
+                            size = 0;
+                            break;
+                        case 5:
+                            graph.createInfluenceArc(getArray().get(size), getArray().get(++size), Integer.parseInt(getArray().get(++size)), Integer.parseInt(getArray().get(++size)));
+                            size = 0;
+                            break;
+                        case 6:
+                            int[] parents = new int[getArray().size() - 3];
+                            for (int i = 0; i < parents.length; i++) {
+                                parents[i] = Integer.parseInt(getArray().get((getArray().size() - i) - 1));
+                            }
+                            graph.createSynergyArc(getArray().get(size), getArray().get(++size), Integer.parseInt(getArray().get(++size)), parents);
+                            size = 0;
+                            break;
+                        case 7:
+                            graph.createTest(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)), getArray().get(++size));
+                            size = 0;
+                            break;
+                        case 8:
+                            graph.createPhysiology(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)));
+                            size = 0;
+                            break;
+                    }
                     setArray();
                 }
             };
@@ -377,7 +426,7 @@ public class Interface {
         }
     }
 
-    public KB_Graph getGraph(){
+    public KB_Graph getGraph() {
         return graph;
     }
 }

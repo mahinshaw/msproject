@@ -42,24 +42,24 @@ public class KB_Graph {
         this.addPerson(new KB_Person(id, name, gender, age));
     }
 
-    public void createGenotype(int id, int person_id, char type, String gene_id, String gene_name, String mutated, String autosomal_type, String disease) {
-        this.addNode(new Genotype(id, person_id, type, gene_id, gene_name, mutated, autosomal_type, disease));
+    public void createGenotype(int id, int person_id, String gene_id, String gene_name, String mutated, String autosomal_type, String disease) {
+        this.addNode(new Genotype(id, person_id, gene_id, gene_name, mutated, autosomal_type, disease));
     }
 
-    public void createBiochemistry(int id, int person_id, char type, String protein_id, String protein_name, boolean bioAbnormal, String quantity) {
-        this.addNode(new Biochemistry(id, person_id, type, protein_id, protein_name, bioAbnormal, quantity));
+    public void createBiochemistry(int id, int person_id, String protein_id, String protein_name, boolean bioAbnormal, String quantity) {
+        this.addNode(new Biochemistry(id, person_id, protein_id, protein_name, bioAbnormal, quantity));
     }
 
-    public void createSymptom(int id, int person_id, char type, String symptom_id, String symptom_name, String degree, boolean symAbnormal) {
-        this.addNode(new Symptom(id, person_id, type, symptom_id, symptom_name, degree, symAbnormal));
+    public void createSymptom(int id, int person_id, String symptom_id, String symptom_name, String degree, boolean symAbnormal) {
+        this.addNode(new Symptom(id, person_id, symptom_id, symptom_name, degree, symAbnormal));
     }
 
-    public void createTest(int id, int person_id, char type, String testType, boolean testAbnormal, String result) {
-        this.addNode(new Test(id, person_id, type, testType, testAbnormal, result));
+    public void createTest(int id, int person_id, String testType, boolean testAbnormal, String result) {
+        this.addNode(new Test(id, person_id, testType, testAbnormal, result));
     }
 
-    public void createPhysiology(int id, int person_id, char type, String location, String description, boolean phyAbnormal) {
-        this.addNode(new Physiology(id, person_id, type, location, description, phyAbnormal));
+    public void createPhysiology(int id, int person_id, String location, String description, boolean phyAbnormal) {
+        this.addNode(new Physiology(id, person_id, location, description, phyAbnormal));
     }
 
     public void createInfluenceArc(String arc_id, String type, int parentNodeID, int childNodeID) {

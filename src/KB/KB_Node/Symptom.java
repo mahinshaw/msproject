@@ -12,8 +12,8 @@ public class Symptom extends KB_Node{
     private String degree;
     private boolean abnormal;
 
-    public Symptom(int id, int person_id, char type, String symptom_id, String symptom_name, String degree, boolean bioAbnormal) {
-        super(id, person_id, type);
+    public Symptom(int id, int person_id, String symptom_id, String symptom_name, String degree, boolean bioAbnormal) {
+        super(id, person_id);
         this.symptom_id = symptom_id;
         this.symptom_name = symptom_name;
         this.degree = degree;
@@ -55,7 +55,7 @@ public class Symptom extends KB_Node{
     public String toString() {
         return super.toString() +
                 "Symptom ID: " + this.symptom_id + "\n" +
-                "Sympton name: " + this.symptom_name + "\n" +
+                "Symptom name: " + this.symptom_name + "\n" +
                 "Degree: " + this.degree + "\n"+
                 "Abnormal: "+this.abnormal+"\n";
     }
