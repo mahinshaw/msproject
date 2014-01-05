@@ -1,4 +1,4 @@
-package ArgGen;
+package ArgumentGenerator;
 
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;

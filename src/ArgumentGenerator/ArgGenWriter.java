@@ -1,7 +1,7 @@
-package ArgGen;
+package ArgumentGenerator;
 
-import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentFactory;
+import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentTree;
 import ArgumentStructure.XMLWriter;
 import GAIL.src.XMLHandler.ArgStructure;
@@ -11,38 +11,37 @@ import KB.KB_Node.KB_Node;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArgumentGenerator {
-
-    private KB_Node rootNode;
-    private ArgBuilder argBuilder;
-    private ArgStructure arg;
+/**
+ * User: Tshering Tobgay
+ * Date: 1/5/14
+ */
+public class ArgGenWriter {
+    private  ArrayList<ArrayList<KB_Node>> pathList;
     private boolean argType;
-    private final String question;
-    private ArgInfo argInfo = new ArgInfo();
+    private String question;
+    private ArgStructure arg;
+    private ArgInfo argInfo;
 
-    public ArgumentGenerator(KB_Node rootNode, ArgStructure arg, String question, ArrayList<KB_Node> graphNodes) {
+    public ArgGenWriter(ArgStructure arg, ArrayList<ArrayList<KB_Node>> pathList, boolean argType, String question){
         this.arg = arg;
-        this.rootNode = rootNode;
-        this.argBuilder = new ArgBuilder(graphNodes, this.rootNode, arg);
+        this.pathList = pathList;
+        this.argType = argType;
         this.question = question;
-        this.argType = false;
+        argInfo = new ArgInfo();
     }
-
     /**
      * This method builds the argument
      * from ArgBuilder. Arguments are called from ArgBuilder
      * based on the selected question.
      */
     public void addArgument() {
-        argBuilder.findArgument();
         ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
         int argNo = 1;
 
-        if (!argBuilder.getPathList().isEmpty()) {
-            for (List<KB_Node> n : argBuilder.getPathList()) {
+        if (!pathList.isEmpty()) {
+            for (List<KB_Node> n : pathList) {
                 int nodeIndex = 0;
                 //argType = findArgType(argBuilder.getArgType().get(argNo - 1));
-                argType = argBuilder.getArgType();
                 ArgumentTree tree = null;
                 ArgumentFactory argumentFactory = null;
                 ArgumentObject argumentObject = null;
@@ -52,7 +51,7 @@ public class ArgumentGenerator {
             XMLWriter writer = new XMLWriter();
             writer.writeXML(treeList, question, argType);
         }else{
-            System.out.println("\nEmpty pathList: No arguments generated ~ ArgymentGenerator.java");
+            System.out.println("\nEmpty pathList: No arguments generated ~ ArgumentGenerator.java");
         }
     }
 
@@ -88,7 +87,7 @@ public class ArgumentGenerator {
             System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
             argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
 
-           ArgumentObject argumentObject1 = null;
+            ArgumentObject argumentObject1 = null;
             if (n.size() > 2) {
                 argumentObject1 = argumentFactory.createArgument(argNo);
                 if (nodeIndex == 1) {
@@ -105,5 +104,3 @@ public class ArgumentGenerator {
         return tree;
     }
 }
-
-

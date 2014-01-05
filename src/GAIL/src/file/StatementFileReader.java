@@ -3,11 +3,9 @@ package GAIL.src.file;
 import java.io.File;
 import java.util.ArrayList;
 
-import ArgGen.ArgBuilder;
-import ArgGen.ArgumentGenerator;
+import ArgumentGenerator.ArgGen;
 import GAIL.src.XMLHandler.xmlReader;
 import GAIL.src.controller.StatementController;
-import KB.KB_Node.KB_Node;
 import KB.XMLinterface.Interface;
 
 public class StatementFileReader {
@@ -16,7 +14,6 @@ public class StatementFileReader {
     private final char DELIMETER = '@';      */
     private final String FOLDER = "src/XMLInput/";
     StatementController statementController;
-    ArgBuilder argBuilder;
     xmlReader reader;
     Interface xmlInterface;
 
@@ -34,7 +31,7 @@ public class StatementFileReader {
         reader.readFile();
         xmlInterface = new Interface(FOLDER + fileName);
 
-        //TODO Test for ArgGen- Tobey 8/2/2013
+        //TODO Test for ArgumentGenerator- Tobey 8/2/2013
         /**
          * Node ID: 1 and index 0
          Node ID: 2 and index 1
@@ -53,8 +50,8 @@ public class StatementFileReader {
          Node ID: 15 and index 14
          Node ID: 16 and index 15
          */
-        ArgumentGenerator argGen = new ArgumentGenerator(xmlInterface.getGraph().getNodelist().get(2), reader.getArg(), reader.getArg().getQuestions().get(0), xmlInterface.getGraph().getNodelist());
-        argGen.addArgument();
+        ArgGen argGen = new ArgGen(xmlInterface.getGraph().getNodelist().get(2), reader.getArg(), reader.getArg().getQuestions().get(0), xmlInterface.getGraph().getNodelist());
+        argGen.findArgument();
 
         statementController.setText(reader.getArg());
 

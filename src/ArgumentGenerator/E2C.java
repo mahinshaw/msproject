@@ -1,4 +1,4 @@
-package ArgGen;
+package ArgumentGenerator;
 
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.*;
@@ -15,12 +15,19 @@ public class E2C {
     private ArrayList<KB_Node> argList;
     private ArrayList<ArrayList<KB_Node>> pathList;
     private ArgInfo argInfo = new ArgInfo();
+    private boolean pro;
 
-    public E2C(KB_Node rootNode) {
+    /**
+     *
+     * @param rootNode
+     * @param pro
+     */
+    public E2C(KB_Node rootNode, boolean pro) {
         this.rootNode = rootNode;
         this.tempList = new ArrayList<KB_Node>();
         this.argList = new ArrayList<KB_Node>();
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
+        this.pro = pro;
     }
 
     public ArrayList<ArrayList<KB_Node>> getPathList() {
@@ -41,7 +48,7 @@ public class E2C {
         }
         // if (root.getType() == DATA) {
         if (root.getChildren().isEmpty()) {
-            if (checkConditions(root)) {
+            if (checkConditions(root)==pro) {
                 pathList.add(argList);
             }
             argList = new ArrayList<KB_Node>(tempList);
@@ -55,7 +62,8 @@ public class E2C {
     }
 
     /**
-     * Check to see if the abnormal field is true for all node types.
+     * Check to see if the abnormal field is
+     * true for all node types.
      *
      * @param node
      * @return

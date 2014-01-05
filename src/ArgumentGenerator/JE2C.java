@@ -1,4 +1,4 @@
-package ArgGen;
+package ArgumentGenerator;
 
 import ArgumentStructure.ArgumentFactory;
 import ArgumentStructure.ArgumentObject;
@@ -22,14 +22,18 @@ public class JE2C {
     private ArrayList<KB_Node> graphNodes;
     private ArrayList<KB_Node> rootParents;
     private ArgStructure arg;
-    private ArgInfo argInfo = new ArgInfo();
+    private ArgInfo argInfo;
+    private E2C e2c;
+    private boolean pro;
 
-    public JE2C(KB_Node rootNode, ArrayList<KB_Node> graphNodes, ArgStructure arg) {
+    public JE2C(KB_Node rootNode, ArrayList<KB_Node> graphNodes, ArgStructure arg, boolean pro) {
         this.rootNode = rootNode;
         this.argList = new ArrayList<KB_Node>();
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.graphNodes = graphNodes;
         this.arg = arg;
+        this.pro = pro;
+        argInfo = new ArgInfo();
     }
 
     public ArrayList<ArrayList<KB_Node>> getPathList() {
@@ -40,6 +44,7 @@ public class JE2C {
                 if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.SYNERGY.getType())))
                     traverseGraph(n, rootNode, 1);
         }
+
         argGenerator(pathList);
 
         return pathList;
@@ -82,22 +87,32 @@ public class JE2C {
      */
     private void traverseGraph(KB_Node child, KB_Node knownParent, int parentNo) {
         ArrayList<KB_Node> argPath = new ArrayList<KB_Node>();
+        ArrayList<ArrayList<KB_Node>> hold;
         KB_Node otherParent = null;
-        String holdInflunce = "";
+        String holdInfluence = "";
         argPath.add(knownParent);
         String arcID = argInfo.findEdge(knownParent, child).getEdge_id();
 
         for (KB_Node p : argInfo.getParents(child, graphNodes)) {
             //Find all parents other than rootNode
             if (knownParent != p) {
-                holdInflunce = argInfo.findEdge(p, child).getType();
+                holdInfluence = argInfo.findEdge(p, child).getType();
                 //Find parents with only synergy relation to child
-                if (holdInflunce.equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.SYNERGY.getType()))) {
+                if (holdInfluence.equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.SYNERGY.getType()))) {
                     //Find the other parent for rootNode by edge ID among the synergy-related parents
                     if (arcID.equalsIgnoreCase(argInfo.findEdge(p, child).getEdge_id())) {
                         otherParent = p;
                         argPath.add(child);
                     }
+                }
+            }
+        }
+        e2c = new E2C(argPath.get(argPath.size()-1), pro);
+        hold = e2c.getPathList();
+        if (!hold.isEmpty()) {
+            for (ArrayList<KB_Node> n : hold){
+                for(KB_Node k : n){
+                    argPath.add(k);
                 }
             }
         }
@@ -118,30 +133,4 @@ public class JE2C {
     private ArrayList<ArrayList<KB_Node>> getJE2C() {
         return pathList;
     }
-
-    /**
-     * Returns the ArcID between two nodes
-     *
-     * @param parent
-     * @param child
-     * @return public KB_Arc findEdgeID(KB_Node parent, KB_Node child) {
-    String str = " ";
-    int i = 0, n = 0;
-    KB_Arc arc = null;
-
-    if (parent.getChildren().contains(child)) {
-    for (KB_Node m : parent.getChildren()) {
-    if (m.getId() == child.getId()) {
-    n = i;
-    }
-    i++;
-    }
-    //str = parent.getArcs().get(n).getEdge_id();
-    arc = parent.getArcs().get(n);
-
-    } else {
-    System.out.println("No ID found.");
-    }
-    return arc;
-    }   */
 }
