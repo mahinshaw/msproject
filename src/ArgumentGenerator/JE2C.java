@@ -45,7 +45,8 @@ public class JE2C {
                     traverseGraph(n, rootNode, 1);
         }
 
-        argGenerator(pathList);
+        if (!pathList.isEmpty())
+            argGenerator(pathList);
 
         return pathList;
     }
@@ -107,11 +108,11 @@ public class JE2C {
                 }
             }
         }
-        e2c = new E2C(argPath.get(argPath.size()-1), pro);
+        e2c = new E2C(argPath.get(argPath.size() - 1), pro);
         hold = e2c.getPathList();
         if (!hold.isEmpty()) {
-            for (ArrayList<KB_Node> n : hold){
-                for(KB_Node k : n){
+            for (ArrayList<KB_Node> n : hold) {
+                for (KB_Node k : n) {
                     argPath.add(k);
                 }
             }

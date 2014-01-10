@@ -38,8 +38,8 @@ public class ArgGen {
          * in terms of E2C scheme (NE2C)
          */
         for (int i = 0; i < 2; i++) {
-            if (i != 0)
-                argType = true;
+            //if (i != 0)
+            //  argType = true;
             e2c = new E2C(this.rootNode, argType);
             hold = e2c.getPathList();
             if (!hold.isEmpty()) {
