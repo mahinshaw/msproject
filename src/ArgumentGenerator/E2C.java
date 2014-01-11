@@ -18,7 +18,6 @@ public class E2C {
     private boolean pro;
 
     /**
-     *
      * @param rootNode
      * @param pro
      */
@@ -48,7 +47,7 @@ public class E2C {
         }
         // if (root.getType() == DATA) {
         if (root.getChildren().isEmpty()) {
-            if (checkConditions(root)==pro) {
+            if (checkConditions(root) == pro) {
                 pathList.add(argList);
             }
             argList = new ArrayList<KB_Node>(tempList);
@@ -56,7 +55,9 @@ public class E2C {
 
         for (KB_Node n : root.getChildren()) {
             if (!argList.contains(n) && checkArcType(root, n)) {
-                traverseGraph(n, tempList, pathList);
+                if (checkConditions(n) == pro) {
+                    traverseGraph(n, tempList, pathList);
+                }
             }
         }
     }
@@ -69,20 +70,22 @@ public class E2C {
      * @return
      */
     private boolean checkConditions(KB_Node node) {
-        boolean condition = false;
-        if (node instanceof Test) {
-            condition = ((Test) node).getTestAbnormal();
-            System.out.println("Test Abnormal: " + condition);
-        } else if (node instanceof Symptom) {
-            condition = ((Symptom) node).getSymAbnormal();
-            System.out.println("Symptom Abnormal: " + condition);
-        } else if (node instanceof Physiology) {
-            System.out.println("Physiology Abnormal: " + condition);
-            condition = ((Physiology) node).getPhyAbnormal();
-        } else if (node instanceof Biochemistry) {
-            System.out.println("Biochemistry Abnormal: " + condition);
-            condition = ((Biochemistry) node).getbioAbnormal();
-        }
+        boolean condition = node.getAbnormal();
+        /**
+         if (node instanceof Test) {
+         condition = ((Test) node).getTestAbnormal();
+         System.out.println("Test Abnormal: " + condition);
+         } else if (node instanceof Symptom) {
+         condition = ((Symptom) node).getSymAbnormal();
+         System.out.println("Symptom Abnormal: " + condition);
+         } else if (node instanceof Physiology) {
+         System.out.println("Physiology Abnormal: " + condition);
+         condition = ((Physiology) node).getPhyAbnormal();
+         } else if (node instanceof Biochemistry) {
+         System.out.println("Biochemistry Abnormal: " + condition);
+         condition = ((Biochemistry) node).getbioAbnormal();
+         }
+         */
         return condition;
     }
 

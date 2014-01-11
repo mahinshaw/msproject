@@ -38,6 +38,7 @@ public class xmlReader {
             NodeList list = doc.getElementsByTagName("question");
             setQuestion(list);
 
+
             NodeList list2 = doc.getElementsByTagName("hypothesis");
             argType = 'h';
             setArgStructure(list2, argType);
