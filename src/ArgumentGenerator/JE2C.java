@@ -78,7 +78,7 @@ public class JE2C {
             i++;
         }
         XMLWriter writer = new XMLWriter();
-        writer.writeXML(treeList, "JE2C", true);
+        writer.writeXML(treeList, "JE2C");
     }
 
     /**

@@ -49,7 +49,7 @@ public class ArgGenWriter {
                 argNo++;
             }
             XMLWriter writer = new XMLWriter();
-            writer.writeXML(treeList, question, argType);
+            writer.writeXML(treeList, question);
         }else{
             System.out.println("\nEmpty pathList: No arguments generated ~ ArgumentGenerator.java");
         }

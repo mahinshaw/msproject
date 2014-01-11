@@ -23,7 +23,7 @@ public class ArgGen {
         this.arg = arg;
         this.rootNode = rootNode;
         this.question = question;
-        this.argType = false;
+        this.argType = true;//true if pro argument and false, otherwise.
         this.graphNodes = graphNodes;
     }
 
