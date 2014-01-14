@@ -1,5 +1,8 @@
 package ArgumentStructure;
 
+import GAIL.src.model.Argument;
+
+import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -14,8 +17,7 @@ import java.util.Stack;
  */
 public class ArgumentTree {
     private ArgumentObject root;
-    private ArgumentTree leftChild;
-    private ArgumentTree rightChild;
+    private LinkedList<ArgumentTree> children;
 
     private ArgumentTree parent;
 
@@ -26,8 +28,6 @@ public class ArgumentTree {
     private ArgumentTree head;
     private ArgumentTree current;
 
-    private boolean conjuction;
-
     /**
      * This first constructor is used for creating a tree.  Here the head is set, and the parent is null.
      *
@@ -35,9 +35,7 @@ public class ArgumentTree {
      */
     private ArgumentTree(ArgumentObject argumentObject){
         this.root = argumentObject;
-        this.leftChild = null;
-        this.rightChild = null;
-        this.conjuction = false;
+        this.children = new LinkedList<ArgumentTree>();
         this.parent = null;
         this.head = this;
     }
@@ -49,9 +47,7 @@ public class ArgumentTree {
      */
     private ArgumentTree(ArgumentObject argumentObject, ArgumentTree parent){
         this.root = argumentObject;
-        this.leftChild = null;
-        this.rightChild = null;
-        this.conjuction = false;
+        this.children = new LinkedList<ArgumentTree>();
         this.parent = parent;
     }
 
@@ -59,33 +55,14 @@ public class ArgumentTree {
         return this.root;
     }
 
-    public ArgumentTree getLeftChild(){
-        return this.leftChild;
-    }
-
-    public ArgumentTree getRightChild(){
-        return this.rightChild;
-    }
-
-    public void setConjuction(boolean c){
-        this.conjuction = c;
-    }
+    public LinkedList<ArgumentTree> getChildren() { return this.children; }
 
     /**
      * This method returns whether or not there is a tree in the left child.
      * @return - boolean: true if has, false if has not.
      */
-    public boolean hasLeftChild(){
-        if (this.leftChild == null){
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-
-    public boolean hasRightChild(){
-        if (this.rightChild == null){
+    public boolean hasLeftmostChild(){
+        if (this.children.peek() == null){
             return false;
         }
         else {
@@ -94,76 +71,50 @@ public class ArgumentTree {
     }
 
     /**
-     * The set methods are for internal use only.
-     * @param tree
+     * Are there any children for this tree.
      */
-    private void setLeftChild(ArgumentTree tree){
-        this.leftChild = tree;
+    public boolean hasChildren(){
+        return !children.isEmpty();
     }
 
-    private void setRightChild(ArgumentTree tree){
-        this.rightChild = tree;
-    }
+    /**
+     * The set methods are for internal use only.
+     * @param child
+     */
+    private void addChild(ArgumentTree child) { this.children.add(child); }
 
     private void setParent(ArgumentTree tree){
         this.parent = tree;
     }
 
     /**
-     *
-     * @param tree - child to check
+     * This method checks to see if the child tree exists in the list of trees
+     * @param child - child to check
      * @return - boolean: true if has, false if has not.
      */
-    public boolean isEmptyChild(ArgumentTree tree){
-        if (tree == null){
-            return true;
-        } else {
-            return false;
+    public boolean hasChild(ArgumentTree child){
+        return children.contains(child);
+    }
+
+    public ArgumentTree getChild(ArgumentTree child){
+        if(hasChild(child)){
+            int index = this.children.indexOf(child);
+            return this.children.get(index);
         }
+        return null;
     }
 
     /**
-     * This mehtod is intended for adding sub-trees.  The user will pass an ArgumentObject which will in turn, create
-     * a tree and then assign it to the proper child.  At the time of writitng, trees were only intended to have two
-     * levels.  If there wer no children, add to the left, if there is a left, then it must be a conjuction, and add
-     * to the right.
+     * This method is intended for adding sub-trees.  The user will pass an ArgumentObject which will in turn, create
+     * a tree and then assign it to the proper child.  The trees can have multiple children, and since the parent is found,
+     * just do the insertion.
      *
      * @param insert - ArgumentObject that will be passed and used to create the tree.
      * @param parent - ArgumentObject that will be passed and used to find where to insert into the tree.
      */
     public void addSubArgument(ArgumentObject insert, ArgumentObject parent){
         current = findArgumentObject(parent);
-        if (isEmptyChild(current.getLeftChild()) /*&& !insert.isHypothesis()*/){
-            current.setLeftChild(new ArgumentTree(insert, current));
-            current.getLeftChild().setParent(current);
-        }
-        else if (isEmptyChild(current.getRightChild())){
-            current.setRightChild(new ArgumentTree(insert, current));
-        }
-        else {
-            System.out.println("The argument is a full argument");
-        }
-    }
-
-    /**
-     * This method is similar addSubArgument, except it was intended for hypotheses rather than full arguments.
-     * However they have the same functionality.
-     *
-     * @param insert - ArgumentObject that will start the new tree.
-     * @param parent - ArgumentObject that will find the parent of the new tree..
-     */
-    public void addSubHypothesis(ArgumentObject insert, ArgumentObject parent){
-        current = findArgumentObject(parent);
-        if (isEmptyChild(current.getLeftChild()) && insert.isHypothesis()){
-            current.setLeftChild(new ArgumentTree(insert, current));
-        }
-        else if (insert.isHypothesis()){
-            current.setRightChild(new ArgumentTree(insert, current));
-
-        }
-        else {
-            System.out.println("The argument is only a hypothesis.");
-        }
+        current.addChild(new ArgumentTree(insert, current));
     }
 
     /**
@@ -189,28 +140,23 @@ public class ArgumentTree {
         }
         // else start the search
         else {
-            if (current.hasLeftChild()){
-                hasLeft.push(current.getLeftChild());
+            if (current.hasChildren()){
+                // push on the children of current
+                for(ArgumentTree child : current.children)
+                   hasLeft.push(child);
             }
-            if (current.hasRightChild()){
-                hasLeft.push(current.getRightChild());
-            }
-            // while both stack is not empty, look at the children
+            // while the stack is not empty, look at the children
             while (!hasLeft.isEmpty()){
-                /**
-                 * while the stack is not empty, pop off the top and check if its good.  If it is return it.
-                 * else check for left and right and push on right then left.
-                 */
-
+                // get what is on top.
                 current = hasLeft.pop();
+                // if we found it, return.
                 if (argumentObject == current.getRoot()){
                     return current;
                 }
-                else if (current.hasRightChild()){
-                    hasLeft.push(current.getRightChild());
-                }
-                else if (current.hasLeftChild()){
-                    hasLeft.push(current.getLeftChild());
+                // add all of currents children.
+                else if (current.hasChildren()){
+                    for(ArgumentTree child : current.children)
+                        hasLeft.push(child);
                 }
             }
         }
