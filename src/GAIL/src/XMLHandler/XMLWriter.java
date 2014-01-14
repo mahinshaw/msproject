@@ -47,8 +47,8 @@ public class XMLWriter {
             // append the question to the session
             Element question = document.createElement("Question");
             session.appendChild(question);
-            if (!argArray.get(index).getQuestions().isEmpty()){
-                question.appendChild(document.createTextNode(argArray.get(index).getQuestions().get(qIndex)));
+            if (!argArray.get(index).getQuestionList().isEmpty()){
+                question.appendChild(document.createTextNode(argArray.get(index).getQuestionList().get(qIndex).getText()));
             }
             else {
                 question.appendChild(document.createTextNode("No question was passed."));

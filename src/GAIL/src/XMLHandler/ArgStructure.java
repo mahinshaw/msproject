@@ -24,7 +24,6 @@ public class ArgStructure {
      * @generalizationlist - list of all generalization nodes.
      */
     private static int index;
-    private ArrayList<String> questions;
     private ArrayList<Node> questionList;
     private ArrayList<Node> nodeList;
     private ArrayList<Node> hypothesisList;
@@ -88,20 +87,10 @@ public class ArgStructure {
 
     // load the questions array with an arraylist.
     public void insertQuestions(Node n) {
-    //public void insertQuestions(ArrayList<String> questions) {
-        //this.questions.addAll(questions);
         this.addNode(n);
     }
 
-    // add an individual question.
-    public void addQuestion(String q) {
-        this.questions.add(q);
-    }
-
-    public ArrayList<String> getQuestions() {
-        return questions;}
-
-    public ArrayList<Node> getQuestionList(){
+    public ArrayList<Node> getQuestionList() {
         return questionList;
     }
 

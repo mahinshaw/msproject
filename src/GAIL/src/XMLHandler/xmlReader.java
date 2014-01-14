@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class xmlReader {
 
     private String fileName;
-    private ArrayList<String> problemText = new ArrayList<String>();
     private ArgStructure arg = ArgStructure.create();
     final String nodeID = "node_id";
 
@@ -86,21 +85,6 @@ public class xmlReader {
         arg.insertQuestions(problemText);
     }
      */
-    public ArrayList<ArgStructure.Node> getProblemText() {
-        return arg.getQuestionList();
-    }
-
-    public ArrayList<ArgStructure.Node> getHypothText() {
-        return arg.getHypothesisList();
-    }
-
-    public ArrayList<ArgStructure.Node> getDataText() {
-        return arg.getDataList();
-    }
-
-    public ArrayList<ArgStructure.Node> getGenText() {
-        return arg.getGeneralizationList();
-    }
 
     public ArgStructure getArg() {
         return arg;

@@ -19,14 +19,24 @@ public class ArgGen {
     private ArgGenWriter argGenWriter;
     ArrayList<KB_Node> graphNodes;
 
-    public ArgGen(KB_Node rootNode, ArgStructure arg, String question, ArrayList<KB_Node> graphNodes) {
+    public ArgGen(int nodeID, ArgStructure arg, String question, ArrayList<KB_Node> graphNodes) {
         this.arg = arg;
-        this.rootNode = rootNode;
         this.question = question;
         this.argType = true;//true if pro argument and false, otherwise.
         this.graphNodes = graphNodes;
+        setRootNode(nodeID);
     }
 
+    /**
+     * Find the rootnode based on the ID passed
+     * @param nodeID
+     */
+    private void setRootNode(int nodeID){
+       for (int i=0;i<graphNodes.size();i++)
+           if(graphNodes.get(i).getId()==nodeID)
+               this.rootNode = graphNodes.get(i);
+
+    }
     /**
      * Call to different argument generators
      * If not empty, get argument and argument type

@@ -327,6 +327,11 @@ public class ApplicationController implements MouseListener, ActionListener {
 
 	}
 
+    private void startArgGen(){
+        statementController.startArgGen();
+    }
+
+
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		String name = ((JLabel) arg0.getSource()).getName();
@@ -336,6 +341,7 @@ public class ApplicationController implements MouseListener, ActionListener {
 			appView.appendToUserPanel(edgeController.getUserDisplayOutput());
 		} else if (name.equals("SUBMIT")) {
 			initAndShowSubmitDialog();
+            startArgGen();
 		}
 	}
 
