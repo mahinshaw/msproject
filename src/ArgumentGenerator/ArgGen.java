@@ -23,7 +23,7 @@ public class ArgGen {
         this.arg = arg;
         this.rootNode = rootNode;
         this.question = question;
-        this.argType = false;
+        this.argType = true;//true if pro argument and false, otherwise.
         this.graphNodes = graphNodes;
     }
 
@@ -34,34 +34,33 @@ public class ArgGen {
     public void findArgument() {
         ArrayList<ArrayList<KB_Node>> hold;
         /**
-         * Check for both pro and con arguments
-         * in terms of E2C scheme (NE2C)
+         * Check for arguments
+         * in terms of E2C scheme
          */
-        for (int i = 0; i < 2; i++) {
-            //if (i != 0)
-            //  argType = true;
-            e2c = new E2C(this.rootNode, argType);
-            hold = e2c.getPathList();
-            if (!hold.isEmpty()) {
-                argGenWriter = new ArgGenWriter(arg, hold, argType, question);
-                argGenWriter.addArgument();//add to arg tree and xml output
-            }
+        e2c = new E2C(this.rootNode, argType);
+        hold = e2c.getPathList();
+        if (!hold.isEmpty()) {
+            argGenWriter = new ArgGenWriter(arg, hold, argType, question);
+            argGenWriter.addArgument();//add to arg tree and xml output
+        } else{
+           printEmptyArg("E2C");
         }
 
         /**
          * JE2C
          */
-        for (int i = 0; i < 2; i++) {
-            if (i != 0)
-                argType = true;
-            je2c = new JE2C(this.rootNode, graphNodes, arg, argType);
-            hold = je2c.getPathList();
-            if (!hold.isEmpty()) {
-                argGenWriter = new ArgGenWriter(arg, hold, argType, question);
-                //argGenWriter.addArgument();//add to arg tree and xml output
-            }
+        je2c = new JE2C(this.rootNode, graphNodes, arg, argType);
+        hold = je2c.getPathList();
+        if (!hold.isEmpty()) {
+            argGenWriter = new ArgGenWriter(arg, hold, argType, question);
+            //argGenWriter.addArgument();//add to arg tree and xml output
+        } else {
+            printEmptyArg("JE2C");
         }
+    }
 
+    public void printEmptyArg(String r){
+        System.out.println("ArgGen did not produce any argument using "+r+" schema ~ ArgumentGenerator/ArgGen.java");
     }
 
 }

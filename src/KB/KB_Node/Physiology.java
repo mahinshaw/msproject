@@ -8,42 +8,31 @@ public class Physiology extends KB_Node {
 
     private String location;
     private String description;
-    private boolean abnormal;
 
-    public Physiology(int id, int person_id, String location, String description, boolean phyAbnormal){
-        super(id, person_id);
+    public Physiology(int id, int person_id, String location, String description, boolean phyAbnormal) {
+        super(id, person_id, phyAbnormal);
         this.location = location;
         this.description = description;
-        this.abnormal = phyAbnormal;
     }
 
-    public String getLocation(){
+    public String getLocation() {
         return location;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
-    public void setType(String type){
+    public void setType(String type) {
         this.location = type;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public boolean getPhyAbnormal(){
-        return abnormal;
-    }
-
-    public void setPhyAbnormal(boolean phyAbnormal){
-        this.abnormal=phyAbnormal;
-    }
-
-    public String toString(){
-        return super.toString()+"Type: "+this.location+"\nDescription: "+this.description+"\n"+
-                "Abnormal: "+abnormal+"\n";
+    public String toString() {
+        return super.toString() + "Type: " + this.location + "\nDescription: " + this.description + "\n";
     }
 
 }

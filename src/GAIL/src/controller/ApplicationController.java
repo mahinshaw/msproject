@@ -315,7 +315,7 @@ public class ApplicationController implements MouseListener, ActionListener {
          * The last parameter checks for pro or con arguments. For now, default is set to true
          * Added by Tobey T. January 2014
          */
-        xmlWriter.writeXML(gb.getArgumentTrees(), problems[currentProblem], true);
+        xmlWriter.writeXML(gb.getArgumentTrees(), problems[currentProblem]);
 
         // Added July 23, Mark Hinshaw
         //XMLWriter writer = new XMLWriter();

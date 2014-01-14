@@ -1,7 +1,6 @@
 package KB.KB_Node;
 
 import java.util.ArrayList;
-
 import KB.KB_Arc.*;
 
 /**
@@ -15,19 +14,16 @@ public class KB_Node {
     private final int id;
     private int person_id;
     private String certainty;
-
+    private boolean abnormal;
     // list of Arcs(Edges) - only initialized in constructor.
     private ArrayList<KB_Arc> arcs;
 
-    // flag will be used for argument generator - initialized as false - true of added.
-    private boolean flag;
-
-    public KB_Node(int id, int person_id) {
+    public KB_Node(int id, int person_id, boolean abnormal) {
         this.id = id;
         this.person_id = person_id;
         this.certainty = null;
         this.arcs = new ArrayList<KB_Arc>();
-        this.flag = false;
+        this.abnormal = abnormal;
     }
 
     public int getId() {
@@ -46,24 +42,6 @@ public class KB_Node {
         return arcs;
     }
 
-    public ArrayList<KB_Node> getChildren() {
-        ArrayList<KB_Node> children = new ArrayList<KB_Node>();
-
-        for (KB_Arc arc : arcs) {
-            children.add(arc.getChild());
-        }
-
-        return children;
-    }
-
-    public boolean getFlag() {
-        return flag;
-    }
-
-    public void setFlag(boolean f) {
-        this.flag = f;
-    }
-
     public void setPerson_id(int person_id) {
         this.person_id = person_id;
     }
@@ -76,11 +54,27 @@ public class KB_Node {
         arcs.add(arc);
     }
 
-    public String toString() {
+    public void setAbnormal(boolean abnormal) {
+        this.abnormal = abnormal;
+    }
 
+    public boolean getAbnormal() {
+        return abnormal;
+    }
+
+    public ArrayList<KB_Node> getChildren() {
+        ArrayList<KB_Node> children = new ArrayList<KB_Node>();
+        for (KB_Arc arc : arcs) {
+            children.add(arc.getChild());
+        }
+        return children;
+    }
+
+    public String toString() {
         return "Node ID: " + this.id + "\n" +
                 "Person ID: " + this.person_id + "\n" +
-                "Certainty: " + this.certainty + "\n";
+                "Certainty: " + this.certainty + "\n" +
+                "Abnormal: "+this.abnormal+"\n";
     }
 
     public String adjList() {

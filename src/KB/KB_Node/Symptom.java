@@ -5,19 +5,17 @@ package KB.KB_Node;
  * Email: mahinshaw@gmail.com
  * gitHub: https://github.com/mahinshaw/msproject.git
  */
-public class Symptom extends KB_Node{
+public class Symptom extends KB_Node {
 
     private String symptom_id;
     private String symptom_name;
     private String degree;
-    private boolean abnormal;
 
     public Symptom(int id, int person_id, String symptom_id, String symptom_name, String degree, boolean bioAbnormal) {
-        super(id, person_id);
+        super(id, person_id, bioAbnormal);
         this.symptom_id = symptom_id;
         this.symptom_name = symptom_name;
         this.degree = degree;
-        this.abnormal = bioAbnormal;
     }
 
     public String getSymptom_id() {
@@ -44,19 +42,10 @@ public class Symptom extends KB_Node{
         this.degree = degree;
     }
 
-    public boolean getSymAbnormal(){
-        return abnormal;
-    }
-
-    public void setSymAbnormal(boolean abnormal){
-        this.abnormal = abnormal;
-    }
-
     public String toString() {
         return super.toString() +
                 "Symptom ID: " + this.symptom_id + "\n" +
                 "Symptom name: " + this.symptom_name + "\n" +
-                "Degree: " + this.degree + "\n"+
-                "Abnormal: "+this.abnormal+"\n";
+                "Degree: " + this.degree + "\n";
     }
 }
