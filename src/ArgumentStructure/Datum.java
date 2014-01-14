@@ -30,6 +30,15 @@ public class Datum {
 
     public boolean isConjunction() { return isConjunction; }
 
+    public boolean isEmptyDatum() {
+        if (isConjunction)
+            return false;
+        else if (getKBNODEID() == null && getTEXT() == null)
+            return true;
+        else
+            return false;
+    }
+
     public String getKBNODEID() {
         return KBNODEID;
     }
