@@ -20,7 +20,7 @@ public class xmlReader {
     private ArgStructure arg = ArgStructure.create();
     final String nodeID = "node_id";
 
-    public xmlReader(String fileName){
+    public xmlReader(String fileName) {
         this.fileName = fileName;
     }
 
@@ -36,8 +36,13 @@ public class xmlReader {
             doc.getDocumentElement().normalize();
 
             NodeList list = doc.getElementsByTagName("question");
-            setQuestion(list);
-
+            argType = 'q';
+            //setQuestion(list);
+            /*
+            for (int x = 0; x < list.getLength(); x++) {
+                System.out.println(list.item(x).getAttributes().getNamedItem("node_id").getNodeValue());
+            } */
+            setArgStructure(list, argType);
 
             NodeList list2 = doc.getElementsByTagName("hypothesis");
             argType = 'h';
@@ -68,6 +73,7 @@ public class xmlReader {
         }
     }
 
+    /*
     private void setQuestion(NodeList list) {
         for (int i = 0; i < list.getLength(); i++) {
             Node nodeN = list.item(i);
@@ -79,9 +85,9 @@ public class xmlReader {
         }
         arg.insertQuestions(problemText);
     }
-
-    public ArrayList<String> getProblemText() {
-        return arg.getQuestions();
+     */
+    public ArrayList<ArgStructure.Node> getProblemText() {
+        return arg.getQuestionList();
     }
 
     public ArrayList<ArgStructure.Node> getHypothText() {

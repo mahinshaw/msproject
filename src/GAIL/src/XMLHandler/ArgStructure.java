@@ -25,6 +25,7 @@ public class ArgStructure {
      */
     private static int index;
     private ArrayList<String> questions;
+    private ArrayList<Node> questionList;
     private ArrayList<Node> nodeList;
     private ArrayList<Node> hypothesisList;
     private ArrayList<Node> dataList;
@@ -37,7 +38,8 @@ public class ArgStructure {
      */
     private ArgStructure() {
         this.index = 0;
-        this.questions = new ArrayList<String>();
+        //this.questions = new ArrayList<String>();
+        questionList = new ArrayList<Node>();
         nodeList = new ArrayList<Node>();
         hypothesisList = new ArrayList<Node>();
         dataList = new ArrayList<Node>();
@@ -52,6 +54,9 @@ public class ArgStructure {
     private void addNode(Node node) {
         nodeList.add(node);
         switch (node.argType) {
+            case 'q':
+                questionList.add(node);
+                break;
             case 'h':
                 hypothesisList.add(node);
                 break;
@@ -82,9 +87,10 @@ public class ArgStructure {
     }
 
     // load the questions array with an arraylist.
-
-    public void insertQuestions(ArrayList<String> questions) {
-        this.questions.addAll(questions);
+    public void insertQuestions(Node n) {
+    //public void insertQuestions(ArrayList<String> questions) {
+        //this.questions.addAll(questions);
+        this.addNode(n);
     }
 
     // add an individual question.
@@ -93,7 +99,10 @@ public class ArgStructure {
     }
 
     public ArrayList<String> getQuestions() {
-        return questions;
+        return questions;}
+
+    public ArrayList<Node> getQuestionList(){
+        return questionList;
     }
 
     public ArrayList<Node> getNodeList() {
@@ -129,9 +138,9 @@ public class ArgStructure {
 
     public void clear() {
         this.index = 0;
-        this.questions.clear();
+        this.questionList.clear();
         this.nodeList.clear();
-        this.questions.clear();
+        //this.questions.clear();
         this.hypothesisList.clear();
         this.dataList.clear();
         this.generalizationList.clear();

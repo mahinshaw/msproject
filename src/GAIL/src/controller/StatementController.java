@@ -27,6 +27,7 @@ public class StatementController implements ActionListener, MouseListener,
 	private ArrayList<Statement> statements;
 	private ArrayList<StatementView> statementViews;
 	private ArrayList<String> problemTextArr;
+    private ArrayList<ArgStructure.Node> questionTextArr;
 	private ArrayList<ArgStructure.Node> datumTextArr;
 	private ArrayList<ArgStructure.Node> hypothTextArr;
 	private ArrayList<ArgStructure.Node> genTextArr;
@@ -139,7 +140,9 @@ public class StatementController implements ActionListener, MouseListener,
 
 	public void setText(ArgStructure arg) {
 		this.problemTextArr = arg.getQuestions();
-        argOutput.insertQuestions(arg.getQuestions());
+        //argOutput.insertQuestions(arg.getQuestions());
+        this.questionTextArr = arg.getQuestionList();
+       // argOutput.insertQuestions(arg.getQuestionList());
         setArgumentGenerator();
 		this.hypothTextArr = arg.getHypothesisList();
 		this.datumTextArr = arg.getDataList();
@@ -155,7 +158,8 @@ public class StatementController implements ActionListener, MouseListener,
 	}
 
 	public String[] getProblemText() {
-		if (problemTextArr == null)
+		/*
+        if (problemTextArr == null)
 			return null;
 		problemText = new String[problemTextArr.size()];
 		for (int i = 0; i < problemTextArr.size(); i++) {
@@ -163,7 +167,17 @@ public class StatementController implements ActionListener, MouseListener,
 		}
 		this.applicationController.setProblems(problemText);
         //for (String s: problemText){System.out.println(s + "asdf");}
-		return problemText;
+
+        */
+        if (questionTextArr == null)
+            return null;
+        problemText = new String[questionTextArr.size()];
+        for (int i = 0; i < questionTextArr.size(); i++) {
+            problemText[i] = questionTextArr.get(i).getText();
+        }
+        this.applicationController.setProblems(problemText);
+
+        return problemText;
 	}
 
 	private void createProblemHypothesis(StatementSource source,
