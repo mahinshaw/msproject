@@ -33,6 +33,7 @@ public class GraphBuilder {
     private ArrayList<Argument> arguments;
 
     //object containers for the Graph
+    // heads are the beginnings of an argument.  This is necessary as there may be multiple arguments.
     private LinkedList<Statement> heads;
     private LinkedList<Statement> hypotheses;
     private LinkedList<Statement> data;
@@ -42,6 +43,8 @@ public class GraphBuilder {
     // object container for ArgumentTree(s)
     private ArrayList<ArgumentTree> argumentTrees;
     private int currentArgID;
+    private ArgumentTree tree;
+    private ArgumentFactory factory;
 
     public GraphBuilder(StatementController statementController,
                         EdgeController edgeController,
@@ -143,9 +146,7 @@ public class GraphBuilder {
      * This method will look at each head, traverse it's edges and load the argument trees.
      */
     private void loadTrees(){
-        ArgumentTree tree = null;
         ArgumentObject parent = null;
-        ArgumentFactory factory;
         // placeholders
         Statement current;
         LinkedList<Edge> edges;
@@ -167,12 +168,13 @@ public class GraphBuilder {
             adjacencyMap.remove(current);
             // the head should only have one edge
             // getNextNode will add generalizations if needed.
-            next = getNextNode(current, edges, factory);
+            next = getNextNode(current, edges);
             // if next is null then we need to go to the next head.
             if (next.equals(null)) continue;
+
             // create a tree for the new head
             tree = null;
-            tree = treeBuilder(next, parent, factory, tree);
+            tree = treeBuilder(next, parent);
             argumentTrees.add(tree);
 
         }
@@ -224,15 +226,24 @@ public class GraphBuilder {
         return adjacencyMap.get(s).contains(e) ? true : false;
     }
 
-    private Node getNextNode(Node current, LinkedList<Edge> edges, ArgumentFactory factory){
+    /**
+     * This method returns the next node in the list of edges.  It will return null if there are no edges in the list.
+     * This method also calls cleanEdges(). removing and already viewed edge if necessary.
+     * @param current - The node that is currently being searched.
+     * @param edges - The list of edges attached to the current node.
+     * @return
+     */
+    private Node getNextNode(Node current, LinkedList<Edge> edges){
         Node next = null;
-        Edge edge = edges.pop(); //edges is decremented.
+        Edge edge = edges.poll(); //edges is decremented.
+        // make sure the edge exists.  If not, then we return null.  This is important for Conjunctions.
+        if (edge == null) { return next; }
         switch (edge.getEdgeType()) {
             // find out if it is a source or a target
             case ARGUMENT:
                 Argument a = (Argument)edge;
                 // add generalizations to factory
-                addGeneraliztionsToFactory(a, factory);
+                addGeneraliztionsToFactory(a);
                 if (a.getTarget() == current)
                     next = a.getSource();
                 else
@@ -256,7 +267,12 @@ public class GraphBuilder {
         return next;
     }
 
-    private void addGeneraliztionsToFactory(Argument a, ArgumentFactory factory){
+    /**
+     * This method is used to append any generalizations attatched to an edge related to a hypothesis.
+     * It is called from the getNextNode() method.
+     * @param a - The Argument (edge) that is being inspected by getNextNode().
+     */
+    private void addGeneraliztionsToFactory(Argument a){
         ArrayList<Warrant> aWarrants = a.getWarrants();
         for (Warrant w : aWarrants){
             if (w.getSource() instanceof MultiGeneralizationModel){
@@ -271,7 +287,14 @@ public class GraphBuilder {
         }
     }
 
-    private ArgumentTree treeBuilder(Node next, ArgumentObject parent, ArgumentFactory factory, ArgumentTree tree){
+    /**
+     * This method does the heavy lifting.  Based upon what type the next node is, we load finish the factory and
+     * load the tree.  This method is recursive by nature.
+     * @param next - the next node (Statement) to look at.
+     * @param parent - The parent ArgumentObject.
+     * @return
+     */
+    private ArgumentTree treeBuilder(Node next, ArgumentObject parent){
         Node current = next;
         LinkedList<Edge> edges = adjacencyMap.get(current);
         // now remove current from adjacency list
@@ -288,7 +311,19 @@ public class GraphBuilder {
                 return tree;
             }
         }
+        else if(current instanceof Statement && ((Statement) current).getType() == Statement.StatementType.HYPOTHESIS){
+            // The hypothesis is special.  we need to set the hyporthesis, but not change the parent since the object
+            // may not be completed.
+            factory.setHypothesis(((Statement) current).getTextNode().getNode_id(), ((Statement) current).getTextNode().getText());
+
+            next = getNextNode(current, edges);
+            return treeBuilder(next, parent);
+        }
+        // TODO - Change this conjuntion method to load the conjunction into the DATUM object of the factory.
         else if (current instanceof Conjunction){
+            // Conjunctions are loaded into the Datum Object.
+            factory.setDatum(true); // passing True Denotes that this Datum is a Conjunction.
+
             // if the tree is null, we must create the tree, because there is no parent. and the parent is the root
             if (tree == null){
                 tree = ArgumentTree.createArgumentTree(factory.createArgument(currentArgID));
@@ -299,51 +334,60 @@ public class GraphBuilder {
                 tree.addSubArgument(nextParent, parent);
                 parent = nextParent;
             }
-            // since we have a conjunction we need to handle both the left and right child recursively.
-            factory = new ArgumentFactory();
-            factory.setIsConjunction(true);
+            // loop over the edges and attach them to the tree.
+            while(!edges.isEmpty()){
+                next = getNextNode(current, edges);
 
-            // hasty fix - since we now have a conjunction we want to add it to the tree as a left child.
-            nextParent = factory.createArgument(currentArgID);
-            tree.addSubArgument(nextParent, parent);
-            parent = nextParent;
+                factory = new ArgumentFactory();
 
-            // assume there are only two edges left; left and right.
-            next = getNextNode(current, edges, factory);
-            // hasty fix
-            factory = new ArgumentFactory();
-            factory.setHypothesis(((Statement) next).getTextNode().getNode_id(), ((Statement) next).getTextNode().getText());
-            // get next again, since we loaded this node.
-            next = getNextNode(next, adjacencyMap.get(next), factory);
-            tree = treeBuilder(next, parent, factory, tree);
-            next = getNextNode(current, edges, factory);
-            // hasty fix
-            factory = new ArgumentFactory();
-            factory.setHypothesis(((Statement) next).getTextNode().getNode_id(), ((Statement) next).getTextNode().getText());
-            // get next again.
-            next = getNextNode(next, adjacencyMap.get(next), factory);
-            tree = treeBuilder(next, parent, factory, tree);
+                tree = treeBuilder(next, parent);
+            }
+
+//            // since we have a conjunction we need to handle both the left and right child recursively.
+//            factory = new ArgumentFactory();
+//            factory.setIsConjunction(true);
+//
+//            // hasty fix - since we now have a conjunction we want to add it to the tree as a left child.
+//            nextParent = factory.createArgument(currentArgID);
+//            tree.addSubArgument(nextParent, parent);
+//            parent = nextParent;
+//
+//            // assume there are only two edges left; left and right.
+//            next = getNextNode(current, edges);
+//            // hasty fix
+//            factory = new ArgumentFactory();
+//            factory.setHypothesis(((Statement) next).getTextNode().getNode_id(), ((Statement) next).getTextNode().getText());
+//            // get next again, since we loaded this node.
+//            next = getNextNode(next, adjacencyMap.get(next));
+//            tree = treeBuilder(next, parent);
+//            next = getNextNode(current, edges);
+//            // hasty fix
+//            factory = new ArgumentFactory();
+//            factory.setHypothesis(((Statement) next).getTextNode().getNode_id(), ((Statement) next).getTextNode().getText());
+//            // get next again.
+//            next = getNextNode(next, adjacencyMap.get(next));
+//            tree = treeBuilder(next, parent);
 
             return tree;
         }
-        else if (current instanceof Statement){
-            // if the tree is null, we must create the tree, because there is no parent. and the parent is the root
-            if (tree == null){
-                tree = ArgumentTree.createArgumentTree(factory.createArgument(currentArgID));
-                parent = tree.getRoot();
-            }
-            else{
-                nextParent = factory.createArgument(currentArgID);
-                tree.addSubArgument(nextParent, parent);
-                parent = nextParent;
-            }
-            // since we have a Statement we need to handle it recursively
-            factory = new ArgumentFactory();
-            factory.setHypothesis(((Statement) current).getTextNode().getNode_id(), ((Statement) current).getTextNode().getText());
-
-            next = getNextNode(current, edges, factory);
-            return treeBuilder(next, parent, factory, tree);
-        }
+//        else if (current instanceof Statement){
+//            // if the tree is null, we must create the tree, because there is no parent. and the parent is the root
+//            if (tree == null){
+//                tree = ArgumentTree.createArgumentTree(factory.createArgument(currentArgID));
+//                parent = tree.getRoot();
+//            }
+//            else{
+//                nextParent = factory.createArgument(currentArgID);
+//                tree.addSubArgument(nextParent, parent);
+//                parent = nextParent;
+//            }
+//            // since we have a Statement we need to handle it recursively
+//            factory = new ArgumentFactory();
+//            factory.setHypothesis(((Statement) current).getTextNode().getNode_id(), ((Statement) current).getTextNode().getText());
+//
+//            next = getNextNode(current, edges);
+//            return treeBuilder(next, parent);
+//        }
         else {
             // if we made it here, then next is null and the answer is wrong, hence we return the tree
             // if the tree is null, we must create the tree, because there is no parent. and the parent is the root

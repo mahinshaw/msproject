@@ -64,6 +64,10 @@ public class ArgumentObject {
         }
     }
 
+    public boolean HasConjunction(){
+        return datum.isConjunction();
+    }
+
     public static class Builder {
         private int argID;
         private Hypothesis hypothesis;
