@@ -18,8 +18,8 @@ public class E2C {
     private boolean pro;
 
     /**
-     * @param rootNode
-     * @param pro
+     * @param rootNode the starting node where the argument is going to be generated.
+     * @param pro      true, to find E2C and false, to find NE2C
      */
     public E2C(KB_Node rootNode, boolean pro) {
         this.rootNode = rootNode;
@@ -34,25 +34,22 @@ public class E2C {
             System.out.println("No children for node " + rootNode.getId() + " (E2C Scheme)");
         } else {
             ArrayList<ArrayList<KB_Node>> tempPath = new ArrayList<ArrayList<KB_Node>>();
-            traverseGraph(rootNode, tempList, tempPath);
-            pathList = tempPath;
+            pathList = traverseGraph(rootNode, tempList, tempPath);
         }
         return pathList;
     }
 
-    private void traverseGraph(KB_Node root, ArrayList<KB_Node> tempList, ArrayList<ArrayList<KB_Node>> pathList) {
+    private ArrayList<ArrayList<KB_Node>> traverseGraph(KB_Node root, ArrayList<KB_Node> tempList, ArrayList<ArrayList<KB_Node>> pathList) {
         argList.add(root);
-        if (root.getChildren().size() > 1) {
+        if (root.getChildren().size() > 1)
             tempList = new ArrayList<KB_Node>(argList);
-        }
-        // if (root.getType() == DATA) {
+
         if (root.getChildren().isEmpty()) {
-            if (checkConditions(root) == pro) {
+            if (checkConditions(root) == pro && argList.size() != 1) {
                 pathList.add(argList);
             }
             argList = new ArrayList<KB_Node>(tempList);
         }
-
         for (KB_Node n : root.getChildren()) {
             if (!argList.contains(n) && checkArcType(root, n)) {
                 if (checkConditions(n) == pro) {
@@ -60,6 +57,7 @@ public class E2C {
                 }
             }
         }
+        return pathList;
     }
 
     /**
@@ -83,7 +81,6 @@ public class E2C {
     private boolean checkArcType(KB_Node parent, KB_Node child) {
         KB_Arc arc = argInfo.findEdge(parent, child);
         boolean influence = false;
-
         if (arc.getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.INFLUENCE.getType()))) {
             influence = true;
         }

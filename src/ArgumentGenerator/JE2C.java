@@ -36,6 +36,11 @@ public class JE2C {
         argInfo = new ArgInfo();
     }
 
+    /**
+     * Find the JE2C argument by finding a synergy relation or S relation with its child(ren)
+     * and the other parent node.
+     * @return
+     */
     public ArrayList<ArrayList<KB_Node>> getPathList() {
         if (rootNode.getChildren().isEmpty()) {
             System.out.println("No child(ren) for node " + rootNode.getId() + " (JE2C Scheme)");
@@ -44,45 +49,12 @@ public class JE2C {
                 if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.SYNERGY.getType())))
                     traverseGraph(n, rootNode, 1);
         }
-
-        if (!pathList.isEmpty())
-            argGenerator(pathList);
-
+        //if (!pathList.isEmpty()) {argGenerator(pathList);}
         return pathList;
     }
 
-    private void setParents(ArrayList<KB_Node> parents) {
-        rootParents = parents;
-    }
-
-    private ArrayList<KB_Node> getParents() {
-        return rootParents;
-    }
-
-    private void argGenerator(ArrayList<ArrayList<KB_Node>> pathList) {
-        int i = 0;
-        ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
-
-        for (List<KB_Node> n : pathList) {
-            ArgumentFactory argumentFactory = new ArgumentFactory();
-            argumentFactory.setHypothesis(Integer.toString(n.get(0).getId()), arg.getText(Integer.toString(n.get(0).getId())));
-            KB_Arc arc = argInfo.findEdgeID(n.get(0), n.get(1));
-            argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
-
-            //TODO: Change it so that multiple data can be added
-            // for (KB_Node d : getParents()) {
-            argumentFactory.setDatum(Integer.toString(n.get(1).getId()), arg.getText(Integer.toString(n.get(1).getId())));
-            ArgumentObject argumentObject = argumentFactory.createArgument(i);
-            ArgumentTree tree = ArgumentTree.createArgumentTree(argumentObject);
-            treeList.add(tree);
-            i++;
-        }
-        XMLWriter writer = new XMLWriter();
-        writer.writeXML(treeList, "JE2C");
-    }
-
     /**
-     * Since the root has a X0 relation with its parent, check its other parent
+     * Since the root has a X0 relation with its parent, check the other parent
      *
      * @param child
      */
@@ -118,13 +90,41 @@ public class JE2C {
             }
         }
         setJE2C(argPath);
-
         //TODO add the other parent's(parentNo 2) argument to the pathList
        /*
         if (parentNo==2){
             traverseGraph(child, otherParent, 2);
         }
          */
+    }
+
+    private void setParents(ArrayList<KB_Node> parents) {
+        rootParents = parents;
+    }
+
+    private ArrayList<KB_Node> getParents() {
+        return rootParents;
+    }
+
+    private void argGenerator(ArrayList<ArrayList<KB_Node>> pathList) {
+        int i = 0;
+        ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
+        for (List<KB_Node> n : pathList) {
+            ArgumentFactory argumentFactory = new ArgumentFactory();
+            argumentFactory.setHypothesis(Integer.toString(n.get(0).getId()), arg.getText(Integer.toString(n.get(0).getId())));
+            KB_Arc arc = argInfo.findEdgeID(n.get(0), n.get(1));
+            argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
+
+            //TODO: Change it so that multiple data can be added
+            // for (KB_Node d : getParents()) {
+            argumentFactory.setDatum(Integer.toString(n.get(1).getId()), arg.getText(Integer.toString(n.get(1).getId())));
+            ArgumentObject argumentObject = argumentFactory.createArgument(i);
+            ArgumentTree tree = ArgumentTree.createArgumentTree(argumentObject);
+            treeList.add(tree);
+            i++;
+        }
+        XMLWriter writer = new XMLWriter();
+        writer.writeXML(treeList, "JE2C");
     }
 
     private void setJE2C(ArrayList<KB_Node> argList) {

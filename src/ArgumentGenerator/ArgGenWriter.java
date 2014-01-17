@@ -5,14 +5,15 @@ import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentTree;
 import ArgumentStructure.XMLWriter;
 import GAIL.src.XMLHandler.ArgStructure;
-import GAIL.src.model.Argument;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * ArgHenWriter.java is where the argument(s) found is added to the tree data structure and
+ * its subsequent addition onto an XML tree.
+ *
  * User: Tshering Tobgay
  * Date: 1/5/14
  */
@@ -33,8 +34,7 @@ public class ArgGenWriter {
     }
 
     /**
-     * This method builds the argument
-     * from ArgBuilder. Arguments are called from ArgBuilder
+     * This method builds the argument from ArgBuilder. Arguments are called from ArgBuilder
      * based on the selected question.
      */
     public void addArgument() {
@@ -60,14 +60,14 @@ public class ArgGenWriter {
     }
 
     /**
-     * This builds the actual argument fro the tree
+     * This builds the actual argument for the tree using a recursive method.
      *
-     * @param n
-     * @param tree
-     * @param argumentFactory
-     * @param argumentObject
-     * @param argNo
-     * @param nodeIndex
+     * @param n               list of argument nodes
+     * @param tree            argument tree
+     * @param argumentFactory argument tree function
+     * @param argumentObject  argument tree object
+     * @param argNo           argument number
+     * @param nodeIndex       index/pointer to keep track of nodes in n list
      * @return
      */
     private ArgumentTree createTree(List<KB_Node> n, ArgumentTree tree, ArgumentFactory argumentFactory, ArgumentObject argumentObject, int argNo, int nodeIndex) {
@@ -120,11 +120,22 @@ public class ArgGenWriter {
         return getCurrentTree();
     }
 
-    private void setCurrentTree(ArgumentTree tree){
-          this.currentTree = tree;
+    /**
+     * Called only by createTree method to preserve
+     * the tree data structure from changing during recursion.
+     *
+     * @param tree
+     */
+    private void setCurrentTree(ArgumentTree tree) {
+        this.currentTree = tree;
     }
 
-    private ArgumentTree getCurrentTree(){
+    /**
+     * Return the tree that was stored during recursion.
+     *
+     * @return
+     */
+    private ArgumentTree getCurrentTree() {
         return currentTree;
     }
 
