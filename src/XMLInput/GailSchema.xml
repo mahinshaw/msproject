@@ -290,22 +290,22 @@
                 <influence_child>12</influence_child>
             </influence_arc>
             <influence_arc arc_id="%1">
-                <influence_type>+</influence_type>
+                <influence_type>%</influence_type>
                 <influence_parent>1</influence_parent>
                 <influence_child>2</influence_child>
             </influence_arc>
             <influence_arc arc_id="%2">
-                <influence_type>+</influence_type>
+                <influence_type>%</influence_type>
                 <influence_parent>1</influence_parent>
                 <influence_child>3</influence_child>
             </influence_arc>
             <influence_arc arc_id="%3">
-                <influence_type>+</influence_type>
+                <influence_type>%</influence_type>
                 <influence_parent>4</influence_parent>
                 <influence_child>5</influence_child>
             </influence_arc>
             <influence_arc arc_id="%4">
-                <influence_type>+</influence_type>
+                <influence_type>%</influence_type>
                 <influence_parent>4</influence_parent>
                 <influence_child>6</influence_child>
             </influence_arc>

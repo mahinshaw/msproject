@@ -6,6 +6,7 @@ import KB.KB_Node.*;
 import java.util.ArrayList;
 
 /**
+ * Effect to cause argument(s) calculated in E2C.java
  * User: Tshering Tobgay
  * Date: 8/5/13
  */
@@ -31,7 +32,7 @@ public class E2C {
 
     public ArrayList<ArrayList<KB_Node>> getPathList() {
         if (rootNode.getChildren().isEmpty()) {
-            System.out.println("No children for node " + rootNode.getId() + " (E2C Scheme)");
+            System.out.println("No children for node " + rootNode.getId() + " (ArgumentGenerator/E2C Scheme)");
         } else {
             ArrayList<ArrayList<KB_Node>> tempPath = new ArrayList<ArrayList<KB_Node>>();
             pathList = traverseGraph(rootNode, tempList, tempPath);

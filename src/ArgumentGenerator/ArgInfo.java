@@ -12,13 +12,11 @@ import java.util.Stack;
  */
 public class ArgInfo {
     public enum ArcTYPE{
-        INFLUENCE("+"), SYNERGY("X0");
+        INFLUENCE("+"), SYNERGY("X0"), CONJ("%");
         private String type;
-
         ArcTYPE(String d) {
             type = d;
         }
-
         public String getType() {
             return type;
         }
