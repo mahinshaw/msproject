@@ -3,6 +3,9 @@ src/XMLOutput/*
 
 *.class
 
+# log files
+*.log
+
 # Package Files #
 *.jar
 *.war
