@@ -65,7 +65,7 @@ public class ArgumentObject {
     }
 
     public boolean HasConjunction(){
-        return datum.isConjunction();
+        return (datum == null) ? false : datum.isConjunction();
     }
 
     public static class Builder {
