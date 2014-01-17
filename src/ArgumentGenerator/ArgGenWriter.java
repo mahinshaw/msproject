@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ArgHenWriter.java is where the argument(s) found is added to the tree data structure and
+ * ArgJenWriter.java is where the argument(s) found is added to the tree data structure and
  * its subsequent addition onto an XML tree.
  *
  * User: Tshering Tobgay
