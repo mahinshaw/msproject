@@ -1,5 +1,6 @@
 package ArgumentStructure;
 
+import GAIL.src.model.Argument;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -83,77 +84,56 @@ public class XMLWriter {
      * @param tree     - The tree (Single Argument/Node) to be printed
      */
     private void addArgument(Document document, Element element, ArgumentTree tree) {
-        //check and see if there is a conjunction
-        if (tree.getRoot().getIsConjunction()) {
+
+        //append the hypothesis to element
+        Element hypothesis = document.createElement("Hypothesis");
+        Element hNode = document.createElement("Node");
+        Element hText = document.createElement("Text");
+        hNode.appendChild(document.createTextNode("Node " + tree.getRoot().getHypothesis().getKBNODEID()));
+        hText.appendChild(document.createTextNode(tree.getRoot().getHypothesis().getTEXT()));
+        hypothesis.appendChild(hNode);
+        hypothesis.appendChild(hText);
+        element.appendChild(hypothesis);
+
+        // append the generalizations to the element
+        for (Generalization g : tree.getRoot().getGeneralizations()) {
+            Element generalization = document.createElement("Generalization");
+            Element gArc = document.createElement("Arc");
+            Element gText = document.createElement("Text");
+            gArc.appendChild(document.createTextNode("Arc " + g.getKBARCID()));
+            gText.appendChild(document.createTextNode(g.getTEXT()));
+            generalization.appendChild(gArc);
+            generalization.appendChild(gText);
+            element.appendChild(generalization);
+        }
+
+        // append the data to the element
+        Element data = document.createElement("Data");
+            //check and see if there is a conjunction
+        if (tree.getRoot().HasConjunction()) {
             Element conjunction = document.createElement("Conjunction");
-            Element conjunct1 = document.createElement("Conjunct1");
-            Element conjunct2 = document.createElement("Conjunct2");
-            //conjunctions should have a left and right child, so add them
-            if (tree.hasLeftChild())
-                addArgument(document, conjunct1, tree.getLeftChild());
-            if (tree.hasRightChild())
-                addArgument(document, conjunct2, tree.getRightChild());
-            conjunction.appendChild(conjunct1);
-            conjunction.appendChild(conjunct2);
-            element.appendChild(conjunction);
-
-
+                //conjunctions should have a multiple children, so add them
+            int i = 1;
+            for(ArgumentTree child : tree.getChildren()){
+                Element conjunct = document.createElement("Conjunct" + i);
+                addArgument(document, conjunct, child);
+                conjunction.appendChild(conjunct);
+                i++;
+            }
+            data.appendChild(conjunction);
         }
-        else {
-            //append the hypothesis to element
-            Element hypothesis = document.createElement("Hypothesis");
-            Element hNode = document.createElement("Node");
-            Element hText = document.createElement("Text");
-            hNode.appendChild(document.createTextNode("Node " + tree.getRoot().getHypothesis().getKBNODEID()));
-            hText.appendChild(document.createTextNode(tree.getRoot().getHypothesis().getTEXT()));
-            hypothesis.appendChild(hNode);
-            hypothesis.appendChild(hText);
-            element.appendChild(hypothesis);
-
-            // append the generalizations to the element
-            for (Generalization g : tree.getRoot().getGeneralizations()) {
-                Element generalization = document.createElement("Generalization");
-                Element gArc = document.createElement("Arc");
-                Element gText = document.createElement("Text");
-                gArc.appendChild(document.createTextNode("Arc " + g.getKBARCID()));
-                gText.appendChild(document.createTextNode(g.getTEXT()));
-                generalization.appendChild(gArc);
-                generalization.appendChild(gText);
-                element.appendChild(generalization);
-            }
-
-            // append the data to the element
-            Element data = document.createElement("Data");
-            // if the tree has children recurse in the data node with subargument tags
-            if (tree.hasLeftChild() || tree.hasRightChild()) {
-                // left child
-                if (tree.hasLeftChild()) {
-                    // Element subArg1 = document.createElement("SubArgument");
-                    addArgument(document, data, tree.getLeftChild());
-                    // data.appendChild(subArg1);
-                }
-                if (tree.hasRightChild()) {
-                    // right child
-                    // Element subArg2 = document.createElement("SubArgument");
-                    addArgument(document, data, tree.getRightChild());
-                    // data.appendChild(subArg2);
-                }
-                // element.appendChild(data);
-            }
-            //if no children print the data
-            else if (!tree.hasLeftChild() && !tree.hasRightChild()) {
-                Element dNode = document.createElement("Node");
-                Element dText = document.createElement("Text");
-                dNode.appendChild(document.createTextNode("Node " + tree.getRoot().getDatum().getKBNODEID()));
-                dText.appendChild(document.createTextNode(tree.getRoot().getDatum().getTEXT()));
-                data.appendChild(dNode);
-                data.appendChild(dText);
-            }
-
-            //append the data node
-            element.appendChild(data);
+        //if no children print the data
+        else if (!tree.hasChildren()) {
+            Element dNode = document.createElement("Node");
+            Element dText = document.createElement("Text");
+            dNode.appendChild(document.createTextNode("Node " + tree.getRoot().getDatum().getKBNODEID()));
+            dText.appendChild(document.createTextNode(tree.getRoot().getDatum().getTEXT()));
+            data.appendChild(dNode);
+            data.appendChild(dText);
         }
 
+        //append the data node
+        element.appendChild(data);
     }
 
     /**

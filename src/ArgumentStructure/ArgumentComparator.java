@@ -53,14 +53,12 @@ public class ArgumentComparator {
         generatedStack.push(currentGeneratedTree);
 
         while(!userStack.isEmpty() || !generatedStack.isEmpty()){
-            if (currentUserTree.hasRightChild())
-                userStack.push(currentUserTree.getRightChild());
-            if (currentUserTree.hasLeftChild())
-                userStack.push(currentUserTree.getLeftChild());
-            if (currentGeneratedTree.hasRightChild())
-                generatedStack.push(currentGeneratedTree.getRightChild());
-            if (currentGeneratedTree.hasLeftChild())
-                generatedStack.push(currentGeneratedTree.getLeftChild());
+            if (currentUserTree.hasChildren())
+                for (ArgumentTree child : currentUserTree.getChildren())
+                    userStack.push(child);
+            if (currentGeneratedTree.hasChildren())
+                for (ArgumentTree child : currentGeneratedTree.getChildren())
+                    generatedStack.push(child);
 
             // compare the root nodes of the two trees.
             currentUserObject = CompareTreeRoots(currentUserTree.getRoot(), currentGeneratedTree.getRoot());
