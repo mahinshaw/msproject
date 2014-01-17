@@ -109,7 +109,7 @@ public class XMLWriter {
 
         // append the data to the element
         Element data = document.createElement("Data");
-            //check and see if there is a conjunction
+        // check and see if there is a conjunction
         if (tree.getRoot().HasConjunction()) {
             Element conjunction = document.createElement("Conjunction");
                 //conjunctions should have a multiple children, so add them
@@ -121,6 +121,11 @@ public class XMLWriter {
                 i++;
             }
             data.appendChild(conjunction);
+        }
+        // chained arguments should only have one child.
+        else if (tree.hasChildren()){
+            for (ArgumentTree child : tree.getChildren())
+                addArgument(document, data, child);
         }
         //if no children print the data
         else if (!tree.hasChildren()) {
