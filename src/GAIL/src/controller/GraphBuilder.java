@@ -90,7 +90,6 @@ public class GraphBuilder {
             } else if (statement.getType() == Statement.StatementType.GENERALIZATION) {
                 this.generalizations.push(statement);
             }
-
         }
     }
 
@@ -319,7 +318,6 @@ public class GraphBuilder {
             next = getNextNode(current, edges);
             return treeBuilder(next, parent);
         }
-        // TODO - Change this conjuntion method to load the conjunction into the DATUM object of the factory.
         else if (current instanceof Conjunction){
             // Conjunctions are loaded into the Datum Object.
             factory.setDatum(true); // passing True Denotes that this Datum is a Conjunction.
@@ -343,51 +341,8 @@ public class GraphBuilder {
                 tree = treeBuilder(next, parent);
             }
 
-//            // since we have a conjunction we need to handle both the left and right child recursively.
-//            factory = new ArgumentFactory();
-//            factory.setIsConjunction(true);
-//
-//            // hasty fix - since we now have a conjunction we want to add it to the tree as a left child.
-//            nextParent = factory.createArgument(currentArgID);
-//            tree.addSubArgument(nextParent, parent);
-//            parent = nextParent;
-//
-//            // assume there are only two edges left; left and right.
-//            next = getNextNode(current, edges);
-//            // hasty fix
-//            factory = new ArgumentFactory();
-//            factory.setHypothesis(((Statement) next).getTextNode().getNode_id(), ((Statement) next).getTextNode().getText());
-//            // get next again, since we loaded this node.
-//            next = getNextNode(next, adjacencyMap.get(next));
-//            tree = treeBuilder(next, parent);
-//            next = getNextNode(current, edges);
-//            // hasty fix
-//            factory = new ArgumentFactory();
-//            factory.setHypothesis(((Statement) next).getTextNode().getNode_id(), ((Statement) next).getTextNode().getText());
-//            // get next again.
-//            next = getNextNode(next, adjacencyMap.get(next));
-//            tree = treeBuilder(next, parent);
-
             return tree;
         }
-//        else if (current instanceof Statement){
-//            // if the tree is null, we must create the tree, because there is no parent. and the parent is the root
-//            if (tree == null){
-//                tree = ArgumentTree.createArgumentTree(factory.createArgument(currentArgID));
-//                parent = tree.getRoot();
-//            }
-//            else{
-//                nextParent = factory.createArgument(currentArgID);
-//                tree.addSubArgument(nextParent, parent);
-//                parent = nextParent;
-//            }
-//            // since we have a Statement we need to handle it recursively
-//            factory = new ArgumentFactory();
-//            factory.setHypothesis(((Statement) current).getTextNode().getNode_id(), ((Statement) current).getTextNode().getText());
-//
-//            next = getNextNode(current, edges);
-//            return treeBuilder(next, parent);
-//        }
         else {
             // if we made it here, then next is null and the answer is wrong, hence we return the tree
             // if the tree is null, we must create the tree, because there is no parent. and the parent is the root
