@@ -71,21 +71,6 @@ public class E2C {
      */
     private boolean checkConditions(KB_Node node) {
         boolean condition = node.getAbnormal();
-        /**
-         if (node instanceof Test) {
-         condition = ((Test) node).getTestAbnormal();
-         System.out.println("Test Abnormal: " + condition);
-         } else if (node instanceof Symptom) {
-         condition = ((Symptom) node).getSymAbnormal();
-         System.out.println("Symptom Abnormal: " + condition);
-         } else if (node instanceof Physiology) {
-         System.out.println("Physiology Abnormal: " + condition);
-         condition = ((Physiology) node).getPhyAbnormal();
-         } else if (node instanceof Biochemistry) {
-         System.out.println("Biochemistry Abnormal: " + condition);
-         condition = ((Biochemistry) node).getbioAbnormal();
-         }
-         */
         return condition;
     }
 

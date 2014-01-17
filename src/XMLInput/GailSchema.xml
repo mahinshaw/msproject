@@ -156,7 +156,7 @@
             <genotype node_id="2" person_id="1" certainty="">
                 <gene_id>FLAG</gene_id>
                 <gene_name>CFTR</gene_name>
-                <mutated>not 2</mutated>
+                <mutated>0...1</mutated>
                 <autosomal_type>recessive</autosomal_type>
                 <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
@@ -164,7 +164,7 @@
             <genotype node_id="3" person_id="1" certainty="">
                 <gene_id>FLAG</gene_id>
                 <gene_name>CFTR</gene_name>
-                <mutated>1 or 2</mutated>
+                <mutated>1...2</mutated>
                 <autosomal_type>recessive</autosomal_type>
                 <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
@@ -181,7 +181,7 @@
             <genotype node_id="5" person_id="2" certainty="">
                 <gene_id>FLAG</gene_id>
                 <gene_name>CFTR</gene_name>
-                <mutated>1 or 2</mutated>
+                <mutated>1...2</mutated>
                 <autosomal_type>recessive</autosomal_type>
                 <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
@@ -189,7 +189,7 @@
             <genotype node_id="6" person_id="2" certainty="">
                 <gene_id>FLAG</gene_id>
                 <gene_name>CFTR</gene_name>
-                <mutated>not 2</mutated>
+                <mutated>0...1</mutated>
                 <autosomal_type>recessive</autosomal_type>
                 <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
@@ -289,22 +289,22 @@
                 <influence_parent>1</influence_parent>
                 <influence_child>12</influence_child>
             </influence_arc>
-            <influence_arc arc_id="I7">
+            <influence_arc arc_id="%1">
                 <influence_type>+</influence_type>
                 <influence_parent>1</influence_parent>
                 <influence_child>2</influence_child>
             </influence_arc>
-            <influence_arc arc_id="I8">
+            <influence_arc arc_id="%2">
                 <influence_type>+</influence_type>
                 <influence_parent>1</influence_parent>
                 <influence_child>3</influence_child>
             </influence_arc>
-            <influence_arc arc_id="I9">
+            <influence_arc arc_id="%3">
                 <influence_type>+</influence_type>
                 <influence_parent>4</influence_parent>
                 <influence_child>5</influence_child>
             </influence_arc>
-            <influence_arc arc_id="I10">
+            <influence_arc arc_id="%4">
                 <influence_type>+</influence_type>
                 <influence_parent>4</influence_parent>
                 <influence_child>6</influence_child>

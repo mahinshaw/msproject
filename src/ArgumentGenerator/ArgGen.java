@@ -22,7 +22,7 @@ public class ArgGen {
     public ArgGen(int nodeID, ArgStructure arg, String question, ArrayList<KB_Node> graphNodes) {
         this.arg = arg;
         this.question = question;
-        this.argType = true;//true if pro argument and false, otherwise.
+        this.argType = false;//true if pro argument and false, otherwise.
         this.graphNodes = graphNodes;
         setRootNode(nodeID);
     }

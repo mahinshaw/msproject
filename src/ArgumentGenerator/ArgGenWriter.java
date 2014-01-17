@@ -5,6 +5,7 @@ import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentTree;
 import ArgumentStructure.XMLWriter;
 import GAIL.src.XMLHandler.ArgStructure;
+import GAIL.src.model.Argument;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
 
@@ -16,19 +17,21 @@ import java.util.List;
  * Date: 1/5/14
  */
 public class ArgGenWriter {
-    private  ArrayList<ArrayList<KB_Node>> pathList;
+    private ArrayList<ArrayList<KB_Node>> pathList;
     private boolean argType;
     private String question;
     private ArgStructure arg;
     private ArgInfo argInfo;
+    private ArgumentTree currentTree;
 
-    public ArgGenWriter(ArgStructure arg, ArrayList<ArrayList<KB_Node>> pathList, boolean argType, String question){
+    public ArgGenWriter(ArgStructure arg, ArrayList<ArrayList<KB_Node>> pathList, boolean argType, String question) {
         this.arg = arg;
         this.pathList = pathList;
         this.argType = argType;
         this.question = question;
         argInfo = new ArgInfo();
     }
+
     /**
      * This method builds the argument
      * from ArgBuilder. Arguments are called from ArgBuilder
@@ -48,15 +51,17 @@ public class ArgGenWriter {
                 treeList.add(createTree(n, tree, argumentFactory, argumentObject, argNo, nodeIndex));
                 argNo++;
             }
+
             XMLWriter writer = new XMLWriter();
             writer.writeXML(treeList, question);
-        }else{
+        } else {
             System.out.println("\nEmpty pathList: No arguments generated ~ ArgumentGenerator.java");
         }
     }
 
     /**
      * This builds the actual argument fro the tree
+     *
      * @param n
      * @param tree
      * @param argumentFactory
@@ -67,25 +72,35 @@ public class ArgGenWriter {
      */
     private ArgumentTree createTree(List<KB_Node> n, ArgumentTree tree, ArgumentFactory argumentFactory, ArgumentObject argumentObject, int argNo, int nodeIndex) {
         //if (n.get(nodeIndex).getType() == 'D') {
+        /**
+         * This is the base case for the recursive call. Once it reaches the last two nodes,
+         * it will append the data tag to the (last) appropriate node.
+         */
         if (nodeIndex == n.size() - 1) {
             argumentFactory.setDatum(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
             if (n.size() == 2) {
-                ArgumentObject argumentObject3 = argumentFactory.createArgument(argNo);
-                tree = ArgumentTree.createArgumentTree(argumentObject3);
+                ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo);
+                //argumentObject = argumentFactory.createArgument(argNo);
+                tree = ArgumentTree.createArgumentTree(argumentObject2);
             } else {
                 ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo);
                 tree.addSubArgument(argumentObject2, argumentObject);
             }
             System.out.println(String.valueOf("Data: " + n.get(nodeIndex).getId()) + "\n");
-            return tree;
-        } else {
+            setCurrentTree(tree);
+            return getCurrentTree();
+        }
+        /**
+         * All calls to method should start from here onwards.
+         */
+        else {
             argumentFactory = new ArgumentFactory();
             argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
             System.out.println(String.valueOf("Hypo: " + n.get(nodeIndex).getId()));
 
             KB_Arc arc = argInfo.findEdgeID(n.get(nodeIndex), n.get(++nodeIndex));
-            System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
             argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
+            System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
 
             ArgumentObject argumentObject1 = null;
             if (n.size() > 2) {
@@ -93,14 +108,24 @@ public class ArgGenWriter {
                 if (nodeIndex == 1) {
                     tree = ArgumentTree.createArgumentTree(argumentObject1);
                 } //else if (n.get(nodeIndex).getType() != 'D') {
-                else if (!n.get(nodeIndex).getChildren().isEmpty()){
+                else if (!n.get(nodeIndex).getChildren().isEmpty()) {
                     tree.addSubArgument(argumentObject1, argumentObject);
                 } else {
                     argumentObject1 = argumentObject;
                 }
             }
+            //Recursive call
             createTree(n, tree, argumentFactory, argumentObject1, argNo, nodeIndex);
         }
-        return tree;
+        return getCurrentTree();
     }
+
+    private void setCurrentTree(ArgumentTree tree){
+          this.currentTree = tree;
+    }
+
+    private ArgumentTree getCurrentTree(){
+        return currentTree;
+    }
+
 }
