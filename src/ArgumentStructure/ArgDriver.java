@@ -16,17 +16,18 @@ public class ArgDriver {
         argumentFactory1.setHypothesis("1", "hypothesis 1");
         argumentFactory1.addGeneralization("2", "generalization");
         argumentFactory1.addGeneralization("3", "generalization");
-
+        argumentFactory1.setDatum(true);
         //full arg
         ArgumentFactory argumentFactory2 = new ArgumentFactory();
         argumentFactory2.setHypothesis("2", "hypothesis 2");
         argumentFactory2.addGeneralization("4", "generalization");
         argumentFactory2.addGeneralization("5", "generalization");
-       // argumentFactory2.setDatum("4", "datum 4");
+        argumentFactory2.setDatum("HERE", "I go");
 
         ArgumentObject argumentObject1 = argumentFactory1.createArgument(1);
         ArgumentObject argumentObject2 = argumentFactory2.createArgument(2);
         ArgumentTree tree2 = ArgumentTree.createArgumentTree(argumentObject1);
+
         tree2.addSubArgument(argumentObject2, argumentObject1);
 
 
@@ -36,6 +37,7 @@ public class ArgDriver {
         argumentFactory3.addGeneralization("6", "generalization");
         argumentFactory3.addGeneralization("7", "generalization");
         argumentFactory3.setDatum("5", "datum 5");
+
 
 
        // ArgumentObject argumentObject1 = argumentFactory1.createArgument(1);
@@ -51,8 +53,10 @@ public class ArgDriver {
 
         // tree 2 has a conjugated argument
       //  ArgumentTree tree2 = ArgumentTree.createArgumentTree(argumentObject1);
-        tree2.addSubArgument(argumentObject3, argumentObject2);
+        tree2.addSubArgument(argumentObject3, argumentObject1);
         //tree2.addSubArgument(argumentObject3);
+        //argumentFactory2.setDatum(true);
+
 
         ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
         //treeList.add(tree1);

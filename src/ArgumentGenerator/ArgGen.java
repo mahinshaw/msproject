@@ -18,6 +18,7 @@ public class ArgGen {
     private final String question;
     private E2C e2c;
     private JE2C je2c;
+    private Conjunction conj;
     private ArgGenWriter argGenWriter;
     ArrayList<KB_Node> graphNodes;
 
@@ -79,6 +80,13 @@ public class ArgGen {
         } else {
             printEmptyArg("JE2C");
         }
+
+        /**
+         * Check for arguments that can be found using elimination (currently shown as % in KB)
+         *
+         */
+         conj = new Conjunction(this.rootNode,graphNodes,arg,2);
+         conj.findConjunction();
     }
 
     private void setArgType(boolean argType){
