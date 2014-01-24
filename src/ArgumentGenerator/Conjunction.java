@@ -99,10 +99,10 @@ public class Conjunction {
             for (ArrayList<ArrayList<KB_Node>> right : conjPathRight) {
                 for (ArrayList<KB_Node> r : right) {
                     stack.push(r);
-                    tempStack.addAll(stack);
+                    tempStack = stack;
                     //conjPath.add(r);
                     treeList.add(conjTree(rootNode, tempStack, argNo++));
-                    stack.pop();
+                    //stack.pop();
                 }
             }
         }
