@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Finding arguments with multiple schemes using conjugation (%).
+ * Finding arguments with multiple schemes using elimination logic.
+ * May result in conjugation (%).
+ *
  * User: Tshering Tobgay
  * Date: 1/17/14
  */
@@ -45,7 +47,7 @@ public class Conjunction {
 
         if (rootNode.getChildren().isEmpty())
             System.out.println("No child(ren) for node " + rootNode.getId() + " (ArgumentGenerator/Conjunction)");
-        else if (checkElimantion(rootNode))
+        else if (checkElimination(rootNode))
             traverseGraph(rootNode);
         else
             System.out.println("ArgGen did not produce any argument using elimination logic ~ ArgumentGenerator/Conjunction.java");
@@ -220,7 +222,7 @@ public class Conjunction {
     /**
      * Check to see if elimination is possible.
      */
-    private boolean checkElimantion(KB_Node rootNode) {
+    private boolean checkElimination(KB_Node rootNode) {
         ArrayList<String> checkStr = new ArrayList<String>();
         boolean value = false;
 
