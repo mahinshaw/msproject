@@ -33,6 +33,7 @@ public class E2C {
     public ArrayList<ArrayList<KB_Node>> getPathList() {
         if (rootNode.getChildren().isEmpty()) {
             System.out.println("No children for node " + rootNode.getId() + " (ArgumentGenerator/E2C Scheme)");
+            pathList.clear();
         } else {
             ArrayList<ArrayList<KB_Node>> tempPath = new ArrayList<ArrayList<KB_Node>>();
             pathList = traverseGraph(rootNode, tempList, tempPath);

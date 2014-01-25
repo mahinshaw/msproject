@@ -66,13 +66,13 @@ public class ArgGen {
                 else
                     printEmptyArg("NE2C");
             }
-           setArgType(true);//find E2C arguments
+            setArgType(true);//find E2C arguments
         }
         /**
          * Check for JE2C scheme argument
          */
         setArgType(false);//check for JE2C first
-        je2c = new JE2C(this.rootNode, graphNodes, arg,getArgType());
+        je2c = new JE2C(this.rootNode, graphNodes, arg, getArgType());
         hold = je2c.getPathList();
         if (!hold.isEmpty()) {
             argGenWriter = new ArgGenWriter(arg, hold, getArgType(), question);
@@ -85,21 +85,22 @@ public class ArgGen {
          * Check for arguments that can be found using elimination (currently shown as % in KB)
          *
          */
-         conj = new Conjunction(this.rootNode,graphNodes,arg,2);
-         conj.findConjunction();
+        conj = new Conjunction(this.rootNode, graphNodes, arg, question);
+        conj.findConjunction();
     }
 
-    private void setArgType(boolean argType){
+    private void setArgType(boolean argType) {
         this.argType = argType;
     }
 
-    private boolean getArgType(){
+    private boolean getArgType() {
         return argType;
     }
 
     /**
      * Only called when no argument is found.
      * Prints to local console, not interface.
+     *
      * @param r
      */
     private void printEmptyArg(String r) {

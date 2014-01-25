@@ -1,6 +1,5 @@
 package ArgumentGenerator;
 
-import ArgumentGenerator.ArgInfo;
 import ArgumentStructure.ArgumentFactory;
 import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentTree;
@@ -25,41 +24,36 @@ public class Conjunction {
     private ArrayList<ArrayList<KB_Node>> pathList;
     private ArrayList<ArrayList<ArrayList<KB_Node>>> argTree;
     private ArgInfo argInfo;
-    private boolean counter; //check to see if argument exists: true, if conjunction exists, and false, if not.
-    private int argCount;//the number of arguments in a single tree
     private boolean pro;
-    private ArgumentObject currentObject;
+    private ArrayList<ArgumentObject> currentObject;
+    private String question;
 
     private E2C e2c;
     private JE2C je2c;
 
 
-    public Conjunction(KB_Node rootNode, ArrayList<KB_Node> graphNodes, ArgStructure arg, int argCount) {
+    public Conjunction(KB_Node rootNode, ArrayList<KB_Node> graphNodes, ArgStructure arg, String question) {
         this.rootNode = rootNode;
         this.argList = new ArrayList<KB_Node>();
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.argTree = new ArrayList<ArrayList<ArrayList<KB_Node>>>();
+        this.currentObject = new ArrayList<ArgumentObject>();
         this.graphNodes = graphNodes;
         this.arg = arg;
-        this.counter = false;
-        this.argCount = argCount;
         this.pro = false;
+        this.question = question;
         argInfo = new ArgInfo();
 
     }
 
     public void findConjunction() {
 
-        if (rootNode.getChildren().isEmpty()) {
+        if (rootNode.getChildren().isEmpty())
             System.out.println("No child(ren) for node " + rootNode.getId() + " (ArgumentGenerator/Conjunction)");
-        } else {
-            System.out.println("Made it to conjunction");
+        else if (checkElimantion(rootNode))
             traverseGraph(rootNode);
-        }
-
-       /* if (argTrack != argCount) {
-            System.out.println("No arguments in (ArgumentGenerator/Conjunction)");
-        }*/
+        else
+            System.out.println("ArgGen did not produce any argument using elimination logic ~ ArgumentGenerator/Conjunction.java");
     }
 
     /**
@@ -68,17 +62,13 @@ public class Conjunction {
      * @param rootNode is the parentNode
      */
     private void traverseGraph(KB_Node rootNode) {
-        ArrayList<ArrayList<KB_Node>> conjPath = new ArrayList<ArrayList<KB_Node>>();
         ArrayList<ArrayList<ArrayList<KB_Node>>> conjPathRight = new ArrayList<ArrayList<ArrayList<KB_Node>>>();
         ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
 
-        int argTrack = 0;
-
         for (KB_Node n : rootNode.getChildren())
-            if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.CONJ.getType()))) {
+            if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.CONJ.getType())))
                 findArgument(n);
-                argTrack++;
-            }
+
         /**
          * Build the tree with left child handling set(s) of argument from one
          * argument stream (from the first index of the argTree), and the rest are added to the right child array.
@@ -86,29 +76,27 @@ public class Conjunction {
          * an argument tree.
          *
          */
-        ArrayList<ArrayList<KB_Node>> conjPathLeft = getArgTree().get(0);
-        for (int i = 0; i < getArgTree().size(); i++)
-            if (i != 0)
-                conjPathRight.add(getArgTree().get(i));
-        Stack<KB_Node> stack = new Stack<KB_Node>();
-        Stack<KB_Node> tempStack = new Stack<KB_Node>();
-        int argNo = 1;
-        for (ArrayList<KB_Node> left : conjPathLeft) {
-           //conjPath.add(left);
-            stack.push(left);
-            for (ArrayList<ArrayList<KB_Node>> right : conjPathRight) {
-                for (ArrayList<KB_Node> r : right) {
-                    stack.push(r);
-                    tempStack = stack;
-                    //conjPath.add(r);
-                    treeList.add(conjTree(rootNode, tempStack, argNo++));
-                    //stack.pop();
+        if (!getArgTree().isEmpty()) {
+            ArrayList<ArrayList<KB_Node>> conjPathLeft = getArgTree().get(0);
+            for (int i = 0; i < getArgTree().size(); i++)
+                if (i != 0)
+                    conjPathRight.add(getArgTree().get(i));
+            Stack<KB_Node> stack = new Stack<KB_Node>();
+            int argNo = 1;
+            for (ArrayList<KB_Node> left : conjPathLeft) {
+                stack.push(left);
+                for (ArrayList<ArrayList<KB_Node>> right : conjPathRight) {
+                    for (ArrayList<KB_Node> r : right) {
+                        stack.push(r);
+                        treeList.add(conjTree(rootNode, stack, argNo++));
+                        stack.push(left);
+                    }
                 }
             }
+            stack.pop();
+            XMLWriter writer = new XMLWriter();
+            writer.writeXML(treeList, question);
         }
-
-        XMLWriter writer = new XMLWriter();
-        writer.writeXML(treeList, "Conjunction test");
     }
 
     /**
@@ -142,20 +130,10 @@ public class Conjunction {
         }
     }
 
-    private void addArgTree(ArrayList<ArrayList<KB_Node>> pathList) {
-        argTree.add(pathList);
-    }
-
-    private ArrayList<ArrayList<ArrayList<KB_Node>>> getArgTree() {
-        return argTree;
-    }
-
     private ArgumentTree conjTree(KB_Node rootNode, Stack<KB_Node> conjPath, int argNo) {
-
-        ArgumentFactory argumentFactory = null;
         int nodeIndex = 0;
 
-        argumentFactory = new ArgumentFactory();
+        ArgumentFactory argumentFactory = new ArgumentFactory();
         argumentFactory.setHypothesis(String.valueOf(rootNode.getId()), arg.getText(String.valueOf(rootNode.getId())));
         System.out.println(String.valueOf("Hypo: " + rootNode.getId()));
 
@@ -172,19 +150,35 @@ public class Conjunction {
         ArgumentTree tree1 = null;
         ArgumentFactory argumentFactory1 = null;
         ArgumentObject argumentObject1 = null;
+        ArrayList<ArgumentObject> objHolder;
 
-        while(!conjPath.isEmpty()) {
-       // for (ArrayList<KB_Node> m : conjPath) {
+        while (!conjPath.isEmpty()) {
             nodeIndex = 0;
-            tree.addSubArgument(createTree(conjPath.pop(), tree1, argumentFactory1, argumentObject1, argNo, nodeIndex), argumentObject);
+            objHolder = createTree(conjPath.pop(), tree1, argumentFactory1, argumentObject1, argNo, nodeIndex);
+
+            System.out.println("Size: " + objHolder.size());
+            ArgumentObject child = objHolder.get(0);
+
+            if (!objHolder.isEmpty()) {
+                tree.addSubArgument(child, argumentObject);
+                if (objHolder.size() != 1) {
+                    //System.out.println("-->Data " + child.getDatum().getKBNODEID());
+                    for (int i = 0; i < objHolder.size(); i++) {
+                        if (i != objHolder.size()-1) {
+                            System.out.println("("+(i+1)+" ,"+ i+")");
+                            tree.addSubArgument(objHolder.get(i+1), objHolder.get(i));
+                        }
+                    }
+                }
+            }
+            objHolder.clear();
+            currentObject.clear();
             argNo++;
         }
-
         return tree;
     }
 
-    private ArgumentObject createTree(List<KB_Node> n, ArgumentTree tree, ArgumentFactory argumentFactory, ArgumentObject argumentObject, int argNo, int nodeIndex) {
-        //if (n.get(nodeIndex).getType() == 'D') {
+    private ArrayList<ArgumentObject> createTree(List<KB_Node> n, ArgumentTree tree, ArgumentFactory argumentFactory, ArgumentObject argumentObject, int argNo, int nodeIndex) {
         /**
          * This is the base case for the recursive call. Once it reaches the last two nodes,
          * it will append the data tag to the (last) appropriate node.
@@ -193,16 +187,15 @@ public class Conjunction {
             argumentFactory.setDatum(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
             if (n.size() == 2) {
                 argumentObject = argumentFactory.createArgument(argNo);
-                //argumentObject = argumentFactory.createArgument(argNo);
-                //tree = ArgumentTree.createArgumentTree(argumentObject2);
+                setCurrentObject(argumentObject);
             } else {
                 ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo);
                 tree.addSubArgument(argumentObject2, argumentObject);
+                setCurrentObject(argumentObject2);
             }
-            System.out.println(String.valueOf("Data: " + n.get(nodeIndex).getId()) + "\n");
+            System.out.println(String.valueOf("C: Data: " + n.get(nodeIndex).getId()) + "\n");
 
-            setCurrentObject(argumentObject);
-            return argumentObject;
+            return getCurrentObject();
         }
         /**
          * All calls to method should start from here onwards.
@@ -210,23 +203,23 @@ public class Conjunction {
         else {
             argumentFactory = new ArgumentFactory();
             argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
-            System.out.println(String.valueOf("Hypo: " + n.get(nodeIndex).getId()));
+            System.out.println(String.valueOf("C: Hypo: " + n.get(nodeIndex).getId()));
 
             KB_Arc arc = argInfo.findEdgeID(n.get(nodeIndex), n.get(++nodeIndex));
             argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
-            System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
+            System.out.println(String.valueOf("C: Gen: " + arc.getEdge_id()));
 
             ArgumentObject argumentObject1 = null;
             if (n.size() > 2) {
                 argumentObject1 = argumentFactory.createArgument(argNo);
                 if (nodeIndex == 1) {
                     tree = ArgumentTree.createArgumentTree(argumentObject1);
-                } //else if (n.get(nodeIndex).getType() != 'D') {
-                else if (!n.get(nodeIndex).getChildren().isEmpty()) {
+                } else if (!n.get(nodeIndex).getChildren().isEmpty()) {
                     tree.addSubArgument(argumentObject1, argumentObject);
                 } else {
                     argumentObject1 = argumentObject;
                 }
+                setCurrentObject(argumentObject1);
             }
             //Recursive call
             createTree(n, tree, argumentFactory, argumentObject1, argNo, nodeIndex);
@@ -234,14 +227,22 @@ public class Conjunction {
         return getCurrentObject();
     }
 
+    private void addArgTree(ArrayList<ArrayList<KB_Node>> pathList) {
+        argTree.add(pathList);
+    }
+
+    private ArrayList<ArrayList<ArrayList<KB_Node>>> getArgTree() {
+        return argTree;
+    }
+
     /**
      * Called only by createTree method to preserve
      * the tree data structure from changing during recursion.
      *
-     * @param currentObject
+     * @param currentObj
      */
-    private void setCurrentObject(ArgumentObject currentObject) {
-        this.currentObject = currentObject;
+    private void setCurrentObject(ArgumentObject currentObj) {
+        currentObject.add(currentObj);
     }
 
     /**
@@ -249,8 +250,48 @@ public class Conjunction {
      *
      * @return
      */
-    private ArgumentObject getCurrentObject() {
+    private ArrayList<ArgumentObject> getCurrentObject() {
         return currentObject;
     }
 
+    /**
+     * Check to see if elimination is possible.
+     */
+    private boolean checkElimantion(KB_Node rootNode) {
+        ArrayList<String> checkStr = new ArrayList<String>();
+        boolean value = false;
+
+        for (KB_Node child : rootNode.getChildren()) {
+            String str = argInfo.checkMutation(child);
+            if (!str.isEmpty())
+                checkStr.add(str);
+        }
+
+        for (int i = 0; i < checkStr.size(); i++)
+            if (i != checkStr.size() - 1)
+                value = checkLogic(checkStr.get(i), checkStr.get(++i));
+
+        return value;
+    }
+
+    /**
+     * Returns boolean based on logical AND.
+     *
+     * @param strL The value for one of the operands
+     * @param strR The other operand.
+     * @return
+     */
+    private boolean checkLogic(String strL, String strR) {
+        boolean value = false;//if both are equal to each other, false. Else, true if it has values in Enum.
+        boolean left = false, right = false;
+        if (!strL.equalsIgnoreCase(strR)) {
+            if (strL.equalsIgnoreCase(ArgInfo.mutationCheck.ONE_OR_TWO.getMath()) || strL.equalsIgnoreCase(ArgInfo.mutationCheck.NOT_TWO.getMath()))
+                left = true;
+            if (strR.equalsIgnoreCase(ArgInfo.mutationCheck.ONE_OR_TWO.getMath()) || strR.equalsIgnoreCase(ArgInfo.mutationCheck.NOT_TWO.getMath()))
+                right = true;
+            if (left && right)
+                value = true;
+        }
+        return value;
+    }
 }

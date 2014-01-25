@@ -20,6 +20,7 @@ public class JE2C {
     private KB_Node rootNode;
     private ArrayList<KB_Node> argList;
     private ArrayList<ArrayList<KB_Node>> pathList;
+    private ArrayList<ArrayList<KB_Node>> argFound;
     private ArrayList<KB_Node> graphNodes;
     private ArrayList<KB_Node> rootParents;
     private ArgStructure arg;
@@ -31,6 +32,7 @@ public class JE2C {
         this.rootNode = rootNode;
         this.argList = new ArrayList<KB_Node>();
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
+        this.argFound = new ArrayList<ArrayList<KB_Node>>();
         this.graphNodes = graphNodes;
         this.arg = arg;
         this.pro = pro;
@@ -40,6 +42,7 @@ public class JE2C {
     /**
      * Find the JE2C argument by finding a synergy relation or S relation with its child(ren)
      * and the other parent node.
+     *
      * @return
      */
     public ArrayList<ArrayList<KB_Node>> getPathList() {
@@ -51,7 +54,7 @@ public class JE2C {
                     traverseGraph(n, rootNode, 1);
         }
         //if (!pathList.isEmpty()) {argGenerator(pathList);}
-        return pathList;
+        return getJE2C();
     }
 
     /**
@@ -81,22 +84,59 @@ public class JE2C {
                 }
             }
         }
-        e2c = new E2C(argPath.get(argPath.size() - 1), pro);
-        hold = e2c.getPathList();
+        KB_Node leafChild = argPath.get(argPath.size() - 1);
+        hold = checkE2C(leafChild);
+        ArrayList<KB_Node> pathHolder = new ArrayList<KB_Node>(argPath);
+
+        /**
+         * Find E2C relation from the leaf node.
+         * If no arg found, skip this step.
+         */
         if (!hold.isEmpty()) {
             for (ArrayList<KB_Node> n : hold) {
                 for (KB_Node k : n) {
-                    argPath.add(k);
+                    if (k != argPath.get(argPath.size() - 1))
+                        argPath.add(k);
                 }
+                setJE2C(argPath);
+                argPath = new ArrayList<KB_Node>(pathHolder);
             }
+        } else {
+            setJE2C(argPath);
         }
-        setJE2C(argPath);
+        hold.clear();
+
         //TODO add the other parent's(parentNo 2) argument to the pathList
-       /*
-        if (parentNo==2){
-            traverseGraph(child, otherParent, 2);
-        }
+       /*] if (parentNo==2){ traverseGraph(child, otherParent, 2);}*/
+    }
+
+    private ArrayList<ArrayList<KB_Node>> checkE2C(KB_Node subRootNode) {
+        /**
+         * Check for arguments in terms of E2C and NE2C scheme
+         * (argType = true for E2C "abnormal" and argType = false for NE2C "not abnormal.")
+         *  First find NE2C (false) arguments, then E2C (true)
          */
+
+        int argNo = 2;//the number of arguments, in this case, it's 2 (E2C + NE2C)
+        boolean argType = false;
+        for (int i = 0; i < argNo; i++) {
+            e2c = new E2C(subRootNode, argType);
+            ArrayList<ArrayList<KB_Node>> hold = e2c.getPathList();
+            if (!hold.isEmpty()) {
+                for (ArrayList<KB_Node> k : hold)
+                    addArgE2C(k);
+            }
+            argType = true;//find E2C arguments
+        }
+        return getArgE2C();
+    }
+
+    private void addArgE2C(ArrayList<KB_Node> k) {
+        this.argFound.add(k);
+    }
+
+    private ArrayList<ArrayList<KB_Node>> getArgE2C() {
+        return argFound;
     }
 
     private void setParents(ArrayList<KB_Node> parents) {
@@ -105,27 +145,6 @@ public class JE2C {
 
     private ArrayList<KB_Node> getParents() {
         return rootParents;
-    }
-
-    private void argGenerator(ArrayList<ArrayList<KB_Node>> pathList) {
-        int i = 0;
-        ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
-        for (List<KB_Node> n : pathList) {
-            ArgumentFactory argumentFactory = new ArgumentFactory();
-            argumentFactory.setHypothesis(Integer.toString(n.get(0).getId()), arg.getText(Integer.toString(n.get(0).getId())));
-            KB_Arc arc = argInfo.findEdgeID(n.get(0), n.get(1));
-            argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
-
-            //TODO: Change it so that multiple data can be added
-            // for (KB_Node d : getParents()) {
-            argumentFactory.setDatum(Integer.toString(n.get(1).getId()), arg.getText(Integer.toString(n.get(1).getId())));
-            ArgumentObject argumentObject = argumentFactory.createArgument(i);
-            ArgumentTree tree = ArgumentTree.createArgumentTree(argumentObject);
-            treeList.add(tree);
-            i++;
-        }
-        XMLWriter writer = new XMLWriter();
-        writer.writeXML(treeList, "JE2C");
     }
 
     private void setJE2C(ArrayList<KB_Node> argList) {

@@ -47,7 +47,7 @@ public class Stack<E> {
 
     public ArrayList<E> pop() {
         if (isEmpty())
-            throw new RuntimeException("Empty stack");
+            throw new RuntimeException("The stack is empty ~ ArgumentGenerator/Stack.java");
         ArrayList<E> hold = top.name;
         top = top.next;
         size--;
