@@ -1,15 +1,8 @@
 package ArgumentGenerator;
 
-import ArgumentStructure.ArgumentFactory;
-import ArgumentStructure.ArgumentObject;
-import ArgumentStructure.ArgumentTree;
-import ArgumentStructure.XMLWriter;
-import GAIL.src.XMLHandler.ArgStructure;
-import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Joint effect to case argument(s) calculated in JE2C.java
@@ -18,23 +11,19 @@ import java.util.List;
  */
 public class JE2C {
     private KB_Node rootNode;
-    private ArrayList<KB_Node> argList;
     private ArrayList<ArrayList<KB_Node>> pathList;
     private ArrayList<ArrayList<KB_Node>> argFound;
     private ArrayList<KB_Node> graphNodes;
     private ArrayList<KB_Node> rootParents;
-    private ArgStructure arg;
     private ArgInfo argInfo;
     private E2C e2c;
     private boolean pro;
 
-    public JE2C(KB_Node rootNode, ArrayList<KB_Node> graphNodes, ArgStructure arg, boolean pro) {
+    public JE2C(KB_Node rootNode, ArrayList<KB_Node> graphNodes, boolean pro) {
         this.rootNode = rootNode;
-        this.argList = new ArrayList<KB_Node>();
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.argFound = new ArrayList<ArrayList<KB_Node>>();
         this.graphNodes = graphNodes;
-        this.arg = arg;
         this.pro = pro;
         argInfo = new ArgInfo();
     }
@@ -118,15 +107,14 @@ public class JE2C {
          */
 
         int argNo = 2;//the number of arguments, in this case, it's 2 (E2C + NE2C)
-        boolean argType = false;
         for (int i = 0; i < argNo; i++) {
-            e2c = new E2C(subRootNode, argType);
+            e2c = new E2C(subRootNode, pro);
             ArrayList<ArrayList<KB_Node>> hold = e2c.getPathList();
             if (!hold.isEmpty()) {
                 for (ArrayList<KB_Node> k : hold)
                     addArgE2C(k);
             }
-            argType = true;//find E2C arguments
+            pro = true;//find E2C arguments
         }
         return getArgE2C();
     }
@@ -139,19 +127,19 @@ public class JE2C {
         return argFound;
     }
 
-    private void setParents(ArrayList<KB_Node> parents) {
-        rootParents = parents;
-    }
-
-    private ArrayList<KB_Node> getParents() {
-        return rootParents;
-    }
-
     private void setJE2C(ArrayList<KB_Node> argList) {
         pathList.add(argList);
     }
 
     private ArrayList<ArrayList<KB_Node>> getJE2C() {
         return pathList;
+    }
+
+    private void setParents(ArrayList<KB_Node> parents) {
+        rootParents = parents;
+    }
+
+    private ArrayList<KB_Node> getParents() {
+        return rootParents;
     }
 }

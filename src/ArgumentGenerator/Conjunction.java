@@ -20,12 +20,10 @@ public class Conjunction {
     private KB_Node rootNode;
     private ArrayList<KB_Node> graphNodes;
     private ArgStructure arg;
-    private ArrayList<KB_Node> argList;
-    private ArrayList<ArrayList<KB_Node>> pathList;
     private ArrayList<ArrayList<ArrayList<KB_Node>>> argTree;
     private ArgInfo argInfo;
     private boolean pro;
-    private ArrayList<ArgumentObject> currentObject;
+    private ArgumentTree currentTree;
     private String question;
 
     private E2C e2c;
@@ -34,10 +32,7 @@ public class Conjunction {
 
     public Conjunction(KB_Node rootNode, ArrayList<KB_Node> graphNodes, ArgStructure arg, String question) {
         this.rootNode = rootNode;
-        this.argList = new ArrayList<KB_Node>();
-        this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.argTree = new ArrayList<ArrayList<ArrayList<KB_Node>>>();
-        this.currentObject = new ArrayList<ArgumentObject>();
         this.graphNodes = graphNodes;
         this.arg = arg;
         this.pro = false;
@@ -95,7 +90,7 @@ public class Conjunction {
             }
             stack.pop();
             XMLWriter writer = new XMLWriter();
-            writer.writeXML(treeList, question);
+            writer.writeXML(treeList, question);//write the final tree
         }
     }
 
@@ -123,79 +118,75 @@ public class Conjunction {
          * Check for JE2C scheme argument
          */
         pro = false;//check for JE2C first
-        je2c = new JE2C(node, graphNodes, arg, pro);
+        je2c = new JE2C(node, graphNodes, pro);
         argFound = je2c.getPathList();
         if (!argFound.isEmpty()) {
             addArgTree(argFound);
         }
     }
 
+    /**
+     * Builds the tree for the argument(s) computed in this class.
+     *
+     * @param rootNode
+     * @param conjPath
+     * @param argNo
+     * @return
+     */
     private ArgumentTree conjTree(KB_Node rootNode, Stack<KB_Node> conjPath, int argNo) {
-        int nodeIndex = 0;
-
         ArgumentFactory argumentFactory = new ArgumentFactory();
         argumentFactory.setHypothesis(String.valueOf(rootNode.getId()), arg.getText(String.valueOf(rootNode.getId())));
         System.out.println(String.valueOf("Hypo: " + rootNode.getId()));
 
+        //Check for all generalizations
         for (KB_Node n : rootNode.getChildren()) {
             KB_Arc arc = argInfo.findEdgeID(rootNode, n);
             argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
             System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
         }
-        argumentFactory.setDatum(true);
+
+        //if (conjPath.getSize() != 1)
+        argumentFactory.setDatum(true);//conjunction is set
 
         ArgumentObject argumentObject = argumentFactory.createArgument(argNo);
         ArgumentTree tree = ArgumentTree.createArgumentTree(argumentObject);
 
-        ArgumentTree tree1 = null;
         ArgumentFactory argumentFactory1 = null;
-        ArgumentObject argumentObject1 = null;
-        ArrayList<ArgumentObject> objHolder;
-
         while (!conjPath.isEmpty()) {
-            nodeIndex = 0;
-            objHolder = createTree(conjPath.pop(), tree1, argumentFactory1, argumentObject1, argNo, nodeIndex);
-
-            System.out.println("Size: " + objHolder.size());
-            ArgumentObject child = objHolder.get(0);
-
-            if (!objHolder.isEmpty()) {
-                tree.addSubArgument(child, argumentObject);
-                if (objHolder.size() != 1) {
-                    //System.out.println("-->Data " + child.getDatum().getKBNODEID());
-                    for (int i = 0; i < objHolder.size(); i++) {
-                        if (i != objHolder.size()-1) {
-                            System.out.println("("+(i+1)+" ,"+ i+")");
-                            tree.addSubArgument(objHolder.get(i+1), objHolder.get(i));
-                        }
-                    }
-                }
-            }
-            objHolder.clear();
-            currentObject.clear();
-            argNo++;
+            int nodeIndex = 0;
+            tree = createTree(conjPath.pop(), tree, argumentFactory1, argumentObject, argNo, nodeIndex);
+            argNo++;//argument index
         }
         return tree;
     }
 
-    private ArrayList<ArgumentObject> createTree(List<KB_Node> n, ArgumentTree tree, ArgumentFactory argumentFactory, ArgumentObject argumentObject, int argNo, int nodeIndex) {
+    /**
+     * Similar to ArgGenWriter.java with minor adjustments to accommodate the conjunction
+     * nature of the argument(s).
+     *
+     * @param n               the list of KB_Nodes for an argument
+     * @param tree            the current tree where the root is already attached
+     * @param argumentFactory a generic argumentFactory, not related to its counterpart in the calling method
+     * @param argumentObject  the main object from the calling method
+     * @param argNo           the index of the current argument
+     * @param nodeIndex       the counter the adjust the recursive method. Initialized from calling method to zero.
+     * @return
+     */
+
+    private ArgumentTree createTree(List<KB_Node> n, ArgumentTree tree, ArgumentFactory argumentFactory, ArgumentObject argumentObject, int argNo, int nodeIndex) {
         /**
          * This is the base case for the recursive call. Once it reaches the last two nodes,
          * it will append the data tag to the (last) appropriate node.
          */
         if (nodeIndex == n.size() - 1) {
             argumentFactory.setDatum(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
-            if (n.size() == 2) {
-                argumentObject = argumentFactory.createArgument(argNo);
-                setCurrentObject(argumentObject);
-            } else {
-                ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo);
-                tree.addSubArgument(argumentObject2, argumentObject);
-                setCurrentObject(argumentObject2);
-            }
+            ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo);
+            tree.addSubArgument(argumentObject2, argumentObject);
+
             System.out.println(String.valueOf("C: Data: " + n.get(nodeIndex).getId()) + "\n");
 
-            return getCurrentObject();
+            setCurrentTree(tree);
+            return getCurrentTree();
         }
         /**
          * All calls to method should start from here onwards.
@@ -212,46 +203,18 @@ public class Conjunction {
             ArgumentObject argumentObject1 = null;
             if (n.size() > 2) {
                 argumentObject1 = argumentFactory.createArgument(argNo);
-                if (nodeIndex == 1) {
-                    tree = ArgumentTree.createArgumentTree(argumentObject1);
-                } else if (!n.get(nodeIndex).getChildren().isEmpty()) {
+                if (!n.get(nodeIndex).getChildren().isEmpty()) {
                     tree.addSubArgument(argumentObject1, argumentObject);
                 } else {
                     argumentObject1 = argumentObject;
                 }
-                setCurrentObject(argumentObject1);
+            } else {
+                argumentObject1 = argumentObject;
             }
             //Recursive call
             createTree(n, tree, argumentFactory, argumentObject1, argNo, nodeIndex);
         }
-        return getCurrentObject();
-    }
-
-    private void addArgTree(ArrayList<ArrayList<KB_Node>> pathList) {
-        argTree.add(pathList);
-    }
-
-    private ArrayList<ArrayList<ArrayList<KB_Node>>> getArgTree() {
-        return argTree;
-    }
-
-    /**
-     * Called only by createTree method to preserve
-     * the tree data structure from changing during recursion.
-     *
-     * @param currentObj
-     */
-    private void setCurrentObject(ArgumentObject currentObj) {
-        currentObject.add(currentObj);
-    }
-
-    /**
-     * Return the tree that was stored during recursion.
-     *
-     * @return
-     */
-    private ArrayList<ArgumentObject> getCurrentObject() {
-        return currentObject;
+        return getCurrentTree();
     }
 
     /**
@@ -294,4 +257,32 @@ public class Conjunction {
         }
         return value;
     }
+
+    private void addArgTree(ArrayList<ArrayList<KB_Node>> pathList) {
+        argTree.add(pathList);
+    }
+
+    private ArrayList<ArrayList<ArrayList<KB_Node>>> getArgTree() {
+        return argTree;
+    }
+
+    /**
+     * Called only by createTree method to preserve
+     * the tree data structure from changing during recursion.
+     *
+     * @param tree
+     */
+    private void setCurrentTree(ArgumentTree tree) {
+        this.currentTree = tree;
+    }
+
+    /**
+     * Return the tree that was stored during recursion.
+     *
+     * @return
+     */
+    private ArgumentTree getCurrentTree() {
+        return currentTree;
+    }
+
 }

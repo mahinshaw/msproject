@@ -72,7 +72,7 @@ public class ArgGen {
          * Check for JE2C scheme argument
          */
         setArgType(false);//check for JE2C first
-        je2c = new JE2C(this.rootNode, graphNodes, arg, getArgType());
+        je2c = new JE2C(this.rootNode, graphNodes, getArgType());
         hold = je2c.getPathList();
         if (!hold.isEmpty()) {
             argGenWriter = new ArgGenWriter(arg, hold, getArgType(), question);
@@ -85,6 +85,7 @@ public class ArgGen {
          * Check for arguments that can be found using elimination (currently shown as % in KB)
          *
          */
+        setArgType(false);
         conj = new Conjunction(this.rootNode, graphNodes, arg, question);
         conj.findConjunction();
     }
