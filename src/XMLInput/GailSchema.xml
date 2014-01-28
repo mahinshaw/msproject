@@ -101,6 +101,13 @@
         <hypothesis hypo="h7" node_id="100">J.B.'s father does not have any CFTR gene mutations (both copies of the CFTR gene are normal).</hypothesis>
         <hypothesis hypo="h8" node_id="4">J.B.'s father is a carrier of the CFTR gene mutation (has one normal copy and one mutated copy of the CFTR gene).</hypothesis>
         <hypothesis hypo="h9" node_id="100">J. B.'s father has cystic fibrosis (has two mutated copies of the CFTR gene in all of his cells).</hypothesis>
+        <!--new HYPO-->
+        <hypothesis hypo="h10" node_id="9">J.B's CFTR protein is abnormal</hypothesis>
+        <hypothesis hypo="h11" node_id="15">J.B. has thick mucus secretion from her lungs.</hypothesis>
+        <hypothesis hypo="h12" node_id="17">J.B's mother's CFTR protein is not abnormal</hypothesis>
+        <hypothesis hypo="h13" node_id="18">J.B.'s mother has normal mucus secretion from her lungs.</hypothesis>
+        <hypothesis hypo="h14" node_id="19">J.B's father's CFTR protein is not abnormal</hypothesis>
+        <hypothesis hypo="h15" node_id="20">J.B.'s father has normal mucus secretion from his lungs.</hypothesis>
         <data datum="d1" node_id ="200">Patient: J.B., a 2-year old girl.</data>
         <data datum="d2" node_id= "10">History of respiratory problems: During her second year, J.B. developed a chronic cough and has had frequent upper respiratory infections.</data>
         <data datum="d3" node_id="12">J.B.'s mother does not have a history of respiratory problems.</data>
@@ -108,15 +115,15 @@
         <data datum="d5" node_id="14">Test result: J.B.'s chloride level is 75 mmol/L.</data>
         <data datum="d6" node_id="8">J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.</data>
         <data datum="d7" node_id="13">J.B.'s pancreas is functioning normally.</data>
-        <generalizations gen="g1" node_id="I1">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, it cannot perform its normal function.</generalizations>
-        <generalizations gen="g2" node_id="I3">People with CFTR gene dysfunction often have viscous secretions in the lungs.</generalizations>
+        <generalizations gen="g1" node_id="I1, I5, I6, I11, I12">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, the body produces abnormal CFTR protein.</generalizations>
+        <generalizations gen="g2" node_id="I3">People with CFTR protein often have viscous secretions in the lungs.</generalizations>
         <generalizations gen="g3" node_id="I4">Viscous secretion provides a medium for growth of bacteria, and which may result in frequent respiratory infections.</generalizations>
         <generalizations gen="g4" node_id="I13">Dysfunction of CFTR may affect the pancreas.</generalizations>
         <generalizations gen="g5" node_id="I14">Pancreatic abnormality may result in malnutrition and poor growth.</generalizations>
         <generalizations gen="g6" node_id="S1">Cystic fibrosis is inherited in an autosomal recessive manner, which means that an individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one from the father.</generalizations>
         <generalizations gen="g7" node_id="200">If one parent is a carrier (has one copy of the mutation) and the other parent has no copies of the mutation, each offspring has a 25 percent chance of being a carrier.</generalizations>
         <generalizations gen="g8" node_id="200">Although cystic fibrosis classically manifests in early childhood, approximately 4 percent of patients are diagnosed in adulthood.</generalizations>
-        <generalizations gen="g9" node_id="I2">In the absence of functional CFTR, sweat has an increased sodium chloride content. Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).</generalizations>
+        <generalizations gen="g9" node_id="I2">In the absence of normal CFTR protein, sweat has an increased sodium chloride content. Most patients with cystic fibrosis show an elevated level of sweat chloride (more than 60 mmol/L).</generalizations>
     </ui>
     <genie>
         <KB_Node>
@@ -282,12 +289,12 @@
             <influence_arc arc_id="I5">
                 <influence_type>+</influence_type>
                 <influence_parent>4</influence_parent>
-                <influence_child>11</influence_child>
+                <influence_child>19</influence_child>
             </influence_arc>
             <influence_arc arc_id="I6">
                 <influence_type>+</influence_type>
                 <influence_parent>1</influence_parent>
-                <influence_child>12</influence_child>
+                <influence_child>17</influence_child>
             </influence_arc>
             <influence_arc arc_id="%1">
                 <influence_type>%</influence_type>
@@ -312,12 +319,12 @@
             <influence_arc arc_id="I11">
                 <influence_type>+</influence_type>
                 <influence_parent>2</influence_parent>
-                <influence_child>12</influence_child>
+                <influence_child>17</influence_child>
             </influence_arc>
             <influence_arc arc_id="I12">
                 <influence_type>+</influence_type>
                 <influence_parent>6</influence_parent>
-                <influence_child>11</influence_child>
+                <influence_child>19</influence_child>
             </influence_arc>
             <influence_arc arc_id="I13">
                 <influence_type>+</influence_type>
@@ -329,6 +336,28 @@
                 <influence_parent>16</influence_parent>
                 <influence_child>13</influence_child>
             </influence_arc>
+            <!--NEW Nodes added-->
+            <influence_arc arc_id="I15">
+                <influence_type>+</influence_type>
+                <influence_parent>17</influence_parent>
+                <influence_child>18</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I16">
+                <influence_type>+</influence_type>
+                <influence_parent>18</influence_parent>
+                <influence_child>12</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I17">
+                <influence_type>+</influence_type>
+                <influence_parent>19</influence_parent>
+                <influence_child>20</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I18">
+                <influence_type>+</influence_type>
+                <influence_parent>20</influence_parent>
+                <influence_child>11</influence_child>
+            </influence_arc>
+
             <synergy_arc_set syn_id="S1">
                 <type>X0</type>
                 <child>7</child>
