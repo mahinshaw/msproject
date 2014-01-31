@@ -16,7 +16,7 @@
         <!ATTLIST generalizations gen CDATA #REQUIRED>
         <!ATTLIST generalizations node_id CDATA #REQUIRED>
         <!ELEMENT genie (KB_Node, KB_Arc, Argument)>
-        <!ELEMENT KB_Node (person+, genotype+, biochemistry+, symptom+, test+, physiology+)>
+        <!ELEMENT KB_Node (person+, genotype*, biochemistry*, symptom*, test*, physiology*)>
         <!ELEMENT person (person_name, gender, age, family)>
         <!ELEMENT person_name (#PCDATA)>
         <!ELEMENT gender (#PCDATA)>
@@ -115,6 +115,7 @@
         <data datum="d5" node_id="14">Test result: J.B.'s chloride level is 75 mmol/L.</data>
         <data datum="d6" node_id="8">J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.</data>
         <data datum="d7" node_id="13">J.B.'s pancreas is functioning normally.</data>
+        <!---->
         <generalizations gen="g1" node_id="I1, I5, I6, I11, I12">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, the body produces abnormal CFTR protein.</generalizations>
         <generalizations gen="g2" node_id="I3">People with CFTR protein often have viscous secretions in the lungs.</generalizations>
         <generalizations gen="g3" node_id="I4">Viscous secretion provides a medium for growth of bacteria, and which may result in frequent respiratory infections.</generalizations>
@@ -176,6 +177,17 @@
                 <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
             </genotype>
+            <biochemistry node_id="17" person_id="1" certainty="">
+                <protein_id>FLAG</protein_id>
+                <protein_name>CFTR</protein_name>
+                <bioAbnormal>false</bioAbnormal>
+                <quantity>normal</quantity>
+            </biochemistry>
+            <physiology node_id="18" person_id="1">
+                <bodyLocation>lung secretion</bodyLocation>
+                <description>thickened mucus</description>
+                <phyAbnormal>false</phyAbnormal>
+            </physiology>
             <!-- Father nodes -->
             <genotype node_id="4" person_id="2" certainty="">
                 <gene_id>FLAG</gene_id>
@@ -201,8 +213,19 @@
                 <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
             </genotype>
-            <!-- J.B. Node -->
-            <genotype node_id="7" person_id="3" certainty="">
+            <biochemistry node_id="19" person_id="2" certainty="">
+                <protein_id>FLAG</protein_id>
+                <protein_name>CFTR</protein_name>
+                <bioAbnormal>false</bioAbnormal>
+                <quantity>normal</quantity>
+            </biochemistry>
+            <physiology node_id="20" person_id="2">
+                <bodyLocation>lung secretion</bodyLocation>
+                <description>thickened mucus</description>
+                <phyAbnormal>false</phyAbnormal>
+            </physiology>
+            <!-- Brother Node-->
+            <genotype node_id="8" person_id="4" certainty="">
                 <gene_id>FLAG</gene_id>
                 <gene_name>CFTR</gene_name>
                 <mutated>2</mutated>
@@ -210,8 +233,8 @@
                 <disease>Cystic Fibrosis</disease>
                 <cell>FLAG</cell>
             </genotype>
-            <!-- Brother Node-->
-            <genotype node_id="8" person_id="4" certainty="">
+            <!-- J.B. Node -->
+            <genotype node_id="7" person_id="3" certainty="">
                 <gene_id>FLAG</gene_id>
                 <gene_name>CFTR</gene_name>
                 <mutated>2</mutated>
