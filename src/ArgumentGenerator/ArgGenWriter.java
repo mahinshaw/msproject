@@ -4,9 +4,9 @@ import ArgumentStructure.ArgumentFactory;
 import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentTree;
 import ArgumentStructure.XMLWriter;
-import GAIL.src.XMLHandler.ArgStructure;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
+import KB.XMLinterface.ArgStruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +21,11 @@ public class ArgGenWriter {
     private ArrayList<ArrayList<KB_Node>> pathList;
     private boolean argType;
     private String question;
-    private ArgStructure arg;
+    private ArgStruct arg;
     private ArgInfo argInfo;
     private ArgumentTree currentTree;
 
-    public ArgGenWriter(ArgStructure arg, ArrayList<ArrayList<KB_Node>> pathList, boolean argType, String question) {
+    public ArgGenWriter(ArgStruct arg, ArrayList<ArrayList<KB_Node>> pathList, boolean argType, String question) {
         this.arg = arg;
         this.pathList = pathList;
         this.argType = argType;

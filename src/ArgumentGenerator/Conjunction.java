@@ -4,7 +4,7 @@ import ArgumentStructure.ArgumentFactory;
 import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentTree;
 import ArgumentStructure.XMLWriter;
-import GAIL.src.XMLHandler.ArgStructure;
+import KB.XMLinterface.ArgStruct;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
 
@@ -14,14 +14,14 @@ import java.util.List;
 /**
  * Finding arguments with multiple schemes using elimination logic.
  * May result in conjugation (%).
- *
+ * <p/>
  * User: Tshering Tobgay
  * Date: 1/17/14
  */
 public class Conjunction {
     private KB_Node rootNode;
     private ArrayList<KB_Node> graphNodes;
-    private ArgStructure arg;
+    private ArgStruct arg;
     private ArrayList<ArrayList<ArrayList<KB_Node>>> argTree;
     private ArgInfo argInfo;
     private boolean pro;
@@ -32,7 +32,7 @@ public class Conjunction {
     private JE2C je2c;
 
 
-    public Conjunction(KB_Node rootNode, ArrayList<KB_Node> graphNodes, ArgStructure arg, String question) {
+    public Conjunction(KB_Node rootNode, ArrayList<KB_Node> graphNodes, ArgStruct arg, String question) {
         this.rootNode = rootNode;
         this.argTree = new ArrayList<ArrayList<ArrayList<KB_Node>>>();
         this.graphNodes = graphNodes;
@@ -143,8 +143,10 @@ public class Conjunction {
         //Check for all generalizations
         for (KB_Node n : rootNode.getChildren()) {
             KB_Arc arc = argInfo.findEdgeID(rootNode, n);
-            argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
-            System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
+            if (arc.getType().equalsIgnoreCase(ArgInfo.ArcTYPE.CONJ.getType())) {
+                argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
+                System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
+            }
         }
 
         //if (conjPath.getSize() != 1)

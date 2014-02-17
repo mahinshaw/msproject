@@ -8,6 +8,7 @@ import GAIL.src.XMLHandler.xmlReader;
 import GAIL.src.controller.StatementController;
 import GAIL.src.XMLHandler.ArgStructure.Node;
 import KB.XMLinterface.Interface;
+import KB.XMLinterface.UserInterfaceReader;
 
 public class StatementFileReader {
 
@@ -17,6 +18,7 @@ public class StatementFileReader {
     StatementController statementController;
     xmlReader reader;
     Interface xmlInterface;
+    UserInterfaceReader uiRead;//TODO: Temporary location for ArgGen calls
 
     public StatementFileReader(StatementController statementController) {
         this.statementController = statementController;
@@ -32,6 +34,8 @@ public class StatementFileReader {
         reader.readFile();
         xmlInterface = new Interface(FOLDER + fileName);
         statementController.setText(reader.getArg());
+        uiRead = new UserInterfaceReader(FOLDER + fileName);//TODO: Temporary location for ArgGen calls
+        uiRead.readFile();
     }
 
     //TODO Test for ArgumentGenerator- Tobey 8/2/2013
@@ -55,12 +59,17 @@ public class StatementFileReader {
      */
 
     /**
+     * TODO: Move away from GAIL once all is complete
+     * TEMPORARY location for ArgGen initiation.
      * Initiates ArgGen with the current selected question, problemNode
+     *
      * @param problemNode
      */
-    public void initiateArgGen(Node problemNode){
+    public void initiateArgGen(Node problemNode) {
+
         int node_id = Integer.parseInt(problemNode.getNode_id());
-        ArgGen argGen = new ArgGen(node_id, reader.getArg(), problemNode.getText(), xmlInterface.getGraph().getNodelist());
+
+        ArgGen argGen = new ArgGen(node_id, uiRead.getArg(), problemNode.getText(), xmlInterface.getGraph().getNodelist());
         argGen.findArgument();
     }
 

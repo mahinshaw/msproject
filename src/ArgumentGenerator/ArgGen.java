@@ -1,7 +1,7 @@
 package ArgumentGenerator;
 
-import GAIL.src.XMLHandler.ArgStructure;
 import KB.KB_Node.KB_Node;
+import KB.XMLinterface.ArgStruct;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class ArgGen {
     private KB_Node rootNode;
-    private ArgStructure arg;
+    private ArgStruct arg;
     private boolean argType;
     private final String question;
     private E2C e2c;
@@ -22,7 +22,7 @@ public class ArgGen {
     private ArgGenWriter argGenWriter;
     ArrayList<KB_Node> graphNodes;
 
-    public ArgGen(int nodeID, ArgStructure arg, String question, ArrayList<KB_Node> graphNodes) {
+    public ArgGen(int nodeID, ArgStruct arg, String question, ArrayList<KB_Node> graphNodes) {
         this.arg = arg;
         this.question = question;
         this.graphNodes = graphNodes;
