@@ -17,8 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
-import GAIL.src.XMLHandler.ArgStructure;
-import GAIL.src.XMLHandler.XMLWriter;
 import GAIL.src.frame.ApplicationFrame;
 import GAIL.src.frame.MenuBar;
 import GAIL.src.frame.SubmitDialog;
@@ -27,7 +25,6 @@ import GAIL.src.model.MultiGeneralizationFactory;
 import GAIL.src.model.MultiGeneralizationModel;
 import GAIL.src.model.Statement;
 import GAIL.src.view.StatementView;
-import GAIL.src.controller.EdgeController;
 
 
 public class ApplicationController implements MouseListener, ActionListener {

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import ArgumentGenerator.ArgGen;
 import GAIL.src.XMLHandler.xmlReader;
 import GAIL.src.controller.StatementController;
-import GAIL.src.XMLHandler.ArgStructure.Node;
+import GAIL.src.XMLHandler.StatementContainer.Node;
 import KB.XMLinterface.Interface;
 import KB.XMLinterface.UserInterfaceReader;
 

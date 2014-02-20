@@ -15,7 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import GAIL.src.XMLHandler.ArgStructure;
+import GAIL.src.XMLHandler.StatementContainer;
 import GAIL.src.controller.ApplicationController;
 import GAIL.src.view.ColorPalette;
 import GAIL.src.frame.StatementPanel.Type;
@@ -229,8 +229,8 @@ public class LeftPanel extends JPanel implements MouseListener {
 		}
 	}
 
-	public void setText(ArrayList<ArgStructure.Node> hypothesisText,
-			ArrayList<ArgStructure.Node> dataText, ArrayList<ArgStructure.Node> genText) {
+	public void setText(ArrayList<StatementContainer.Node> hypothesisText,
+			ArrayList<StatementContainer.Node> dataText, ArrayList<StatementContainer.Node> genText) {
 		hypPanel.setText(hypothesisText);
 		dataPanel.setText(dataText);
 		genPanel.setText(genText);

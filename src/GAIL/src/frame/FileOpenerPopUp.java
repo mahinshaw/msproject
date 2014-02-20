@@ -11,9 +11,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import GAIL.src.XMLHandler.ArgStructure;
+import GAIL.src.XMLHandler.StatementContainer;
 import GAIL.src.controller.StatementController;
-import GAIL.src.XMLHandler.ArgStructure;
 
 public class FileOpenerPopUp extends JFrame implements ListSelectionListener {
     JButton button;
@@ -28,9 +27,9 @@ public class FileOpenerPopUp extends JFrame implements ListSelectionListener {
     JRadioButton keepSessionButton;
 
     private String[] data;
-    private ArrayList<ArgStructure.Node> problemTextData;
+    private ArrayList<StatementContainer.Node> problemTextData;
     private String problemText;
-    private ArgStructure.Node problemTextNode;
+    private StatementContainer.Node problemTextNode;
     private int problemIndex;
 
     public void createAndShowGUI(boolean isKeepButtonEnabled) {

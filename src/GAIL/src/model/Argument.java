@@ -2,7 +2,7 @@ package GAIL.src.model;
 
 import java.awt.Graphics;
 
-import GAIL.src.XMLHandler.ArgStructure;
+import GAIL.src.XMLHandler.StatementContainer;
 import GAIL.src.view.ArgumentView;
 import GAIL.src.view.StatementView;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class Argument extends Edge {
 	int argumentNumber;
 
     //added Mark Hinshaw 07/26/2013
-    private ArgStructure argStructure;
+    private StatementContainer statementContainer;
 
 	public Argument(Node source, Statement target, ArgumentView view, int argumentNumber, ArgumentType type) {
 		super(source, argumentNumber);
@@ -34,7 +34,7 @@ public class Argument extends Edge {
 		warrants = new ArrayList<Warrant>();
 
         // added Mark Hinshaw 07/26/2013
-        argStructure = ArgStructure.create();
+        statementContainer = StatementContainer.create();
 	}
 
 	public String getText() {
@@ -123,7 +123,7 @@ public class Argument extends Edge {
 	}
 
     //added by Mark Hinshaw 07/26/2013
-    public ArgStructure getArgStructure(){
-        return argStructure;
+    public StatementContainer getStatementContainer(){
+        return statementContainer;
     }
 }

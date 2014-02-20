@@ -161,7 +161,7 @@ public class GraphBuilder {
             factory = new ArgumentFactory();
             // assign the next head to be the start of a new tree. Add to tree
             current = heads.pop();
-            factory.setHypothesis(current.getTextNode().getNode_id(), current.getTextNode().getText());
+            factory.setHypothesis(current.getNode_id(), current.getText());
             // get the edges of the current, then pull the head off the adjacency map.
             edges = adjacencyMap.get(current);
             adjacencyMap.remove(current);
@@ -276,12 +276,12 @@ public class GraphBuilder {
         for (Warrant w : aWarrants){
             if (w.getSource() instanceof MultiGeneralizationModel){
                 for (Statement s : ((MultiGeneralizationModel) w.getSource()).getGeneralizations()){
-                    factory.addGeneralization(s.getTextNode().getNode_id(), s.getTextNode().getText());
+                    factory.addGeneralization(s.getNode_id(), s.getText());
                 }
             }
             else if (w.getSource() instanceof Statement && ((Statement) w.getSource()).getType() == Statement.StatementType.GENERALIZATION){
                 Statement s = (Statement) w.getSource();
-                factory.addGeneralization(s.getTextNode().getNode_id(), s.getTextNode().getText());
+                factory.addGeneralization(s.getNode_id(), s.getText());
             }
         }
     }
@@ -302,7 +302,7 @@ public class GraphBuilder {
 
         // base case: the next node is a data, and we return it
         if (current instanceof Statement && ((Statement) current).getType() == Statement.StatementType.DATA){
-            factory.setDatum(((Statement) current).getTextNode().getNode_id(), ((Statement) current).getTextNode().getText());
+            factory.setDatum(((Statement) current).getNode_id(), ((Statement) current).getText());
             if (tree == null)
                 return ArgumentTree.createArgumentTree(factory.createArgument(currentArgID));
             else{
@@ -313,7 +313,7 @@ public class GraphBuilder {
         else if(current instanceof Statement && ((Statement) current).getType() == Statement.StatementType.HYPOTHESIS){
             // The hypothesis is special.  we need to set the hyporthesis, but not change the parent since the object
             // may not be completed.
-            factory.setHypothesis(((Statement) current).getTextNode().getNode_id(), ((Statement) current).getTextNode().getText());
+            factory.setHypothesis(((Statement) current).getNode_id(), ((Statement) current).getText());
 
             next = getNextNode(current, edges);
             return treeBuilder(next, parent);

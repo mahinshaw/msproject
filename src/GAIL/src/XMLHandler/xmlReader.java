@@ -5,7 +5,6 @@ import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.util.ArrayList;
 
 /**
  * User: Tshering Tobgay
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 public class xmlReader {
 
     private String fileName;
-    private ArgStructure arg = ArgStructure.create();
+    private StatementContainer arg = StatementContainer.create();
     final String nodeID = "node_id";
 
     public xmlReader(String fileName) {
@@ -86,7 +85,7 @@ public class xmlReader {
     }
      */
 
-    public ArgStructure getArg() {
+    public StatementContainer getArg() {
         return arg;
     }
 

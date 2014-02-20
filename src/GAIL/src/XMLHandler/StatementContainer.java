@@ -1,7 +1,5 @@
 package GAIL.src.XMLHandler;
 
-import KB.KB_Node.KB_Node;
-
 import java.util.ArrayList;
 
 /**
@@ -9,23 +7,20 @@ import java.util.ArrayList;
  * Email: mahinshaw@gmail.com
  * Date: 7/19/13
  * github: https://github.com/mahinshaw/msproject
- * <p/>
- * The intent of this class is to be a hub for data passed in and out of GAIL.  This structure will be used to load
+ *
+ * The intent of this class is to be a hub for data passed into GAIL from the schema.  This structure will be used to load
  * questions into gail as well as node data specific to the questions and argument information.
+ *
  */
-public class ArgStructure {
+public class StatementContainer {
 
     /**
-     * @index - this is a static integer used for indexing nodes within the ArgStructure
      * @questions - used to hold questions relative to active file.
-     * @nodelist - complete collection of all nodes in data structure
      * @hypothesislist - list of all hypothesis nodes.
      * @datalist - list of all data nodes.
      * @generalizationlist - list of all generalization nodes.
      */
-    private static int index;
     private ArrayList<Node> questionList;
-    private ArrayList<Node> nodeList;
     private ArrayList<Node> hypothesisList;
     private ArrayList<Node> dataList;
     private ArrayList<Node> generalizationList;
@@ -35,23 +30,19 @@ public class ArgStructure {
      *
      * @index - starts from 0.
      */
-    private ArgStructure() {
-        this.index = 0;
-        //this.questions = new ArrayList<String>();
+    private StatementContainer() {
         questionList = new ArrayList<Node>();
-        nodeList = new ArrayList<Node>();
         hypothesisList = new ArrayList<Node>();
         dataList = new ArrayList<Node>();
         generalizationList = new ArrayList<Node>();
     }
 
     /**
-     * This class adds node to nodelist as well as the
+     * This class adds nodes to proper list.
      *
-     * @param node
+     * @param node - the node to be added.
      */
     private void addNode(Node node) {
-        nodeList.add(node);
         switch (node.argType) {
             case 'q':
                 questionList.add(node);
@@ -72,7 +63,7 @@ public class ArgStructure {
 
     //create a new node
     private Node createNode(String node_id, String text, char argType) {
-        return new Node(this.index++, node_id, text, argType);
+        return new Node(node_id, text, argType);
     }
 
     //create and insert a new node
@@ -94,10 +85,6 @@ public class ArgStructure {
         return questionList;
     }
 
-    public ArrayList<Node> getNodeList() {
-        return nodeList;
-    }
-
     public ArrayList<Node> getHypothesisList() {
         return hypothesisList;
     }
@@ -111,25 +98,12 @@ public class ArgStructure {
     }
 
     //create a static data structure.
-    public static ArgStructure create() {
-        return new ArgStructure();
-    }
-
-    public String getText(String s) {
-        String str = " ";
-        for (Node n : nodeList) {
-            if (n.getNode_id().equalsIgnoreCase(s)) {
-                str = n.getText();
-            }
-        }
-        return str;
+    public static StatementContainer create() {
+        return new StatementContainer();
     }
 
     public void clear() {
-        this.index = 0;
         this.questionList.clear();
-        this.nodeList.clear();
-        //this.questions.clear();
         this.hypothesisList.clear();
         this.dataList.clear();
         this.generalizationList.clear();
@@ -141,20 +115,14 @@ public class ArgStructure {
      */
     public class Node {
 
-        private final int id;
         private final String node_id;
         private final String text;
         private final char argType;
 
-        private Node(int id, String node_id, String text, char argType) {
-            this.id = id;
+        private Node(String node_id, String text, char argType) {
             this.node_id = node_id;
             this.text = text;
             this.argType = argType;
-        }
-
-        public int getId() {
-            return this.id;
         }
 
         public String getNode_id() {
