@@ -4,9 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 import ArgumentGenerator.ArgGen;
+import GAIL.src.XMLHandler.StatementContainer;
 import GAIL.src.XMLHandler.xmlReader;
 import GAIL.src.controller.StatementController;
-import GAIL.src.XMLHandler.StatementContainer.Node;
 import KB.XMLinterface.Interface;
 import KB.XMLinterface.UserInterfaceReader;
 
@@ -33,7 +33,7 @@ public class StatementFileReader {
         reader = new xmlReader(FOLDER + fileName);
         reader.readFile();
         xmlInterface = new Interface(FOLDER + fileName);
-        statementController.setText(reader.getArg());
+        statementController.setText(reader.getContainer());
         uiRead = new UserInterfaceReader(FOLDER + fileName);//TODO: Temporary location for ArgGen calls
         uiRead.readFile();
     }
@@ -65,7 +65,7 @@ public class StatementFileReader {
      *
      * @param problemNode
      */
-    public void initiateArgGen(Node problemNode) {
+    public void initiateArgGen(StatementContainer problemNode) {
 
         int node_id = Integer.parseInt(problemNode.getNode_id());
 

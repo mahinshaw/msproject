@@ -32,9 +32,6 @@ public class Argument extends Edge {
 		this.target = target;
 		this.argumentNumber = argumentNumber;
 		warrants = new ArrayList<Warrant>();
-
-        // added Mark Hinshaw 07/26/2013
-        statementContainer = StatementContainer.create();
 	}
 
 	public String getText() {

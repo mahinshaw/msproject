@@ -27,9 +27,9 @@ public class FileOpenerPopUp extends JFrame implements ListSelectionListener {
     JRadioButton keepSessionButton;
 
     private String[] data;
-    private ArrayList<StatementContainer.Node> problemTextData;
+    private ArrayList<StatementContainer> problemTextData;
     private String problemText;
-    private StatementContainer.Node problemTextNode;
+    private StatementContainer problemTextNode;
     private int problemIndex;
 
     public void createAndShowGUI(boolean isKeepButtonEnabled) {

@@ -51,7 +51,7 @@ public class Statement extends Node implements Serializable {
 	private StatementType type;
 	public MultiGeneralizationModel group = null;
 
-	public Statement(String ID, StatementType type, StatementSource source, StatementContainer.Node textNode) {
+	public Statement(String ID, StatementType type, StatementSource source, StatementContainer textNode) {
 		super(ID);
         this.text = textNode.getText();
         this.node_id = textNode.getNode_id();

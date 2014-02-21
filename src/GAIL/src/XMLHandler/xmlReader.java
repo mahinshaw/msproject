@@ -5,6 +5,8 @@ import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * User: Tshering Tobgay
@@ -14,12 +16,13 @@ import java.io.File;
  */
 public class xmlReader {
 
+    private HashMap<String, ArrayList<StatementContainer>> container;
     private String fileName;
-    private StatementContainer arg = StatementContainer.create();
     final String nodeID = "node_id";
 
     public xmlReader(String fileName) {
         this.fileName = fileName;
+        this.container = new HashMap<String, ArrayList<StatementContainer>>(4);
     }
 
     public void readFile() {
@@ -40,19 +43,19 @@ public class xmlReader {
             for (int x = 0; x < list.getLength(); x++) {
                 System.out.println(list.item(x).getAttributes().getNamedItem("node_id").getNodeValue());
             } */
-            setArgStructure(list, argType);
+            setArrayLists(list, argType);
 
             NodeList list2 = doc.getElementsByTagName("hypothesis");
             argType = 'h';
-            setArgStructure(list2, argType);
+            setArrayLists(list2, argType);
 
             NodeList list3 = doc.getElementsByTagName("data");
             argType = 'd';
-            setArgStructure(list3, argType);
+            setArrayLists(list3, argType);
 
             NodeList list4 = doc.getElementsByTagName("generalizations");
             argType = 'g';
-            setArgStructure(list4, argType);
+            setArrayLists(list4, argType);
 
 
         } catch (Exception e) {
@@ -60,33 +63,34 @@ public class xmlReader {
         }
     }
 
-    private void setArgStructure(NodeList list, char argType) {
+    private void setArrayLists(NodeList list, char argType) {
+        ArrayList<StatementContainer> arrayList = new ArrayList<StatementContainer>(list.getLength());
         for (int i = 0; i < list.getLength(); i++) {
             Node nodeN = list.item(i);
 
             if (nodeN.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) nodeN;
-                arg.insertNewNode(element.getAttribute(nodeID), element.getTextContent(), argType);
+                arrayList.add(new StatementContainer(element.getAttribute(nodeID), element.getTextContent(), argType));
             }
+        }
+        switch (argType){
+            case 'q':
+                this.container.put("Questions", arrayList);
+                break;
+            case 'h':
+                this.container.put("Hypotheses", arrayList);
+                break;
+            case 'g':
+                this.container.put("Generalizations", arrayList);
+                break;
+            case 'd':
+                this.container.put("Data", arrayList);
+                break;
         }
     }
 
-    /*
-    private void setQuestion(NodeList list) {
-        for (int i = 0; i < list.getLength(); i++) {
-            Node nodeN = list.item(i);
-
-            if (nodeN.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) nodeN;
-                problemText.add(element.getTextContent());
-            }
-        }
-        arg.insertQuestions(problemText);
-    }
-     */
-
-    public StatementContainer getArg() {
-        return arg;
+    public HashMap<String, ArrayList<StatementContainer>> getContainer() {
+        return container;
     }
 
 

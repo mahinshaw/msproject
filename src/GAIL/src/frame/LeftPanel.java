@@ -229,8 +229,8 @@ public class LeftPanel extends JPanel implements MouseListener {
 		}
 	}
 
-	public void setText(ArrayList<StatementContainer.Node> hypothesisText,
-			ArrayList<StatementContainer.Node> dataText, ArrayList<StatementContainer.Node> genText) {
+	public void setText(ArrayList<StatementContainer> hypothesisText,
+			ArrayList<StatementContainer> dataText, ArrayList<StatementContainer> genText) {
 		hypPanel.setText(hypothesisText);
 		dataPanel.setText(dataText);
 		genPanel.setText(genText);

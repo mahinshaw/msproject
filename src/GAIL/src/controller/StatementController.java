@@ -9,12 +9,12 @@ import GAIL.src.model.Statement.StatementLabel;
 import GAIL.src.model.Statement.StatementSource;
 import GAIL.src.model.Statement.StatementType;
 import GAIL.src.view.StatementView;
-import GAIL.src.XMLHandler.StatementContainer.Node;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class StatementController implements ActionListener, MouseListener,
         MouseMotionListener {
@@ -27,13 +27,13 @@ public class StatementController implements ActionListener, MouseListener,
     private StatementFileReader statementFileReader;
     private ArrayList<Statement> statements;
     private ArrayList<StatementView> statementViews;
-    private ArrayList<Node> questionTextArr;
-    private ArrayList<Node> datumTextArr;
-    private ArrayList<Node> hypothTextArr;
-    private ArrayList<Node> genTextArr;
+    private ArrayList<StatementContainer> questionTextArr;
+    private ArrayList<StatementContainer> datumTextArr;
+    private ArrayList<StatementContainer> hypothTextArr;
+    private ArrayList<StatementContainer> genTextArr;
     private String[] problemTextString;
-    private ArrayList<Node> problemText;
-    private Node problemNode;
+    private ArrayList<StatementContainer> problemText;
+    private StatementContainer problemNode;
     private String problem;
 
     private ApplicationController applicationController;
@@ -63,9 +63,6 @@ public class StatementController implements ActionListener, MouseListener,
         edgeController = ac.getEdgeController();
         statements = new ArrayList<Statement>();
         statementViews = new ArrayList<StatementView>();
-
-        // Added July 23, Mark Hinshaw
-        argOutput = StatementContainer.create();
 
     }
 
@@ -139,7 +136,7 @@ public class StatementController implements ActionListener, MouseListener,
         return problem;
     }
 
-    public void setProblem(Node problem) {
+    public void setProblem(StatementContainer problem) {
         this.problemNode = problem;
         this.problem = problem.getText();
     }
@@ -149,25 +146,22 @@ public class StatementController implements ActionListener, MouseListener,
         applicationController.setCurrentProblem(index);
     }
 
-    public void setText(StatementContainer arg) {
-        //argOutput.insertQuestions(arg.getQuestions());
-        this.questionTextArr = arg.getQuestionList();
-        // argOutput.insertQuestions(arg.getQuestionList());
-        setArgumentGenerator();
-        this.hypothTextArr = arg.getHypothesisList();
-        this.datumTextArr = arg.getDataList();
-        this.genTextArr = arg.getGeneralizationList();
+    public void setText(HashMap<String, ArrayList<StatementContainer>> container){
+        this.questionTextArr = container.get("Questions");
+        this.hypothTextArr = container.get("Hypotheses");
+        this.datumTextArr = container.get("Data");
+        this.genTextArr = container.get("Generalizations");
 
     }
 
-    private void setProblemTextArr(ArrayList<StatementContainer.Node> problemTextArr) {
+    private void setProblemTextArr(ArrayList<StatementContainer> problemTextArr) {
         /*
         problemText = new String[problemTextArr.size()];
         for (int i = 0; i < problemTextArr.size(); i++) {
             problemText[i] = problemTextArr.get(i);
         }
         */
-        problemText = new ArrayList<StatementContainer.Node>();
+        problemText = new ArrayList<StatementContainer>();
         for (int i = 0; i < problemTextArr.size(); i++) {
             problemText.add(problemTextArr.get(i));
         }
@@ -177,10 +171,10 @@ public class StatementController implements ActionListener, MouseListener,
      * Return the set of problems from inputfile
      * @return
      */
-    public ArrayList<Node> getProblemText() {
+    public ArrayList<StatementContainer> getProblemText() {
         if (questionTextArr == null)
             return null;
-        problemText = new ArrayList<StatementContainer.Node>();
+        problemText = new ArrayList<StatementContainer>();
         problemTextString = new String[questionTextArr.size()];
         for (int i = 0; i < questionTextArr.size(); i++) {
             problemText.add(questionTextArr.get(i));
@@ -193,12 +187,11 @@ public class StatementController implements ActionListener, MouseListener,
     }
 
     private void createProblemHypothesis(StatementSource source,
-                                         StatementContainer.Node textNode, int x, int y) {
+                                         StatementContainer textNode, int x, int y) {
 
         //TODO Checking for correct hypothesis selection - Tobey
         System.out.println("node_id " + textNode.getNode_id() + " Hypothesis: " + textNode.getText());
         // Added July 23, Mark Hinshaw
-        argOutput.insertNewNode(textNode);
 
         int desktopX = applicationController.getApplicationView()
                 .getDesktopViewportX();
@@ -235,7 +228,7 @@ public class StatementController implements ActionListener, MouseListener,
 
     }
 
-    private void createDatum(StatementSource source, StatementContainer.Node textNode, int x, int y) {
+    private void createDatum(StatementSource source, StatementContainer textNode, int x, int y) {
         if (null != textNode.getText()) {
             nData++;
             applicationController
@@ -248,12 +241,10 @@ public class StatementController implements ActionListener, MouseListener,
         }
         //TODO Checking for correct data selection - Tobey
         System.out.println("node_id " + textNode.getNode_id() + " Datum: " + textNode.getText());
-        // Added July 23, Mark Hinshaw
-        argOutput.insertNewNode(textNode);
     }
 
     private void createGeneralization(StatementSource source,
-                                      StatementContainer.Node textNode, int x, int y) {
+                                      StatementContainer textNode, int x, int y) {
         if (null != textNode.getText()) {
             nGeneralizations++;
             applicationController
@@ -266,8 +257,6 @@ public class StatementController implements ActionListener, MouseListener,
         }
         //TODO Checking for correct generalization selection - Tobey
         System.out.println("node_id " + textNode.getNode_id() + " Generalization: " + textNode.getText());
-        // Added July 23, Mark Hinshaw
-        argOutput.insertNewNode(textNode);
     }
 
     private void registerStatement(Statement statement, boolean isEditable,
@@ -289,9 +278,6 @@ public class StatementController implements ActionListener, MouseListener,
         nGeneralizations = 0;
         statements.clear();
         statementViews.clear();
-
-        // Added July 23, Mark Hinshaw
-        argOutput.clear();
     }
 
     public void actionPerformed(ActionEvent ae) {

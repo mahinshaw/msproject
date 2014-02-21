@@ -51,7 +51,7 @@ public class StatementPanel extends JPanel {
 		add(selector);
 	}
 
-	public void setText(ArrayList<StatementContainer.Node> text) {
+	public void setText(ArrayList<StatementContainer> text) {
 		remove(selector);
 		selector = new StatementSelector();
 		selector.setText(text);
@@ -64,11 +64,11 @@ public class StatementPanel extends JPanel {
 		JPanel holder;
 		JScrollPane scrollPane;
 
-		public void setText(ArrayList<StatementContainer.Node> text) {
+		public void setText(ArrayList<StatementContainer> text) {
 			holder = new JPanel();
 			holder.setLayout(new BoxLayout(holder, BoxLayout.Y_AXIS));
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-			for (StatementContainer.Node string : text) {
+			for (StatementContainer string : text) {
 				StatementUnit statement = new StatementUnit(string);
 				holder.add(statement);
 				sc.addStatementUnit(statement);
@@ -86,12 +86,12 @@ public class StatementPanel extends JPanel {
 
 	public class StatementUnit extends JPanel {
 
-        StatementContainer.Node textNode;
+        StatementContainer textNode;
 		TextPane textPane;
 		String text, node_id;
         char argType;
 
-		public StatementUnit(StatementContainer.Node textNode) {
+		public StatementUnit(StatementContainer textNode) {
 			String name = "";
             this.textNode = textNode;
             this.text = textNode.getText();
@@ -164,7 +164,7 @@ public class StatementPanel extends JPanel {
             return argType;
         }
 
-        public StatementContainer.Node getTextNode(){
+        public StatementContainer getTextNode(){
             return textNode;
         }
 
