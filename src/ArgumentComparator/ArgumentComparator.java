@@ -1,4 +1,7 @@
-package ArgumentStructure;
+package ArgumentComparator;
+
+import ArgumentStructure.ArgumentObject;
+import ArgumentStructure.ArgumentTree;
 
 import java.util.LinkedList;
 import java.util.Stack;
