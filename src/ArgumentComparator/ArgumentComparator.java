@@ -2,9 +2,11 @@ package ArgumentComparator;
 
 import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentTree;
+import GAIL.src.model.Argument;
 
 import java.util.LinkedList;
 import java.util.Stack;
+import java.util.concurrent.Callable;
 
 /**
  * User: Mark Hinshaw
@@ -17,30 +19,15 @@ import java.util.Stack;
  * The feedback will be based on the Argument objects at the tree roots.
  */
 
-public class ArgumentComparator {
-    private LinkedList<ArgumentTree> userTrees, generatorTrees;
+public class ArgumentComparator implements Callable {
+    private ArgumentTree userTree, generatorTree;
     private ArgumentObject currentUserObject;
 
-    public ArgumentComparator(){
-        userTrees = new LinkedList<ArgumentTree>();
-        generatorTrees = new LinkedList<ArgumentTree>();
+    public ArgumentComparator(ArgumentTree user, ArgumentTree gen){
+        userTree = user;
+        generatorTree = gen;
     }
 
-    private void loadTrees(LinkedList<ArgumentTree> userTrees, LinkedList<ArgumentTree> generatorTrees){
-        userTrees.addAll(userTrees);
-        generatorTrees.addAll(generatorTrees);
-    }
-
-    /**
-     * This is the main method for which the user will call to execute the comparison.
-     * @param userTrees - List of ArgumentTrees from the user.
-     * @param generatorTrees - List of ArgumentTrees from the generator.
-     */
-    public void CompareTreeLists(LinkedList<ArgumentTree> userTrees, LinkedList<ArgumentTree> generatorTrees){
-        loadTrees(userTrees, generatorTrees);
-
-        // TODO: Compare the two lists one by one.  First find out if there is one that matches the user attempt.
-    }
     /**
      * This method compares two ArgumentTrees with one another.  This should be called from another method that will
      * handle the lists of ArgumentTrees that may be passed to the Comparator.
@@ -88,9 +75,8 @@ public class ArgumentComparator {
         return (user.getARGID() != generated.getARGID()) ? user : null;
     }
 
-    public void clearTrees(){
-        userTrees.clear();
-        generatorTrees.clear();
+    @Override
+    public ComparatorTree call() throws Exception {
+        return null;
     }
-
 }

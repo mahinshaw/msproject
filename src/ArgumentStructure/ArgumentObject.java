@@ -42,6 +42,14 @@ public class ArgumentObject {
         return this.datum;
     }
 
+    public boolean containsGeneralization(Generalization generalization){
+        for (Generalization g : this.getGeneralizations()){
+            if (g.getKBARCID().equals(generalization.getKBARCID()))
+                return true;
+        }
+        return false;
+    }
+
     public void addGeneralization(String arcID, String text){
         this.generalizations.add(new Generalization(arcID, text));
     }
@@ -65,7 +73,31 @@ public class ArgumentObject {
     }
 
     public boolean HasConjunction(){
-        return (datum == null) ? false : datum.isConjunction();
+        return (datum != null) && datum.isConjunction();
+    }
+
+    public boolean equals(ArgumentObject other){
+        return hypothesisEqual(other) && datumEqual(other) && generalizationsEqual(other);
+    }
+
+    private boolean hypothesisEqual(ArgumentObject other){
+        return this.getHypothesis().equals(other.getHypothesis());
+    }
+
+    private boolean datumEqual(ArgumentObject other){
+        return this.getDatum().equals(other.getDatum());
+    }
+
+    private boolean generalizationsEqual(ArgumentObject other){
+        if (this.getGeneralizations().size() != other.getGeneralizations().size())
+            return false;
+        else {
+            for (Generalization g : this.getGeneralizations()){
+               if (!other.containsGeneralization(g))
+                   return false;
+            }
+            return true;
+        }
     }
 
     public static class Builder {

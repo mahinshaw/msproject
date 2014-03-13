@@ -1,7 +1,5 @@
 package ArgumentStructure;
 
-import GAIL.src.model.Argument;
-
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -18,7 +16,7 @@ import java.util.Stack;
 public class ArgumentTree {
     private ArgumentObject root;
     private LinkedList<ArgumentTree> children;
-
+    private int level;
     private ArgumentTree parent;
 
     /**
@@ -38,6 +36,7 @@ public class ArgumentTree {
         this.children = new LinkedList<ArgumentTree>();
         this.parent = null;
         this.head = this;
+        this.level = 1;
     }
 
     /**
@@ -49,10 +48,15 @@ public class ArgumentTree {
         this.root = argumentObject;
         this.children = new LinkedList<ArgumentTree>();
         this.parent = parent;
+        this.level = this.parent.getLevel() + 1;
     }
 
     public ArgumentObject getRoot(){
         return this.root;
+    }
+
+    public int getLevel(){
+        return this.level;
     }
 
     public LinkedList<ArgumentTree> getChildren() { return this.children; }
@@ -79,7 +83,7 @@ public class ArgumentTree {
 
     /**
      * The set methods are for internal use only.
-     * @param child
+     * @param child - the child tree to add to list of children.
      */
     private void addChild(ArgumentTree child) { this.children.add(child); }
 
@@ -129,6 +133,11 @@ public class ArgumentTree {
         return new ArgumentTree(argumentObject);
     }
 
+    /**
+     * This method finds a specified ArgumentObject in the subtrees of this tree, and returns the tree it is head of.
+     * @param argumentObject - ArgumentObject to search for.
+     * @return - ArgumentTree that is rooted by the passed ArgumentObject.
+     */
     public ArgumentTree findArgumentObject(ArgumentObject argumentObject){
         // create a stack that tells us if we have trees left to check.
         Stack<ArgumentTree> hasLeft = new Stack<ArgumentTree>();
