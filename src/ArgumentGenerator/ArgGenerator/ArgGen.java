@@ -3,8 +3,9 @@ package ArgumentGenerator.ArgGenerator;
 import ArgumentGenerator.ArgSchemes.Conjunction;
 import ArgumentGenerator.ArgSchemes.E2C;
 import ArgumentGenerator.ArgSchemes.JE2C;
-import ArgumentGenerator.XMLInterface.Interface;
+import ArgumentGenerator.XMLInterface.ArgInterface;
 import KB.KB_Node.KB_Node;
+import com.sun.tools.doclets.formats.html.resources.standard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.HashMap;
  */
 public class ArgGen {
     private KB_Node rootNode;
-    private Interface argInterface;
+    private ArgInterface argInterface;
     private HashMap<String, String> map;
     private boolean argType;
     private final String question;
@@ -27,12 +28,11 @@ public class ArgGen {
     private ArgGenWriter argGenWriter;
     ArrayList<KB_Node> graphNodes;
 
-    public ArgGen(int nodeID, String question, ArrayList<KB_Node> graphNodes) {
-        argInterface = new Interface();
+    public ArgGen(int nodeID, String question) {
+        argInterface = new ArgInterface();
         this.question = question;
-        this.graphNodes = graphNodes;
+        this.graphNodes = argInterface.getGraphNodes();
         this.map = argInterface.getMap();
-        System.out.println("MAPPING: "+map.get("%1"));
         setRootNode(nodeID);
         setArgType(false);
     }
