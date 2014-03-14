@@ -1,27 +1,29 @@
-package ArgumentGenerator;
+package ArgumentGenerator.ArgSchemes;
 
+import ArgumentGenerator.ArgLibrary.ArgInfo;
+import ArgumentGenerator.ArgLibrary.Stack;
 import ArgumentStructure.ArgumentFactory;
 import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentTree;
 import ArgumentStructure.XMLWriter;
-import KB.XMLinterface.ArgStruct;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Finding arguments with multiple schemes using elimination logic.
  * May result in conjugation (%).
- * <p/>
+ *
  * User: Tshering Tobgay
  * Date: 1/17/14
  */
 public class Conjunction {
     private KB_Node rootNode;
     private ArrayList<KB_Node> graphNodes;
-    private ArgStruct arg;
+    private HashMap<String, String> map;
     private ArrayList<ArrayList<ArrayList<KB_Node>>> argTree;
     private ArgInfo argInfo;
     private boolean pro;
@@ -32,11 +34,11 @@ public class Conjunction {
     private JE2C je2c;
 
 
-    public Conjunction(KB_Node rootNode, ArrayList<KB_Node> graphNodes, ArgStruct arg, String question) {
+    public Conjunction(HashMap<String, String> map, KB_Node rootNode, ArrayList<KB_Node> graphNodes, String question) {
         this.rootNode = rootNode;
         this.argTree = new ArrayList<ArrayList<ArrayList<KB_Node>>>();
         this.graphNodes = graphNodes;
-        this.arg = arg;
+        this.map = map;
         this.pro = false;
         this.question = question;
         argInfo = new ArgInfo();
@@ -44,7 +46,6 @@ public class Conjunction {
     }
 
     public void findConjunction() {
-
         if (rootNode.getChildren().isEmpty())
             System.out.println("No child(ren) for node " + rootNode.getId() + " (ArgumentGenerator/Conjunction)");
         else if (checkElimination(rootNode))
@@ -137,19 +138,21 @@ public class Conjunction {
      */
     private ArgumentTree conjTree(KB_Node rootNode, Stack<KB_Node> conjPath, int argNo) {
         ArgumentFactory argumentFactory = new ArgumentFactory();
-        argumentFactory.setHypothesis(String.valueOf(rootNode.getId()), arg.getText(String.valueOf(rootNode.getId())));
-        System.out.println(String.valueOf("Hypo: " + rootNode.getId()));
+        argumentFactory.setHypothesis(String.valueOf(rootNode.getId()), map.get(String.valueOf(rootNode.getId())));
+        System.out.println(String.valueOf("Hypo: " + map.get(String.valueOf(rootNode.getId()))));
 
         //Check for all generalizations
         for (KB_Node n : rootNode.getChildren()) {
             KB_Arc arc = argInfo.findEdgeID(rootNode, n);
             if (arc.getType().equalsIgnoreCase(ArgInfo.ArcTYPE.CONJ.getType())) {
-                argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
+                String genStr = map.get(String.valueOf(arc.getEdge_id()));
+                if (genStr == null)
+                    genStr = " ";
+                argumentFactory.addGeneralization(arc.getEdge_id(), genStr);
                 System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
             }
         }
 
-        //if (conjPath.getSize() != 1)
         argumentFactory.setDatum(true);//conjunction is set
 
         ArgumentObject argumentObject = argumentFactory.createArgument(argNo);
@@ -183,11 +186,11 @@ public class Conjunction {
          * it will append the data tag to the (last) appropriate node.
          */
         if (nodeIndex == n.size() - 1) {
-            argumentFactory.setDatum(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
+            argumentFactory.setDatum(String.valueOf(n.get(nodeIndex).getId()), map.get(String.valueOf(n.get(nodeIndex).getId())));
             ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo);
             tree.addSubArgument(argumentObject2, argumentObject);
 
-            System.out.println(String.valueOf("C: Data: " + n.get(nodeIndex).getId()) + "\n");
+            System.out.println(String.valueOf("C: Data: " + map.get(String.valueOf(n.get(nodeIndex).getId()))) + "\n");
 
             setCurrentTree(tree);
             return getCurrentTree();
@@ -197,12 +200,12 @@ public class Conjunction {
          */
         else {
             argumentFactory = new ArgumentFactory();
-            argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
-            System.out.println(String.valueOf("C: Hypo: " + n.get(nodeIndex).getId()));
+            argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), map.get(String.valueOf(n.get(nodeIndex).getId())));
+            System.out.println(String.valueOf("C: Hypo: " + map.get(String.valueOf(n.get(nodeIndex).getId()))));
 
             KB_Arc arc = argInfo.findEdgeID(n.get(nodeIndex), n.get(++nodeIndex));
-            argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
-            System.out.println(String.valueOf("C: Gen: " + arc.getEdge_id()));
+            argumentFactory.addGeneralization(arc.getEdge_id(), map.get(String.valueOf(arc.getEdge_id())));
+            System.out.println(String.valueOf("C: Gen: " + map.get(String.valueOf(arc.getEdge_id()))));
 
             ArgumentObject argumentObject1 = null;
             if (n.size() > 2) {

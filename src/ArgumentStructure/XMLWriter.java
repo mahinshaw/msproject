@@ -68,7 +68,6 @@ public class XMLWriter {
             Transformer transformer = tFactory.newTransformer();
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult("src/XMLOutput/session_" + getTimeStamp() + ".xml");
-
             transformer.transform(source, result);
         } catch (Exception e) {
             e.printStackTrace();

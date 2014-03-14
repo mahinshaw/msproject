@@ -1,4 +1,4 @@
-package KB.XMLinterface;
+package ArgumentGenerator.XMLInterface;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -8,24 +8,26 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Stack;
 
 /**
  * User: Tshering Tobgay
- * Date: 2/6/14
+ * Date: 3/14/14
  */
-public class UserInterfaceReader {
+public class XmlReader {
+
+    private HashMap<String, String> map;
     private String fileName;
-    private ArgStruct arg = ArgStruct.create();
-    final String NODEID = "node_id";
+    final String NODE_ID = "node_id";
     final char DELIMINATOR = ',';
 
-    public UserInterfaceReader(String fileName) {
+    protected XmlReader(String fileName) {
         this.fileName = fileName;
+        this.map = new HashMap<String, String>();
     }
 
-    public void readFile() {
-        char argType = ' ';
+    protected void readFile() {
         try {
 
             File xmlFile = new File(fileName);
@@ -36,21 +38,17 @@ public class UserInterfaceReader {
             doc.getDocumentElement().normalize();
 
             NodeList list = doc.getElementsByTagName("question");
-            argType = 'q';
 
-            setArgStructure(list, argType);
+            setMap(list);
 
             NodeList list2 = doc.getElementsByTagName("hypothesis");
-            argType = 'h';
-            setArgStructure(list2, argType);
+            setMap(list2);
 
             NodeList list3 = doc.getElementsByTagName("data");
-            argType = 'd';
-            setArgStructure(list3, argType);
+            setMap(list3);
 
             NodeList list4 = doc.getElementsByTagName("generalizations");
-            argType = 'g';
-            setArgStructure(list4, argType);
+            setMap(list4);
 
 
         } catch (Exception e) {
@@ -58,15 +56,15 @@ public class UserInterfaceReader {
         }
     }
 
-    private void setArgStructure(NodeList list, char argType) {
+    private void setMap(NodeList list) {
         for (int i = 0; i < list.getLength(); i++) {
             Node nodeN = list.item(i);
             if (nodeN.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) nodeN;
-                String node_id = String.valueOf(element.getAttributeNode(NODEID).getValue());
+                String node_id = String.valueOf(element.getAttributeNode(NODE_ID).getValue());
                 Stack<String> nodeStack = checkNodeID(node_id);
                 while (!nodeStack.isEmpty())
-                    arg.insertNewNode(nodeStack.pop(), element.getTextContent(), argType);
+                   map.put(nodeStack.pop(), element.getTextContent());
             }
 
         }
@@ -92,7 +90,8 @@ public class UserInterfaceReader {
         return nodeStack;
     }
 
-    public ArgStruct getArg() {
-        return arg;
+    protected HashMap<String, String> getMap() {
+        return map;
     }
+
 }

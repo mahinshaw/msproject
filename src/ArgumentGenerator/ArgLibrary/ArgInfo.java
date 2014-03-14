@@ -1,4 +1,4 @@
-package ArgumentGenerator;
+package ArgumentGenerator.ArgLibrary;
 
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
@@ -15,7 +15,7 @@ import java.util.Stack;
  * Date: 10/24/13
  */
 public class ArgInfo {
-    protected enum ArcTYPE {
+    public enum ArcTYPE {
         INFLUENCE("+"), SYNERGY("X0"), CONJ("%");
         private String type;
 
@@ -31,7 +31,7 @@ public class ArgInfo {
     /**
      * Find the mathematical representation of a (certian) given string
      */
-    protected enum mutationCheck {
+    public enum mutationCheck {
         NOT_TWO("0...1"), ONE_OR_TWO("1...2");
         private String mutation;
 
@@ -50,7 +50,7 @@ public class ArgInfo {
      * @param node
      * @return
      */
-    protected String checkMutation(KB_Node node) {
+    public String checkMutation(KB_Node node) {
         String str = "";
         if (node instanceof Genotype) {
             str = ((Genotype) node).getMutated();
@@ -65,7 +65,7 @@ public class ArgInfo {
      * @param graph
      * @return
      */
-    protected ArrayList<KB_Node> getParents(KB_Node child, ArrayList<KB_Node> graph) {
+    public ArrayList<KB_Node> getParents(KB_Node child, ArrayList<KB_Node> graph) {
         ArrayList<KB_Node> parents = new ArrayList<KB_Node>();
         ArrayList<KB_Node> findParents = new ArrayList<KB_Node>();
         KB_Node parent = null;
@@ -83,7 +83,7 @@ public class ArgInfo {
      * @param graph
      * @return
      */
-    protected ArrayList<KB_Node> findRoots(ArrayList<KB_Node> graph) {
+    public ArrayList<KB_Node> findRoots(ArrayList<KB_Node> graph) {
         ArrayList<KB_Node> roots = new ArrayList<KB_Node>();
         ArrayList<KB_Node> children = new ArrayList<KB_Node>();
         Stack parents = new Stack();
@@ -117,7 +117,7 @@ public class ArgInfo {
      * @param parents
      * @param parent  @return
      */
-    protected ArrayList<KB_Node> findParents(KB_Node child, KB_Node root, ArrayList<KB_Node> parents, KB_Node parent) {
+    public ArrayList<KB_Node> findParents(KB_Node child, KB_Node root, ArrayList<KB_Node> parents, KB_Node parent) {
         if (root == child) {
             parents.add(parent);
         }
@@ -135,7 +135,7 @@ public class ArgInfo {
      * @param child
      * @return
      */
-    protected KB_Arc findEdge(KB_Node parent, KB_Node child) {
+    public KB_Arc findEdge(KB_Node parent, KB_Node child) {
         String str = " ";
         int i = 0, n = 0;
         KB_Arc arc = null;
@@ -163,7 +163,7 @@ public class ArgInfo {
      * @param child
      * @return
      */
-    protected KB_Arc findEdgeID(KB_Node parent, KB_Node child) {
+    public KB_Arc findEdgeID(KB_Node parent, KB_Node child) {
         String str = " ";
         int i = 0, n = 0;
         KB_Arc arc = null;
@@ -191,7 +191,7 @@ public class ArgInfo {
      * @param i
      * @return
      */
-    protected String findArgType(int i) {
+    public String findArgType(int i) {
         String argT = "";
         switch (i) {
             case 1:

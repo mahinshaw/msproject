@@ -1,4 +1,4 @@
-package ArgumentGenerator;
+package ArgumentGenerator.ArgLibrary;
 
 import java.util.ArrayList;
 

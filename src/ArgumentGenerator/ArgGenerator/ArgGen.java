@@ -1,9 +1,13 @@
-package ArgumentGenerator;
+package ArgumentGenerator.ArgGenerator;
 
+import ArgumentGenerator.ArgSchemes.Conjunction;
+import ArgumentGenerator.ArgSchemes.E2C;
+import ArgumentGenerator.ArgSchemes.JE2C;
+import ArgumentGenerator.XMLInterface.Interface;
 import KB.KB_Node.KB_Node;
-import KB.XMLinterface.ArgStruct;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * ArgGen.java proceeds with the generation of the arguments made from KB.
@@ -13,7 +17,8 @@ import java.util.ArrayList;
  */
 public class ArgGen {
     private KB_Node rootNode;
-    private ArgStruct arg;
+    private Interface argInterface;
+    private HashMap<String, String> map;
     private boolean argType;
     private final String question;
     private E2C e2c;
@@ -22,10 +27,12 @@ public class ArgGen {
     private ArgGenWriter argGenWriter;
     ArrayList<KB_Node> graphNodes;
 
-    public ArgGen(int nodeID, ArgStruct arg, String question, ArrayList<KB_Node> graphNodes) {
-        this.arg = arg;
+    public ArgGen(int nodeID, String question, ArrayList<KB_Node> graphNodes) {
+        argInterface = new Interface();
         this.question = question;
         this.graphNodes = graphNodes;
+        this.map = argInterface.getMap();
+        System.out.println("MAPPING: "+map.get("%1"));
         setRootNode(nodeID);
         setArgType(false);
     }
@@ -58,8 +65,8 @@ public class ArgGen {
             e2c = new E2C(this.rootNode, getArgType());
             hold = e2c.getPathList();
             if (!hold.isEmpty()) {
-                argGenWriter = new ArgGenWriter(arg, hold, getArgType(), question);
-                argGenWriter.addArgument();//add to arg tree and xml output
+                argGenWriter = new ArgGenWriter(map, hold, getArgType(), question);
+                argGenWriter.addArgument();//add to argInterface tree and xml output
             } else {
                 if (argType)
                     printEmptyArg("E2C");
@@ -75,8 +82,8 @@ public class ArgGen {
         je2c = new JE2C(this.rootNode, graphNodes, getArgType());
         hold = je2c.getPathList();
         if (!hold.isEmpty()) {
-            argGenWriter = new ArgGenWriter(arg, hold, getArgType(), question);
-            argGenWriter.addArgument();//add to arg tree and xml output
+            argGenWriter = new ArgGenWriter(map, hold, getArgType(), question);
+            argGenWriter.addArgument();//add to argInterface tree and xml output
         } else {
             printEmptyArg("JE2C");
         }
@@ -86,7 +93,7 @@ public class ArgGen {
          *
          */
         setArgType(false);
-        conj = new Conjunction(this.rootNode, graphNodes, arg, question);
+        conj = new Conjunction(map, this.rootNode, graphNodes, question);
         conj.findConjunction();
     }
 

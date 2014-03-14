@@ -1,5 +1,6 @@
-package ArgumentGenerator;
+package ArgumentGenerator.ArgGenerator;
 
+import ArgumentGenerator.ArgLibrary.ArgInfo;
 import ArgumentStructure.ArgumentFactory;
 import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentTree;
@@ -8,6 +9,7 @@ import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
 import KB.XMLinterface.ArgStruct;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,12 +23,12 @@ public class ArgGenWriter {
     private ArrayList<ArrayList<KB_Node>> pathList;
     private boolean argType;
     private String question;
-    private ArgStruct arg;
+    private HashMap<String, String> map;
     private ArgInfo argInfo;
     private ArgumentTree currentTree;
 
-    public ArgGenWriter(ArgStruct arg, ArrayList<ArrayList<KB_Node>> pathList, boolean argType, String question) {
-        this.arg = arg;
+    public ArgGenWriter(HashMap<String, String> map, ArrayList<ArrayList<KB_Node>> pathList, boolean argType, String question) {
+        this.map = map;
         this.pathList = pathList;
         this.argType = argType;
         this.question = question;
@@ -77,7 +79,7 @@ public class ArgGenWriter {
          * it will append the data tag to the (last) appropriate node.
          */
         if (nodeIndex == n.size() - 1) {
-            argumentFactory.setDatum(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
+            argumentFactory.setDatum(String.valueOf(n.get(nodeIndex).getId()), map.get(String.valueOf(n.get(nodeIndex).getId())));
             if (n.size() == 2) {
                 ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo);
                 //argumentObject = argumentFactory.createArgument(argNo);
@@ -95,11 +97,11 @@ public class ArgGenWriter {
          */
         else {
             argumentFactory = new ArgumentFactory();
-            argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), arg.getText(String.valueOf(n.get(nodeIndex).getId())));
+            argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), map.get(String.valueOf(n.get(nodeIndex).getId())));
             System.out.println(String.valueOf("Hypo: " + n.get(nodeIndex).getId()));
 
             KB_Arc arc = argInfo.findEdgeID(n.get(nodeIndex), n.get(++nodeIndex));
-            argumentFactory.addGeneralization(arc.getEdge_id(), arg.getText(String.valueOf(arc.getEdge_id())));
+            argumentFactory.addGeneralization(arc.getEdge_id(), map.get(String.valueOf(arc.getEdge_id())));
             System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
 
             ArgumentObject argumentObject1 = null;
@@ -107,7 +109,7 @@ public class ArgGenWriter {
                 argumentObject1 = argumentFactory.createArgument(argNo);
                 if (nodeIndex == 1) {
                     tree = ArgumentTree.createArgumentTree(argumentObject1);
-                } //else if (n.get(nodeIndex).getType() != 'D') {
+                }
                 else if (!n.get(nodeIndex).getChildren().isEmpty()) {
                     tree.addSubArgument(argumentObject1, argumentObject);
                 } else {

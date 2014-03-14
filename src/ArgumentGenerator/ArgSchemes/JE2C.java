@@ -1,5 +1,6 @@
-package ArgumentGenerator;
+package ArgumentGenerator.ArgSchemes;
 
+import ArgumentGenerator.ArgLibrary.ArgInfo;
 import KB.KB_Node.KB_Node;
 
 import java.util.ArrayList;
