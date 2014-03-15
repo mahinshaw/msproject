@@ -37,12 +37,24 @@ public class ComparatorObject {
 
     public float getAccuracy(){ return this.accuracy; }
 
+    public boolean compareHypothesis(){
+        return generatorObject.hypothesisEqual(userObject);
+    }
+
+    public boolean compareGeneralization(){
+        return generatorObject.generalizationsEqual(userObject);
+    }
+
+    public boolean compareDatum(){
+        return generatorObject.datumEqual(userObject);
+    }
+
     private float calculateAccuracy(){
         float total = 2 + generatorObject.getGeneralizations().size();
         float sum = 0;
-        if (generatorObject.getHypothesis().equals(userObject.getHypothesis()))
+        if (compareHypothesis())
             sum++;
-        if (generatorObject.getDatum().equals(userObject.getDatum()))
+        if (compareDatum())
             sum++;
         for (Generalization g : generatorObject.getGeneralizations()){
             if (userObject.containsGeneralization(g))

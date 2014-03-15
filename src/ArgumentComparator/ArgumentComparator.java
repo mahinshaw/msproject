@@ -22,47 +22,30 @@ import java.util.concurrent.Callable;
 public class ArgumentComparator implements Callable {
     private ArgumentTree userTree, generatorTree;
     private ArgumentObject currentUserObject;
+    private ComparatorTree comparatorTree;
 
-    public ArgumentComparator(ArgumentTree user, ArgumentTree gen){
+    public ArgumentComparator(ArgumentTree gen, ArgumentTree user){
         userTree = user;
         generatorTree = gen;
+        // we know that the roots need comparing, so start the tree here, then we can advance.
+        comparatorTree = ComparatorTree.buildTree(generatorTree, userTree);
     }
 
     /**
      * This method compares two ArgumentTrees with one another.  This should be called from another method that will
      * handle the lists of ArgumentTrees that may be passed to the Comparator.
-     * @param user - ArgumentTree from the user.
-     * @param generated - ArgumentTree from the generator.
+     * @return - ComparatorTree based on finished comparison.
      */
-    private ArgumentObject CompareArgumentTrees(ArgumentTree user, ArgumentTree generated){
-        ArgumentTree currentUserTree = user, currentGeneratedTree = generated;
+    private ComparatorTree CompareArgumentTrees(){
+        ArgumentTree currentUserTree = userTree, currentGeneratedTree = generatorTree;
         Stack<ArgumentTree> userStack = new Stack<ArgumentTree>();
         Stack<ArgumentTree> generatedStack = new Stack<ArgumentTree>();
 
         userStack.push(currentUserTree);
         generatedStack.push(currentGeneratedTree);
 
-        while(!userStack.isEmpty() || !generatedStack.isEmpty()){
-            if (currentUserTree.hasChildren())
-                for (ArgumentTree child : currentUserTree.getChildren())
-                    userStack.push(child);
-            if (currentGeneratedTree.hasChildren())
-                for (ArgumentTree child : currentGeneratedTree.getChildren())
-                    generatedStack.push(child);
 
-            // compare the root nodes of the two trees.
-            currentUserObject = CompareTreeRoots(currentUserTree.getRoot(), currentGeneratedTree.getRoot());
-
-            // break if we find a discrepancy.  This will be used for feedback.
-            if (currentUserObject != null)
-                break;
-
-            currentUserTree = userStack.pop();
-            currentGeneratedTree = generatedStack.pop();
-
-        }
-
-        return currentUserObject;
+        return comparatorTree;
     }
 
     /**
@@ -77,6 +60,6 @@ public class ArgumentComparator implements Callable {
 
     @Override
     public ComparatorTree call() throws Exception {
-        return null;
+        return CompareArgumentTrees();
     }
 }

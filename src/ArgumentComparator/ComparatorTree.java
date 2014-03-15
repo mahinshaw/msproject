@@ -17,11 +17,25 @@ import java.util.LinkedList;
  */
 public class ComparatorTree {
     private final ComparatorObject root;
-    private LinkedList<ComparatorObject> children;
+    private LinkedList<ComparatorTree> children;
     private ComparatorObject parent;
 
     private ComparatorTree(ComparatorObject root){
-       this.root = root;
+        this.root = root;
+        this.parent = null;
+    }
+
+    private ComparatorTree(ComparatorObject child, ComparatorObject parent){
+        this.root = child;
+        this.parent = parent;
+    }
+
+    public static ComparatorTree createComparatorTree(ComparatorObject root){
+        return new ComparatorTree(root);
+    }
+
+    public void addSubTree(ComparatorObject child){
+        addChild(new ComparatorTree(child, root));
     }
 
     public boolean hasChildren(){
@@ -32,7 +46,7 @@ public class ComparatorTree {
         return  new ComparatorTree(new ComparatorObject(gen.getRoot(), user.getRoot()));
     }
 
-    private void addChild(ComparatorObject child){
+    private void addChild(ComparatorTree child){
         this.children.add(child);
     }
 }

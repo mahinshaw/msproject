@@ -80,15 +80,15 @@ public class ArgumentObject {
         return hypothesisEqual(other) && datumEqual(other) && generalizationsEqual(other);
     }
 
-    private boolean hypothesisEqual(ArgumentObject other){
+    public boolean hypothesisEqual(ArgumentObject other){
         return this.getHypothesis().equals(other.getHypothesis());
     }
 
-    private boolean datumEqual(ArgumentObject other){
+    public boolean datumEqual(ArgumentObject other){
         return this.getDatum().equals(other.getDatum());
     }
 
-    private boolean generalizationsEqual(ArgumentObject other){
+    public boolean generalizationsEqual(ArgumentObject other){
         if (this.getGeneralizations().size() != other.getGeneralizations().size())
             return false;
         else {
