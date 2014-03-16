@@ -17,13 +17,13 @@ public class E2C {
     private ArrayList<KB_Node> argList;
     private ArrayList<ArrayList<KB_Node>> pathList;
     private ArgInfo argInfo = new ArgInfo();
-    private boolean pro;
+    private String pro;
 
     /**
      * @param rootNode the starting node where the argument is going to be generated.
      * @param pro      true, to find E2C and false, to find NE2C
      */
-    public E2C(KB_Node rootNode, boolean pro) {
+    public E2C(KB_Node rootNode, String pro) {
         this.rootNode = rootNode;
         this.tempList = new ArrayList<KB_Node>();
         this.argList = new ArrayList<KB_Node>();
@@ -48,14 +48,14 @@ public class E2C {
             tempList = new ArrayList<KB_Node>(argList);
 
         if (root.getChildren().isEmpty()) {
-            if (checkConditions(root) == pro && argList.size() != 1) {
+            if (checkConditions(root).equalsIgnoreCase(pro) && argList.size() != 1) {
                 pathList.add(argList);
             }
             argList = new ArrayList<KB_Node>(tempList);
         }
         for (KB_Node n : root.getChildren()) {
             if (!argList.contains(n) && checkArcType(root, n)) {
-                if (checkConditions(n) == pro) {
+                if (checkConditions(n).equalsIgnoreCase(pro)) {
                     traverseGraph(n, tempList, pathList);
                 }
             }
@@ -70,8 +70,8 @@ public class E2C {
      * @param node
      * @return
      */
-    private boolean checkConditions(KB_Node node) {
-        boolean condition = node.getAbnormal();
+    private String checkConditions(KB_Node node) {
+        String condition = node.getAbnormal();
         return condition;
     }
 

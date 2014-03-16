@@ -1,11 +1,10 @@
 package ArgumentGenerator.ArgGenerator;
 
 import ArgumentGenerator.ArgSchemes.Conjunction;
-import ArgumentGenerator.ArgSchemes.E2C;
-import ArgumentGenerator.ArgSchemes.JE2C;
+import ArgumentGenerator.ArgSchemes.*;
 import ArgumentGenerator.XMLInterface.ArgInterface;
 import KB.KB_Node.KB_Node;
-import com.sun.tools.doclets.formats.html.resources.standard;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,21 +19,23 @@ public class ArgGen {
     private KB_Node rootNode;
     private ArgInterface argInterface;
     private HashMap<String, String> map;
-    private boolean argType;
+    private String argType;
     private final String question;
     private E2C e2c;
     private JE2C je2c;
     private Conjunction conj;
+    private C2E c2e;
     private ArgGenWriter argGenWriter;
+    private String fileName ="GailSchema.xml";//the name of the KB file name located in src/XMLInput/...
     ArrayList<KB_Node> graphNodes;
 
     public ArgGen(int nodeID, String question) {
-        argInterface = new ArgInterface();
+        argInterface = new ArgInterface(fileName);
         this.question = question;
         this.graphNodes = argInterface.getGraphNodes();
         this.map = argInterface.getMap();
         setRootNode(nodeID);
-        setArgType(false);
+        setArgType("false");
     }
 
     /**
@@ -65,24 +66,24 @@ public class ArgGen {
             e2c = new E2C(this.rootNode, getArgType());
             hold = e2c.getPathList();
             if (!hold.isEmpty()) {
-                argGenWriter = new ArgGenWriter(map, hold, getArgType(), question);
+                argGenWriter = new ArgGenWriter(map, hold, question);
                 argGenWriter.addArgument();//add to argInterface tree and xml output
             } else {
-                if (argType)
+                if (argType.equalsIgnoreCase("true"))
                     printEmptyArg("E2C");
                 else
                     printEmptyArg("NE2C");
             }
-            setArgType(true);//find E2C arguments
+            setArgType("true");//find E2C arguments
         }
         /**
          * Check for JE2C scheme argument
          */
-        setArgType(false);//check for JE2C first
+        setArgType("false");//check for JE2C first
         je2c = new JE2C(this.rootNode, graphNodes, getArgType());
         hold = je2c.getPathList();
         if (!hold.isEmpty()) {
-            argGenWriter = new ArgGenWriter(map, hold, getArgType(), question);
+            argGenWriter = new ArgGenWriter(map, hold, question);
             argGenWriter.addArgument();//add to argInterface tree and xml output
         } else {
             printEmptyArg("JE2C");
@@ -92,16 +93,30 @@ public class ArgGen {
          * Check for arguments that can be found using elimination (currently shown as % in KB)
          *
          */
-        setArgType(false);
+        setArgType("false");
         conj = new Conjunction(map, this.rootNode, graphNodes, question);
         conj.findConjunction();
+
+        /**
+         * Check for C2E arguments
+         */
+         c2e = new C2E(this.rootNode);
+         hold = c2e.getPathList();
+        if (!hold.isEmpty()){
+            argGenWriter = new ArgGenWriter(map, hold, question);
+            argGenWriter.addArgument();//add to argInterface tree and xml output
+        } else{
+            printEmptyArg("C2E");
+        }
+
+
     }
 
-    private void setArgType(boolean argType) {
+    private void setArgType(String argType) {
         this.argType = argType;
     }
 
-    private boolean getArgType() {
+    private String getArgType() {
         return argType;
     }
 

@@ -14,11 +14,11 @@ public class KB_Node {
     private final int id;
     private int person_id;
     private String certainty;
-    private boolean abnormal;
+    private String abnormal;
     // list of Arcs(Edges) - only initialized in constructor.
     private ArrayList<KB_Arc> arcs;
 
-    public KB_Node(int id, int person_id, boolean abnormal) {
+    public KB_Node(int id, int person_id, String abnormal) {
         this.id = id;
         this.person_id = person_id;
         this.certainty = null;
@@ -54,11 +54,11 @@ public class KB_Node {
         arcs.add(arc);
     }
 
-    public void setAbnormal(boolean abnormal) {
+    public void setAbnormal(String abnormal) {
         this.abnormal = abnormal;
     }
 
-    public boolean getAbnormal() {
+    public String getAbnormal() {
         return abnormal;
     }
 

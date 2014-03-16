@@ -26,7 +26,7 @@ public class Conjunction {
     private HashMap<String, String> map;
     private ArrayList<ArrayList<ArrayList<KB_Node>>> argTree;
     private ArgInfo argInfo;
-    private boolean pro;
+    private String pro;
     private ArgumentTree currentTree;
     private String question;
 
@@ -39,7 +39,7 @@ public class Conjunction {
         this.argTree = new ArrayList<ArrayList<ArrayList<KB_Node>>>();
         this.graphNodes = graphNodes;
         this.map = map;
-        this.pro = false;
+        this.pro = "false";
         this.question = question;
         argInfo = new ArgInfo();
 
@@ -115,12 +115,12 @@ public class Conjunction {
             if (!argFound.isEmpty()) {
                 addArgTree(argFound);
             }
-            pro = true;//find E2C arguments
+            pro = "true";//find E2C arguments
         }
         /**
          * Check for JE2C scheme argument
          */
-        pro = false;//check for JE2C first
+        pro = "false";//check for JE2C first
         je2c = new JE2C(node, graphNodes, pro);
         argFound = je2c.getPathList();
         if (!argFound.isEmpty()) {

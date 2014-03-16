@@ -7,7 +7,6 @@ import ArgumentStructure.ArgumentTree;
 import ArgumentStructure.XMLWriter;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
-import KB.XMLinterface.ArgStruct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,16 +20,14 @@ import java.util.List;
  */
 public class ArgGenWriter {
     private ArrayList<ArrayList<KB_Node>> pathList;
-    private boolean argType;
     private String question;
     private HashMap<String, String> map;
     private ArgInfo argInfo;
     private ArgumentTree currentTree;
 
-    public ArgGenWriter(HashMap<String, String> map, ArrayList<ArrayList<KB_Node>> pathList, boolean argType, String question) {
+    public ArgGenWriter(HashMap<String, String> map, ArrayList<ArrayList<KB_Node>> pathList, String question) {
         this.map = map;
         this.pathList = pathList;
-        this.argType = argType;
         this.question = question;
         argInfo = new ArgInfo();
     }
