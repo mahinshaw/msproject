@@ -36,8 +36,9 @@ public class C2E {
             pathList.clear();
         } else {
             ArrayList<ArrayList<KB_Node>> tempPath = new ArrayList<ArrayList<KB_Node>>();
-            if (checkConditions(rootNode))
-                pathList = traverseGraph(rootNode, tempList, tempPath);
+            for (KB_Node child : rootNode.getChildren())
+                if (checkConditions(child))
+                    pathList = traverseGraph(rootNode, tempList, tempPath);
         }
         return pathList;
     }
