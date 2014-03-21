@@ -158,10 +158,13 @@ public class ApplicationController implements MouseListener, ActionListener {
 				+ "" + minute + "" + second;
 	}
 
+    //TODO: Enable file if needed by removing comment, and removing the corresponding lines below
+	//final String FOLDER_FINAL_ARGUMENT = "src/GAIL/text/output/finalargument/";
+	//final String FOLDER_SESSION_LOG = "src/GAIL/text/output/sessionlog/";
 	final String FOLDER_FINAL_ARGUMENT = "src/output/finalargument/";
-	final String FOLDER_SESSION_LOG = "src/output/sessionlog/";
-	final String FOLDER_CHAT_LOG = "src/output/chatlog/";
-	final String FOLDER_SERIALIZED = "src/output/serialized/";
+    final String FOLDER_SESSION_LOG = "src/output/sessionlog/";
+	final String FOLDER_CHAT_LOG = "src/GAIL/text/output/chatlog/";
+	final String FOLDER_SERIALIZED = "src/GAIL/text/output/serialized/";
 
     // This prints the document - OLD VERSION
 	public void saveFinalArgument() {
@@ -215,7 +218,8 @@ public class ApplicationController implements MouseListener, ActionListener {
 			bufferedWriter.flush();
 			bufferedWriter.close();
 		} catch (IOException e) {
-			System.out.println(e);
+			//System.out.println(e);TODO: Remove comment to enable and remove next line println
+            System.out.println("Chris' output file is disabled for now. Enable from here: GAIL/ApplicationController");
 		}
 	}
 
@@ -299,7 +303,7 @@ public class ApplicationController implements MouseListener, ActionListener {
 		saveFinalArgument();
 
         /**
-         * Create a GraphBuilder which will output to the proper file.
+         * Create a GraphBuilder which will GAIL.output to the proper file.
          * Added by Mark Hinshaw October 2013.
          */
         ArrayList<MultiGeneralizationModel> mgmList = new ArrayList<MultiGeneralizationModel>();
@@ -319,7 +323,6 @@ public class ApplicationController implements MouseListener, ActionListener {
 
         //CHANGES- Tobey 7/25/13
         //TEST
-
         //writer.writeXML(edgeController.getArgStructureArrayList(), currentProblem);
 
 	}
@@ -392,7 +395,7 @@ public class ApplicationController implements MouseListener, ActionListener {
 	}
 
 	public void update() {
-		appendToSessionLog("SUBMITTED FINAL ARGUMENT (and saved all output) FOR PROBLEM "
+		appendToSessionLog("SUBMITTED FINAL ARGUMENT (and saved all GAIL.output) FOR PROBLEM "
 				+ currentProblem);
 		saveAllOutput();
 		appView.resetDesktop();
@@ -405,7 +408,7 @@ public class ApplicationController implements MouseListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		appendToSessionLog("SUBMITTED FINAL ARGUMENT (and saved all output) FOR PROBLEM "
+		appendToSessionLog("SUBMITTED FINAL ARGUMENT (and saved all GAIL.output) FOR PROBLEM "
 				+ currentProblem);
 		saveAllOutput();
 		appView.resetDesktop();

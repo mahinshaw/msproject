@@ -37,7 +37,7 @@ public class JE2C {
      */
     public ArrayList<ArrayList<KB_Node>> getPathList() {
         if (rootNode.getChildren().isEmpty()) {
-            System.out.println("No child(ren) for node " + rootNode.getId() + " (ArgumentGenerator/JE2C Scheme)");
+            System.out.println("No child(ren) for node " + rootNode.getId() + " (ArgumentGenerator/ArgSchemes/JE2C Scheme)");
         } else {
             for (KB_Node n : rootNode.getChildren())
                 if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.SYNERGY.getType())))

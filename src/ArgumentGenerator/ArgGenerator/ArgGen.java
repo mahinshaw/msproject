@@ -67,7 +67,7 @@ public class ArgGen {
             hold = e2c.getPathList();
             if (!hold.isEmpty()) {
                 argGenWriter = new ArgGenWriter(map, hold, question);
-                argGenWriter.addArgument();//add to argInterface tree and xml output
+                argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
             } else {
                 if (argType.equalsIgnoreCase("true"))
                     printEmptyArg("E2C");
@@ -84,7 +84,7 @@ public class ArgGen {
         hold = je2c.getPathList();
         if (!hold.isEmpty()) {
             argGenWriter = new ArgGenWriter(map, hold, question);
-            argGenWriter.addArgument();//add to argInterface tree and xml output
+            argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
         } else {
             printEmptyArg("JE2C");
         }
@@ -104,12 +104,10 @@ public class ArgGen {
          hold = c2e.getPathList();
         if (!hold.isEmpty()){
             argGenWriter = new ArgGenWriter(map, hold, question);
-            argGenWriter.addArgument();//add to argInterface tree and xml output
+            argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
         } else{
             printEmptyArg("C2E");
         }
-
-
     }
 
     private void setArgType(String argType) {

@@ -16,6 +16,9 @@ import java.util.List;
 /**
  * Finding arguments with multiple schemes using elimination logic.
  * May result in conjugation (%).
+ * Due to the complex nature of this form of schema, ArgGenWriter is
+ * not used, but rather, its own writer has been implemented in
+ * this class.
  *
  * User: Tshering Tobgay
  * Date: 1/17/14
@@ -47,7 +50,7 @@ public class Conjunction {
 
     public void findConjunction() {
         if (rootNode.getChildren().isEmpty())
-            System.out.println("No child(ren) for node " + rootNode.getId() + " (ArgumentGenerator/Conjunction)");
+            System.out.println("No child(ren) for node " + rootNode.getId() + " (ArgumentGenerator/ArgSchemes/Conjunction)");
         else if (checkElimination(rootNode))
             traverseGraph(rootNode);
         else
@@ -190,7 +193,7 @@ public class Conjunction {
             ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo);
             tree.addSubArgument(argumentObject2, argumentObject);
 
-            System.out.println(String.valueOf("C: Data: " + map.get(String.valueOf(n.get(nodeIndex).getId()))) + "\n");
+            //System.out.println(String.valueOf("C: Data: " + map.get(String.valueOf(n.get(nodeIndex).getId()))) + "\n");
 
             setCurrentTree(tree);
             return getCurrentTree();
@@ -201,11 +204,11 @@ public class Conjunction {
         else {
             argumentFactory = new ArgumentFactory();
             argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), map.get(String.valueOf(n.get(nodeIndex).getId())));
-            System.out.println(String.valueOf("C: Hypo: " + map.get(String.valueOf(n.get(nodeIndex).getId()))));
+            //System.out.println(String.valueOf("C: Hypo: " + map.get(String.valueOf(n.get(nodeIndex).getId()))));
 
             KB_Arc arc = argInfo.findEdgeID(n.get(nodeIndex), n.get(++nodeIndex));
             argumentFactory.addGeneralization(arc.getEdge_id(), map.get(String.valueOf(arc.getEdge_id())));
-            System.out.println(String.valueOf("C: Gen: " + map.get(String.valueOf(arc.getEdge_id()))));
+            //System.out.println(String.valueOf("C: Gen: " + map.get(String.valueOf(arc.getEdge_id()))));
 
             ArgumentObject argumentObject1 = null;
             if (n.size() > 2) {

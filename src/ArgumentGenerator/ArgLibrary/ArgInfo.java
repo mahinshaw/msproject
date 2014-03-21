@@ -159,27 +159,32 @@ public class ArgInfo {
     /**
      * Returns the ArcID between two nodes
      *
-     * @param parent
-     * @param child
+     * @param node_1
+     * @param node_2
      * @return
      */
-    public KB_Arc findEdgeID(KB_Node parent, KB_Node child) {
-        String str = " ";
+    public KB_Arc findEdgeID(KB_Node node_1, KB_Node node_2) {
         int i = 0, n = 0;
         KB_Arc arc = null;
 
-        if (parent.getChildren().contains(child)) {
-            for (KB_Node m : parent.getChildren()) {
-                if (m.getId() == child.getId()) {
+        if (node_1.getChildren().contains(node_2)) {
+            for (KB_Node m : node_1.getChildren()) {
+                if (m.getId() == node_2.getId()) {
                     n = i;
                 }
                 i++;
             }
-            //str = parent.getArcs().get(n).getEdge_id();
-            arc = parent.getArcs().get(n);
-
+            arc = node_1.getArcs().get(n);
+        } else if (node_2.getChildren().contains(node_1)) {
+            for (KB_Node m : node_2.getChildren()) {
+                if (m.getId() == node_1.getId()) {
+                    n = i;
+                }
+                i++;
+            }
+            arc = node_2.getArcs().get(n);
         } else {
-            str = "No ID found.";
+            System.out.println("No Arc ID found between " + node_1.getId() + " and " + node_2.getId() + " . ArgumentGenerator/ArgLibrary/ArgInfo");
         }
         return arc;
     }
