@@ -5,6 +5,7 @@ import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * User: Tshering Tobgay
@@ -12,7 +13,6 @@ import java.util.ArrayList;
  */
 public class C2E {
     private KB_Node rootNode;
-    private ArrayList<KB_Node> tempList;
     private ArrayList<KB_Node> argList;
     private ArrayList<ArrayList<KB_Node>> pathList;
     private ArgInfo argInfo = new ArgInfo();
@@ -24,7 +24,7 @@ public class C2E {
      */
     public C2E(KB_Node rootNode) {
         this.rootNode = rootNode;
-        this.tempList = new ArrayList<KB_Node>();
+
         this.argList = new ArrayList<KB_Node>();
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.pro = true;
@@ -35,6 +35,7 @@ public class C2E {
             System.out.println("No children for node " + rootNode.getId() + " (ArgumentGenerator/ArgSchemes/C2E Scheme)");
             pathList.clear();
         } else {
+            ArrayList<KB_Node> tempList = new ArrayList<KB_Node>();
             ArrayList<ArrayList<KB_Node>> tempPath = new ArrayList<ArrayList<KB_Node>>();
             for (KB_Node child : rootNode.getChildren())
                 if (checkConditions(child))
@@ -50,6 +51,7 @@ public class C2E {
 
         if (root.getChildren().isEmpty()) {
             if (checkConditions(root) == pro && argList.size() != 1) {
+                Collections.reverse(argList);
                 pathList.add(argList);
             }
             argList = new ArrayList<KB_Node>(tempList);
@@ -61,6 +63,7 @@ public class C2E {
                 }
             }
         }
+
         return pathList;
     }
 
