@@ -240,7 +240,7 @@ public class StatementController implements ActionListener, MouseListener,
             registerStatement(statement, false, x, y);
         }
         //TODO Checking for correct data selection - Tobey
-        System.out.println("node_id " + textNode.getNode_id() + " Datum: " + textNode.getText());
+        //System.out.println("node_id " + textNode.getNode_id() + " Datum: " + textNode.getText());
     }
 
     private void createGeneralization(StatementSource source,

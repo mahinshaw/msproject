@@ -35,7 +35,7 @@ public class ArgGen {
         this.graphNodes = argInterface.getGraphNodes();
         this.map = argInterface.getMap();
         setRootNode(nodeID);
-        setArgType("false");
+        setArgType("false");//default abnormal type is false.
     }
 
     /**
@@ -125,6 +125,6 @@ public class ArgGen {
      * @param r
      */
     private void printEmptyArg(String r) {
-        System.out.println("ArgGen did not produce any argument using " + r + " schema ~ ArgumentGenerator/ArgGen.java");
+        System.out.println("ArgGen did not produce any argument using " + r + " schema ~ ArgumentGenerator/ArgGenerator/ArgGen.java");
     }
 }
