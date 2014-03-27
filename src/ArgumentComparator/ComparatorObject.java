@@ -16,11 +16,16 @@ public class ComparatorObject {
     private final boolean equivalent;
     private final float accuracy;
 
-    public ComparatorObject(ArgumentObject gen, ArgumentObject user){
+    public ComparatorObject(ArgumentObject user, ArgumentObject gen){
         this.generatorObject = gen;
         this.userObject = user;
-        this.equivalent = gen.equals(user);
-        this.accuracy = calculateAccuracy();
+        if (user != null && gen != null) {
+            this.equivalent = gen.equals(user);
+            this.accuracy = calculateAccuracy();
+        }else {
+            this.equivalent = false;
+            this.accuracy = 0;
+        }
     }
 
     public boolean isEquivalent(){

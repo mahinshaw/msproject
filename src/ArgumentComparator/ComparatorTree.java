@@ -18,14 +18,14 @@ import java.util.LinkedList;
 public class ComparatorTree {
     private final ComparatorObject root;
     private LinkedList<ComparatorTree> children;
-    private ComparatorObject parent;
+    private ComparatorTree parent;
 
     private ComparatorTree(ComparatorObject root){
         this.root = root;
         this.parent = null;
     }
 
-    private ComparatorTree(ComparatorObject child, ComparatorObject parent){
+    private ComparatorTree(ComparatorObject child, ComparatorTree parent){
         this.root = child;
         this.parent = parent;
     }
@@ -34,8 +34,12 @@ public class ComparatorTree {
         return new ComparatorTree(root);
     }
 
-    public void addSubTree(ComparatorObject child){
-        addChild(new ComparatorTree(child, root));
+    public void addSubTree(ComparatorObject child, ComparatorTree parent){
+        addChild(new ComparatorTree(child, parent));
+    }
+
+    public void addSubTree(ArgumentTree user, ArgumentTree gen, ComparatorTree parent){
+        addChild(new ComparatorTree(new ComparatorObject(user.getRoot(), gen.getRoot()), parent));
     }
 
     public boolean hasChildren(){
@@ -47,6 +51,8 @@ public class ComparatorTree {
     }
 
     private void addChild(ComparatorTree child){
+        if (this.children == null)
+            this.children = new LinkedList<ComparatorTree>();
         this.children.add(child);
     }
 }
