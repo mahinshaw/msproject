@@ -190,7 +190,7 @@ public class StatementController implements ActionListener, MouseListener,
                                          StatementContainer textNode, int x, int y) {
 
         //TODO Checking for correct hypothesis selection - Tobey
-        System.out.println("node_id " + textNode.getNode_id() + " Hypothesis: " + textNode.getText());
+        //System.out.println("node_id " + textNode.getNode_id() + " Hypothesis: " + textNode.getText());
         // Added July 23, Mark Hinshaw
 
         int desktopX = applicationController.getApplicationView()
@@ -240,7 +240,7 @@ public class StatementController implements ActionListener, MouseListener,
             registerStatement(statement, false, x, y);
         }
         //TODO Checking for correct data selection - Tobey
-        System.out.println("node_id " + textNode.getNode_id() + " Datum: " + textNode.getText());
+        //System.out.println("node_id " + textNode.getNode_id() + " Datum: " + textNode.getText());
     }
 
     private void createGeneralization(StatementSource source,
@@ -256,7 +256,7 @@ public class StatementController implements ActionListener, MouseListener,
             registerStatement(statement, false, x, y);
         }
         //TODO Checking for correct generalization selection - Tobey
-        System.out.println("node_id " + textNode.getNode_id() + " Generalization: " + textNode.getText());
+        //System.out.println("node_id " + textNode.getNode_id() + " Generalization: " + textNode.getText());
     }
 
     private void registerStatement(Statement statement, boolean isEditable,
@@ -284,7 +284,6 @@ public class StatementController implements ActionListener, MouseListener,
     }
 
     public String[] getFinalOutput() {
-        System.out.println("state");
         ArrayList<String> output = new ArrayList<String>();
         output.add("  <Statement>");
 
@@ -532,10 +531,5 @@ public class StatementController implements ActionListener, MouseListener,
     public StatementContainer getArgOutput() {
         //  argOutput.insertQuestions(problemTextArr);
         return this.argOutput;
-    }
-
-
-    public void setArgumentGenerator() {
-        // System.out.println("HERE: "+currentProbIndex);
     }
 }

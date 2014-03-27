@@ -92,6 +92,8 @@
         <question quest="q2" node_id="3">Give one argument for the hypothesis that J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.</question>
         <question quest="q3" node_id="2">Give one argument for the hypothesis that the mother does not have 2 mutated copies of the CFTR gene.</question>
         <question quest="q4" node_id="1">Give one argument for the hypothesis that J.B.'s mother has 1 normal and 1 mutated copy of the CFTR gene.</question>
+        <question quest="q5" node_id="8">Give one argument that J.B.'s brother might have malnutrition and poor growth</question>
+        <!--hypotheses-->
         <hypothesis hypo="h1" node_id ="7">J. B. has cystic fibrosis (has 2 mutated copies of the CFTR gene).</hypothesis>
         <hypothesis hypo="h2" node_id ="100">J.B.'s mother does not have any CFTR gene mutations (both copies of the CFTR gene are normal).</hypothesis>
         <hypothesis hypo="h3" node_id ="3">J.B.'s mother has 1 or 2 mutated copies of the CFTR gene.</hypothesis>
@@ -108,6 +110,9 @@
         <hypothesis hypo="h13" node_id="18">J.B.'s mother has normal mucus secretion from her lungs.</hypothesis>
         <hypothesis hypo="h14" node_id="19">J.B's father's CFTR protein is not abnormal</hypothesis>
         <hypothesis hypo="h15" node_id="20">J.B.'s father has normal mucus secretion from his lungs.</hypothesis>
+        <hypothesis hypo="h16" node_id="21">J.B.'s brother has abnormal protein</hypothesis>
+        <hypothesis hypo="h17" node_id="23">J.B.'s brother has abnormal pancreas</hypothesis>
+        <!--data-->
         <data datum="d1" node_id ="200">Patient: J.B., a 2-year old girl.</data>
         <data datum="d2" node_id= "10">History of respiratory problems: During her second year, J.B. developed a chronic cough and has had frequent upper respiratory infections.</data>
         <data datum="d3" node_id="12">J.B.'s mother does not have a history of respiratory problems.</data>
@@ -115,12 +120,14 @@
         <data datum="d5" node_id="14">Test result: J.B.'s chloride level is 75 mmol/L.</data>
         <data datum="d6" node_id="8">J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.</data>
         <data datum="d7" node_id="13">J.B.'s pancreas is functioning normally.</data>
+        <data datum="d8" node_id="22">J.B.'s brother has or will have malnutrition and poor growth</data>
         <!--Use commas to delimit multiple arc IDs-->
-        <generalizations gen="g1" node_id="I1, I5, I6, I11, I12">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, the body produces abnormal CFTR protein.</generalizations>
+        <!--generalizations-->
+        <generalizations gen="g1" node_id="I1, I5, I6, I11, I12, I19">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, the body produces abnormal CFTR protein.</generalizations>
         <generalizations gen="g2" node_id="I3, I15, I17">People with CFTR protein often have viscous secretions in the lungs.</generalizations>
         <generalizations gen="g3" node_id="I4, I16, I18">Viscous secretion provides a medium for growth of bacteria, and which may result in frequent respiratory infections.</generalizations>
-        <generalizations gen="g4" node_id="I13">Dysfunction of CFTR may affect the pancreas.</generalizations>
-        <generalizations gen="g5" node_id="I14">Pancreatic abnormality may result in malnutrition and poor growth.</generalizations>
+        <generalizations gen="g4" node_id="I13, I20">Dysfunction of CFTR may affect the pancreas.</generalizations>
+        <generalizations gen="g5" node_id="I14, I21">Pancreatic abnormality may result in malnutrition and poor growth.</generalizations>
         <generalizations gen="g6" node_id="S1, S2">Cystic fibrosis is inherited in an autosomal recessive manner, which means that an individual with cystic fibrosis inherited two mutated copies of the CFTR gene: one from the mother and one from the father.</generalizations>
         <generalizations gen="g7" node_id="200">If one parent is a carrier (has one copy of the mutation) and the other parent has no copies of the mutation, each offspring has a 25 percent chance of being a carrier.</generalizations>
         <generalizations gen="g8" node_id="200">Although cystic fibrosis classically manifests in early childhood, approximately 4 percent of patients are diagnosed in adulthood.</generalizations>
@@ -287,6 +294,24 @@
                 <description>absent</description>
                 <phyAbnormal>false</phyAbnormal>
             </physiology>
+            <!--J.B.'s brother's-->
+            <biochemistry node_id="21" person_id="4" certainty="">
+                <protein_id>FLAG</protein_id>
+                <protein_name>CFTR</protein_name>
+                <bioAbnormal>possible</bioAbnormal>
+                <quantity>normal</quantity>
+            </biochemistry>
+            <symptom node_id="22" person_id="4" certainty="">
+                <symptom_id>FLAG</symptom_id>
+                <symptom_name>Malnutrition and poor growth</symptom_name>
+                <degree>severe</degree>
+                <symAbnormal>possible</symAbnormal>
+            </symptom>
+            <physiology node_id="23" person_id="4">
+                <bodyLocation>Pancreas Abnormal</bodyLocation>
+                <description>severe</description>
+                <phyAbnormal>possible</phyAbnormal>
+            </physiology>
         </KB_Node>
         <KB_Arc>
             <influence_arc arc_id="I1">
@@ -380,7 +405,22 @@
                 <influence_parent>20</influence_parent>
                 <influence_child>11</influence_child>
             </influence_arc>
-
+            <influence_arc arc_id="I19">
+                <influence_type>+</influence_type>
+                <influence_parent>8</influence_parent>
+                <influence_child>21</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I20">
+                <influence_type>+</influence_type>
+                <influence_parent>21</influence_parent>
+                <influence_child>23</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I21">
+                <influence_type>+</influence_type>
+                <influence_parent>23</influence_parent>
+                <influence_child>22</influence_child>
+            </influence_arc>
+            <!--Synergy arc-->
             <synergy_arc_set syn_id="S1">
                 <type>X0</type>
                 <child>7</child>

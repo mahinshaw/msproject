@@ -18,9 +18,9 @@ public class JE2C {
     private ArrayList<KB_Node> rootParents;
     private ArgInfo argInfo;
     private E2C e2c;
-    private boolean pro;
+    private String pro;
 
-    public JE2C(KB_Node rootNode, ArrayList<KB_Node> graphNodes, boolean pro) {
+    public JE2C(KB_Node rootNode, ArrayList<KB_Node> graphNodes, String pro) {
         this.rootNode = rootNode;
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
         this.argFound = new ArrayList<ArrayList<KB_Node>>();
@@ -37,7 +37,7 @@ public class JE2C {
      */
     public ArrayList<ArrayList<KB_Node>> getPathList() {
         if (rootNode.getChildren().isEmpty()) {
-            System.out.println("No child(ren) for node " + rootNode.getId() + " (ArgumentGenerator/JE2C Scheme)");
+            System.out.println("No child(ren) for node " + rootNode.getId() + " (ArgumentGenerator/ArgSchemes/JE2C Scheme)");
         } else {
             for (KB_Node n : rootNode.getChildren())
                 if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.SYNERGY.getType())))
@@ -115,7 +115,7 @@ public class JE2C {
                 for (ArrayList<KB_Node> k : hold)
                     addArgE2C(k);
             }
-            pro = true;//find E2C arguments
+            pro = "true";//find E2C arguments
         }
         return getArgE2C();
     }

@@ -385,12 +385,12 @@ public class Interface {
                             break;
                         case 3:
                             graph.createBiochemistry(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
-                                    getArray().get(++size), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)), getArray().get(++size));
+                                    getArray().get(++size), getArray().get(++size), getArray().get(++size), getArray().get(++size));
                             size = 0;
                             break;
                         case 4:
                             graph.createSymptom(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)),
-                                    getArray().get(++size), getArray().get(++size), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)));
+                                    getArray().get(++size), getArray().get(++size), getArray().get(++size), getArray().get(++size));
                             size = 0;
                             break;
                         case 5:
@@ -406,11 +406,11 @@ public class Interface {
                             size = 0;
                             break;
                         case 7:
-                            graph.createTest(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)), getArray().get(++size));
+                            graph.createTest(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size), getArray().get(++size), getArray().get(++size));
                             size = 0;
                             break;
                         case 8:
-                            graph.createPhysiology(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size), getArray().get(++size), Boolean.parseBoolean(getArray().get(++size)));
+                            graph.createPhysiology(Integer.parseInt(getArray().get(size)), Integer.parseInt(getArray().get(++size)), getArray().get(++size), getArray().get(++size), getArray().get(++size));
                             size = 0;
                             break;
                     }

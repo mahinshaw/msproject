@@ -7,7 +7,6 @@ import ArgumentStructure.ArgumentTree;
 import ArgumentStructure.XMLWriter;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
-import KB.XMLinterface.ArgStruct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,16 +20,14 @@ import java.util.List;
  */
 public class ArgGenWriter {
     private ArrayList<ArrayList<KB_Node>> pathList;
-    private boolean argType;
     private String question;
     private HashMap<String, String> map;
     private ArgInfo argInfo;
     private ArgumentTree currentTree;
 
-    public ArgGenWriter(HashMap<String, String> map, ArrayList<ArrayList<KB_Node>> pathList, boolean argType, String question) {
+    public ArgGenWriter(HashMap<String, String> map, ArrayList<ArrayList<KB_Node>> pathList, String question) {
         this.map = map;
         this.pathList = pathList;
-        this.argType = argType;
         this.question = question;
         argInfo = new ArgInfo();
     }
@@ -88,7 +85,7 @@ public class ArgGenWriter {
                 ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo);
                 tree.addSubArgument(argumentObject2, argumentObject);
             }
-            System.out.println(String.valueOf("Data: " + n.get(nodeIndex).getId()) + "\n");
+            //System.out.println(String.valueOf("Data: " + n.get(nodeIndex).getId()) + "\n");
             setCurrentTree(tree);
             return getCurrentTree();
         }
@@ -98,11 +95,11 @@ public class ArgGenWriter {
         else {
             argumentFactory = new ArgumentFactory();
             argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), map.get(String.valueOf(n.get(nodeIndex).getId())));
-            System.out.println(String.valueOf("Hypo: " + n.get(nodeIndex).getId()));
+            //System.out.println(String.valueOf("Hypo: " + n.get(nodeIndex).getId()));
 
             KB_Arc arc = argInfo.findEdgeID(n.get(nodeIndex), n.get(++nodeIndex));
             argumentFactory.addGeneralization(arc.getEdge_id(), map.get(String.valueOf(arc.getEdge_id())));
-            System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
+            //System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
 
             ArgumentObject argumentObject1 = null;
             if (n.size() > 2) {

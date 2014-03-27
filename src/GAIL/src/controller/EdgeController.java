@@ -217,7 +217,7 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 				for (Branch branch : branches) {
 					if (branch.getTargetView().equals(argument.getSource().getView())) {
 						// branchesToRemove.add(branch);
-						System.out.println("EEEE");
+						//System.out.println("EEEE");
 					}
 				}
 			}

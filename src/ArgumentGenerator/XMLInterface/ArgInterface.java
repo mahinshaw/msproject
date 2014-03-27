@@ -15,16 +15,18 @@ import KB.XMLinterface.Interface;
 public class ArgInterface {
     private HashMap<String, String> map;
     private XmlReader reader;
-    private final String FILE = "src/XMLInput/GailSchema.xml";
+    private final String FILE = "src/XMLInput/";
+    private String fileName;
     private Interface KBInterface;
 
-    public ArgInterface(){
-        map = new HashMap<String, String>();
-        KBInterface = new Interface(FILE);
+    public ArgInterface(String fileName){
+        this.fileName = fileName;
+        this.map = new HashMap<String, String>();
+        KBInterface = new Interface(FILE+fileName);
     }
 
     public HashMap<String, String> getMap(){
-        fileReader(FILE);
+        fileReader(FILE+fileName);
         return reader.getMap();
     }
 

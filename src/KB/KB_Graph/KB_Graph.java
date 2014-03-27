@@ -46,19 +46,19 @@ public class KB_Graph {
         this.addNode(new Genotype(id, person_id, gene_id, gene_name, mutated, autosomal_type, disease));
     }
 
-    public void createBiochemistry(int id, int person_id, String protein_id, String protein_name, boolean bioAbnormal, String quantity) {
+    public void createBiochemistry(int id, int person_id, String protein_id, String protein_name, String bioAbnormal, String quantity) {
         this.addNode(new Biochemistry(id, person_id, protein_id, protein_name, bioAbnormal, quantity));
     }
 
-    public void createSymptom(int id, int person_id, String symptom_id, String symptom_name, String degree, boolean symAbnormal) {
+    public void createSymptom(int id, int person_id, String symptom_id, String symptom_name, String degree, String symAbnormal) {
         this.addNode(new Symptom(id, person_id, symptom_id, symptom_name, degree, symAbnormal));
     }
 
-    public void createTest(int id, int person_id, String testType, boolean testAbnormal, String result) {
+    public void createTest(int id, int person_id, String testType, String testAbnormal, String result) {
         this.addNode(new Test(id, person_id, testType, testAbnormal, result));
     }
 
-    public void createPhysiology(int id, int person_id, String location, String description, boolean phyAbnormal) {
+    public void createPhysiology(int id, int person_id, String location, String description, String phyAbnormal) {
         this.addNode(new Physiology(id, person_id, location, description, phyAbnormal));
     }
 
