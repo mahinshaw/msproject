@@ -44,6 +44,10 @@ public class ArgumentFactory {
     }
 
     public ArgumentObject createArgument(int argID){
+        if (this.hypothesis == null)
+            this.hypothesis = new Hypothesis();
+        if (this.datum == null)
+            this.datum = new Datum();
         this.argumentObject = new ArgumentObject.Builder().argID(argID).hypothesis(this.hypothesis).generalizations(this.generalizations).datum(this.datum).build();
         return this.argumentObject;
     }
