@@ -27,4 +27,8 @@ public class Hypothesis {
     public char getTYPE(){
         return TYPE;
     }
+
+    public boolean equals(Hypothesis other){
+        return this.getKBNODEID().equals(other.getKBNODEID());
+    }
 }

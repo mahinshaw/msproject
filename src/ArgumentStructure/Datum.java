@@ -50,4 +50,8 @@ public class Datum {
     public char getTYPE() {
         return TYPE;
     }
+
+    public boolean equals(Datum other){
+        return this.isConjunction() && other.isConjunction() || this.getKBNODEID().equals(other.getKBNODEID());
+    }
 }

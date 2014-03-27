@@ -27,4 +27,8 @@ public class Generalization {
     public char getTYPE() {
         return TYPE;
     }
+
+    public boolean equals(Generalization other){
+        return this.getKBARCID().equals(other.getKBARCID());
+    }
 }
