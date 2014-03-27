@@ -9,6 +9,7 @@ import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -87,7 +88,8 @@ public class ArgGenWriter {
             }
             //System.out.println(String.valueOf("Data: " + n.get(nodeIndex).getId()) + "\n");
             setCurrentTree(tree);
-            return getCurrentTree();
+            //return getCurrentTree();
+            return tree;
         }
         /**
          * All calls to method should start from here onwards.
@@ -95,11 +97,11 @@ public class ArgGenWriter {
         else {
             argumentFactory = new ArgumentFactory();
             argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), map.get(String.valueOf(n.get(nodeIndex).getId())));
-            //System.out.println(String.valueOf("Hypo: " + n.get(nodeIndex).getId()));
+            System.out.println(String.valueOf("Hypo: " + n.get(nodeIndex).getId()));
 
             KB_Arc arc = argInfo.findEdgeID(n.get(nodeIndex), n.get(++nodeIndex));
             argumentFactory.addGeneralization(arc.getEdge_id(), map.get(String.valueOf(arc.getEdge_id())));
-            //System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
+            System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
 
             ArgumentObject argumentObject1 = null;
             if (n.size() > 2) {
@@ -107,16 +109,17 @@ public class ArgGenWriter {
                 if (nodeIndex == 1) {
                     tree = ArgumentTree.createArgumentTree(argumentObject1);
                 }
-                else if (!n.get(nodeIndex).getChildren().isEmpty()) {
+                else if (nodeIndex != n.size() - 1) {
                     tree.addSubArgument(argumentObject1, argumentObject);
                 } else {
                     argumentObject1 = argumentObject;
                 }
             }
             //Recursive call
-            createTree(n, tree, argumentFactory, argumentObject1, argNo, nodeIndex);
+            tree = createTree(n, tree, argumentFactory, argumentObject1, argNo, nodeIndex);
         }
-        return getCurrentTree();
+        //return getCurrentTree();
+        return tree;
     }
 
     /**
