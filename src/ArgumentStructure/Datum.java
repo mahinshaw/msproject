@@ -16,10 +16,15 @@ public class Datum {
      * This constructor is used to create a conjunction datum.
      * This type of datum will be used to denote the availability of multiple children.
      */
+    public Datum(){
+        this.isConjunction = false;
+        this.KBNODEID = "";
+        this.TEXT = "";
+    }
     public Datum(boolean isConjunction){
         this.isConjunction = isConjunction;
-        this.KBNODEID = null;
-        this.TEXT = null;
+        this.KBNODEID = "";
+        this.TEXT = "";
     }
 
     public Datum(String kbNodeID, String text){

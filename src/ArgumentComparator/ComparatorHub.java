@@ -18,13 +18,14 @@ public class ComparatorHub {
     public ComparatorHub(){
     }
 
-    public void performComparison(List<ArgumentTree> userTrees,  List<ArgumentTree> generatorTrees){
+    public List<ComparatorTree> performComparison(List<ArgumentTree> userTrees,  List<ArgumentTree> generatorTrees){
+        int indexCounter = 1;
         ExecutorService executor = Executors.newFixedThreadPool(2);
         List<Future<ComparatorTree>> futureComparatorTrees = new ArrayList<Future<ComparatorTree>>();
         List<ComparatorTree> comparatorTrees = new ArrayList<ComparatorTree>();
         for (ArgumentTree userTree : userTrees){
             for (ArgumentTree genTree : generatorTrees){
-                Callable<ComparatorTree> task = new ArgumentComparator(userTree, genTree);
+                Callable<ComparatorTree> task = new ArgumentComparator(userTree, genTree, indexCounter);
                 Future<ComparatorTree> pledge = executor.submit(task);
                 futureComparatorTrees.add(pledge);
             }
@@ -45,5 +46,7 @@ public class ComparatorHub {
                 e.printStackTrace();
             }
         }
+
+        return comparatorTrees;
     }
 }

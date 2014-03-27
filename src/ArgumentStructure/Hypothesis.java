@@ -11,6 +11,11 @@ public class Hypothesis {
     private final String TEXT;
     private final char TYPE = 'H';
 
+    public Hypothesis(){
+        this.KBNODEID = "";
+        this.TEXT = "";
+    }
+
     public Hypothesis(String kbNodeID, String text){
         this.KBNODEID = kbNodeID;
         this.TEXT = text;

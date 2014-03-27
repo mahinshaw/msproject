@@ -11,6 +11,11 @@ public class Generalization {
     private final String TEXT;
     private final char TYPE = 'G';
 
+    public Generalization(){
+        this.KBARCID = "";
+        this.TEXT = "";
+    }
+
     public Generalization(String kbArcID, String text){
         this.KBARCID = kbArcID;
         this.TEXT = text;

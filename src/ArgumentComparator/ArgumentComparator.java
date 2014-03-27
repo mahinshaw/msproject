@@ -23,11 +23,13 @@ public class ArgumentComparator implements Callable {
     private ArgumentTree userTree, generatorTree;
     private ArgumentObject currentUserObject;
     private ComparatorTree comparatorTree;
+    private final int argIndex;
 
-    public ArgumentComparator(ArgumentTree user, ArgumentTree gen){
+    public ArgumentComparator(ArgumentTree user, ArgumentTree gen, int index){
         userTree = user;
         generatorTree = gen;
         comparatorTree = null;
+        argIndex = index;
     }
 
     /**
@@ -43,7 +45,7 @@ public class ArgumentComparator implements Callable {
         HashMap<ArgumentTree, ArgumentTree> matchMap;
 
         // begin with the root, load them and then order and load the children.
-        comparatorTree = ComparatorTree.buildTree(generatorTree, userTree);
+        comparatorTree = ComparatorTree.buildTree(generatorTree, userTree, argIndex);
         parentComparatorTree = comparatorTree;
 
         userQueue.addAll(userTree.getChildren());
