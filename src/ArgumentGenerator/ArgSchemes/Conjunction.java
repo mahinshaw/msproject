@@ -48,13 +48,16 @@ public class Conjunction {
 
     }
 
-    public void findConjunction() {
+    public ArrayList<ArgumentTree> findConjunction() {
+        ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
         if (rootNode.getChildren().isEmpty())
             System.out.println("No child(ren) for node " + rootNode.getId() + " (ArgumentGenerator/ArgSchemes/Conjunction)");
         else if (checkElimination(rootNode))
-            traverseGraph(rootNode);
+            treeList=traverseGraph(rootNode);
         else
             System.out.println("ArgGen did not produce any argument using elimination logic ~ ArgumentGenerator/Conjunction.java");
+
+        return treeList;
     }
 
     /**
@@ -62,7 +65,7 @@ public class Conjunction {
      *
      * @param rootNode is the parentNode
      */
-    private void traverseGraph(KB_Node rootNode) {
+    private ArrayList<ArgumentTree> traverseGraph(KB_Node rootNode) {
         ArrayList<ArrayList<ArrayList<KB_Node>>> conjPathRight = new ArrayList<ArrayList<ArrayList<KB_Node>>>();
         ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
 
@@ -98,6 +101,7 @@ public class Conjunction {
             XMLWriter writer = new XMLWriter();
             writer.writeXML(treeList, question);//write the final tree
         }
+        return treeList;
     }
 
     /**

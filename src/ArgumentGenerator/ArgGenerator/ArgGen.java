@@ -3,6 +3,8 @@ package ArgumentGenerator.ArgGenerator;
 import ArgumentGenerator.ArgSchemes.Conjunction;
 import ArgumentGenerator.ArgSchemes.*;
 import ArgumentGenerator.XMLInterface.ArgInterface;
+import ArgumentStructure.ArgumentTree;
+import GAIL.src.model.Argument;
 import KB.KB_Node.KB_Node;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class ArgGen {
     private KB_Node rootNode;
     private ArgInterface argInterface;
     private HashMap<String, String> map;
+    private ArrayList<ArgumentTree> treeList;
     private String argType;
     private final String question;
     private E2C e2c;
@@ -25,7 +28,7 @@ public class ArgGen {
     private Conjunction conj;
     private C2E c2e;
     private ArgGenWriter argGenWriter;
-    private String fileName ="GailSchema.xml";//the name of the KB file name located in src/XMLInput/...
+    private String fileName = "GailSchema.xml";//the name of the KB file name located in src/XMLInput/...
     ArrayList<KB_Node> graphNodes;
 
     public ArgGen(int nodeID, String question) {
@@ -33,6 +36,7 @@ public class ArgGen {
         this.question = question;
         this.graphNodes = argInterface.getGraphNodes();
         this.map = argInterface.getMap();
+        this.treeList = new ArrayList<ArgumentTree>();
         setRootNode(nodeID);
         setArgType("false");//default abnormal type is false.
     }
@@ -54,6 +58,7 @@ public class ArgGen {
      */
     public void findArgument() {
         ArrayList<ArrayList<KB_Node>> hold;
+        ArrayList<ArgumentTree> treeListHold;
         /**
          * Check for arguments in terms of E2C and NE2C scheme
          * (argType = true for E2C "abnormal" and argType = false for NE2C "not abnormal.")
@@ -66,7 +71,9 @@ public class ArgGen {
             hold = e2c.getPathList();
             if (!hold.isEmpty()) {
                 argGenWriter = new ArgGenWriter(map, hold, question);
-                argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
+                treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
+                if (!treeListHold.isEmpty())
+                    addTreeList(treeListHold);
             } else {
                 if (argType.equalsIgnoreCase("true"))
                     printEmptyArg("E2C");
@@ -83,7 +90,9 @@ public class ArgGen {
         hold = je2c.getPathList();
         if (!hold.isEmpty()) {
             argGenWriter = new ArgGenWriter(map, hold, question);
-            argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
+            treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
+            if (!treeListHold.isEmpty())
+                addTreeList(treeListHold);
         } else {
             printEmptyArg("JE2C");
         }
@@ -94,19 +103,28 @@ public class ArgGen {
          */
         setArgType("false");
         conj = new Conjunction(map, this.rootNode, graphNodes, question);
-        conj.findConjunction();
+        treeListHold = conj.findConjunction();
+        if (!treeListHold.isEmpty())
+            addTreeList(treeListHold);
 
         /**
          * Check for C2E arguments
          */
-         c2e = new C2E(this.rootNode);
-         hold = c2e.getPathList();
-        if (!hold.isEmpty()){
+        c2e = new C2E(this.rootNode);
+        hold = c2e.getPathList();
+        if (!hold.isEmpty()) {
             argGenWriter = new ArgGenWriter(map, hold, question);
-            argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
-        } else{
+            treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
+            if (!treeListHold.isEmpty())
+                addTreeList(treeListHold);
+        } else {
             printEmptyArg("C2E");
         }
+    }
+
+    private void addTreeList(ArrayList<ArgumentTree> treeListHolder) {
+        for (ArgumentTree tree : treeListHolder)
+            treeList.add(tree);
     }
 
     private void setArgType(String argType) {
@@ -125,5 +143,14 @@ public class ArgGen {
      */
     private void printEmptyArg(String r) {
         System.out.println("ArgGen did not produce any argument using " + r + " schema ~ ArgumentGenerator/ArgGenerator/ArgGen.java");
+    }
+
+    /**
+     * Return argument tree(s)
+     *
+     * @return
+     */
+    public ArrayList<ArgumentTree> getArgument() {
+        return treeList;
     }
 }

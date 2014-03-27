@@ -74,10 +74,9 @@ public class StatementController implements ActionListener, MouseListener,
      * Initiate the argument generator after
      * finding the question that a user is
      * currently working on.
-     */
     public void startArgGen(){
        statementFileReader.initiateArgGen(problemNode);
-    }
+    } */
 
     private int getNumHypothesesCreated() {
         return nHypotheses;
@@ -132,14 +131,15 @@ public class StatementController implements ActionListener, MouseListener,
                 .setProblem(problem);
     }
 
-    private String getProblem() {
-        return problem;
+    public StatementContainer getProblem() {
+        return problemNode;
     }
 
     public void setProblem(StatementContainer problem) {
         this.problemNode = problem;
         this.problem = problem.getText();
     }
+
 
     public void setProblemIndex(int index) {
         currentProbIndex = index;

@@ -37,7 +37,7 @@ public class ArgGenWriter {
      * This method builds the argument from ArgBuilder. Arguments are called from ArgBuilder
      * based on the selected question.
      */
-    public void addArgument() {
+    public ArrayList<ArgumentTree> addArgument() {
         ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
         int argNo = 1;
 
@@ -57,6 +57,7 @@ public class ArgGenWriter {
         } else {
             System.out.println("\nEmpty pathList: No arguments generated ~ ArgumentGenerator.java");
         }
+        return treeList;
     }
 
     /**

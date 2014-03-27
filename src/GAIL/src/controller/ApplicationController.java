@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
+import ArgumentGenerator.ArgGenerator.ArgGen;
 import GAIL.src.frame.ApplicationFrame;
 import GAIL.src.frame.MenuBar;
 import GAIL.src.frame.SubmitDialog;
@@ -316,6 +317,20 @@ public class ApplicationController implements MouseListener, ActionListener {
          * The last parameter checks for pro or con arguments. For now, default is set to true
          * Added by Tobey T. January 2014
          */
+
+        /**
+         * Parameters for ArgGen - the node ID for the current question and the text associated with that node
+         * argGen.findArgument() starts to find the arguments from the set node
+         */
+        ArgGen argGen = new ArgGen(Integer.parseInt(statementController.getProblem().getNode_id()), statementController.getProblem().getText());
+        argGen.findArgument();
+
+        /**
+         * Call argGen.getArgument() to get the TreeList
+         */
+
+        System.out.println("ArgGen.getArgrument() is "+argGen.getArgument().size());
+
         xmlWriter.writeXML(gb.getArgumentTrees(), problems[currentProblem]);
 
         // Added July 23, Mark Hinshaw
@@ -327,9 +342,10 @@ public class ApplicationController implements MouseListener, ActionListener {
 
     }
 
+    /**
     private void startArgGen() {
         statementController.startArgGen();
-    }
+    }  */
 
 
     @Override
@@ -341,7 +357,7 @@ public class ApplicationController implements MouseListener, ActionListener {
             appView.appendToUserPanel(edgeController.getUserDisplayOutput());
         } else if (name.equals("SUBMIT")) {
             initAndShowSubmitDialog();
-            startArgGen();
+            //startArgGen();
         }
     }
 

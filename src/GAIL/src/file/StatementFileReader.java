@@ -38,14 +38,14 @@ public class StatementFileReader {
      * Parameters for ArgGen - the node ID for the current question and the text associated with that node
      *
      * @param problemNode
-     */
+
     public void initiateArgGen(StatementContainer problemNode) {
         /**
         Parameters for ArgGen - the node ID for the current question and the text associated with that node
-        */
+
         ArgGen argGen = new ArgGen(Integer.parseInt(problemNode.getNode_id()), problemNode.getText());
         argGen.findArgument();
-    }
+    }  */
 
     public String[] getFileNames() {
         ArrayList<String> fileNamesArr = new ArrayList<String>();
