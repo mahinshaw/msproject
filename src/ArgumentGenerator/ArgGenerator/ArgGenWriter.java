@@ -87,7 +87,7 @@ public class ArgGenWriter {
                 ArgumentObject argumentObject2 = argumentFactory.createArgument(argNo);
                 tree.addSubArgument(argumentObject2, argumentObject);
             }
-            //System.out.println(String.valueOf("Data: " + n.get(nodeIndex).getId()) + "\n");
+           // System.out.println(String.valueOf("Data: " + n.get(nodeIndex).getId()) + "\n");
             setCurrentTree(tree);
             //return getCurrentTree();
             return tree;
@@ -98,11 +98,11 @@ public class ArgGenWriter {
         else {
             argumentFactory = new ArgumentFactory();
             argumentFactory.setHypothesis(String.valueOf(n.get(nodeIndex).getId()), map.get(String.valueOf(n.get(nodeIndex).getId())));
-            System.out.println(String.valueOf("Hypo: " + n.get(nodeIndex).getId()));
+            //System.out.println(String.valueOf("Hypo: " + n.get(nodeIndex).getId()));
 
             KB_Arc arc = argInfo.findEdgeID(n.get(nodeIndex), n.get(++nodeIndex));
             argumentFactory.addGeneralization(arc.getEdge_id(), map.get(String.valueOf(arc.getEdge_id())));
-            System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
+            //System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
 
             ArgumentObject argumentObject1 = null;
             if (n.size() > 2) {

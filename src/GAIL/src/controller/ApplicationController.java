@@ -329,8 +329,6 @@ public class ApplicationController implements MouseListener, ActionListener {
          * Call argGen.getArgument() to get the TreeList
          */
 
-        System.out.println("ArgGen.getArgrument() is "+argGen.getArgument().size());
-
         xmlWriter.writeXML(gb.getArgumentTrees(), problems[currentProblem]);
 
         // Added July 23, Mark Hinshaw

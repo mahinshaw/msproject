@@ -19,7 +19,7 @@ import java.util.List;
  * Due to the complex nature of this form of schema, ArgGenWriter is
  * not used, but rather, its own writer has been implemented in
  * this class.
- *
+ * <p/>
  * User: Tshering Tobgay
  * Date: 1/17/14
  */
@@ -35,7 +35,7 @@ public class Conjunction {
 
     private E2C e2c;
     private JE2C je2c;
-
+    private C2E c2e;
 
     public Conjunction(HashMap<String, String> map, KB_Node rootNode, ArrayList<KB_Node> graphNodes, String question) {
         this.rootNode = rootNode;
@@ -53,7 +53,7 @@ public class Conjunction {
         if (rootNode.getChildren().isEmpty())
             System.out.println("No child(ren) for node " + rootNode.getId() + " (ArgumentGenerator/ArgSchemes/Conjunction)");
         else if (checkElimination(rootNode))
-            treeList=traverseGraph(rootNode);
+            treeList = traverseGraph(rootNode);
         else
             System.out.println("ArgGen did not produce any argument using elimination logic ~ ArgumentGenerator/Conjunction.java");
 
@@ -133,6 +133,14 @@ public class Conjunction {
         if (!argFound.isEmpty()) {
             addArgTree(argFound);
         }
+
+        /**
+         * Check for C2E
+         */
+        c2e = new C2E(node);
+        argFound = c2e.getPathList();
+        if (!argFound.isEmpty())
+            addArgTree(argFound);
     }
 
     /**
