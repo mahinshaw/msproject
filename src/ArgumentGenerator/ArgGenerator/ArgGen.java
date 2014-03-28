@@ -82,7 +82,7 @@ public class ArgGen {
                 if (argType.equalsIgnoreCase("true"))
                     printEmptyArg("E2C");
                 else
-                    printEmptyArg("NE2C");
+                   printEmptyArg("NE2C");
             }
             setArgType("true");//find E2C arguments
         }
@@ -97,9 +97,9 @@ public class ArgGen {
             treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
             if (!treeListHold.isEmpty())
                 addTreeList(treeListHold);
-            printArgScheme(ArgInfo.schemaType.je2c.getSchema());
+            //printArgScheme(ArgInfo.schemaType.je2c.getSchema());
         } else {
-            //printEmptyArg("JE2C");
+            printEmptyArg("JE2C");
         }
 
         /**
@@ -122,9 +122,9 @@ public class ArgGen {
             treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
             if (!treeListHold.isEmpty())
                 addTreeList(treeListHold);
-            printArgScheme(ArgInfo.schemaType.c2e.getSchema());
+            //printArgScheme(ArgInfo.schemaType.c2e.getSchema());
         } else {
-            //printEmptyArg("C2E");
+            printEmptyArg("C2E");
         }
     }
 
