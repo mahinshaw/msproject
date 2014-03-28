@@ -25,11 +25,13 @@ public class ArgGenWriter {
     private HashMap<String, String> map;
     private ArgInfo argInfo;
     private ArgumentTree currentTree;
+    private String fileName;
 
-    public ArgGenWriter(HashMap<String, String> map, ArrayList<ArrayList<KB_Node>> pathList, String question) {
+    public ArgGenWriter(HashMap<String, String> map, ArrayList<ArrayList<KB_Node>> pathList, String question, String fileName) {
         this.map = map;
         this.pathList = pathList;
         this.question = question;
+        this.fileName = fileName;
         argInfo = new ArgInfo();
     }
 
@@ -53,7 +55,7 @@ public class ArgGenWriter {
             }
 
             XMLWriter writer = new XMLWriter();
-            writer.writeXML(treeList, question);
+            writer.writeXML(treeList, question, fileName);
         } else {
             System.out.println("\nEmpty pathList: No arguments generated ~ ArgumentGenerator.java");
         }
