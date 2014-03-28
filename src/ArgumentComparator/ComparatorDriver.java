@@ -65,7 +65,7 @@ public class ComparatorDriver {
         genTrees.add(genArg2);
 
 
-        List<ComparatorTree> output = hub.performComparison(userTrees, genTrees);
+        List<ComparatorTree> output = hub.getBestAnswers(userTrees, genTrees);
 
         writer.writeXML(output, "question 1");
     }
