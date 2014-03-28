@@ -35,6 +35,7 @@ public class StatementController implements ActionListener, MouseListener,
     private ArrayList<StatementContainer> problemText;
     private StatementContainer problemNode;
     private String problem;
+    private String fileName;
 
     private ApplicationController applicationController;
     private EdgeController edgeController;
@@ -185,6 +186,7 @@ public class StatementController implements ActionListener, MouseListener,
         //for (String s: problemText){System.out.println(s + "asdf");}
         return problemText;
     }
+
 
     private void createProblemHypothesis(StatementSource source,
                                          StatementContainer textNode, int x, int y) {
@@ -531,5 +533,13 @@ public class StatementController implements ActionListener, MouseListener,
     public StatementContainer getArgOutput() {
         //  argOutput.insertQuestions(problemTextArr);
         return this.argOutput;
+    }
+
+    public void setFileName(String file){
+         fileName = file;
+    }
+
+    public String getFileName(){
+        return fileName;
     }
 }

@@ -31,6 +31,7 @@ public class FileOpenerPopUp extends JFrame implements ListSelectionListener {
     private String problemText;
     private StatementContainer problemTextNode;
     private int problemIndex;
+    private String fileName;
 
     public void createAndShowGUI(boolean isKeepButtonEnabled) {
         JPanel panel = new JPanel();
@@ -121,6 +122,8 @@ public class FileOpenerPopUp extends JFrame implements ListSelectionListener {
         public void actionPerformed(ActionEvent event) {
             String fileName = (String) ((JComboBox) event.getSource()).getSelectedItem();
             sc.getStatementFileReader().readStatements(fileName);
+            //pass file name to ArgGen
+            setFileName(fileName);
             selectProblemLabel.setForeground(Color.BLACK);
             //data = sc.getProblemText();
             problemTextData = sc.getProblemText();
@@ -177,5 +180,13 @@ public class FileOpenerPopUp extends JFrame implements ListSelectionListener {
 
     @Override
     public void valueChanged(ListSelectionEvent arg0) {
+    }
+
+    private void setFileName(String file) {
+        fileName = file;
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 }

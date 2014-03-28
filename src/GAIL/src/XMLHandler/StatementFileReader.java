@@ -20,6 +20,7 @@ public class StatementFileReader {
         reader = new xmlReader(FOLDER + fileName);
         reader.readFile();
         statementController.setText(reader.getContainer());
+        statementController.setFileName(FOLDER+fileName);
     }
 
     public String[] getFileNames() {

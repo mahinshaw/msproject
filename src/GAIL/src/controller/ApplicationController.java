@@ -22,10 +22,8 @@ import ArgumentComparator.ComparatorTree;
 import ArgumentComparator.ComparatorXMLWriter;
 import ArgumentGenerator.ArgGenerator.ArgGen;
 import ArgumentStructure.GraphBuilder;
-import GAIL.src.frame.ApplicationFrame;
+import GAIL.src.frame.*;
 import GAIL.src.frame.MenuBar;
-import GAIL.src.frame.SubmitDialog;
-import GAIL.src.frame.TutorialDialog;
 import GAIL.src.model.MultiGeneralizationFactory;
 import GAIL.src.model.MultiGeneralizationModel;
 import GAIL.src.model.Statement;
@@ -325,6 +323,7 @@ public class ApplicationController implements MouseListener, ActionListener {
          * Parameters for ArgGen - the node ID for the current question and the text associated with that node
          * argGen.findArgument() starts to find the arguments from the set node
          */
+
         ArgGen argGen = new ArgGen(Integer.parseInt(statementController.getProblem().getNode_id()), statementController.getProblem().getText());
         argGen.findArgument();
 

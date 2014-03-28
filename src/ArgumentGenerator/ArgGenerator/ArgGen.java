@@ -1,11 +1,9 @@
 package ArgumentGenerator.ArgGenerator;
 
-import ArgumentGenerator.ArgLibrary.ArgInfo;
 import ArgumentGenerator.ArgSchemes.Conjunction;
 import ArgumentGenerator.ArgSchemes.*;
 import ArgumentGenerator.XMLInterface.ArgInterface;
 import ArgumentStructure.ArgumentTree;
-import GAIL.src.model.Argument;
 import KB.KB_Node.KB_Node;
 
 import java.util.ArrayList;
@@ -31,7 +29,8 @@ public class ArgGen {
     private ArgGenWriter argGenWriter;
     private String fileName = "GailSchema.xml";//the name of the KB file name located in src/XMLInput/...
     private String extFileName = "ArgGen";//this name is appended to the filename
-   // private ArgInfo argInfo;
+    final String defltVal = "false";
+
     private ArrayList<KB_Node> graphNodes;
 
     public ArgGen(int nodeID, String question) {
@@ -40,9 +39,9 @@ public class ArgGen {
         this.graphNodes = argInterface.getGraphNodes();
         this.map = argInterface.getMap();
         this.treeList = new ArrayList<ArgumentTree>();
-        //argInfo = new ArgInfo();
+
         setRootNode(nodeID);
-        setArgType("false");//default abnormal type is false.
+        setArgType(defltVal);//default abnormal type is false.
     }
 
     /**
@@ -106,7 +105,7 @@ public class ArgGen {
          * Check for arguments that can be found using elimination (currently shown as % in KB)
          *
          */
-        setArgType("false");
+        setArgType(defltVal);
         conj = new Conjunction(map, this.rootNode, graphNodes, question, extFileName);
         treeListHold = conj.findConjunction();
         if (!treeListHold.isEmpty())

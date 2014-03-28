@@ -156,7 +156,7 @@ public class Conjunction {
     private ArgumentTree conjTree(KB_Node rootNode, Stack<KB_Node> conjPath, int argNo) {
         ArgumentFactory argumentFactory = new ArgumentFactory();
         argumentFactory.setHypothesis(String.valueOf(rootNode.getId()), map.get(String.valueOf(rootNode.getId())));
-        System.out.println(String.valueOf("Hypo: " + map.get(String.valueOf(rootNode.getId()))));
+       // System.out.println(String.valueOf("Hypo: " + map.get(String.valueOf(rootNode.getId()))));
 
         //Check for all generalizations
         for (KB_Node n : rootNode.getChildren()) {
@@ -165,8 +165,8 @@ public class Conjunction {
                 String genStr = map.get(String.valueOf(arc.getEdge_id()));
                 if (genStr == null)
                     genStr = " ";
-                argumentFactory.addGeneralization(arc.getEdge_id(), genStr);
-                System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
+                //argumentFactory.addGeneralization(arc.getEdge_id(), genStr);
+               // System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
             }
         }
 
