@@ -27,7 +27,7 @@ public class ArgGen {
     private Conjunction conj;
     private C2E c2e;
     private ArgGenWriter argGenWriter;
-    private String fileName = "GailSchema.xml";//the name of the KB file name located in src/XMLInput/...
+    private String fileName = "CysticFibrosis.xml";//the name of the KB file name located in src/XMLInput/...
     private String extFileName = "ArgGen";//this name is appended to the filename
     final String defltVal = "false";
 
