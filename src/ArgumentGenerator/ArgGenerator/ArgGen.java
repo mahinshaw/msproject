@@ -97,8 +97,9 @@ public class ArgGen {
             treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
             if (!treeListHold.isEmpty())
                 addTreeList(treeListHold);
+            printArgScheme(ArgInfo.schemaType.je2c.getSchema());
         } else {
-            printEmptyArg("JE2C");
+            //printEmptyArg("JE2C");
         }
 
         /**
