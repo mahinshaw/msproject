@@ -102,17 +102,30 @@ public class ComparatorXMLWriter {
         Element hCorrectNode = document.createElement("CorrectNode");
         Element hCorrectText = document.createElement("CorrectText");
 
-        hNode.appendChild(document.createTextNode("Node " + tree.getUser().getHypothesis().getKBNODEID()));
-        hText.appendChild(document.createTextNode(tree.getUser().getHypothesis().getTEXT()));
-        hCorrect.appendChild(document.createTextNode(Boolean.toString(tree.getRoot().compareHypothesis())));
-        hCorrectNode.appendChild(document.createTextNode("Node" + tree.getGen().getHypothesis().getKBNODEID()));
-        hCorrectText.appendChild(document.createTextNode(tree.getGen().getHypothesis().getTEXT()));
+        if (tree.getUser() == null){
+            hNode.appendChild(document.createTextNode("Missing"));
+            hText.appendChild(document.createTextNode("Missing"));
+            hCorrect.appendChild(document.createTextNode("False"));
+        }
+        else {
+            hNode.appendChild(document.createTextNode("Node " + tree.getUser().getHypothesis().getKBNODEID()));
+            hText.appendChild(document.createTextNode(tree.getUser().getHypothesis().getTEXT()));
+            hCorrect.appendChild(document.createTextNode(Boolean.toString(tree.getRoot().compareHypothesis())));
+        }
+        if (tree.getGen() == null){
+            hCorrectNode.appendChild(document.createTextNode("Not needed"));
+            hCorrectText.appendChild(document.createTextNode("Not needed"));
+        }
+        else {
+            hCorrectNode.appendChild(document.createTextNode("Node" + tree.getGen().getHypothesis().getKBNODEID()));
+            hCorrectText.appendChild(document.createTextNode(tree.getGen().getHypothesis().getTEXT()));
+        }
 
         hypothesis.appendChild(hCorrect);
         hypothesis.appendChild(hNode);
         hypothesis.appendChild(hText);
         // add correct answer if necessary.
-        if (!tree.getRoot().compareHypothesis()){
+        if (tree.getUser() == null || !tree.getRoot().compareHypothesis()){
             hypothesis.appendChild(hCorrectNode);
             hypothesis.appendChild(hCorrectText);
         }
@@ -126,16 +139,30 @@ public class ComparatorXMLWriter {
         Element gCorrectNode = document.createElement("CorrectNode");
         Element gCorrectText = document.createElement("CorrectText");
 
-        gArc.appendChild(document.createTextNode("Arc " + tree.getUser().getGeneralizations().get(0).getKBARCID()));
-        gText.appendChild(document.createTextNode(tree.getUser().getGeneralizations().get(0).getTEXT()));
-        gCorrect.appendChild(document.createTextNode(Boolean.toString(tree.getRoot().compareGeneralization())));
-        gCorrectNode.appendChild(document.createTextNode("Arc" + tree.getGen().getGeneralizations().get(0).getKBARCID()));
-        gCorrectText.appendChild(document.createTextNode(tree.getGen().getGeneralizations().get(0).getTEXT()));
+        if (tree.getUser() == null) {
+            gArc.appendChild(document.createTextNode("Missing"));
+            gText.appendChild(document.createTextNode("Missing"));
+            gCorrect.appendChild(document.createTextNode("False"));
+        }
+        else {
+            gArc.appendChild(document.createTextNode("Arc " + tree.getUser().getGeneralizations().get(0).getKBARCID()));
+            gText.appendChild(document.createTextNode(tree.getUser().getGeneralizations().get(0).getTEXT()));
+            gCorrect.appendChild(document.createTextNode(Boolean.toString(tree.getRoot().compareGeneralization())));
+        }
+        if (tree.getGen() == null){
+            gCorrectNode.appendChild(document.createTextNode("Not needed"));
+            gCorrectText.appendChild(document.createTextNode("Not needed"));
+        }
+        else {
+            gCorrectNode.appendChild(document.createTextNode("Arc" + tree.getGen().getGeneralizations().get(0).getKBARCID()));
+            gCorrectText.appendChild(document.createTextNode(tree.getGen().getGeneralizations().get(0).getTEXT()));
+        }
+
 
         generalization.appendChild(gCorrect);
         generalization.appendChild(gArc);
         generalization.appendChild(gText);
-        if (!tree.getRoot().compareGeneralization()){
+        if (tree.getUser() == null || !tree.getRoot().compareGeneralization()){
             generalization.appendChild(gCorrectNode);
             generalization.appendChild(gCorrectText);
         }
@@ -144,7 +171,7 @@ public class ComparatorXMLWriter {
         // append the data to the element
         Element data = document.createElement("Data");
         // check and see if there is a conjunction
-        if (tree.getUser().HasConjunction()) {
+        if (tree.hasConjunction()) {
             Element conjunction = document.createElement("Conjunction");
             //conjunctions should have a multiple children, so add them
             int i = 1;
@@ -169,16 +196,29 @@ public class ComparatorXMLWriter {
             Element dCorrectNode = document.createElement("CorrectNode");
             Element dCorrectText = document.createElement("CorrectText");
 
-            dNode.appendChild(document.createTextNode("Node " + tree.getUser().getDatum().getKBNODEID()));
-            dText.appendChild(document.createTextNode(tree.getUser().getDatum().getTEXT()));
-            dCorrect.appendChild(document.createTextNode(Boolean.toString(tree.getRoot().compareDatum())));
-            dCorrectNode.appendChild(document.createTextNode(tree.getGen().getDatum().getKBNODEID()));
-            dCorrectText.appendChild(document.createTextNode(tree.getGen().getDatum().getTEXT()));
+            if (tree.getUser() == null){
+                dNode.appendChild(document.createTextNode("Missing"));
+                dText.appendChild(document.createTextNode("Missing"));
+                dCorrect.appendChild(document.createTextNode("False"));
+            }
+            else {
+                dNode.appendChild(document.createTextNode("Node " + tree.getUser().getDatum().getKBNODEID()));
+                dText.appendChild(document.createTextNode(tree.getUser().getDatum().getTEXT()));
+                dCorrect.appendChild(document.createTextNode(Boolean.toString(tree.getRoot().compareDatum())));
+            }
+            if (tree.getGen() == null){
+                dCorrectNode.appendChild(document.createTextNode("Not needed"));
+                dCorrectText.appendChild(document.createTextNode("Not needed"));
+            }
+            else {
+                dCorrectNode.appendChild(document.createTextNode(tree.getGen().getDatum().getKBNODEID()));
+                dCorrectText.appendChild(document.createTextNode(tree.getGen().getDatum().getTEXT()));
+            }
 
             data.appendChild(dCorrect);
             data.appendChild(dNode);
             data.appendChild(dText);
-            if (!tree.getRoot().compareDatum()){
+            if (tree.getUser() == null || !tree.getRoot().compareDatum()){
                 data.appendChild(dCorrectNode);
                 data.appendChild(dCorrectText);
             }

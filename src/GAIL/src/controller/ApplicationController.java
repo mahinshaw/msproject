@@ -17,6 +17,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
+import ArgumentComparator.ComparatorHub;
+import ArgumentComparator.ComparatorTree;
+import ArgumentComparator.ComparatorXMLWriter;
 import ArgumentGenerator.ArgGenerator.ArgGen;
 import GAIL.src.frame.ApplicationFrame;
 import GAIL.src.frame.MenuBar;
@@ -313,10 +316,6 @@ public class ApplicationController implements MouseListener, ActionListener {
         }
         GraphBuilder gb = new GraphBuilder(statementController, edgeController, conjunctionController, mgmList);
         ArgumentStructure.XMLWriter xmlWriter = new ArgumentStructure.XMLWriter();
-        /**
-         * The last parameter checks for pro or con arguments. For now, default is set to true
-         * Added by Tobey T. January 2014
-         */
 
         /**
          * Parameters for ArgGen - the node ID for the current question and the text associated with that node
@@ -329,22 +328,14 @@ public class ApplicationController implements MouseListener, ActionListener {
          * Call argGen.getArgument() to get the TreeList
          */
 
-        xmlWriter.writeXML(gb.getArgumentTrees(), problems[currentProblem]);
+        xmlWriter.writeXML(gb.getArgumentTrees(), statementController.getProblem().getText());
 
-        // Added July 23, Mark Hinshaw
-        //XMLWriter writer = new XMLWriter();
-
-        //CHANGES- Tobey 7/25/13
-        //TEST
-        //writer.writeXML(edgeController.getArgStructureArrayList(), currentProblem);
+        ComparatorHub hub = new ComparatorHub();
+        ComparatorXMLWriter comparatorXMLWriter = new ComparatorXMLWriter();
+        List<ComparatorTree> comparatorTrees = hub.performComparison(gb.getArgumentTrees(), argGen.getArgument());
+        comparatorXMLWriter.writeXML(comparatorTrees, statementController.getProblem().getText());
 
     }
-
-    /**
-    private void startArgGen() {
-        statementController.startArgGen();
-    }  */
-
 
     @Override
     public void mouseClicked(MouseEvent arg0) {
