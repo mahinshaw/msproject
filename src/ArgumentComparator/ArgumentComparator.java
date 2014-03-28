@@ -42,42 +42,56 @@ public class ArgumentComparator implements Callable {
         ArgumentTree currentUserTree = userTree, currentGeneratedTree = generatorTree;
         ArrayDeque<ArgumentTree> userQueue = new ArrayDeque<ArgumentTree>();
         ArrayDeque<ArgumentTree> genQueue = new ArrayDeque<ArgumentTree>();
+        ArrayDeque<ComparatorTree> parentQueue = new ArrayDeque<ComparatorTree>();
         HashMap<ArgumentTree, ArgumentTree> matchMap;
 
         // begin with the root, load them and then order and load the children.
-        comparatorTree = ComparatorTree.buildTree(generatorTree, userTree, argIndex);
-        parentComparatorTree = comparatorTree;
-
-        userQueue.addAll(userTree.getChildren());
-        genQueue.addAll(generatorTree.getChildren());
-
-        // TODO: This currently only handles the row beneath the parent.  Needs to be optimized.
-        while (!userQueue.isEmpty() || !genQueue.isEmpty()){
-            matchMap = mapLikeChildren(currentUserTree.getChildren(), currentGeneratedTree.getChildren());
-
-            for (ArgumentTree user : matchMap.keySet()){
-                comparatorTree.addSubTree(user, matchMap.get(user), parentComparatorTree);
-                genQueue.removeFirstOccurrence(matchMap.get(user));
-                userQueue.removeFirstOccurrence(user);
+        do {
+            if (comparatorTree == null) {
+                comparatorTree = ComparatorTree.buildTree(userTree, generatorTree, argIndex);
+                parentQueue.push(comparatorTree);
             }
-            if (!genQueue.isEmpty()){
-                for (ArgumentTree genArg : matchMap.values()) {
-                    comparatorTree.addSubTree(new ComparatorObject(null, genArg.getRoot()), parentComparatorTree);
-                    genQueue.removeFirstOccurrence(genArg);
+            parentComparatorTree = parentQueue.poll();
+            // TODO: check into possible null value states.
+            if (parentComparatorTree.getUser() != null)
+                currentUserTree = userTree.findArgumentObject(parentComparatorTree.getUser());
+            if (parentComparatorTree.getGen() != null)
+                currentGeneratedTree = generatorTree.findArgumentObject(parentComparatorTree.getGen());
+
+            if(currentUserTree.hasChildren())
+                userQueue.addAll(currentUserTree.getChildren());
+            if(currentGeneratedTree.hasChildren())
+                genQueue.addAll(currentGeneratedTree.getChildren());
+
+            while (!userQueue.isEmpty() || !genQueue.isEmpty()) {
+                matchMap = mapLikeChildren(currentUserTree.getChildren(), currentGeneratedTree.getChildren());
+
+                for (ArgumentTree user : matchMap.keySet()) {
+                    parentQueue.push(comparatorTree.addSubTree(user, matchMap.get(user), parentComparatorTree));
+                    genQueue.removeFirstOccurrence(matchMap.get(user));
+                    userQueue.removeFirstOccurrence(user);
+                }
+                if (!genQueue.isEmpty()) {
+                    for (ArgumentTree genArg : genQueue) {
+                        parentQueue.push(comparatorTree.addSubTree(new ComparatorObject(null, genArg.getRoot()), parentComparatorTree));
+                        genQueue.removeFirstOccurrence(genArg);
+                    }
+                    genQueue.clear();
                 }
             }
-        }
+        } while(!parentQueue.isEmpty());
 
         return comparatorTree;
     }
 
     private static HashMap<ArgumentTree,ArgumentTree> mapLikeChildren(LinkedList<ArgumentTree> userArgs, LinkedList<ArgumentTree> genArgs){
-        HashMap<ArgumentTree, ArgumentTree> matchMap = new HashMap<ArgumentTree, ArgumentTree>();
+        if(userArgs == null)
+            return null;
 
+        HashMap<ArgumentTree, ArgumentTree> matchMap = new HashMap<ArgumentTree, ArgumentTree>();
         for (ArgumentTree userArg : userArgs){
             matchMap.put(userArg, FindSimilarArgument(userArg, genArgs));
         }
-
         return matchMap;
     }
 

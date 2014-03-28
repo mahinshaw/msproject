@@ -34,16 +34,20 @@ public class ComparatorTree {
         this.parent = parent;
     }
 
-    public static ComparatorTree createComparatorTree(ComparatorObject root, int index){
+    public ComparatorTree createComparatorTree(ComparatorObject root, int index){
         return new ComparatorTree(root, index);
     }
 
-    public void addSubTree(ComparatorObject child, ComparatorTree parent){
-        addChild(new ComparatorTree(child, parent, parent.getArgIndex()));
+    public ComparatorTree addSubTree(ComparatorObject child, ComparatorTree parent){
+        ComparatorTree comparatorTree = new ComparatorTree(child, parent, parent.getArgIndex());
+        addChild(comparatorTree);
+        return comparatorTree;
     }
 
-    public void addSubTree(ArgumentTree user, ArgumentTree gen, ComparatorTree parent){
-        addChild(new ComparatorTree(new ComparatorObject(user.getRoot(), gen.getRoot()), parent, parent.getArgIndex()));
+    public ComparatorTree addSubTree(ArgumentTree user, ArgumentTree gen, ComparatorTree parent){
+        ComparatorTree comparatorTree = new ComparatorTree(new ComparatorObject(user.getRoot(), gen.getRoot()), parent, parent.getArgIndex());
+        addChild(comparatorTree);
+        return comparatorTree;
     }
 
     public boolean hasChildren(){
@@ -52,8 +56,8 @@ public class ComparatorTree {
         return !this.children.isEmpty();
     }
 
-    public static ComparatorTree buildTree(ArgumentTree gen, ArgumentTree user, int index){
-        return  new ComparatorTree(new ComparatorObject(gen.getRoot(), user.getRoot()), index);
+    public static ComparatorTree buildTree(ArgumentTree user, ArgumentTree gen, int index){
+        return  new ComparatorTree(new ComparatorObject(user.getRoot(), gen.getRoot()), index);
     }
 
     private void addChild(ComparatorTree child){
@@ -84,6 +88,10 @@ public class ComparatorTree {
 
     public ArgumentObject getGen(){
         return this.getRoot().getGeneratorObject();
+    }
+
+    public boolean hasConjunction(){
+        return (this.getUser() != null) ? this.getUser().HasConjunction() : this.getGen().HasConjunction();
     }
 
     public boolean isNodeCorrect(){
