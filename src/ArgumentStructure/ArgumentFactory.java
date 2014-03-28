@@ -39,6 +39,10 @@ public class ArgumentFactory {
         this.datum = new Datum(isConjunction);
     }
 
+    public boolean isHypothesisSet(){
+        return this.hypothesis != null;
+    }
+
     public void addGeneralization(String kbArcID, String text){
         generalizations.add(new Generalization(kbArcID, text));
     }
