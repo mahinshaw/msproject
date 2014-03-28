@@ -10,7 +10,7 @@ import ArgumentGenerator.ArgGenerator.ArgGen;
  */
 public class ArgGenDriver {
     public static void main(String[] args){
-        ArgGen argGen = new ArgGen(8, " TEST ");
+        ArgGen argGen = new ArgGen(7, " TEST ");
         argGen.findArgument();
         System.out.println("No of argument tree(s): "+argGen.getArgument().size());
     }

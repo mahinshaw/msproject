@@ -32,17 +32,19 @@ public class Conjunction {
     private String pro;
     private ArgumentTree currentTree;
     private String question;
+    private String fileName;
 
     private E2C e2c;
     private JE2C je2c;
     private C2E c2e;
 
-    public Conjunction(HashMap<String, String> map, KB_Node rootNode, ArrayList<KB_Node> graphNodes, String question) {
+    public Conjunction(HashMap<String, String> map, KB_Node rootNode, ArrayList<KB_Node> graphNodes, String question, String fileName) {
         this.rootNode = rootNode;
         this.argTree = new ArrayList<ArrayList<ArrayList<KB_Node>>>();
         this.graphNodes = graphNodes;
         this.map = map;
         this.pro = "false";
+        this.fileName = fileName;
         this.question = question;
         argInfo = new ArgInfo();
 
@@ -99,7 +101,7 @@ public class Conjunction {
             }
             stack.pop();
             XMLWriter writer = new XMLWriter();
-            writer.writeXML(treeList, question);//write the final tree
+            writer.writeXML(treeList, question, fileName);//write the final tree
         }
         return treeList;
     }

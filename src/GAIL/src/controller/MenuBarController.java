@@ -1,6 +1,6 @@
 package GAIL.src.controller;
 
-import GAIL.src.file.StatementFileReader;
+import GAIL.src.XMLHandler.StatementFileReader;
 import GAIL.src.frame.ApplicationFrame;
 import GAIL.src.frame.FileOpenerPopUp;
 import GAIL.src.frame.MenuBar;

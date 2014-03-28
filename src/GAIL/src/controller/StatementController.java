@@ -1,7 +1,7 @@
 package GAIL.src.controller;
 
 import GAIL.src.XMLHandler.StatementContainer;
-import GAIL.src.file.StatementFileReader;
+import GAIL.src.XMLHandler.StatementFileReader;
 import GAIL.src.frame.StatementPanel;
 import GAIL.src.frame.StatementPanel.StatementUnit;
 import GAIL.src.model.Statement;

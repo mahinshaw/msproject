@@ -18,18 +18,18 @@ public class TestDriver {
         graph.createPerson(3, "JB", 'm', 2);
         graph.createPerson(4, "Brother", 'm', 3);
 
-        /*
+
         // Nodes
         graph.createGenotype(1, 1, "1", "CF", "false", "recessive", "CF");
         graph.createGenotype(2, 2, "1", "CF", "false", "recessive", "CF");
         graph.createGenotype(3, 3, "1", "CF", "true", "recessive", "CF");
         graph.createGenotype(7, 4, "1", "CF", "true", "autosomeType", "CF");
-        graph.createBiochemistry(4, 3, "2", "CF Protein", false, "2");
-        graph.createSymptom(5, 3, "3", "Fluid in Lungs", "severe");
-        graph.createSymptom(8, 2, "3", "Upper Resp Inf", "none");
-        graph.createSymptom(9, 1, "3", "Upper Resp Inf", "none");
-        graph.createTest(10, 3, "SCT", true);
-        graph.createPhysiology(11, 3, "lungs", "thickened mucus");    */
+        graph.createBiochemistry(4, 3, "2", "CF Protein", "false", "2");
+        graph.createSymptom(5, 3, "3", "Fluid in Lungs", "severe", "abnormal");
+        graph.createSymptom(8, 2, "3", "Upper Resp Inf", "none", "abnormal");
+        graph.createSymptom(9, 1, "3", "Upper Resp Inf", "none", "abnormal");
+        graph.createTest(10, 3, "SCT", "Abnormal", "Test");
+        graph.createPhysiology(11, 3, "lungs", "thickened mucus", "abnormal");
 
         //arcs
         int[] ids = {1, 2};

@@ -29,9 +29,10 @@ public class XMLWriter {
      *
      * @param trees    argument tree
      * @param q   The current question
+     * @param fileName The name of the calling class, which will be appended to the file name
      */
 
-    public void writeXML(ArrayList<ArgumentTree> trees, String q) {
+    public void writeXML(ArrayList<ArgumentTree> trees, String q, String fileName) {
         try {
             DocumentBuilderFactory docFac = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = docFac.newDocumentBuilder();
@@ -67,7 +68,7 @@ public class XMLWriter {
             TransformerFactory tFactory = TransformerFactory.newInstance();
             Transformer transformer = tFactory.newTransformer();
             DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult("src/XMLOutput/session_" + getTimeStamp() + ".xml");
+            StreamResult result = new StreamResult("src/XMLOutput/"+fileName+"_" + getTimeStamp() + ".xml");
             transformer.transform(source, result);
         } catch (Exception e) {
             e.printStackTrace();

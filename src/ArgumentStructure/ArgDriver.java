@@ -63,6 +63,6 @@ public class ArgDriver {
         treeList.add(tree2);
 
         XMLWriter writer = new XMLWriter();
-        writer.writeXML(treeList, "This question is a test.");
+        writer.writeXML(treeList, "This question is a test.", "ArgDriverTest");
     }
 }

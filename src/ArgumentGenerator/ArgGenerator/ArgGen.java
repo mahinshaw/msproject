@@ -29,6 +29,7 @@ public class ArgGen {
     private C2E c2e;
     private ArgGenWriter argGenWriter;
     private String fileName = "GailSchema.xml";//the name of the KB file name located in src/XMLInput/...
+    private String extFileName = "ArgGen";//this name is appended to the filename
     ArrayList<KB_Node> graphNodes;
 
     public ArgGen(int nodeID, String question) {
@@ -70,7 +71,7 @@ public class ArgGen {
             e2c = new E2C(this.rootNode, getArgType());
             hold = e2c.getPathList();
             if (!hold.isEmpty()) {
-                argGenWriter = new ArgGenWriter(map, hold, question);
+                argGenWriter = new ArgGenWriter(map, hold, question, extFileName);
                 treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
                 if (!treeListHold.isEmpty())
                     addTreeList(treeListHold);
@@ -89,7 +90,7 @@ public class ArgGen {
         je2c = new JE2C(this.rootNode, graphNodes, getArgType());
         hold = je2c.getPathList();
         if (!hold.isEmpty()) {
-            argGenWriter = new ArgGenWriter(map, hold, question);
+            argGenWriter = new ArgGenWriter(map, hold, question, extFileName);
             treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
             if (!treeListHold.isEmpty())
                 addTreeList(treeListHold);
@@ -102,7 +103,7 @@ public class ArgGen {
          *
          */
         setArgType("false");
-        conj = new Conjunction(map, this.rootNode, graphNodes, question);
+        conj = new Conjunction(map, this.rootNode, graphNodes, question, extFileName);
         treeListHold = conj.findConjunction();
         if (!treeListHold.isEmpty())
             addTreeList(treeListHold);
@@ -113,7 +114,7 @@ public class ArgGen {
         c2e = new C2E(this.rootNode);
         hold = c2e.getPathList();
         if (!hold.isEmpty()) {
-            argGenWriter = new ArgGenWriter(map, hold, question);
+            argGenWriter = new ArgGenWriter(map, hold, question, extFileName);
             treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
             if (!treeListHold.isEmpty())
                 addTreeList(treeListHold);

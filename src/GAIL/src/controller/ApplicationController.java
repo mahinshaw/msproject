@@ -39,6 +39,7 @@ public class ApplicationController implements MouseListener, ActionListener {
     private ConjunctionController conjunctionController;
     private MenuBarController menuBarController;
     private ChatController chatController;
+    final String FILE_NAME = "GAIL";//this will be appended to the filename
 
     private List<MultiGeneralizationModel> multiGeneralizations;
 
@@ -328,7 +329,7 @@ public class ApplicationController implements MouseListener, ActionListener {
          * Call argGen.getArgument() to get the TreeList
          */
 
-        xmlWriter.writeXML(gb.getArgumentTrees(), statementController.getProblem().getText());
+        xmlWriter.writeXML(gb.getArgumentTrees(), statementController.getProblem().getText(), FILE_NAME);
 
         ComparatorHub hub = new ComparatorHub();
         ComparatorXMLWriter comparatorXMLWriter = new ComparatorXMLWriter();
