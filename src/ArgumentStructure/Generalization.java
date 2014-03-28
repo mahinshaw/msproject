@@ -34,6 +34,6 @@ public class Generalization {
     }
 
     public boolean equals(Generalization other){
-        return this.getKBARCID().equals(other.getKBARCID());
+        return this.getKBARCID().contains(other.getKBARCID());
     }
 }

@@ -21,6 +21,7 @@ import ArgumentComparator.ComparatorHub;
 import ArgumentComparator.ComparatorTree;
 import ArgumentComparator.ComparatorXMLWriter;
 import ArgumentGenerator.ArgGenerator.ArgGen;
+import ArgumentStructure.GraphBuilder;
 import GAIL.src.frame.ApplicationFrame;
 import GAIL.src.frame.MenuBar;
 import GAIL.src.frame.SubmitDialog;
