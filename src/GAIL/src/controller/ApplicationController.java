@@ -41,6 +41,8 @@ public class ApplicationController implements MouseListener, ActionListener {
     private MenuBarController menuBarController;
     private ChatController chatController;
     final String FILE_NAME = "GAIL";//this will be appended to the filename
+    ComparatorHub hub = new ComparatorHub();
+    ComparatorXMLWriter comparatorXMLWriter = new ComparatorXMLWriter();
 
     private List<MultiGeneralizationModel> multiGeneralizations;
 
@@ -332,8 +334,6 @@ public class ApplicationController implements MouseListener, ActionListener {
 
         xmlWriter.writeXML(gb.getArgumentTrees(), statementController.getProblem().getText(), FILE_NAME);
 
-        ComparatorHub hub = new ComparatorHub();
-        ComparatorXMLWriter comparatorXMLWriter = new ComparatorXMLWriter();
         List<ComparatorTree> comparatorTrees = hub.performComparison(gb.getArgumentTrees(), argGen.getArgument());
         comparatorXMLWriter.writeXML(comparatorTrees, statementController.getProblem().getText());
 

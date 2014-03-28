@@ -14,7 +14,7 @@ public class ComparatorObject {
     private final ArgumentObject generatorObject;
     private final ArgumentObject userObject;
     private final boolean equivalent;
-    private final float accuracy;
+    private final double accuracy;
 
     public ComparatorObject(ArgumentObject user, ArgumentObject gen){
         this.generatorObject = gen;
@@ -24,7 +24,7 @@ public class ComparatorObject {
             this.accuracy = calculateAccuracy();
         }else {
             this.equivalent = false;
-            this.accuracy = 0;
+            this.accuracy = 0.0;
         }
     }
 
@@ -40,7 +40,7 @@ public class ComparatorObject {
         return userObject;
     }
 
-    public float getAccuracy(){ return this.accuracy; }
+    public double getAccuracy(){ return this.accuracy; }
 
     public boolean compareHypothesis(){
         return userObject.hypothesisEqual(generatorObject);
@@ -54,9 +54,11 @@ public class ComparatorObject {
         return userObject.datumEqual(generatorObject);
     }
 
-    private float calculateAccuracy(){
-        float total = 2 + generatorObject.getGeneralizations().size();
-        float sum = 0;
+    private double calculateAccuracy(){
+        if (this.equivalent)
+            return 1.0;
+        double total = 2.0 + generatorObject.getGeneralizations().size();
+        double sum = 0;
         if (compareHypothesis())
             sum++;
         if (compareDatum())

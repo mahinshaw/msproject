@@ -49,17 +49,26 @@ public class ComparatorXMLWriter {
             }
 
             Element iteration = document.createElement("Iteration");
-            if (previousQuestion == null || previousQuestion != q)
+            if (previousQuestion == null || previousQuestion != q) {
+                previousQuestion = q;
                 iterationValue = 1;
+            }
             else
-                iterationValue++;
+                iterationValue += 1;
             iteration.appendChild(document.createTextNode(Integer.toString(iterationValue)));
             session.appendChild(iteration);
 
             for (ComparatorTree tree : trees) {
+                // get the correctness of the tree.
                 Element correct = document.createElement("Correct");
                 correct.appendChild(document.createTextNode(Boolean.toString(tree.isTreeCorrect())));
                 session.appendChild(correct);
+
+                // get the accuracy of the argument.
+                Element accuracy = document.createElement("Accuracy");
+                accuracy.appendChild(document.createTextNode(Double.toString(tree.getTreeAccuracy())));
+                session.appendChild(accuracy);
+
                 // append argument
                 Element argument = document.createElement("Argument");
                 Attr argIndex = document.createAttribute("arg");

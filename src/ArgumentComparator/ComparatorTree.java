@@ -27,11 +27,14 @@ public class ComparatorTree {
         this.root = root;
         this.parent = null;
         this.argIndex = index;
+        this.children = new LinkedList<ComparatorTree>();
     }
 
     private ComparatorTree(ComparatorObject child, ComparatorTree parent, int index){
         this.root = child;
         this.parent = parent;
+        this.argIndex = index;
+        this.children = new LinkedList<ComparatorTree>();
     }
 
     public ComparatorTree createComparatorTree(ComparatorObject root, int index){
@@ -111,5 +114,22 @@ public class ComparatorTree {
                 break;
         }
         return correct;
+    }
+
+    public double getRootAccuracy(){
+        return this.root.getAccuracy();
+    }
+
+    public double getTreeAccuracy(){
+        double totalAccuracy = this.getRootAccuracy();
+
+        for (ComparatorTree child : this.children){
+            // sum this and the child.
+            totalAccuracy += child.getTreeAccuracy();
+            // then divide by 2.
+            totalAccuracy /= 2.0;
+        }
+        // return the calculated accuracy.
+        return totalAccuracy;
     }
 }
