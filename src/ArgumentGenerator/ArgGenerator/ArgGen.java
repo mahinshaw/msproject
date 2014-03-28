@@ -1,5 +1,6 @@
 package ArgumentGenerator.ArgGenerator;
 
+import ArgumentGenerator.ArgLibrary.ArgInfo;
 import ArgumentGenerator.ArgSchemes.Conjunction;
 import ArgumentGenerator.ArgSchemes.*;
 import ArgumentGenerator.XMLInterface.ArgInterface;
@@ -30,7 +31,8 @@ public class ArgGen {
     private ArgGenWriter argGenWriter;
     private String fileName = "GailSchema.xml";//the name of the KB file name located in src/XMLInput/...
     private String extFileName = "ArgGen";//this name is appended to the filename
-    ArrayList<KB_Node> graphNodes;
+   // private ArgInfo argInfo;
+    private ArrayList<KB_Node> graphNodes;
 
     public ArgGen(int nodeID, String question) {
         argInterface = new ArgInterface(fileName);
@@ -38,6 +40,7 @@ public class ArgGen {
         this.graphNodes = argInterface.getGraphNodes();
         this.map = argInterface.getMap();
         this.treeList = new ArrayList<ArgumentTree>();
+        //argInfo = new ArgInfo();
         setRootNode(nodeID);
         setArgType("false");//default abnormal type is false.
     }
@@ -79,7 +82,7 @@ public class ArgGen {
                 if (argType.equalsIgnoreCase("true"))
                     printEmptyArg("E2C");
                 else
-                    printEmptyArg("NE2C");
+                   printEmptyArg("NE2C");
             }
             setArgType("true");//find E2C arguments
         }
@@ -94,6 +97,7 @@ public class ArgGen {
             treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
             if (!treeListHold.isEmpty())
                 addTreeList(treeListHold);
+            //printArgScheme(ArgInfo.schemaType.je2c.getSchema());
         } else {
             printEmptyArg("JE2C");
         }
@@ -118,6 +122,7 @@ public class ArgGen {
             treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
             if (!treeListHold.isEmpty())
                 addTreeList(treeListHold);
+            //printArgScheme(ArgInfo.schemaType.c2e.getSchema());
         } else {
             printEmptyArg("C2E");
         }
@@ -144,6 +149,15 @@ public class ArgGen {
      */
     private void printEmptyArg(String r) {
         System.out.println("ArgGen did not produce any argument using " + r + " schema ~ ArgumentGenerator/ArgGenerator/ArgGen.java");
+    }
+
+    /**
+     * Prints out the type of schema used.
+     *
+     * @param r
+     */
+    private void printArgScheme(String r){
+        System.out.println("ArgGen produced argument(s) using " + r + " schema ~ ArgumentGenerator/ArgGenerator/ArgGen.java");
     }
 
     /**

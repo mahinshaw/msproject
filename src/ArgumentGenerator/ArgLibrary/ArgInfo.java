@@ -42,6 +42,19 @@ public class ArgInfo {
         }
     }
 
+    public enum schemaType {
+        e2c("E2C"), ne2c("NE2C"), je2c("JE2C"), c2e("C2E");
+        private String schema;
+
+        schemaType(String d) {
+            schema = d;
+        }
+
+        public String getSchema() {
+            return schema;
+        }
+    }
+
     /**
      * Find the mutation type from KB/Genotype
      *

@@ -112,6 +112,7 @@
         <hypothesis hypo="h15" node_id="20">J.B.'s father has normal mucus secretion from his lungs.</hypothesis>
         <hypothesis hypo="h16" node_id="21">J.B.'s brother has abnormal protein</hypothesis>
         <hypothesis hypo="h17" node_id="23">J.B.'s brother has abnormal pancreas</hypothesis>
+        <hypothesis hypo="h18" node_id="22">J.B.'s brother has or will have malnutrition and poor growth</hypothesis>
         <!--data-->
         <data datum="d1" node_id ="200">Patient: J.B., a 2-year old girl.</data>
         <data datum="d2" node_id= "10">History of respiratory problems: During her second year, J.B. developed a chronic cough and has had frequent upper respiratory infections.</data>
@@ -120,7 +121,6 @@
         <data datum="d5" node_id="14">Test result: J.B.'s chloride level is 75 mmol/L.</data>
         <data datum="d6" node_id="8">J.B.'s 5-year old brother B.B. was diagnosed as having cystic fibrosis.</data>
         <data datum="d7" node_id="13">J.B.'s pancreas is functioning normally.</data>
-        <data datum="d8" node_id="22">J.B.'s brother has or will have malnutrition and poor growth</data>
         <!--Use commas to delimit multiple arc IDs-->
         <!--generalizations-->
         <generalizations gen="g1" node_id="I1, I5, I6, I11, I12, I19">Cystic fibrosis is the name of a disease caused by having two mutated copies of the CFTR gene. When both copies of CFTR are mutated, the body produces abnormal CFTR protein.</generalizations>
