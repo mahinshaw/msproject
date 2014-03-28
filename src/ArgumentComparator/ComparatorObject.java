@@ -20,7 +20,7 @@ public class ComparatorObject {
         this.generatorObject = gen;
         this.userObject = user;
         if (user != null && gen != null) {
-            this.equivalent = gen.equals(user);
+            this.equivalent = user.equals(gen);
             this.accuracy = calculateAccuracy();
         }else {
             this.equivalent = false;
@@ -43,15 +43,15 @@ public class ComparatorObject {
     public float getAccuracy(){ return this.accuracy; }
 
     public boolean compareHypothesis(){
-        return generatorObject.hypothesisEqual(userObject);
+        return userObject.hypothesisEqual(generatorObject);
     }
 
     public boolean compareGeneralization(){
-        return generatorObject.generalizationsEqual(userObject);
+        return userObject.generalizationsEqual(generatorObject);
     }
 
     public boolean compareDatum(){
-        return generatorObject.datumEqual(userObject);
+        return userObject.datumEqual(generatorObject);
     }
 
     private float calculateAccuracy(){

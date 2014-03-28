@@ -44,8 +44,7 @@ public class ArgumentObject {
 
     public boolean containsGeneralization(Generalization generalization){
         for (Generalization g : this.getGeneralizations()){
-            if (g.getKBARCID().equals(generalization.getKBARCID()))
-                return true;
+            return (g.equals(generalization));
         }
         return false;
     }
@@ -92,8 +91,8 @@ public class ArgumentObject {
         if (this.getGeneralizations().size() != other.getGeneralizations().size())
             return false;
         else {
-            for (Generalization g : this.getGeneralizations()){
-               if (!other.containsGeneralization(g))
+            for (Generalization g : other.getGeneralizations()){
+               if (!this.containsGeneralization(g))
                    return false;
             }
             return true;

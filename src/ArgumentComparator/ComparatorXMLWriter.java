@@ -74,7 +74,7 @@ public class ComparatorXMLWriter {
             TransformerFactory tFactory = TransformerFactory.newInstance();
             Transformer transformer = tFactory.newTransformer();
             DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult("src/XMLOutput/ComparatorSession_" + getTimeStamp() + ".xml");
+            StreamResult result = new StreamResult("src/XMLOutput/Comparator_" + getTimeStamp() + ".xml");
             transformer.transform(source, result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,7 +154,7 @@ public class ComparatorXMLWriter {
             gCorrectText.appendChild(document.createTextNode("Not needed"));
         }
         else {
-            gCorrectNode.appendChild(document.createTextNode("Arc" + tree.getGen().getGeneralizations().get(0).getKBARCID()));
+            gCorrectNode.appendChild(document.createTextNode("Arc " + tree.getGen().getGeneralizations().get(0).getKBARCID()));
             gCorrectText.appendChild(document.createTextNode(tree.getGen().getGeneralizations().get(0).getTEXT()));
         }
 
