@@ -1,14 +1,13 @@
-package GAIL.src.controller;
+package ArgumentStructure;
 
-import ArgumentStructure.ArgumentFactory;
-import ArgumentStructure.ArgumentObject;
-import ArgumentStructure.ArgumentTree;
+import GAIL.src.controller.ConjunctionController;
+import GAIL.src.controller.EdgeController;
+import GAIL.src.controller.StatementController;
 import GAIL.src.model.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.Set;
 
 /**
  * User: Mark Hinshaw
@@ -77,7 +76,7 @@ public class GraphBuilder {
         this.heads.push(head);
     }
 
-    public ArrayList<ArgumentTree> getArgumentTrees(){
+    public ArrayList<ArgumentTree> getArgumentTrees() {
         return argumentTrees;
     }
 
@@ -107,7 +106,7 @@ public class GraphBuilder {
                 if (b.getSource() == hypothesis)
                     addToAdjacencyMap(hypothesis, b);
         }
-        for (Statement datum : data){
+        for (Statement datum : data) {
             // check to see if the statement is attached to any arguments
             for (Argument a : arguments)
                 if (a.getSource() == datum || a.getTarget() == datum)
@@ -117,7 +116,7 @@ public class GraphBuilder {
                 if (b.getSource() == datum)
                     addToAdjacencyMap(datum, b);
         }
-        for (Conjunction conjunction : conjunctions){
+        for (Conjunction conjunction : conjunctions) {
             // check to see if the statement is attached to any arguments
             for (Argument a : arguments)
                 if (a.getSource() == conjunction)
@@ -133,7 +132,7 @@ public class GraphBuilder {
      * The method looks through the adjacency list and finds any heads of an argument.
      * A head must be a hypothesis, and it must have only one connected edge.
      */
-    private void findHeads(){
+    private void findHeads() {
         // search the adjacency map for the first instance of a hypothesis that only has one edge.
         for (Statement h : hypotheses)
             if (adjacencyMap.containsKey(h))
@@ -144,7 +143,7 @@ public class GraphBuilder {
     /**
      * This method will look at each head, traverse it's edges and load the argument trees.
      */
-    private void loadTrees(){
+    private void loadTrees() {
         ArgumentObject parent = null;
         // placeholders
         Statement current;
@@ -154,7 +153,7 @@ public class GraphBuilder {
         //make sure that there are heads to start with
         if (heads.isEmpty()) return;
 
-        while (!heads.isEmpty()){
+        while (!heads.isEmpty()) {
             // increment currentArgID
             currentArgID++;
             // initialize factory
@@ -184,6 +183,7 @@ public class GraphBuilder {
     /**
      * This method adds to the adjacencyMap based on the state of the key(s) that is passed.  It important to look to
      * see if the key exists, or if the map is empty to know how to add to the list value.
+     *
      * @param s - is the key(statement)
      * @param e - is the value to add to the list of edges.
      */
@@ -200,14 +200,14 @@ public class GraphBuilder {
             // check to see if the edge is already in the list.
             if (adjacencyMapContainsEdge(s, e))
                 return;
-            // if the edge is not there
+                // if the edge is not there
             else {
                 edges = adjacencyMap.get(s);
                 edges.add(e);
                 adjacencyMap.remove(s);
                 adjacencyMap.put(s, edges);
             }
-        // if the key does not exist, add it and a edge list with e as its value.
+            // if the key does not exist, add it and a edge list with e as its value.
         } else {
             edges = new LinkedList<Edge>();
             edges.add(e);
@@ -217,6 +217,7 @@ public class GraphBuilder {
 
     /**
      * This method checks to see if there is an Edge e contained within the list of Edges for key s.
+     *
      * @param s - the key to check the adjacency map.
      * @param e - the value to check within the list of Edges.
      * @return
@@ -228,19 +229,22 @@ public class GraphBuilder {
     /**
      * This method returns the next node in the list of edges.  It will return null if there are no edges in the list.
      * This method also calls cleanEdges(). removing and already viewed edge if necessary.
+     *
      * @param current - The node that is currently being searched.
-     * @param edges - The list of edges attached to the current node.
+     * @param edges   - The list of edges attached to the current node.
      * @return
      */
-    private Node getNextNode(Node current, LinkedList<Edge> edges){
+    private Node getNextNode(Node current, LinkedList<Edge> edges) {
         Node next = null;
         Edge edge = edges.poll(); //edges is decremented.
         // make sure the edge exists.  If not, then we return null.  This is important for Conjunctions.
-        if (edge == null) { return next; }
+        if (edge == null) {
+            return next;
+        }
         switch (edge.getEdgeType()) {
             // find out if it is a source or a target
             case ARGUMENT:
-                Argument a = (Argument)edge;
+                Argument a = (Argument) edge;
                 // add generalizations to factory
                 addGeneraliztionsToFactory(a);
                 if (a.getTarget() == current)
@@ -253,8 +257,8 @@ public class GraphBuilder {
                 break;
             // Target for a branch is always a conjunction - The Statement is the source.
             case BRANCH:
-                Branch b = (Branch)edge;
-                if(b.getTarget() == current)
+                Branch b = (Branch) edge;
+                if (b.getTarget() == current)
                     next = b.getSource();
                 else
                     next = b.getTarget();
@@ -269,17 +273,17 @@ public class GraphBuilder {
     /**
      * This method is used to append any generalizations attatched to an edge related to a hypothesis.
      * It is called from the getNextNode() method.
+     *
      * @param a - The Argument (edge) that is being inspected by getNextNode().
      */
-    private void addGeneraliztionsToFactory(Argument a){
+    private void addGeneraliztionsToFactory(Argument a) {
         ArrayList<Warrant> aWarrants = a.getWarrants();
-        for (Warrant w : aWarrants){
-            if (w.getSource() instanceof MultiGeneralizationModel){
-                for (Statement s : ((MultiGeneralizationModel) w.getSource()).getGeneralizations()){
+        for (Warrant w : aWarrants) {
+            if (w.getSource() instanceof MultiGeneralizationModel) {
+                for (Statement s : ((MultiGeneralizationModel) w.getSource()).getGeneralizations()) {
                     factory.addGeneralization(s.getNode_id(), s.getText());
                 }
-            }
-            else if (w.getSource() instanceof Statement && ((Statement) w.getSource()).getType() == Statement.StatementType.GENERALIZATION){
+            } else if (w.getSource() instanceof Statement && ((Statement) w.getSource()).getType() == Statement.StatementType.GENERALIZATION) {
                 Statement s = (Statement) w.getSource();
                 factory.addGeneralization(s.getNode_id(), s.getText());
             }
@@ -289,11 +293,12 @@ public class GraphBuilder {
     /**
      * This method does the heavy lifting.  Based upon what type the next node is, we load finish the factory and
      * load the tree.  This method is recursive by nature.
-     * @param next - the next node (Statement) to look at.
+     *
+     * @param next   - the next node (Statement) to look at.
      * @param parent - The parent ArgumentObject.
      * @return
      */
-    private ArgumentTree treeBuilder(Node next, ArgumentObject parent){
+    private ArgumentTree treeBuilder(Node next, ArgumentObject parent) {
         Node current = next;
         LinkedList<Edge> edges = adjacencyMap.get(current);
         // now remove current from adjacency list
@@ -301,25 +306,23 @@ public class GraphBuilder {
         ArgumentObject nextParent;
 
         // base case: the next node is a data, and we return it
-        if (current instanceof Statement && ((Statement) current).getType() == Statement.StatementType.DATA){
+        if (current instanceof Statement && ((Statement) current).getType() == Statement.StatementType.DATA) {
             factory.setDatum(((Statement) current).getNode_id(), ((Statement) current).getText());
             if (tree == null)
                 return ArgumentTree.createArgumentTree(factory.createArgument(currentArgID));
-            else{
+            else {
                 tree.addSubArgument(factory.createArgument(currentArgID), parent);
                 return tree;
             }
-        }
-        else if(current instanceof Statement && ((Statement) current).getType() == Statement.StatementType.HYPOTHESIS){
+        } else if (current instanceof Statement && ((Statement) current).getType() == Statement.StatementType.HYPOTHESIS) {
             // The hypothesis is special.  we need to set the hyporthesis, but not change the parent since the object
             // may not be completed.
-            if (factory.isHypothesisSet()){
+            if (factory.isHypothesisSet()) {
                 // if the hypothesis is already set, then we know that we have a chained argument.
                 if (tree == null) {
                     tree = ArgumentTree.createArgumentTree(factory.createArgument(currentArgID));
                     parent = tree.getRoot();
-                }
-                else {
+                } else {
                     nextParent = factory.createArgument(currentArgID);
                     tree.addSubArgument(nextParent, parent);
                     parent = nextParent;
@@ -330,23 +333,21 @@ public class GraphBuilder {
 
             next = getNextNode(current, edges);
             return treeBuilder(next, parent);
-        }
-        else if (current instanceof Conjunction){
+        } else if (current instanceof Conjunction) {
             // Conjunctions are loaded into the Datum Object.
             factory.setDatum(true); // passing True Denotes that this Datum is a Conjunction.
 
             // if the tree is null, we must create the tree, because there is no parent. and the parent is the root
-            if (tree == null){
+            if (tree == null) {
                 tree = ArgumentTree.createArgumentTree(factory.createArgument(currentArgID));
                 parent = tree.getRoot();
-            }
-            else{
+            } else {
                 nextParent = factory.createArgument(currentArgID);
                 tree.addSubArgument(nextParent, parent);
                 parent = nextParent;
             }
             // loop over the edges and attach them to the tree.
-            while(!edges.isEmpty()){
+            while (!edges.isEmpty()) {
                 next = getNextNode(current, edges);
 
                 factory = new ArgumentFactory();
@@ -355,15 +356,13 @@ public class GraphBuilder {
             }
 
             return tree;
-        }
-        else {
+        } else {
             // if we made it here, then next is null and the answer is wrong, hence we return the tree
             // if the tree is null, we must create the tree, because there is no parent. and the parent is the root
-            if (tree == null){
+            if (tree == null) {
                 tree = ArgumentTree.createArgumentTree(factory.createArgument(currentArgID));
                 parent = tree.getRoot();
-            }
-            else{
+            } else {
                 tree.addSubArgument(factory.createArgument(currentArgID), parent);
             }
             return tree;
@@ -372,18 +371,19 @@ public class GraphBuilder {
 
     /**
      * This method cleans edges that may have already been used by previous node.
+     *
      * @param current
      * @param next
      * @return
      */
-    private void cleanEdges(Node current, Node next){
+    private void cleanEdges(Node current, Node next) {
         LinkedList<Edge> edges = new LinkedList<Edge>();
-        for (Edge e : adjacencyMap.get(next)){
+        for (Edge e : adjacencyMap.get(next)) {
             switch (e.getEdgeType()) {
 
                 // find out if it is a source or a target
                 case ARGUMENT:
-                    if (((Argument)e).getTarget() == current)
+                    if (((Argument) e).getTarget() == current)
                         edges.add(e);
                     else if (e.getSource() == current)
                         edges.add(e);
@@ -393,17 +393,17 @@ public class GraphBuilder {
                     break;
                 // Target for a branch is always a conjunction - The Statement is the source.
                 case BRANCH:
-                    if(e.getSource() == current)
+                    if (e.getSource() == current)
                         edges.add(e);
                     break;
             }
         }
-        for (Edge e : edges){
+        for (Edge e : edges) {
             removeEdge(next, e);
         }
     }
 
-    private void removeEdge(Node n, Edge e){
+    private void removeEdge(Node n, Edge e) {
         LinkedList<Edge> edges = adjacencyMap.get(n);
         edges.remove(e);
         adjacencyMap.put(n, edges);
