@@ -313,6 +313,19 @@ public class GraphBuilder {
         else if(current instanceof Statement && ((Statement) current).getType() == Statement.StatementType.HYPOTHESIS){
             // The hypothesis is special.  we need to set the hyporthesis, but not change the parent since the object
             // may not be completed.
+            if (factory.isHypothesisSet()){
+                // if the hypothesis is already set, then we know that we have a chained argument.
+                if (tree == null) {
+                    tree = ArgumentTree.createArgumentTree(factory.createArgument(currentArgID));
+                    parent = tree.getRoot();
+                }
+                else {
+                    nextParent = factory.createArgument(currentArgID);
+                    tree.addSubArgument(nextParent, parent);
+                    parent = nextParent;
+                }
+                factory = new ArgumentFactory();
+            }
             factory.setHypothesis(((Statement) current).getNode_id(), ((Statement) current).getText());
 
             next = getNextNode(current, edges);
