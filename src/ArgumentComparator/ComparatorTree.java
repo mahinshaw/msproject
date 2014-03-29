@@ -103,6 +103,8 @@ public class ComparatorTree {
 
     public boolean isTreeCorrect(){
         boolean correct = this.root.isEquivalent();
+        if (!correct)
+            return correct;
 
         //recursively call children, if one is false, then return false, else true
         for (ComparatorTree child : this.children){
