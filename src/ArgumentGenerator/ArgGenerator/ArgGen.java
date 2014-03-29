@@ -27,13 +27,12 @@ public class ArgGen {
     private Conjunction conj;
     private C2E c2e;
     private ArgGenWriter argGenWriter;
-    private String fileName = "CysticFibrosis.xml";//the name of the KB file name located in src/XMLInput/...
-    private String extFileName = "ArgGen";//this name is appended to the filename
-    final String defltVal = "false";
+    private String extFileName = "ArgGen";//this name is appended to the filename of the xml output
+    final String defltVal = "false";//default value
 
     private ArrayList<KB_Node> graphNodes;
 
-    public ArgGen(int nodeID, String question) {
+    public ArgGen(int nodeID, String question, String fileName) {
         argInterface = new ArgInterface(fileName);
         this.question = question;
         this.graphNodes = argInterface.getGraphNodes();

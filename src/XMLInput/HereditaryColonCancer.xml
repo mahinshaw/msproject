@@ -87,10 +87,12 @@
 <gail>
     <ui>
         <question quest="q1" node_id="">Give one argument for hypothesis that PP does not have HNPCC.</question>
-        <question quest="q2" node_id="">Give one argument for hypothesis that PP will not develop colon cancer.</question>
+        <question quest="q2" node_id="">Give one argument for hypothesis that PP will not develop colon cancer.
+        </question>
         <question quest="q3" node_id="">Give one argument for hypothesis that PP's child does not have HNPCC.</question>
         <question quest="q4" node_id="">Give one argument for hypothesis that PP's father had HNPCC.</question>
-        <question quest="q5" node_id="">Give one argument for hypothesis that PP's mother does not have HNPCC.</question>
+        <question quest="q5" node_id="">Give one argument for hypothesis that PP's mother does not have HNPCC.
+        </question>
         <hypothesis hypo="h1" node_id="">PP has HNPCC.</hypothesis>
         <hypothesis hypo="h2" node_id="">PP does not have HNPCC (has no mutation of MLH1).</hypothesis>
         <hypothesis hypo="h3" node_id="">PP's brother has HNPCC (one mutation of MLH1).</hypothesis>
@@ -107,8 +109,12 @@
         <data datum="d4" node_id="">PP's brother has cancer.</data>
         <data datum="d5" node_id="">PP's brother's test result is positive (one mutation of MLH1.</data>
         <data datum="d6" node_id="">PP's test result is negative (no mutation of MLH1).</data>
-        <generalizations gen="g1" node_id="">HNPCC is an autosomal dominant condition in which one copy of the MLH1 is mutated.</generalizations>
-        <generalizations gen="g2" node_id="">Having one mutated copy of MLH1 greatly increases the lifetime risk of colon cancer.</generalizations>
+        <generalizations gen="g1" node_id="">HNPCC is an autosomal dominant condition in which one copy of the MLH1 is
+            mutated.
+        </generalizations>
+        <generalizations gen="g2" node_id="">Having one mutated copy of MLH1 greatly increases the lifetime risk of
+            colon cancer.
+        </generalizations>
     </ui>
     <genie>
         <KB_Node>
@@ -150,7 +156,7 @@
                 <disease>Hereditary Colon Cancer</disease>
                 <cell>FLAG</cell>
             </genotype>
-            <genotype node_id="2" person_id="" certainty="">
+            <genotype node_id="2" person_id="2" certainty="">
                 <gene_id>FLAG</gene_id>
                 <gene_name>MLH1</gene_name>
                 <mutated>1</mutated>
@@ -224,15 +230,57 @@
             </test>
         </KB_Node>
         <KB_Arc>
-            <influence_arc arc_id="">
-                <influence_type></influence_type>
-                <influence_parent></influence_parent>
-                <influence_child></influence_child>
+            <influence_arc arc_id="I1">
+                <influence_type>+</influence_type>
+                <influence_parent>4</influence_parent>
+                <influence_child>9</influence_child>
             </influence_arc>
-            <synergy_arc_set syn_id="">
-                <type></type>
-                <child></child>
-                <parent></parent>
+            <influence_arc arc_id="I2">
+                <influence_type>+</influence_type>
+                <influence_parent>5</influence_parent>
+                <influence_child>10</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I3">
+                <influence_type>+</influence_type>
+                <influence_parent>1</influence_parent>
+                <influence_child>6</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I4">
+                <influence_type>+</influence_type>
+                <influence_parent>2</influence_parent>
+                <influence_child>7</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I5">
+                <influence_type>+</influence_type>
+                <influence_parent>6</influence_parent>
+                <influence_child>11</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I6">
+                <influence_type>+</influence_type>
+                <influence_parent>7</influence_parent>
+                <influence_child>12</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I7">
+                <influence_type>+</influence_type>
+                <influence_parent>3</influence_parent>
+                <influence_child>8</influence_child>
+            </influence_arc>
+            <synergy_arc_set syn_id="S1">
+                <type>X-</type>
+                <child>1</child>
+                <parent>4</parent>
+                <parent>5</parent>
+            </synergy_arc_set>
+            <synergy_arc_set syn_id="S2">
+                <type>X-</type>
+                <child>2</child>
+                <parent>4</parent>
+                <parent>5</parent>
+            </synergy_arc_set>
+            <synergy_arc_set syn_id="S3">
+                <type>X-</type>
+                <child>3</child>
+                <parent>1</parent>
             </synergy_arc_set>
         </KB_Arc>
         <Argument>
