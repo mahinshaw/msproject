@@ -17,12 +17,16 @@ import java.util.concurrent.*;
  * This class handles communications between the user interface, the Argument Generator, and the Argument Comparator.
  */
 public class ComparatorHub {
+    private ExecutorService executor;
+    private int num_threads;
+
     public ComparatorHub(){
+        num_threads = Runtime.getRuntime().availableProcessors();
+        executor = Executors.newFixedThreadPool(num_threads);
     }
 
     private ComparatorTree performComparison(ArgumentTree userTree,  List<ArgumentTree> generatorTrees){
         int indexCounter = 1;
-        ExecutorService executor = Executors.newFixedThreadPool(2);
         List<Future<ComparatorTree>> futureComparatorTrees = new ArrayList<Future<ComparatorTree>>();
         List<ComparatorTree> comparatorTrees = new ArrayList<ComparatorTree>();
         for (ArgumentTree genTree : generatorTrees){
@@ -30,10 +34,6 @@ public class ComparatorHub {
             Future<ComparatorTree> pledge = executor.submit(task);
             futureComparatorTrees.add(pledge);
         }
-
-        // tell the executor to finish.
-        executor.shutdown();
-        // this is a hack, but it should work.
 
         for (Future<ComparatorTree> pledge : futureComparatorTrees){
             try {
