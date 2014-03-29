@@ -324,7 +324,7 @@ public class ApplicationController implements MouseListener, ActionListener {
          * argGen.findArgument() starts to find the arguments from the set node
          */
 
-        ArgGen argGen = new ArgGen(Integer.parseInt(statementController.getProblem().getNode_id()), statementController.getProblem().getText());
+        ArgGen argGen = new ArgGen(Integer.parseInt(statementController.getProblem().getNode_id()), statementController.getProblem().getText(), statementController.getFileName());
         argGen.findArgument();
 
         /**

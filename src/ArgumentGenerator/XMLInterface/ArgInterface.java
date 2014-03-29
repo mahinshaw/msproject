@@ -15,18 +15,17 @@ import KB.XMLinterface.Interface;
 public class ArgInterface {
     private HashMap<String, String> map;
     private XmlReader reader;
-    private final String FILE = "src/XMLInput/";
     private String fileName;
     private Interface KBInterface;
 
     public ArgInterface(String fileName){
         this.fileName = fileName;
         this.map = new HashMap<String, String>();
-        KBInterface = new Interface(FILE+fileName);
+        KBInterface = new Interface(fileName);
     }
 
     public HashMap<String, String> getMap(){
-        fileReader(FILE+fileName);
+        fileReader(fileName);
         return reader.getMap();
     }
 

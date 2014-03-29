@@ -1,4 +1,4 @@
-package ArgumentGenerator;
+package ArgumentGenerator.ArgGenDriver;
 
 import ArgumentGenerator.ArgGenerator.ArgGen;
 
@@ -10,7 +10,7 @@ import ArgumentGenerator.ArgGenerator.ArgGen;
  */
 public class ArgGenDriver {
     public static void main(String[] args){
-        ArgGen argGen = new ArgGen(7, " TEST ");
+        ArgGen argGen = new ArgGen(7, " TEST ", "src/XMLInput/CysticFibrosis.xml");
         argGen.findArgument();
         System.out.println("No of argument tree(s): "+argGen.getArgument().size());
     }
