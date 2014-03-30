@@ -21,7 +21,6 @@ import java.util.concurrent.Callable;
 
 public class ArgumentComparator implements Callable {
     private ArgumentTree userTree, generatorTree;
-    private ArgumentObject currentUserObject;
     private ComparatorTree comparatorTree;
     private final int argIndex;
 

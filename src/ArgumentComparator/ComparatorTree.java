@@ -26,7 +26,7 @@ public class ComparatorTree {
     private ComparatorTree(ComparatorObject root, int index){
         this.root = root;
         this.parent = null;
-        this.argIndex = index;
+        this.argIndex = this.root.getUserObject().getARGID();
         this.children = new LinkedList<ComparatorTree>();
     }
 
@@ -43,13 +43,13 @@ public class ComparatorTree {
 
     public ComparatorTree addSubTree(ComparatorObject child, ComparatorTree parent){
         ComparatorTree comparatorTree = new ComparatorTree(child, parent, parent.getArgIndex());
-        addChild(comparatorTree);
+        parent.addChild(comparatorTree);
         return comparatorTree;
     }
 
     public ComparatorTree addSubTree(ArgumentTree user, ArgumentTree gen, ComparatorTree parent){
         ComparatorTree comparatorTree = new ComparatorTree(new ComparatorObject(user.getRoot(), gen.getRoot()), parent, parent.getArgIndex());
-        addChild(comparatorTree);
+        parent.addChild(comparatorTree);
         return comparatorTree;
     }
 
@@ -103,6 +103,8 @@ public class ComparatorTree {
 
     public boolean isTreeCorrect(){
         boolean correct = this.root.isEquivalent();
+        if (!correct)
+            return correct;
 
         //recursively call children, if one is false, then return false, else true
         for (ComparatorTree child : this.children){
