@@ -16,7 +16,7 @@ import java.util.Stack;
  */
 public class ArgInfo {
     public enum ArcTYPE {
-        INFLUENCE("+"), SYNERGY("X0"), CONJ("%"), NEGATIVE_INF("-");
+        INFLUENCE("+"), SYNERGY("X0"), CONJ("%"), MUTAL_EXCLUSIVE("X-"), NEGATIVE_INFL("-");
         private String type;
         ArcTYPE(String d) {
             type = d;

@@ -67,13 +67,18 @@ public class ArgGen {
          *  First find NE2C (false) arguments, then E2C (true)
          */
         int argNo = 2;//the number of arguments, in this case, it's 2 (E2C + NE2C)
+        /**
+         * The argCounter keeps track of the number of arguments generated from different schemes.
+         * It is appended to the output file. The reason: the file will be overwritten, if it finds a different schema.
+         */
+        int argCounter = 0;
 
         for (int i = 0; i < argNo; i++) {
             e2c = new E2C(this.rootNode, getArgType());
             hold = e2c.getPathList();
             if (!hold.isEmpty()) {
-                argGenWriter = new ArgGenWriter(map, hold, question, extFileName);
-                treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
+                argGenWriter = new ArgGenWriter(map, hold, question, extFileName+"_"+argCounter++);
+                treeListHold = argGenWriter.getArgument();//add to argInterface tree and xml GAIL.output
                 if (!treeListHold.isEmpty())
                     addTreeList(treeListHold);
             } else {
@@ -91,8 +96,8 @@ public class ArgGen {
         je2c = new JE2C(this.rootNode, graphNodes, getArgType());
         hold = je2c.getPathList();
         if (!hold.isEmpty()) {
-            argGenWriter = new ArgGenWriter(map, hold, question, extFileName);
-            treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
+            argGenWriter = new ArgGenWriter(map, hold, question, extFileName+"_"+argCounter++);
+            treeListHold = argGenWriter.getArgument();//add to argInterface tree and xml GAIL.output
             if (!treeListHold.isEmpty())
                 addTreeList(treeListHold);
             //printArgScheme(ArgInfo.schemaType.je2c.getSchema());
@@ -105,7 +110,7 @@ public class ArgGen {
          *
          */
         setArgType(defltVal);
-        conj = new Conjunction(map, this.rootNode, graphNodes, question, extFileName);
+        conj = new Conjunction(map, this.rootNode, graphNodes, question, extFileName+"_"+argCounter++);
         treeListHold = conj.findConjunction();
         if (!treeListHold.isEmpty())
             addTreeList(treeListHold);
@@ -116,8 +121,8 @@ public class ArgGen {
         c2e = new C2E(this.rootNode);
         hold = c2e.getPathList();
         if (!hold.isEmpty()) {
-            argGenWriter = new ArgGenWriter(map, hold, question, extFileName);
-            treeListHold = argGenWriter.addArgument();//add to argInterface tree and xml GAIL.output
+            argGenWriter = new ArgGenWriter(map, hold, question, extFileName+"_"+argCounter++);
+            treeListHold = argGenWriter.getArgument();//add to argInterface tree and xml GAIL.output
             if (!treeListHold.isEmpty())
                 addTreeList(treeListHold);
             //printArgScheme(ArgInfo.schemaType.c2e.getSchema());

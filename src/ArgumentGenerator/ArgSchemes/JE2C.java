@@ -41,10 +41,54 @@ public class JE2C {
         } else {
             for (KB_Node n : rootNode.getChildren())
                 if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.SYNERGY.getType())))
-                    traverseGraph(n, rootNode, 1);
+                    traverseGraph(n, rootNode);
+                else if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.MUTAL_EXCLUSIVE.getType())))
+                    traverseMutualGraph(n, rootNode);
         }
-        //if (!pathList.isEmpty()) {argGenerator(pathList);}
+        if (getJE2C().isEmpty())
+            pathList.clear();
         return getJE2C();
+    }
+
+    /**
+     * Mutally Exclusive relation X-: if one parent has it, the child may have it as well
+     *
+     * @param child
+     * @param knownParent
+     */
+
+    private void traverseMutualGraph(KB_Node child, KB_Node knownParent) {
+
+        ArrayList<KB_Node> argPath = new ArrayList<KB_Node>();
+        ArrayList<ArrayList<KB_Node>> hold;
+        KB_Node otherParent = null;
+        String holdInfluence = " ";
+        String arcID = argInfo.findEdge(knownParent, child).getEdge_id();
+        if (argInfo.checkMutation(knownParent).equalsIgnoreCase("1") && argInfo.checkMutation(child).equalsIgnoreCase("1")) {
+            argPath.add(knownParent);
+            argPath.add(child);
+            //KB_Node leaf = argPath.get(argPath.size() - 1);
+            hold = checkE2C(child);
+            ArrayList<KB_Node> pathHolder = new ArrayList<KB_Node>(argPath);
+
+            /**
+             * Find E2C relation from the leaf node.
+             * If no arg found, skip this step.
+             */
+            if (!hold.isEmpty()) {
+                for (ArrayList<KB_Node> n : hold) {
+                    for (KB_Node k : n) {
+                        if (k != argPath.get(argPath.size() - 1))
+                            argPath.add(k);
+                    }
+                    setJE2C(argPath);
+                    argPath = new ArrayList<KB_Node>(pathHolder);
+                }
+            } else {
+                setJE2C(argPath);
+            }
+            hold.clear();
+        }
     }
 
     /**
@@ -52,11 +96,11 @@ public class JE2C {
      *
      * @param child
      */
-    private void traverseGraph(KB_Node child, KB_Node knownParent, int parentNo) {
+    private void traverseGraph(KB_Node child, KB_Node knownParent) {
         ArrayList<KB_Node> argPath = new ArrayList<KB_Node>();
         ArrayList<ArrayList<KB_Node>> hold;
         KB_Node otherParent = null;
-        String holdInfluence = "";
+        String holdInfluence = " ";
         argPath.add(knownParent);
         String arcID = argInfo.findEdge(knownParent, child).getEdge_id();
 
@@ -74,6 +118,7 @@ public class JE2C {
                 }
             }
         }
+
         KB_Node leafChild = argPath.get(argPath.size() - 1);
         hold = checkE2C(leafChild);
         ArrayList<KB_Node> pathHolder = new ArrayList<KB_Node>(argPath);
@@ -96,7 +141,7 @@ public class JE2C {
         }
         hold.clear();
 
-        //TODO add the other parent's(parentNo 2) argument to the pathList
+        //add the other parent's(parentNo 2) argument to the pathList
        /*] if (parentNo==2){ traverseGraph(child, otherParent, 2);}*/
     }
 

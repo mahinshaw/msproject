@@ -20,7 +20,7 @@ public class XmlReader {
     private HashMap<String, String> map;
     private String fileName;
     final String NODE_ID = "node_id";
-    final char DELIMINATOR = ',';
+    final char DELIMITER = ',';
 
     protected XmlReader(String fileName) {
         this.fileName = fileName;
@@ -77,12 +77,12 @@ public class XmlReader {
         //System.out.println(node_id);
 
         for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) != DELIMINATOR) {
+            if (str.charAt(i) != DELIMITER) {
                 if (str.charAt(i) != ' ')
                     strHold.append(str.charAt(i));
             }
 
-            if (i == str.length() - 1 || str.charAt(i) == DELIMINATOR) {
+            if (i == str.length() - 1 || str.charAt(i) == DELIMITER) {
                 nodeStack.push(String.valueOf(strHold));
                 strHold.delete(0, strHold.length());//clear the temporary str buffer
             }

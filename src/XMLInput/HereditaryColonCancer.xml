@@ -86,67 +86,71 @@
         ]>
 <gail>
     <ui>
-        <question quest="q1" node_id="">Give one argument for hypothesis that PP does not have HNPCC.</question>
-        <question quest="q2" node_id="">Give one argument for hypothesis that PP will not develop colon cancer.
+        <question quest="q1" node_id="1">Give one argument for hypothesis that PP does not have HNPCC.</question>
+        <question quest="q2" node_id="6">Give one argument for hypothesis that PP will not develop colon cancer.
         </question>
-        <question quest="q3" node_id="">Give one argument for hypothesis that PP's child does not have HNPCC.</question>
-        <question quest="q4" node_id="">Give one argument for hypothesis that PP's father had HNPCC.</question>
-        <question quest="q5" node_id="">Give one argument for hypothesis that PP's mother does not have HNPCC.
+        <question quest="q3" node_id="3">Give one argument for hypothesis that PP's child does not have HNPCC.</question>
+        <question quest="q4" node_id="4">Give one argument for hypothesis that PP's father had HNPCC.</question>
+        <question quest="q5" node_id="5">Give one argument for hypothesis that PP's mother does not have HNPCC.
         </question>
-        <hypothesis hypo="h1" node_id="">PP has HNPCC.</hypothesis>
-        <hypothesis hypo="h2" node_id="">PP does not have HNPCC (has no mutation of MLH1).</hypothesis>
-        <hypothesis hypo="h3" node_id="">PP's brother has HNPCC (one mutation of MLH1).</hypothesis>
-        <hypothesis hypo="h4" node_id="">PP's brother does not have HNPCC (has no mutation of MLH1).</hypothesis>
-        <hypothesis hypo="h5" node_id="">PP's father has HNPCC (one mutation of MLH1).</hypothesis>
-        <hypothesis hypo="h6" node_id="">PP's father does not have HNPCC (has no mutation of MLH1).</hypothesis>
-        <hypothesis hypo="h7" node_id="">PP will develop colon cancer.</hypothesis>
-        <hypothesis hypo="h8" node_id="">PP will not develop colon cancer.</hypothesis>
-        <hypothesis hypo="h9" node_id="">PP's child has HNPCC (one mutation of MLH1).</hypothesis>
-        <hypothesis hypo="h10" node_id="">PP's child does nota have HNPCC (has no mutation of MLH1.)</hypothesis>
-        <data datum="d1" node_id="">PP is a 40 year old male that does not have colon cancer.</data>
-        <data datum="d2" node_id="">PP's deceased father had colon cancer.</data>
-        <data datum="d3" node_id="">PP's deceased mother did not have colon cancer.</data>
-        <data datum="d4" node_id="">PP's brother has cancer.</data>
-        <data datum="d5" node_id="">PP's brother's test result is positive (one mutation of MLH1.</data>
-        <data datum="d6" node_id="">PP's test result is negative (no mutation of MLH1).</data>
-        <generalizations gen="g1" node_id="">HNPCC is an autosomal dominant condition in which one copy of the MLH1 is
+        <!--node_id 100 is false information and node_id 200 is unknown-->
+        <hypothesis hypo="h1" node_id="100">PP has HNPCC.</hypothesis>
+        <hypothesis hypo="h2" node_id="1">PP does not have HNPCC (has no mutation of MLH1).</hypothesis>
+        <hypothesis hypo="h3" node_id="2">PP's brother has HNPCC (one mutation of MLH1).</hypothesis>
+        <hypothesis hypo="h4" node_id="100">PP's brother does not have HNPCC (has no mutation of MLH1).</hypothesis>
+        <hypothesis hypo="h5" node_id="4">PP's father has HNPCC (one mutation of MLH1).</hypothesis>
+        <hypothesis hypo="h6" node_id="100">PP's father does not have HNPCC (has no mutation of MLH1).</hypothesis>
+        <hypothesis hypo="h7" node_id="100">PP will develop colon cancer.</hypothesis>
+        <hypothesis hypo="h8" node_id="6">PP will not develop colon cancer.</hypothesis>
+        <hypothesis hypo="h9" node_id="100">PP's child has HNPCC (one mutation of MLH1).</hypothesis>
+        <hypothesis hypo="h10" node_id="3">PP's child does not have HNPCC (has no mutation of MLH1.)</hypothesis>
+        <hypothesis hypo="h11" node_id="7">NEW: PP's brother's has abnormal HNPCC protein</hypothesis>
+        <data datum="d1" node_id="11">PP is a 40 year old male that does not have colon cancer.</data>
+        <data datum="d2" node_id="9">PP's deceased father had colon cancer.</data>
+        <data datum="d3" node_id="10">PP's deceased mother did not have colon cancer.</data>
+        <data datum="d4" node_id="12">PP's brother has cancer.</data>
+        <data datum="d5" node_id="12">PP's brother's test result is positive (one mutation of MLH1).</data>
+        <data datum="d6" node_id="11">PP's test result is negative (no mutation of MLH1).</data>
+        <data datum="d7" node_id="8">NEW: PP's child may not have HNPCC</data>
+        <generalizations gen="g1" node_id="I1, I2, I3, I4, I7">HNPCC is an autosomal dominant condition in which one copy of the MLH1 is
             mutated.
         </generalizations>
-        <generalizations gen="g2" node_id="">Having one mutated copy of MLH1 greatly increases the lifetime risk of
+        <generalizations gen="g2" node_id="S1, S2, S3">Having one mutated copy of MLH1 greatly increases the lifetime risk of
             colon cancer.
         </generalizations>
+        <generalizations gen="g3" node_id="I5, I6">NEW: INSERT generalization regarding test result</generalizations>
     </ui>
     <genie>
         <KB_Node>
             <person person_id="1">
                 <person_name>PP</person_name>
-                <gender>Male</gender>
+                <gender>M</gender>
                 <age>40</age>
-                <family></family>
+                <family> </family>
             </person>
             <person person_id="2">
                 <person_name>PP_brother</person_name>
-                <gender>Male</gender>
-                <age></age>
-                <family></family>
+                <gender>M</gender>
+                <age>55</age>
+                <family> </family>
             </person>
             <person person_id="3">
                 <person_name>PP_child</person_name>
-                <gender></gender>
-                <age></age>
-                <family></family>
+                <gender>M</gender>
+                <age>12</age>
+                <family> </family>
             </person>
             <person person_id="4">
                 <person_name>PP_father</person_name>
-                <gender>Male</gender>
-                <age></age>
-                <family></family>
+                <gender>M</gender>
+                <age>80</age>
+                <family> </family>
             </person>
             <person person_id="5">
                 <person_name>PP_mother</person_name>
-                <gender></gender>
-                <age></age>
-                <family></family>
+                <gender>M</gender>
+                <age>79</age>
+                <family> </family>
             </person>
             <genotype node_id="1" person_id="1" certainty="">
                 <gene_id>FLAG</gene_id>

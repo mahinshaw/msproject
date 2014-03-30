@@ -39,7 +39,7 @@ public class ArgGenWriter {
      * This method builds the argument from ArgBuilder. Arguments are called from ArgBuilder
      * based on the selected question.
      */
-    public ArrayList<ArgumentTree> addArgument() {
+    public ArrayList<ArgumentTree> getArgument() {
         ArrayList<ArgumentTree> treeList = new ArrayList<ArgumentTree>();
         int argNo = 1;
 
