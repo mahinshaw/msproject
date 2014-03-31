@@ -48,7 +48,13 @@ public class ComparatorTree {
     }
 
     public ComparatorTree addSubTree(ArgumentTree user, ArgumentTree gen, ComparatorTree parent){
-        ComparatorTree comparatorTree = new ComparatorTree(new ComparatorObject(user.getRoot(), gen.getRoot()), parent, parent.getArgIndex());
+        ComparatorTree comparatorTree;
+        if (gen == null)
+            comparatorTree = new ComparatorTree(new ComparatorObject(user.getRoot(), null), parent, parent.getArgIndex());
+        else if (user == null)
+            comparatorTree = new ComparatorTree(new ComparatorObject(null, gen.getRoot()), parent, parent.getArgIndex());
+        else
+            comparatorTree = new ComparatorTree(new ComparatorObject(user.getRoot(), gen.getRoot()), parent, parent.getArgIndex());
         parent.addChild(comparatorTree);
         return comparatorTree;
     }
