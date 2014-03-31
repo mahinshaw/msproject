@@ -62,7 +62,7 @@ public class ArgDriver {
         //treeList.add(tree1);
         treeList.add(tree2);
 
-        XMLWriter writer = new XMLWriter();
+        ArgumentStructureXMLWriter writer = new ArgumentStructureXMLWriter();
         writer.writeXML(treeList, "This question is a test.", "ArgDriverTest");
     }
 }

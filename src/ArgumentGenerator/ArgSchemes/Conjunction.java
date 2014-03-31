@@ -4,8 +4,8 @@ import ArgumentGenerator.ArgLibrary.ArgInfo;
 import ArgumentGenerator.ArgLibrary.Stack;
 import ArgumentStructure.ArgumentFactory;
 import ArgumentStructure.ArgumentObject;
+import ArgumentStructure.ArgumentStructureXMLWriter;
 import ArgumentStructure.ArgumentTree;
-import ArgumentStructure.XMLWriter;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
 
@@ -100,7 +100,7 @@ public class Conjunction {
                 }
             }
             stack.pop();
-            XMLWriter writer = new XMLWriter();
+            ArgumentStructureXMLWriter writer = new ArgumentStructureXMLWriter();
             writer.writeXML(treeList, question, fileName);//write the final tree
         }
         return treeList;

@@ -21,6 +21,7 @@ import ArgumentComparator.ComparatorHub;
 import ArgumentComparator.ComparatorTree;
 import ArgumentComparator.ComparatorXMLWriter;
 import ArgumentGenerator.ArgGenerator.ArgGen;
+import ArgumentStructure.ArgumentStructureXMLWriter;
 import ArgumentStructure.GraphBuilder;
 import GAIL.src.frame.*;
 import GAIL.src.frame.MenuBar;
@@ -317,7 +318,7 @@ public class ApplicationController implements MouseListener, ActionListener {
             mgmList.add(m);
         }
         GraphBuilder gb = new GraphBuilder(statementController, edgeController, conjunctionController, mgmList);
-        ArgumentStructure.XMLWriter xmlWriter = new ArgumentStructure.XMLWriter();
+        ArgumentStructureXMLWriter xmlWriter = new ArgumentStructureXMLWriter();
 
         /**
          * Parameters for ArgGen - the node ID for the current question and the text associated with that node

@@ -153,7 +153,7 @@ public class ComparatorXMLWriter {
             gText.appendChild(document.createTextNode("Missing"));
             gCorrect.appendChild(document.createTextNode("False"));
         }
-        else {
+        else if(!tree.getUser().getGeneralizations().isEmpty()){
             gArc.appendChild(document.createTextNode("Arc " + tree.getUser().getGeneralizations().get(0).getKBARCID()));
             gText.appendChild(document.createTextNode(tree.getUser().getGeneralizations().get(0).getTEXT()));
             gCorrect.appendChild(document.createTextNode(Boolean.toString(tree.getRoot().compareGeneralization())));
@@ -162,7 +162,7 @@ public class ComparatorXMLWriter {
             gCorrectNode.appendChild(document.createTextNode("Not needed"));
             gCorrectText.appendChild(document.createTextNode("Not needed"));
         }
-        else {
+        else if(!tree.getGen().getGeneralizations().isEmpty()) {
             gCorrectNode.appendChild(document.createTextNode("Arc " + tree.getGen().getGeneralizations().get(0).getKBARCID()));
             gCorrectText.appendChild(document.createTextNode(tree.getGen().getGeneralizations().get(0).getTEXT()));
         }

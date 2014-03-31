@@ -24,7 +24,7 @@ import java.util.Date;
  * <p/>
  * This class handles writitng xml documents based upon the Argument Tree.
  */
-public class XMLWriter {
+public class ArgumentStructureXMLWriter {
     /**
      *
      * @param trees    argument tree

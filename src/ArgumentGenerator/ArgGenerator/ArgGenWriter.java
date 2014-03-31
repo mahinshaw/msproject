@@ -3,13 +3,12 @@ package ArgumentGenerator.ArgGenerator;
 import ArgumentGenerator.ArgLibrary.ArgInfo;
 import ArgumentStructure.ArgumentFactory;
 import ArgumentStructure.ArgumentObject;
+import ArgumentStructure.ArgumentStructureXMLWriter;
 import ArgumentStructure.ArgumentTree;
-import ArgumentStructure.XMLWriter;
 import KB.KB_Arc.KB_Arc;
 import KB.KB_Node.KB_Node;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -54,7 +53,7 @@ public class ArgGenWriter {
                 argNo++;
             }
 
-            XMLWriter writer = new XMLWriter();
+            ArgumentStructureXMLWriter writer = new ArgumentStructureXMLWriter();
             writer.writeXML(treeList, question, fileName);
         } else {
             System.out.println("\nEmpty pathList: No arguments generated ~ ArgumentGenerator.java");
