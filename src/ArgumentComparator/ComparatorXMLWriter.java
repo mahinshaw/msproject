@@ -167,10 +167,11 @@ public class ComparatorXMLWriter {
             gCorrectText.appendChild(document.createTextNode(tree.getGen().getGeneralizations().get(0).getTEXT()));
         }
 
-
-        generalization.appendChild(gCorrect);
-        generalization.appendChild(gArc);
-        generalization.appendChild(gText);
+        if (tree.getUser() != null && !tree.getUser().getGeneralizations().isEmpty()) {
+            generalization.appendChild(gCorrect);
+            generalization.appendChild(gArc);
+            generalization.appendChild(gText);
+        }
         if (tree.getUser() == null || !tree.getRoot().compareGeneralization()){
             generalization.appendChild(gCorrectNode);
             generalization.appendChild(gCorrectText);
