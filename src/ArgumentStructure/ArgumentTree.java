@@ -4,14 +4,8 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 /**
- * User: Mark Hinshaw
- * Email: mahinshaw@gmail.com
- * Date: 8/2/13
- * github: https://github.com/mahinshaw/msproject
- *
- * This tree structure is binary and unsorted.  There is no need to sort the tree, as it may intentionally be
+ * This tree structure is unsorted.  There is no need to sort the tree, as it may intentionally be
  * unbalanced.  The tree is used to store arguments from both GAIL and the Argument Generator.
- *
  */
 public class ArgumentTree {
     private ArgumentObject root;
@@ -19,10 +13,6 @@ public class ArgumentTree {
     private int level;
     private ArgumentTree parent;
 
-    /**
-     * These fields will be used for navigating large trees; ie. search and insertion
-     * @param head - this is a reference to the uppermost root.
-     */
     private ArgumentTree head;
     private ArgumentTree current;
 
@@ -51,31 +41,31 @@ public class ArgumentTree {
         this.level = this.parent.getLevel() + 1;
     }
 
+    /**
+     * Get the ArgumentObject at the root of this tree.
+     * @return
+     */
     public ArgumentObject getRoot(){
         return this.root;
     }
 
+    /**
+     * Get the level of the tree.
+     * @return - the level of the tree.
+     */
     public int getLevel(){
         return this.level;
     }
 
+    /**
+     * Return the list of children.
+     * @return - the list of children.
+     */
     public LinkedList<ArgumentTree> getChildren() { return this.children; }
 
     /**
-     * This method returns whether or not there is a tree in the left child.
-     * @return - boolean: true if has, false if has not.
-     */
-    public boolean hasLeftmostChild(){
-        if (this.children.peek() == null){
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-
-    /**
-     * Are there any children for this tree.
+     * Returns true if this tree has children.
+     * @return - true if this tree has children.
      */
     public boolean hasChildren(){
         return !children.isEmpty();
@@ -87,10 +77,6 @@ public class ArgumentTree {
      */
     private void addChild(ArgumentTree child) { this.children.add(child); }
 
-    private void setParent(ArgumentTree tree){
-        this.parent = tree;
-    }
-
     /**
      * This method checks to see if the child tree exists in the list of trees
      * @param child - child to check
@@ -98,14 +84,6 @@ public class ArgumentTree {
      */
     public boolean hasChild(ArgumentTree child){
         return children.contains(child);
-    }
-
-    public ArgumentTree getChild(ArgumentTree child){
-        if(hasChild(child)){
-            int index = this.children.indexOf(child);
-            return this.children.get(index);
-        }
-        return null;
     }
 
     /**
@@ -126,8 +104,8 @@ public class ArgumentTree {
      * an existing tree, then call a different method.  Else you will have a new tree with a null parent, creating a
      * tree root.  This method is also the only way to set the head of the tree.
      *
-     * @param argumentObject
-     * @return
+     * @param argumentObject - root Argument for the tree.
+     * @return - new ArgumentTree.
      */
     public static ArgumentTree createArgumentTree(ArgumentObject argumentObject){
         return new ArgumentTree(argumentObject);

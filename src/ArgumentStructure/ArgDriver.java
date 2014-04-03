@@ -3,10 +3,8 @@ package ArgumentStructure;
 import java.util.ArrayList;
 
 /**
- * User: Mark Hinshaw
- * Email: mahinshaw@gmail.com
- * Date: 8/2/13
- * github: https://github.com/mahinshaw/msproject
+ * This is a simple Test Driver for the ArgumentStructure.
+ *
  */
 public class ArgDriver {
 

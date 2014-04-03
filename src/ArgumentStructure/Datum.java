@@ -1,10 +1,7 @@
 package ArgumentStructure;
 
 /**
- * User: Mark Hinshaw
- * Email: mahinshaw@gmail.com
- * Date: 8/28/13
- * github: https://github.com/mahinshaw/msproject
+ * This class is a Datum object to be contained within the ArgumentObject.
  */
 public class Datum {
     private final boolean isConjunction;
@@ -13,49 +10,61 @@ public class Datum {
     private final char TYPE = 'D';
 
     /**
-     * This constructor is used to create a conjunction datum.
-     * This type of datum will be used to denote the availability of multiple children.
+     * Construct a Datum that is a conjuntion if true, and empty if false.
+     * @param isConjunction - true if Datum will be a conjunction.
      */
-    public Datum(){
-        this.isConjunction = false;
-        this.KBNODEID = "";
-        this.TEXT = "";
-    }
-    public Datum(boolean isConjunction){
+   public Datum(boolean isConjunction){
         this.isConjunction = isConjunction;
         this.KBNODEID = "";
         this.TEXT = "";
     }
 
+    /**
+     * Construct a Datum.
+     * @param kbNodeID - node ID from knowledge base.
+     * @param text - Datum text.
+     */
     public Datum(String kbNodeID, String text){
         this.isConjunction = false;
         this.KBNODEID = kbNodeID;
         this.TEXT = text;
     }
 
+    /**
+     * Returns if Datum is a conjunction.
+     * @return - true if Datum is a conjunction.
+     */
     public boolean isConjunction() { return isConjunction; }
 
+    /**
+     * Returns true if Datum is empty.
+     * @return - true if Datum is empty.
+     */
     public boolean isEmptyDatum() {
-        if (isConjunction)
-            return false;
-        else if (getKBNODEID() == null && getTEXT() == null)
-            return true;
-        else
-            return false;
+        return !isConjunction && (getKBNODEID() == "" && getTEXT() == "");
     }
 
+    /**
+     * Return node ID.
+     * @return - node ID.
+     */
     public String getKBNODEID() {
         return KBNODEID;
     }
 
+    /**
+     * Return Datum text.
+     * @return - text
+     */
     public String getTEXT() {
         return TEXT;
     }
 
-    public char getTYPE() {
-        return TYPE;
-    }
-
+    /**
+     * Compare datum with other datum.
+     * @param other - Datum to compare with.
+     * @return - true if Datum are equal.
+     */
     public boolean equals(Datum other){
         return this.isConjunction() && other.isConjunction() || this.getKBNODEID().equals(other.getKBNODEID());
     }

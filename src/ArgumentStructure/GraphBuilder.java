@@ -10,15 +10,10 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 /**
- * User: Mark Hinshaw
- * Email: mahinshaw@gmail.com
- * Date: 10/10/13
- * github: https://github.com/mahinshaw/msproject
- *
  * This class was implemented with the desire to not have to modify the core GAIL code.  Because of this it has
  * inherent inefficiencies.
  *
- * The purpose of this method is to load the unstructured objects created by the gui into a graph structure.
+ * The purpose of this class is to load the unstructured objects created by the gui into a graph structure.
  * This will allow for differentiation in the case where there are multiple chained arguments created within GAIL.
  * This also supports loading into the Argument Structure.
  */
@@ -45,6 +40,15 @@ public class GraphBuilder {
     private ArgumentTree tree;
     private ArgumentFactory factory;
 
+    /**
+     * Constructs a graphBuilder. The constructor will call the necessary methods to create the trees.
+     * After calling the constructor, simply call the getArgumentTrees() method to return to built trees.
+     *
+     * @param statementController - statementController from GAIL.
+     * @param edgeController - edgeController from GAIL.
+     * @param conjunctionController - conjunctionController from GAIl.
+     * @param multiGeneralizations - MultiGeneralizations from GAIL.
+     */
     public GraphBuilder(StatementController statementController,
                         EdgeController edgeController,
                         ConjunctionController conjunctionController,
@@ -68,18 +72,25 @@ public class GraphBuilder {
     }
 
     /**
-     * WHAT TO DO - Need to find the hypothesis with only one edge connecting it.  if it is a data statement, or a
-     * generalization, then it cannot be the head. First thing would be to sort the statements.
+     * Add Statement to list of heads.
+     * @param head - statement to add.
      */
-
     private void addHead(Statement head) {
         this.heads.push(head);
     }
 
+    /**
+     * get the Argument trees created by the GraphBuilder.
+     * @return
+     */
     public ArrayList<ArgumentTree> getArgumentTrees() {
         return argumentTrees;
     }
 
+    /**
+     * Sorts the types of Statements into lists.
+     * @param statements - statement from GAIL.
+     */
     private void findTypes(ArrayList<Statement> statements) {
         for (Statement statement : statements) {
             if (statement.getType() == Statement.StatementType.HYPOTHESIS) {
@@ -93,7 +104,7 @@ public class GraphBuilder {
     }
 
     /**
-     * This method builds an adjacency map
+     * This method builds an adjacency map of components passed from GAIL.
      */
     private void buildAdjacencyMap() {
         for (Statement hypothesis : hypotheses) {
@@ -142,6 +153,7 @@ public class GraphBuilder {
 
     /**
      * This method will look at each head, traverse it's edges and load the argument trees.
+     * Calls the treeBuilder method to finish loading the tree.
      */
     private void loadTrees() {
         ArgumentObject parent = null;
@@ -232,7 +244,7 @@ public class GraphBuilder {
      *
      * @param current - The node that is currently being searched.
      * @param edges   - The list of edges attached to the current node.
-     * @return
+     * @return - next node.
      */
     private Node getNextNode(Node current, LinkedList<Edge> edges) {
         Node next = null;
@@ -296,7 +308,7 @@ public class GraphBuilder {
      *
      * @param next   - the next node (Statement) to look at.
      * @param parent - The parent ArgumentObject.
-     * @return
+     * @return - ArumentTree.
      */
     private ArgumentTree treeBuilder(Node next, ArgumentObject parent) {
         Node current = next;
@@ -371,10 +383,9 @@ public class GraphBuilder {
 
     /**
      * This method cleans edges that may have already been used by previous node.
-     *
-     * @param current
-     * @param next
-     * @return
+     * Avoids the possibility of duplicates.
+     * @param current - current node.
+     * @param next - next node in line.
      */
     private void cleanEdges(Node current, Node next) {
         LinkedList<Edge> edges = new LinkedList<Edge>();
@@ -403,6 +414,11 @@ public class GraphBuilder {
         }
     }
 
+    /**
+     * Remove an edge from a node.
+     * @param n - node
+     * @param e - edge to remove.
+     */
     private void removeEdge(Node n, Edge e) {
         LinkedList<Edge> edges = adjacencyMap.get(n);
         edges.remove(e);

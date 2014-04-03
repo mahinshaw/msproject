@@ -1,6 +1,5 @@
 package ArgumentStructure;
 
-import GAIL.src.model.Argument;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,21 +16,16 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * User: Mark Hinshaw
- * Email: mahinshaw@gmail.com
- * Date: 8/6/13
- * github: https://github.com/mahinshaw/msproject
- * <p/>
- * This class handles writitng xml documents based upon the Argument Tree.
+ * This class handles writing xml documents based upon the ArgumentTree class.
  */
 public class ArgumentStructureXMLWriter {
+
     /**
-     *
+     * Write an XML file with a name format of fileName_date_time.xml
      * @param trees    argument tree
      * @param q   The current question
      * @param fileName The name of the calling class, which will be appended to the file name
      */
-
     public void writeXML(ArrayList<ArgumentTree> trees, String q, String fileName) {
         try {
             DocumentBuilderFactory docFac = DocumentBuilderFactory.newInstance();
@@ -142,9 +136,8 @@ public class ArgumentStructureXMLWriter {
     }
 
     /**
-     * This method was reused from the GAIL src code.
-     *
-     * @return - A timestamp that signifies the individual xml file.
+     * This method gets a timestamp for the naming.
+     * @return - A timestamp.
      */
     private String getTimeStamp() {
         Calendar ca = Calendar.getInstance();
