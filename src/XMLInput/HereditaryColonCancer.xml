@@ -105,6 +105,7 @@
         <hypothesis hypo="h9" node_id="100">PP's child has HNPCC (one mutation of MLH1).</hypothesis>
         <hypothesis hypo="h10" node_id="3">PP's child does not have HNPCC (has no mutation of MLH1.)</hypothesis>
         <hypothesis hypo="h11" node_id="7">NEW: PP's brother's has abnormal HNPCC protein</hypothesis>
+        <hypothesis hypo="h12" node_id="5">NEW: PP's mother does not have HNPCC</hypothesis>
         <data datum="d1" node_id="11">PP is a 40 year old male that does not have colon cancer.</data>
         <data datum="d2" node_id="9">PP's deceased father had colon cancer.</data>
         <data datum="d3" node_id="10">PP's deceased mother did not have colon cancer.</data>
