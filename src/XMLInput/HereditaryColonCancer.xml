@@ -101,25 +101,21 @@
         <hypothesis hypo="h5" node_id="4">PP's father has HNPCC (one mutation of MLH1).</hypothesis>
         <hypothesis hypo="h6" node_id="100">PP's father does not have HNPCC (has no mutation of MLH1).</hypothesis>
         <hypothesis hypo="h7" node_id="100">PP will develop colon cancer.</hypothesis>
-        <hypothesis hypo="h8" node_id="6">PP will not develop colon cancer.</hypothesis>
+        <hypothesis hypo="h8" node_id="100">PP will not develop colon cancer.</hypothesis>
         <hypothesis hypo="h9" node_id="100">PP's child has HNPCC (one mutation of MLH1).</hypothesis>
         <hypothesis hypo="h10" node_id="3">PP's child does not have HNPCC (has no mutation of MLH1.)</hypothesis>
-        <hypothesis hypo="h11" node_id="7">NEW: PP's brother's has abnormal HNPCC protein</hypothesis>
         <hypothesis hypo="h12" node_id="5">NEW: PP's mother does not have HNPCC</hypothesis>
-        <data datum="d1" node_id="11">PP is a 40 year old male that does not have colon cancer.</data>
+        <data datum="d1" node_id="6">PP is a 40 year old male that does not have colon cancer.</data>
         <data datum="d2" node_id="9">PP's deceased father had colon cancer.</data>
         <data datum="d3" node_id="10">PP's deceased mother did not have colon cancer.</data>
-        <data datum="d4" node_id="12">PP's brother has cancer.</data>
+        <data datum="d4" node_id="7">PP's brother has colon cancer.</data>
         <data datum="d5" node_id="12">PP's brother's test result is positive (one mutation of MLH1).</data>
         <data datum="d6" node_id="11">PP's test result is negative (no mutation of MLH1).</data>
         <data datum="d7" node_id="8">NEW: PP's child may not have HNPCC</data>
         <generalizations gen="g1" node_id="I1, I2, I3, I4, I7">HNPCC is an autosomal dominant condition in which one copy of the MLH1 is
-            mutated.
-        </generalizations>
-        <generalizations gen="g2" node_id="S1, S2, S3">Having one mutated copy of MLH1 greatly increases the lifetime risk of
-            colon cancer.
-        </generalizations>
-        <generalizations gen="g3" node_id="I5, I6">NEW: INSERT generalization regarding test result</generalizations>
+            mutated. Having HNPCC increases the lifetime risk of colon cancer.</generalizations>
+        <generalizations gen="g2" node_id="I5, I6">Having one mutated copy of MLH1 gene is indicated by a positive gene test for MLH1 mutations</generalizations>
+        <generalizations gen="g3" node_id="S1, S2, S3">A child inherits one copy of a gene from each parent.</generalizations>
     </ui>
     <genie>
         <KB_Node>
@@ -151,6 +147,12 @@
                 <person_name>PP_mother</person_name>
                 <gender>M</gender>
                 <age>79</age>
+                <family> </family>
+            </person>
+            <person person_id="6">
+                <person_name>PP_wife</person_name>
+                <gender>F</gender>
+                <age>37</age>
                 <family> </family>
             </person>
             <genotype node_id="1" person_id="1" certainty="">
@@ -193,36 +195,44 @@
                 <disease>Hereditary Colon Cancer</disease>
                 <cell>FLAG</cell>
             </genotype>
-            <biochemistry node_id="6" person_id="1" certainty="">
-                <protein_id>FLAG</protein_id>
-                <protein_name>MLH1</protein_name>
-                <bioAbnormal>false</bioAbnormal>
-                <quantity>normal</quantity>
-            </biochemistry>
-            <biochemistry node_id="7" person_id="2" certainty="">
-                <protein_id>FLAG</protein_id>
-                <protein_name>MLH1</protein_name>
-                <bioAbnormal>true</bioAbnormal>
-                <quantity>normal</quantity>
-            </biochemistry>
-            <biochemistry node_id="8" person_id="3" certainty="">
-                <protein_id>FLAG</protein_id>
-                <protein_name>MLH1</protein_name>
-                <bioAbnormal>possible</bioAbnormal>
-                <quantity>normal</quantity>
-            </biochemistry>
-            <biochemistry node_id="9" person_id="4" certainty="">
-                <protein_id>FLAG</protein_id>
-                <protein_name>MLH1</protein_name>
-                <bioAbnormal>true</bioAbnormal>
-                <quantity>normal</quantity>
-            </biochemistry>
-            <biochemistry node_id="10" person_id="5" certainty="">
-                <protein_id>FLAG</protein_id>
-                <protein_name>MLH1</protein_name>
-                <bioAbnormal>false</bioAbnormal>
-                <quantity>normal</quantity>
-            </biochemistry>
+            <genotype node_id="13" person_id="6" certainty="">
+                <gene_id>FLAG</gene_id>
+                <gene_name>MLH1</gene_name>
+                <mutated>0</mutated>
+                <autosomal_type>dominant</autosomal_type>
+                <disease>Hereditary Colon Cancer</disease>
+                <cell>FLAG</cell>
+            </genotype>
+            <symptom node_id="6" person_id="1" certainty="">
+                <symptom_id>FLAG</symptom_id>
+                <symptom_name>Colon Cancer</symptom_name>
+                <degree>absent</degree>
+                <symAbnormal>false</symAbnormal>
+            </symptom>
+            <symptom node_id="7" person_id="2" certainty="">
+                <symptom_id>FLAG</symptom_id>
+                <symptom_name>Colon Cancer</symptom_name>
+                <degree>severe</degree>
+                <symAbnormal>true</symAbnormal>
+            </symptom>
+            <symptom node_id="8" person_id="3" certainty="">
+                <symptom_id>FLAG</symptom_id>
+                <symptom_name>Colon Cancer</symptom_name>
+                <degree>absent</degree>
+                <symAbnormal>possible</symAbnormal>
+            </symptom>
+            <symptom node_id="9" person_id="4" certainty="">
+                <symptom_id>FLAG</symptom_id>
+                <symptom_name>Colon Cancer</symptom_name>
+                <degree>severe</degree>
+                <symAbnormal>true</symAbnormal>
+            </symptom>
+         <symptom node_id="10" person_id="5" certainty="">
+             <symptom_id>FLAG</symptom_id>
+             <symptom_name>Colon Cancer</symptom_name>
+             <degree>absent</degree>
+             <symAbnormal>false</symAbnormal>
+         </symptom>
             <test node_id="11" person_id="1">
                 <testName>FLAG</testName>
                 <testAbnormal>false</testAbnormal>
@@ -257,12 +267,12 @@
             </influence_arc>
             <influence_arc arc_id="I5">
                 <influence_type>+</influence_type>
-                <influence_parent>6</influence_parent>
+                <influence_parent>1</influence_parent>
                 <influence_child>11</influence_child>
             </influence_arc>
             <influence_arc arc_id="I6">
                 <influence_type>+</influence_type>
-                <influence_parent>7</influence_parent>
+                <influence_parent>2</influence_parent>
                 <influence_child>12</influence_child>
             </influence_arc>
             <influence_arc arc_id="I7">
