@@ -1,9 +1,8 @@
 package ArgumentComparator;
 
-import ArgumentStructure.ArgumentObject;
 import ArgumentStructure.ArgumentTree;
 import ArgumentStructure.Hypothesis;
-import GAIL.src.model.Argument;
+import sun.awt.image.ImageWatched;
 
 import java.util.*;
 import java.util.concurrent.Callable;
@@ -37,8 +36,8 @@ public class ArgumentComparator implements Callable {
      * @return - ComparatorTree based on finished comparison.
      */
     private ComparatorTree CompareArgumentTrees(){
-        ComparatorTree parentComparatorTree = null;
-        ArgumentTree currentUserTree = userTree, currentGeneratedTree = generatorTree;
+        ComparatorTree parentComparatorTree;
+        ArgumentTree currentUserTree, currentGeneratedTree;
         ArrayDeque<ArgumentTree> userQueue = new ArrayDeque<ArgumentTree>();
         ArrayDeque<ArgumentTree> genQueue = new ArrayDeque<ArgumentTree>();
         ArrayDeque<ComparatorTree> parentQueue = new ArrayDeque<ComparatorTree>();
@@ -54,16 +53,20 @@ public class ArgumentComparator implements Callable {
             // TODO: check into possible null value states.
             if (parentComparatorTree.getUser() != null)
                 currentUserTree = userTree.findArgumentObject(parentComparatorTree.getUser());
+            else
+                currentUserTree = null;
             if (parentComparatorTree.getGen() != null)
                 currentGeneratedTree = generatorTree.findArgumentObject(parentComparatorTree.getGen());
+            else
+                currentGeneratedTree = null;
 
-            if(currentUserTree.hasChildren())
+            if(currentUserTree != null && currentUserTree.hasChildren())
                 userQueue.addAll(currentUserTree.getChildren());
-            if(currentGeneratedTree.hasChildren())
+            if(currentGeneratedTree != null && currentGeneratedTree.hasChildren())
                 genQueue.addAll(currentGeneratedTree.getChildren());
 
             while (!userQueue.isEmpty() || !genQueue.isEmpty()) {
-                matchMap = mapLikeChildren(currentUserTree.getChildren(), currentGeneratedTree.getChildren());
+                matchMap = mapLikeChildren(currentUserTree, currentGeneratedTree);
 
                 for (ArgumentTree user : matchMap.keySet()) {
                     parentQueue.push(comparatorTree.addSubTree(user, matchMap.get(user), parentComparatorTree));
@@ -83,11 +86,16 @@ public class ArgumentComparator implements Callable {
         return comparatorTree;
     }
 
-    private static HashMap<ArgumentTree,ArgumentTree> mapLikeChildren(LinkedList<ArgumentTree> userArgs, LinkedList<ArgumentTree> genArgs){
-        if(userArgs == null)
-            return null;
-
+    private static HashMap<ArgumentTree,ArgumentTree> mapLikeChildren(ArgumentTree currentUserTree, ArgumentTree currentGenTree){
         HashMap<ArgumentTree, ArgumentTree> matchMap = new HashMap<ArgumentTree, ArgumentTree>();
+        if(currentUserTree == null)
+            return matchMap;
+        LinkedList<ArgumentTree> userArgs = currentUserTree.getChildren();
+        LinkedList<ArgumentTree> genArgs = new LinkedList<ArgumentTree>();
+        if (currentGenTree != null)
+            genArgs.addAll(currentGenTree.getChildren());
+
+
         for (ArgumentTree userArg : userArgs){
             matchMap.put(userArg, FindSimilarArgument(userArg, genArgs));
         }
