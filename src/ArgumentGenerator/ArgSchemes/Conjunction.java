@@ -116,6 +116,7 @@ public class Conjunction {
          *  First find NE2C (false) arguments, then E2C (true)
          */
         int argNo = 2;//the number of arguments, in this case, it's 2 (E2C + NE2C)
+        pro = ArgInfo.abnormalType.FALSE.getAbType();
         for (int i = 0; i < argNo; i++) {
             e2c = new E2C(node, pro);
             argFound = e2c.getPathList();
@@ -137,6 +138,7 @@ public class Conjunction {
         /**
          * Check for C2E
          */
+        pro = ArgInfo.abnormalType.POSSIBLE.getAbType();
         c2e = new C2E(node, pro);
         argFound = c2e.getPathList();
         if (!argFound.isEmpty())
