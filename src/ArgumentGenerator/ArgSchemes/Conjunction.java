@@ -139,10 +139,14 @@ public class Conjunction {
          * Check for C2E
          */
         pro = ArgInfo.abnormalType.POSSIBLE.getAbType();
-        c2e = new C2E(node, pro);
-        argFound = c2e.getPathList();
-        if (!argFound.isEmpty())
-            addArgTree(argFound);
+        for (int i = 0; i < argNo; i++) {
+            c2e = new C2E(node, pro);
+            argFound = c2e.getPathList();
+            if (!argFound.isEmpty()) {
+                addArgTree(argFound);
+            }
+            pro = ArgInfo.abnormalType.NOT_POSSIBLE.getAbType();
+        }
     }
 
     /**

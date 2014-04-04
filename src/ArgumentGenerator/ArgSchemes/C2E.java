@@ -116,10 +116,11 @@ public class C2E {
                         pathList.add(holdPathList);
                         holdPathList = new ArrayList<KB_Node>(path);
                     }
-                } else if (!pathList.contains(path))
-                    pathList.add(path);
+                }
+                argType = ArgInfo.abnormalType.TRUE.getAbType();//find E2C arguments
             }
-            argType = ArgInfo.abnormalType.TRUE.getAbType();//find E2C arguments
         }
+        if (testNode.getChildren().isEmpty())
+                pathList.add(path);
     }
 }
