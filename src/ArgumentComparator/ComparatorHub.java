@@ -1,19 +1,12 @@
 package ArgumentComparator;
 
 import ArgumentStructure.ArgumentTree;
-import GAIL.src.model.Argument;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.*;
 
 /**
- * User: Mark Hinshaw
- * Email: mahinshaw@gmail.com
- * Date: 3/26/14
- * github: https://github.com/mahinshaw/msproject
- *
  * This class handles communications between the user interface, the Argument Generator, and the Argument Comparator.
  */
 public class ComparatorHub {
@@ -21,11 +14,11 @@ public class ComparatorHub {
     private int num_threads;
 
     public ComparatorHub(){
-        num_threads = Runtime.getRuntime().availableProcessors();
+        num_threads = 1;//Runtime.getRuntime().availableProcessors();
         executor = Executors.newFixedThreadPool(num_threads);
     }
 
-    private ComparatorTree performComparison(ArgumentTree userTree,  List<ArgumentTree> generatorTrees){
+    private List<ComparatorTree> performComparison(ArgumentTree userTree,  List<ArgumentTree> generatorTrees){
         int indexCounter = 1;
         List<Future<ComparatorTree>> futureComparatorTrees = new ArrayList<Future<ComparatorTree>>();
         List<ComparatorTree> comparatorTrees = new ArrayList<ComparatorTree>();
@@ -47,13 +40,13 @@ public class ComparatorHub {
             }
         }
 
-        return treeWithBestAccuracy(comparatorTrees);
+        return comparatorTrees;
     }
 
     public List<ComparatorTree> getBestAnswers(List<ArgumentTree> userTrees, List<ArgumentTree> generatorTrees){
         List<ComparatorTree> bestAnswers = new ArrayList<ComparatorTree>();
         for (ArgumentTree userTree : userTrees){
-            bestAnswers.add(performComparison(userTree, generatorTrees));
+            bestAnswers.addAll(performComparison(userTree, generatorTrees));
         }
         return bestAnswers;
     }
