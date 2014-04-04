@@ -12,7 +12,6 @@ import java.util.HashMap;
 
 /**
  * ArgGen.java proceeds with the generation of the arguments made from KB.
- * <p/>
  * User: Tshering Tobgay
  * Date: 1/5/14
  */

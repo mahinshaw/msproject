@@ -334,6 +334,7 @@
                 <influence_parent>15</influence_parent>
                 <influence_child>10</influence_child>
             </influence_arc>
+            <!--NEW Nodes added
             <influence_arc arc_id="I5">
                 <influence_type>+</influence_type>
                 <influence_parent>4</influence_parent>
@@ -344,6 +345,7 @@
                 <influence_parent>1</influence_parent>
                 <influence_child>17</influence_child>
             </influence_arc>
+            -->
             <influence_arc arc_id="%1">
                 <influence_type>%</influence_type>
                 <influence_parent>1</influence_parent>
@@ -384,7 +386,6 @@
                 <influence_parent>16</influence_parent>
                 <influence_child>13</influence_child>
             </influence_arc>
-            <!--NEW Nodes added-->
             <influence_arc arc_id="I15">
                 <influence_type>+</influence_type>
                 <influence_parent>17</influence_parent>
