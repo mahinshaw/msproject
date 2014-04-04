@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -29,17 +30,14 @@ public class XmlReader {
 
     protected void readFile() {
         try {
-
             File xmlFile = new File(fileName);
             DocumentBuilderFactory fac = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = fac.newDocumentBuilder();
             Document doc = builder.parse(xmlFile);
-
             doc.getDocumentElement().normalize();
 
-            NodeList list = doc.getElementsByTagName("question");
-
-            setMap(list);
+           // NodeList list = doc.getElementsByTagName("question");
+            //setMap(list);
 
             NodeList list2 = doc.getElementsByTagName("hypothesis");
             setMap(list2);

@@ -87,9 +87,10 @@
 <gail>
     <ui>
         <question quest="q1" node_id="1">Give one argument for hypothesis that PP does not have HNPCC.</question>
-        <question quest="q2" node_id="6">Give one argument for hypothesis that PP will not develop colon cancer.
+        <question quest="q2" node_id="1">Give one argument for hypothesis that PP will not develop colon cancer.
         </question>
-        <question quest="q3" node_id="3">Give one argument for hypothesis that PP's child does not have HNPCC.</question>
+        <question quest="q3" node_id="3">Give one argument for hypothesis that PP's child does not have HNPCC.
+        </question>
         <question quest="q4" node_id="4">Give one argument for hypothesis that PP's father had HNPCC.</question>
         <question quest="q5" node_id="5">Give one argument for hypothesis that PP's mother does not have HNPCC.
         </question>
@@ -101,7 +102,7 @@
         <hypothesis hypo="h5" node_id="4">PP's father has HNPCC (one mutation of MLH1).</hypothesis>
         <hypothesis hypo="h6" node_id="100">PP's father does not have HNPCC (has no mutation of MLH1).</hypothesis>
         <hypothesis hypo="h7" node_id="100">PP will develop colon cancer.</hypothesis>
-        <hypothesis hypo="h8" node_id="100">PP will not develop colon cancer.</hypothesis>
+        <hypothesis hypo="h8" node_id="14">PP will not develop colon cancer.</hypothesis>
         <hypothesis hypo="h9" node_id="100">PP's child has HNPCC (one mutation of MLH1).</hypothesis>
         <hypothesis hypo="h10" node_id="3">PP's child does not have HNPCC (has no mutation of MLH1.)</hypothesis>
         <hypothesis hypo="h12" node_id="5">NEW: PP's mother does not have HNPCC</hypothesis>
@@ -112,10 +113,12 @@
         <data datum="d5" node_id="12">PP's brother's test result is positive (one mutation of MLH1).</data>
         <data datum="d6" node_id="11">PP's test result is negative (no mutation of MLH1).</data>
         <data datum="d7" node_id="8">NEW: PP's child may not have HNPCC</data>
-        <generalizations gen="g1" node_id="I1, I2, I3, I4, I7">HNPCC is an autosomal dominant condition in which one copy of the MLH1 is
-            mutated. Having HNPCC increases the lifetime risk of colon cancer.</generalizations>
-        <generalizations gen="g2" node_id="I5, I6">Having one mutated copy of MLH1 gene is indicated by a positive gene test for MLH1 mutations</generalizations>
-        <generalizations gen="g3" node_id="S1, S2, S3">A child inherits one copy of a gene from each parent.</generalizations>
+        <generalizations gen="g1" node_id="I1, I2, I3, I4, I7, I8">HNPCC is an autosomal dominant condition in which one copy of the MLH1 is mutated. Having HNPCC increases the lifetime risk of colon cancer.
+        </generalizations>
+        <generalizations gen="g2" node_id="I5, I6">Having one mutated copy of MLH1 gene is indicated by a positive gene test for MLH1 mutations
+        </generalizations>
+        <generalizations gen="g3" node_id="S1, S2, S3">A child inherits one copy of a gene from each parent.
+        </generalizations>
     </ui>
     <genie>
         <KB_Node>
@@ -123,37 +126,37 @@
                 <person_name>PP</person_name>
                 <gender>M</gender>
                 <age>40</age>
-                <family> </family>
+                <family></family>
             </person>
             <person person_id="2">
                 <person_name>PP_brother</person_name>
                 <gender>M</gender>
                 <age>55</age>
-                <family> </family>
+                <family></family>
             </person>
             <person person_id="3">
                 <person_name>PP_child</person_name>
                 <gender>M</gender>
                 <age>12</age>
-                <family> </family>
+                <family></family>
             </person>
             <person person_id="4">
                 <person_name>PP_father</person_name>
                 <gender>M</gender>
                 <age>80</age>
-                <family> </family>
+                <family></family>
             </person>
             <person person_id="5">
                 <person_name>PP_mother</person_name>
                 <gender>M</gender>
                 <age>79</age>
-                <family> </family>
+                <family></family>
             </person>
             <person person_id="6">
                 <person_name>PP_wife</person_name>
                 <gender>F</gender>
                 <age>37</age>
-                <family> </family>
+                <family></family>
             </person>
             <genotype node_id="1" person_id="1" certainty="">
                 <gene_id>FLAG</gene_id>
@@ -227,12 +230,18 @@
                 <degree>severe</degree>
                 <symAbnormal>true</symAbnormal>
             </symptom>
-         <symptom node_id="10" person_id="5" certainty="">
-             <symptom_id>FLAG</symptom_id>
-             <symptom_name>Colon Cancer</symptom_name>
-             <degree>absent</degree>
-             <symAbnormal>false</symAbnormal>
-         </symptom>
+            <symptom node_id="10" person_id="5" certainty="">
+                <symptom_id>FLAG</symptom_id>
+                <symptom_name>Colon Cancer</symptom_name>
+                <degree>absent</degree>
+                <symAbnormal>false</symAbnormal>
+            </symptom>
+            <symptom node_id="14" person_id="1" certainty="">
+                <symptom_id>FLAG</symptom_id>
+                <symptom_name>Colon Cancer</symptom_name>
+                <degree>absent</degree>
+                <symAbnormal>not possible</symAbnormal>
+            </symptom>
             <test node_id="11" person_id="1">
                 <testName>FLAG</testName>
                 <testAbnormal>false</testAbnormal>
@@ -279,6 +288,11 @@
                 <influence_type>+</influence_type>
                 <influence_parent>3</influence_parent>
                 <influence_child>8</influence_child>
+            </influence_arc>
+            <influence_arc arc_id="I8">
+                <influence_type>+</influence_type>
+                <influence_parent>1</influence_parent>
+                <influence_child>14</influence_child>
             </influence_arc>
             <synergy_arc_set syn_id="S1">
                 <type>X-</type>

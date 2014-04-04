@@ -43,7 +43,7 @@ public class Conjunction {
         this.argTree = new ArrayList<ArrayList<ArrayList<KB_Node>>>();
         this.graphNodes = graphNodes;
         this.map = map;
-        this.pro = "false";
+        this.pro = ArgInfo.abnormalType.FALSE.getAbType();
         this.fileName = fileName;
         this.question = question;
         argInfo = new ArgInfo();
@@ -56,8 +56,6 @@ public class Conjunction {
             System.out.println("No child(ren) for node " + rootNode.getId() + " (ArgumentGenerator/ArgSchemes/Conjunction)");
         else if (checkElimination(rootNode))
             treeList = traverseGraph(rootNode);
-        else
-            System.out.println("ArgGen did not produce any argument using elimination logic ~ ArgumentGenerator/Conjunction.java");
 
         return treeList;
     }
@@ -124,12 +122,12 @@ public class Conjunction {
             if (!argFound.isEmpty()) {
                 addArgTree(argFound);
             }
-            pro = "true";//find E2C arguments
+            pro = ArgInfo.abnormalType.TRUE.getAbType();//find E2C arguments
         }
         /**
          * Check for JE2C scheme argument
          */
-        pro = "false";//check for JE2C first
+        pro = ArgInfo.abnormalType.FALSE.getAbType();//check for JE2C first
         je2c = new JE2C(node, graphNodes, pro);
         argFound = je2c.getPathList();
         if (!argFound.isEmpty()) {
@@ -139,7 +137,7 @@ public class Conjunction {
         /**
          * Check for C2E
          */
-        c2e = new C2E(node);
+        c2e = new C2E(node, pro);
         argFound = c2e.getPathList();
         if (!argFound.isEmpty())
             addArgTree(argFound);

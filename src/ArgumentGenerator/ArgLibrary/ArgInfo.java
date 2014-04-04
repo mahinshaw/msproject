@@ -15,6 +15,9 @@ import java.util.Stack;
  * Date: 10/24/13
  */
 public class ArgInfo {
+    /**
+     * Enumerator: Collection of type of arguments found in the arcs
+     */
     public enum ArcTYPE {
         INFLUENCE("+"), SYNERGY("X0"), CONJ("%"), MUTAL_EXCLUSIVE("X-"), NEGATIVE_INFL("-");
         private String type;
@@ -27,7 +30,7 @@ public class ArgInfo {
     }
 
     /**
-     * Find the mathematical representation of a (certian) given string
+     * Enumerator: Collection of various mathematical representation of (certain) given strings
      */
     public enum mutationCheck {
         NOT_TWO("0...1"), ONE_OR_TWO("1...2");
@@ -42,8 +45,11 @@ public class ArgInfo {
         }
     }
 
+    /**
+     * Enumerator: Collection of different types of schemas
+     */
     public enum schemaType {
-        e2c("E2C"), ne2c("NE2C"), je2c("JE2C"), c2e("C2E");
+        e2c("E2C"), ne2c("NE2C"), je2c("JE2C"), c2e("C2E"), nc2e("NC2E"), conj("Conjunction");
         private String schema;
 
         schemaType(String d) {
@@ -54,6 +60,23 @@ public class ArgInfo {
             return schema;
         }
     }
+
+    /**
+     * Enumerator: Collection of abnormalities: true, false, possible, or not possible
+     */
+    public enum abnormalType {
+        TRUE("true"), FALSE("false"), POSSIBLE("possible"), NOT_POSSIBLE("not possible");
+        private String abType;
+
+        abnormalType(String d) {
+            abType = d;
+        }
+
+        public String getAbType() {
+            return abType;
+        }
+    }
+
 
     /**
      * Find the mutation type from KB/Genotype

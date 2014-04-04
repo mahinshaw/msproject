@@ -160,7 +160,7 @@ public class JE2C {
                 for (ArrayList<KB_Node> k : hold)
                     addArgE2C(k);
             }
-            pro = "true";//find E2C arguments
+            pro = ArgInfo.abnormalType.TRUE.getAbType();//find E2C arguments
         }
         return getArgE2C();
     }

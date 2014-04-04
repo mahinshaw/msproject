@@ -16,18 +16,17 @@ public class C2E {
     private ArrayList<KB_Node> argList;
     private ArrayList<ArrayList<KB_Node>> pathList;
     private ArgInfo argInfo = new ArgInfo();
-    private boolean pro;
-    private final String UNKNOWN = "possible";
+    private String pro;
+    private E2C e2c;
 
     /**
      * @param rootNode the starting node where the argument is going to be generated.
      */
-    public C2E(KB_Node rootNode) {
+    public C2E(KB_Node rootNode, String pro) {
         this.rootNode = rootNode;
-
         this.argList = new ArrayList<KB_Node>();
         this.pathList = new ArrayList<ArrayList<KB_Node>>();
-        this.pro = true;
+        this.pro = pro;
     }
 
     public ArrayList<ArrayList<KB_Node>> getPathList() {
@@ -37,9 +36,10 @@ public class C2E {
         } else {
             ArrayList<KB_Node> tempList = new ArrayList<KB_Node>();
             ArrayList<ArrayList<KB_Node>> tempPath = new ArrayList<ArrayList<KB_Node>>();
-            for (KB_Node child : rootNode.getChildren())
-                if (checkConditions(child))
-                    pathList = traverseGraph(rootNode, tempList, tempPath);
+            tempPath = traverseGraph(rootNode, tempList, tempPath);
+            if (!tempPath.isEmpty())
+                for (ArrayList<KB_Node> path : tempPath)
+                    checkE2C(path);
         }
         return pathList;
     }
@@ -50,7 +50,7 @@ public class C2E {
             tempList = new ArrayList<KB_Node>(argList);
 
         if (root.getChildren().isEmpty()) {
-            if (checkConditions(root) == pro && argList.size() != 1) {
+            if (checkConditions(root).equalsIgnoreCase(pro) && argList.size() != 1) {
                 Collections.reverse(argList);
                 pathList.add(argList);
             }
@@ -58,12 +58,11 @@ public class C2E {
         }
         for (KB_Node n : root.getChildren()) {
             if (!argList.contains(n) && checkArcType(root, n)) {
-                if (checkConditions(n) == pro) {
+                if (checkConditions(n).equalsIgnoreCase(pro)) {
                     traverseGraph(n, tempList, pathList);
                 }
             }
         }
-
         return pathList;
     }
 
@@ -74,10 +73,8 @@ public class C2E {
      * @param node
      * @return
      */
-    private boolean checkConditions(KB_Node node) {
-        boolean condition = false;
-        if (UNKNOWN.equalsIgnoreCase(node.getAbnormal()))
-            condition = true;
+    private String checkConditions(KB_Node node) {
+        String condition = node.getAbnormal();
         return condition;
     }
 
@@ -94,5 +91,35 @@ public class C2E {
             influence = true;
         }
         return influence;
+    }
+
+    /**
+     * Check if E2C and NE2C arguments exist
+     *
+     * @param path the path of C2E argument(s)
+     * @return
+     */
+    private void checkE2C(ArrayList<KB_Node> path) {
+        ArrayList<ArrayList<KB_Node>> hold;
+        ArrayList<KB_Node> holdPathList = new ArrayList<KB_Node>(path);
+        String argType = ArgInfo.abnormalType.FALSE.getAbType();
+        KB_Node testNode = path.get(path.size() - 1);
+        if (!testNode.getChildren().isEmpty()) {
+            for (int i = 0; i < 2; i++) {
+                e2c = new E2C(testNode, argType);
+                hold = e2c.getPathList();
+                if (!hold.isEmpty()) {
+                    for (ArrayList<KB_Node> arryNodes : hold) {
+                        for (KB_Node n : arryNodes)
+                            if (!holdPathList.contains(n))
+                                holdPathList.add(n);
+                        pathList.add(holdPathList);
+                        holdPathList = new ArrayList<KB_Node>(path);
+                    }
+                } else if (!pathList.contains(path))
+                    pathList.add(path);
+            }
+            argType = ArgInfo.abnormalType.TRUE.getAbType();//find E2C arguments
+        }
     }
 }
