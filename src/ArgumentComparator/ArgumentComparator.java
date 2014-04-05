@@ -90,7 +90,8 @@ public class ArgumentComparator implements Callable {
         int[] counters;
         if(currentUserTree == null)
             return matchMap;
-        LinkedList<ArgumentTree> userArgs = currentUserTree.getChildren();
+        LinkedList<ArgumentTree> userArgs = new LinkedList<ArgumentTree>();
+        userArgs.addAll(currentUserTree.getChildren());
         counters = new int[userArgs.size()];
         LinkedList<ArgumentTree> genArgs = new LinkedList<ArgumentTree>();
         if (currentGenTree != null)
@@ -100,9 +101,16 @@ public class ArgumentComparator implements Callable {
         ArgumentTree userArg;
         while (!userArgs.isEmpty()){
             userArg = userArgs.get(index);
-            matchMap.put(userArg, FindSimilarArgument(userArg, genArgs, ++counters[index]));
-            if (matchMap.get(userArg) != null)
+            if (genArgs.isEmpty()) {
+                matchMap.put(userArg, null);
                 userArgs.remove(index);
+            }
+            else {
+                matchMap.put(userArg, FindSimilarArgument(userArg, genArgs, ++counters[index]));
+                if (matchMap.get(userArg) != null || counters[index] >= 2) {
+                    userArgs.remove(index);
+                }
+            }
             if (userArgs.isEmpty())
                 break;
             index = ++index % userArgs.size();
@@ -174,8 +182,10 @@ public class ArgumentComparator implements Callable {
         }
 
         // If nothing is matching at all, and this is the second time we have looked at this userArg, just get one.
-        if (validTrees.isEmpty() && count >= 2)
-            validTrees.add(genArgs.poll());
+        if (validTrees.isEmpty() && count >= 2) {
+            if (!genArgs.isEmpty())
+                validTrees.add(genArgs.poll());
+        }
 
         // get the best result out of the queue.
         // but first remove it from genArgs.
