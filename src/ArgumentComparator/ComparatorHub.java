@@ -2,8 +2,7 @@ package ArgumentComparator;
 
 import ArgumentStructure.ArgumentTree;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.*;
 
 /**
@@ -40,7 +39,7 @@ public class ComparatorHub {
             }
         }
 
-        return comparatorTrees;
+        return sortComparatorTrees(comparatorTrees);
     }
 
     public List<ComparatorTree> getBestAnswers(List<ArgumentTree> userTrees, List<ArgumentTree> generatorTrees){
@@ -64,5 +63,17 @@ public class ComparatorHub {
             }
         }
         return best;
+    }
+
+    private List<ComparatorTree> sortComparatorTrees(List<ComparatorTree> trees){
+        Collections.sort(trees, new Comparator<ComparatorTree>() {
+            @Override
+            public int compare(ComparatorTree o1, ComparatorTree o2) {
+                return o1.getTreeAccuracy() > o2.getTreeAccuracy()
+                        ? -1
+                        : (o1.getTreeAccuracy() == o2.getTreeAccuracy() ? 0 : 1);
+            }
+        });
+        return trees;
     }
 }
