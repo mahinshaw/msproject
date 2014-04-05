@@ -9,11 +9,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
 
+import ArgumentComparator.ComparatorTree;
+import java.util.List;
 import GAIL.src.controller.ApplicationController;
 
 import java.util.StringTokenizer;
@@ -21,6 +20,7 @@ import java.util.StringTokenizer;
 public class BottomPanel extends JPanel implements MouseListener {
 	ApplicationController ac;
 	ArgumentDisplay argumentDisplay;
+    FeedbackDisplay feedbackDisplay;
 	ChatPanel chatPanel;
 	JLabel refreshLabel;
 	BufferedImage refreshPic;
@@ -40,52 +40,52 @@ public class BottomPanel extends JPanel implements MouseListener {
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
 		chatPanel = ac.getChatController().getChatPanel();
 		argumentDisplay = new ArgumentDisplay(paneWidth, userPanelHeight);
-		JPanel textPanel = new JPanel();
-		textPanel.setLayout(new BorderLayout());
-		textPanel.setBorder(BorderFactory.createLineBorder(Color.blue, 3));
-		JLabel label = new JLabel("    Workspace description");
-		label.setOpaque(true);
-		label.setPreferredSize(new Dimension(200, 19));
+		JPanel wdTextPanel = new JPanel();
+		wdTextPanel.setLayout(new BorderLayout());
+		wdTextPanel.setBorder(BorderFactory.createLineBorder(Color.blue, 3));
+		JLabel wdLabel = new JLabel("    Workspace description");
+		wdLabel.setOpaque(true);
+		wdLabel.setPreferredSize(new Dimension(200, 19));
 		refreshLabel = new JLabel(new ImageIcon(refreshPic));
 		refreshLabel.addMouseListener(ac);
 		refreshLabel.addMouseListener(this);
 		refreshLabel.setName("REFRESH");
 		refreshLabel.setToolTipText("Refresh");
-		label.setBackground(Color.blue);
-		label.setForeground(Color.white);
-		textPanel.setBackground(Color.blue);
+		wdLabel.setBackground(Color.blue);
+		wdLabel.setForeground(Color.white);
+		wdTextPanel.setBackground(Color.blue);
 		JPanel textPanelTop = new JPanel();
 		textPanelTop.setLayout(new BorderLayout());
-		textPanelTop.add(label, BorderLayout.LINE_START);
+		textPanelTop.add(wdLabel, BorderLayout.LINE_START);
 		textPanelTop.add(refreshLabel, BorderLayout.LINE_END);
 		textPanelTop.setBackground(Color.blue);
-		textPanel.add(textPanelTop, BorderLayout.PAGE_START);
-		textPanel.add(argumentDisplay);
+		wdTextPanel.add(textPanelTop, BorderLayout.PAGE_START);
+		wdTextPanel.add(argumentDisplay);
 
 		chatPanel.setPreferredSize(new Dimension(chatWidth, userPanelHeight + 25));
 
-		textPanel.setPreferredSize(new Dimension(textWidth, userPanelHeight + 25));
+		wdTextPanel.setPreferredSize(new Dimension(textWidth, userPanelHeight + 25));
 
-		JLabel pedigreeLabel = new JLabel("    Pedigree window");
-		pedigreeLabel.setOpaque(true);
-		pedigreeLabel.setPreferredSize(new Dimension(200, 19));
-		pedigreeLabel.setBackground(Color.blue);
-		pedigreeLabel.setForeground(Color.white);
+        feedbackDisplay = new FeedbackDisplay(chatWidth, userPanelHeight +25);
+		JLabel feedbackLabel = new JLabel("    Feedback window");
+		feedbackLabel.setOpaque(true);
+		feedbackLabel.setPreferredSize(new Dimension(200, 19));
+		feedbackLabel.setBackground(Color.blue);
+		feedbackLabel.setForeground(Color.white);
 
-		JPanel pedigreePanel = new JPanel();
-		pedigreePanel.setLayout(new BorderLayout());
-		pedigreePanel.setBorder(BorderFactory.createLineBorder(Color.blue, 3));
-		pedigreePanel.setBackground(Color.blue);
-		pedigreePanel.setPreferredSize(new Dimension(chatWidth, userPanelHeight + 25));
+		JPanel feedbackPanel = new JPanel();
+		feedbackPanel.setLayout(new BorderLayout());
+		feedbackPanel.setBorder(BorderFactory.createLineBorder(Color.blue, 3));
+		feedbackPanel.setBackground(Color.blue);
+		//feedbackPanel.setPreferredSize(new Dimension(chatWidth, userPanelHeight + 25));
 
-		pedigreePanel.add(pedigreeLabel, BorderLayout.PAGE_START);
+		feedbackPanel.add(feedbackLabel, BorderLayout.PAGE_START);
         JPanel blankPanel = new JPanel();
         blankPanel.setBackground(Color.white);
-        pedigreePanel.add(blankPanel);
-		//pedigreePanel.add(new PrototypePedigreeFamilyView());
+        feedbackPanel.add(feedbackDisplay);
 
-		contentPanel.add(pedigreePanel);
-		contentPanel.add(textPanel);
+		contentPanel.add(feedbackPanel);
+		contentPanel.add(wdTextPanel);
 		contentPanel.add(Box.createHorizontalGlue());
 		contentPanel.add(chatPanel);
 
@@ -103,8 +103,13 @@ public class BottomPanel extends JPanel implements MouseListener {
 		argumentDisplay.appendToTextArea(s);
 	}
 
+    public void appendToFeedback(List<ComparatorTree> trees){
+        feedbackDisplay.appendToTextArea(trees);
+    }
+
 	public void reset() {
 		argumentDisplay.reset();
+        feedbackDisplay.reset();
 	}
 
 	@Override

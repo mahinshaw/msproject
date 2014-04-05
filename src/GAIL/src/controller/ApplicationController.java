@@ -336,6 +336,7 @@ public class ApplicationController implements MouseListener, ActionListener {
 
         List<ComparatorTree> comparatorTrees = hub.getBestAnswers(gb.getArgumentTrees(), argGen.getArgument());
         comparatorXMLWriter.writeXML(comparatorTrees, statementController.getProblem().getText());
+        appView.appendToFeedbackPanel(comparatorTrees);
 
     }
 

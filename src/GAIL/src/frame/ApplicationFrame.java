@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.List;
 
 import javax.swing.*;
 
+import ArgumentComparator.ComparatorTree;
 import GAIL.src.controller.ApplicationController;
 import GAIL.src.view.StatementView;
 
@@ -105,6 +107,10 @@ public class ApplicationFrame extends JFrame {
 	public void appendToUserPanel(String[] s) {
 		bottomPanel.appendToTextArea(s);
 	}
+
+    public void appendToFeedbackPanel(List<ComparatorTree> trees){
+        bottomPanel.appendToFeedback(trees);
+    }
 
 	public GlassPanel getGlassPane(){
 		return glassPane;
