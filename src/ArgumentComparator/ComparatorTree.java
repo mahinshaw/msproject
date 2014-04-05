@@ -100,7 +100,12 @@ public class ComparatorTree {
     }
 
     public boolean hasConjunction(){
-        return (this.getUser() != null) ? this.getUser().HasConjunction() : this.getGen().HasConjunction();
+        boolean hasConjunction = false;
+        if (this.getUser() != null)
+            hasConjunction = this.getUser().HasConjunction();
+        if (this.getGen() != null)
+            hasConjunction = hasConjunction || this.getGen().HasConjunction();
+        return hasConjunction;
     }
 
     public boolean isNodeCorrect(){
