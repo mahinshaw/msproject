@@ -50,7 +50,6 @@ public class ArgumentComparator implements Callable {
                 parentQueue.push(comparatorTree);
             }
             parentComparatorTree = parentQueue.poll();
-            // TODO: check into possible null value states.
             if (parentComparatorTree.getUser() != null)
                 currentUserTree = userTree.findArgumentObject(parentComparatorTree.getUser());
             else
@@ -88,21 +87,30 @@ public class ArgumentComparator implements Callable {
 
     private static HashMap<ArgumentTree,ArgumentTree> mapLikeChildren(ArgumentTree currentUserTree, ArgumentTree currentGenTree){
         HashMap<ArgumentTree, ArgumentTree> matchMap = new HashMap<ArgumentTree, ArgumentTree>();
+        int[] counters;
         if(currentUserTree == null)
             return matchMap;
         LinkedList<ArgumentTree> userArgs = currentUserTree.getChildren();
+        counters = new int[userArgs.size()];
         LinkedList<ArgumentTree> genArgs = new LinkedList<ArgumentTree>();
         if (currentGenTree != null)
             genArgs.addAll(currentGenTree.getChildren());
 
-
-        for (ArgumentTree userArg : userArgs){
-            matchMap.put(userArg, FindSimilarArgument(userArg, genArgs));
+        int index = 0;
+        ArgumentTree userArg;
+        while (!userArgs.isEmpty()){
+            userArg = userArgs.get(index);
+            matchMap.put(userArg, FindSimilarArgument(userArg, genArgs, ++counters[index]));
+            if (matchMap.get(userArg) != null)
+                userArgs.remove(index);
+            if (userArgs.isEmpty())
+                break;
+            index = ++index % userArgs.size();
         }
         return matchMap;
     }
 
-    private static ArgumentTree FindSimilarArgument(ArgumentTree userArg, LinkedList<ArgumentTree> genArgs){
+    private static ArgumentTree FindSimilarArgument(ArgumentTree userArg, LinkedList<ArgumentTree> genArgs, int count){
         boolean hasChildren = userArg.hasChildren();
 
         ArrayDeque<ArgumentTree> validTrees = new ArrayDeque<ArgumentTree>();
@@ -116,18 +124,24 @@ public class ArgumentComparator implements Callable {
                 validTrees.push(genArg);
         }
 
-        if (validTrees.size() == 1)
+        if (validTrees.size() == 1) {
+            // remove the genArg from its list first.
+            genArgs.removeFirstOccurrence(validTrees.peek());
             return validTrees.pop();
+        }
 
         if (validTrees.size() > 1) {
             for (ArgumentTree genArg : validTrees){
                 // pop off invalid ArgumentTrees.
-                if (((genArg.hasChildren() && hasChildren) || !(genArg.hasChildren() || hasChildren)))
+                if ((genArg.hasChildren() && hasChildren) || !(genArg.hasChildren() || hasChildren))
                     matches.push(genArg);
             }
-            validTrees.removeAll(matches);
+            if (!matches.isEmpty()) { // here we set the matches as the valid trees, as they are a better match.
+                validTrees = matches;
+                matches.clear();
+            }
         }
-        else { // there are no matching hypotheses
+        else { // there are no matching hypotheses (validTrees is empty
             for (ArgumentTree genArg : genArgs) {
                 // see if there are children, if so, its possible.
                 if (((genArg.hasChildren() && hasChildren) || !(genArg.hasChildren() || hasChildren)))
@@ -136,18 +150,22 @@ public class ArgumentComparator implements Callable {
         }
 
         // Finally, test what is in validTrees, and see if it can be widdled down with Generalizations.
-        if (validTrees.size() == 1)
+        if (validTrees.size() == 1) {
+            genArgs.removeFirstOccurrence(validTrees.peek());
             return validTrees.pop();
+        }
         else{
             if (validTrees.size() > 1){
                 for (ArgumentTree genArg : validTrees){
                     if (userArg.getRoot().generalizationsEqual(genArg.getRoot()))
                         matches.push(genArg);
-                }
-                if (matches.size() > 0)
+                } // if there are matches, they are better matches.
+                if (!matches.isEmpty()) {
                     validTrees = matches;
+                    matches.clear();
+                }
             }
-            else{
+            else{ // here valid trees is empty.
                 for (ArgumentTree genArg : genArgs){
                     if (userArg.getRoot().generalizationsEqual(genArg.getRoot()))
                         validTrees.push(genArg);
@@ -155,7 +173,13 @@ public class ArgumentComparator implements Callable {
             }
         }
 
+        // If nothing is matching at all, and this is the second time we have looked at this userArg, just get one.
+        if (validTrees.isEmpty() && count >= 2)
+            validTrees.add(genArgs.poll());
+
         // get the best result out of the queue.
+        // but first remove it from genArgs.
+        genArgs.removeFirstOccurrence(validTrees.peek());
         return validTrees.poll();
     }
 
