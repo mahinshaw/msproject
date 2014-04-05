@@ -61,33 +61,42 @@ public class JE2C {
 
         ArrayList<KB_Node> argPath = new ArrayList<KB_Node>();
         ArrayList<ArrayList<KB_Node>> hold;
-        KB_Node otherParent = null;
-        String holdInfluence = " ";
-        String arcID = argInfo.findEdge(knownParent, child).getEdge_id();
-        if (argInfo.checkMutation(knownParent).equalsIgnoreCase("1") && argInfo.checkMutation(child).equalsIgnoreCase("1")) {
-            argPath.add(knownParent);
-            argPath.add(child);
-            //KB_Node leaf = argPath.get(argPath.size() - 1);
-            hold = checkE2C(child);
-            ArrayList<KB_Node> pathHolder = new ArrayList<KB_Node>(argPath);
+        ArgInfo.mutationCheck[] mutationCheck = ArgInfo.mutationCheck.values();
+        int findMutationParent = 0, findMutationChild = 1;
+        ChildLoop:
+        for (int i = 0; i < mutationCheck.length; i++) {
+            for (int j = 0; j < mutationCheck.length; j++) {
+                System.out.println(findMutationChild + " = " + findMutationParent);
+                if (argInfo.checkMutation(knownParent).equalsIgnoreCase(mutationCheck[i].getMath()))
+                    findMutationParent = i;
+                if (argInfo.checkMutation(child).equalsIgnoreCase(mutationCheck[j].getMath()))
+                    findMutationChild = j;
+                if (findMutationChild == findMutationParent) {
+                    argPath.add(knownParent);
+                    argPath.add(child);
+                    hold = checkE2C(child);
+                    ArrayList<KB_Node> pathHolder = new ArrayList<KB_Node>(argPath);
 
-            /**
-             * Find E2C relation from the leaf node.
-             * If no arg found, skip this step.
-             */
-            if (!hold.isEmpty()) {
-                for (ArrayList<KB_Node> n : hold) {
-                    for (KB_Node k : n) {
-                        if (k != argPath.get(argPath.size() - 1))
-                            argPath.add(k);
+                    /**
+                     * Find E2C relation from the leaf node.
+                     * If no arg found, skip this step.
+                     */
+                    if (!hold.isEmpty()) {
+                        for (ArrayList<KB_Node> n : hold) {
+                            for (KB_Node k : n) {
+                                if (k != argPath.get(argPath.size() - 1))
+                                    argPath.add(k);
+                            }
+                            setJE2C(argPath);
+                            argPath = new ArrayList<KB_Node>(pathHolder);
+                        }
+                        break ChildLoop;
+                    } else {
+                        //setJE2C(argPath);
                     }
-                    setJE2C(argPath);
-                    argPath = new ArrayList<KB_Node>(pathHolder);
+                    hold.clear();
                 }
-            } else {
-                setJE2C(argPath);
             }
-            hold.clear();
         }
     }
 

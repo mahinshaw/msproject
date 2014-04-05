@@ -21,9 +21,11 @@ public class ArgInfo {
     public enum ArcTYPE {
         INFLUENCE("+"), SYNERGY("X0"), CONJ("%"), MUTAL_EXCLUSIVE("X-"), NEGATIVE_INFL("-");
         private String type;
+
         ArcTYPE(String d) {
             type = d;
         }
+
         public String getType() {
             return type;
         }
@@ -33,7 +35,7 @@ public class ArgInfo {
      * Enumerator: Collection of various mathematical representation of (certain) given strings
      */
     public enum mutationCheck {
-        NOT_TWO("0...1"), ONE_OR_TWO("1...2");
+        NOT_TWO("0...1"), ONE_OR_TWO("1...2"), ZERO("0"), ONE("1"), TWO("2");
         private String mutation;
 
         mutationCheck(String d) {

@@ -339,7 +339,7 @@ public class StatementController implements ActionListener, MouseListener,
         if (e.getSource() instanceof JLabel) {
             JLabel l = (JLabel) e.getSource();
             if (l.getName().equals("ADD_HYP")) {
-                createAndShowNewHypothesisDialog();
+               // createAndShowNewHypothesisDialog();
             }
         }
         draggedItem = null;
@@ -501,10 +501,14 @@ public class StatementController implements ActionListener, MouseListener,
         JButton okButton = new JButton("Ok");
         okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                try{
                 createProblemHypothesis(StatementSource.USER_HYPOTHESIS,
                         draggedItem.getTextNode(), 10,
                         10);
-                d.dispose();
+                d.dispose();  }
+                catch (Exception ex){
+                    System.out.println(ex);
+                }
             }
         });
         JButton cancelButton = new JButton("Cancel");

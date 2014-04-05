@@ -62,12 +62,13 @@ public class Toolbar implements MouseListener {
 		addAndLabel.setToolTipText("Add an AND");
 		addAndLabel.setBorder(BorderFactory.createLineBorder(bgColor, 1));
 
+        /*
 		addHypLabel = new JLabel(new ImageIcon(hImg));
 		addHypLabel.setName("ADD_HYP");
 		addHypLabel.addMouseListener(ac.getStatementController());
 		addHypLabel.addMouseListener(this);
 		addHypLabel.setToolTipText("Create a hypothesis");
-		addHypLabel.setBorder(BorderFactory.createLineBorder(bgColor, 1));
+		addHypLabel.setBorder(BorderFactory.createLineBorder(bgColor, 1));    */
 
 		tutorialLabel = new JLabel(new ImageIcon(tImg));
 		tutorialLabel.setName("TUTORIAL");
@@ -94,7 +95,7 @@ public class Toolbar implements MouseListener {
 		panel.add(Box.createRigidArea(new Dimension(6, 0)));
 		panel.add(addAndLabel);
 		panel.add(Box.createRigidArea(new Dimension(3, 0)));
-		panel.add(addHypLabel);
+		//panel.add(addHypLabel);
 		panel.add(Box.createRigidArea(new Dimension(3, 0)));
 		panel.add(tutorialLabel);
 		panel.add(Box.createRigidArea(new Dimension(3, 0)));

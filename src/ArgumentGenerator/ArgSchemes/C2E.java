@@ -37,9 +37,11 @@ public class C2E {
             ArrayList<KB_Node> tempList = new ArrayList<KB_Node>();
             ArrayList<ArrayList<KB_Node>> tempPath = new ArrayList<ArrayList<KB_Node>>();
             tempPath = traverseGraph(rootNode, tempList, tempPath);
-            if (!tempPath.isEmpty())
+            if (!tempPath.isEmpty()) {
                 for (ArrayList<KB_Node> path : tempPath)
                     checkE2C(path);
+
+            }
         }
         return pathList;
     }
@@ -120,7 +122,14 @@ public class C2E {
                 argType = ArgInfo.abnormalType.TRUE.getAbType();//find E2C arguments
             }
         }
-        if (testNode.getChildren().isEmpty())
-                pathList.add(path);
+        //If a testNode's child
+        if (!testNode.getChildren().isEmpty()) {
+            for (KB_Node child : testNode.getChildren()) {
+                if (path.contains(child) && testNode.getChildren().size() == 1) {
+                    pathList.add(path);
+                }
+            }
+        } else
+            pathList.add(path);
     }
 }
