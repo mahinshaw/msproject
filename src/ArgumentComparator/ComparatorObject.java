@@ -43,14 +43,20 @@ public class ComparatorObject {
     public double getAccuracy(){ return this.accuracy; }
 
     public boolean compareHypothesis(){
+        if (userObject == null || generatorObject == null)
+            return false;
         return userObject.hypothesisEqual(generatorObject);
     }
 
     public boolean compareGeneralization(){
+        if (userObject == null || generatorObject == null)
+            return  false;
         return userObject.generalizationsEqual(generatorObject);
     }
 
     public boolean compareDatum(){
+        if (userObject == null || generatorObject == null)
+            return false;
         return userObject.datumEqual(generatorObject);
     }
 
