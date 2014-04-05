@@ -18,7 +18,9 @@ import java.util.HashMap;
 public class ArgGen {
     private KB_Node rootNode;
     private ArgInterface argInterface;
+    private ArgInfo argInfo;
     private HashMap<String, String> map;
+    private HashMap<String, String> questionMap;
     private ArrayList<ArgumentTree> treeList;
     private String argType;
     private final String question;
@@ -33,9 +35,11 @@ public class ArgGen {
 
     public ArgGen(int nodeID, String question, String fileName) {
         argInterface = new ArgInterface(fileName);
+        argInfo = new ArgInfo();
         this.question = question;
         this.graphNodes = argInterface.getGraphNodes();
         this.map = argInterface.getMap();
+        this.questionMap = argInterface.getQuestionMap();
         this.treeList = new ArrayList<ArgumentTree>();
         this.extFileName = this.getClass().getSimpleName();
 
@@ -72,21 +76,23 @@ public class ArgGen {
          * It is appended to the output file. The reason: the file will be overwritten, if it finds a different schema.
          */
         int argCounter = 0;
-
-        for (int i = 0; i < argNo; i++) {
-            e2c = new E2C(this.rootNode, getArgType());
-            hold = e2c.getPathList();
-            if (!hold.isEmpty()) {
-                argGenWriter = new ArgGenWriter(map, hold, question, extFileName + "_" + argCounter++);
-                treeListHold = argGenWriter.getArgument();//add to argInterface tree and xml GAIL.output
-                if (!treeListHold.isEmpty())
-                    addTreeList(treeListHold);
-                if (argType.equalsIgnoreCase(ArgInfo.abnormalType.TRUE.getAbType()))
-                    printArgScheme(ArgInfo.schemaType.e2c.getSchema());
-                else
-                    printArgScheme(ArgInfo.schemaType.ne2c.getSchema());
+        boolean np = argInfo.findCurrentQuestionNo(question, questionMap);
+        if (np) {
+            for (int i = 0; i < argNo; i++) {
+                e2c = new E2C(this.rootNode, getArgType());
+                hold = e2c.getPathList();
+                if (!hold.isEmpty()) {
+                    argGenWriter = new ArgGenWriter(map, hold, question, extFileName + "_" + argCounter++);
+                    treeListHold = argGenWriter.getArgument();//add to argInterface tree and xml GAIL.output
+                    if (!treeListHold.isEmpty())
+                        addTreeList(treeListHold);
+                    if (argType.equalsIgnoreCase(ArgInfo.abnormalType.TRUE.getAbType()))
+                        printArgScheme(ArgInfo.schemaType.e2c.getSchema());
+                    else
+                        printArgScheme(ArgInfo.schemaType.ne2c.getSchema());
+                }
+                setArgType(ArgInfo.abnormalType.TRUE.getAbType());//find E2C arguments
             }
-            setArgType(ArgInfo.abnormalType.TRUE.getAbType());//find E2C arguments
         }
         /**
          * Check for JE2C scheme argument
@@ -117,21 +123,23 @@ public class ArgGen {
         /**
          * Check for C2E arguments
          */
-        setArgType(ArgInfo.abnormalType.POSSIBLE.getAbType());
-        for (int i = 0; i < argNo; i++) {
-            c2e = new C2E(this.rootNode, getArgType());
-            hold = c2e.getPathList();
-            if (!hold.isEmpty()) {
-                argGenWriter = new ArgGenWriter(map, hold, question, extFileName + "_" + argCounter++);
-                treeListHold = argGenWriter.getArgument();//add to argInterface tree and xml GAIL.output
-                if (!treeListHold.isEmpty())
-                    addTreeList(treeListHold);
-                if (argType.equalsIgnoreCase(ArgInfo.abnormalType.POSSIBLE.getAbType()))
-                    printArgScheme(ArgInfo.schemaType.c2e.getSchema());
-                else
-                    printArgScheme(ArgInfo.schemaType.nc2e.getSchema());
+        if (!np) {
+            setArgType(ArgInfo.abnormalType.POSSIBLE.getAbType());
+            for (int i = 0; i < argNo; i++) {
+                c2e = new C2E(this.rootNode, getArgType());
+                hold = c2e.getPathList();
+                if (!hold.isEmpty()) {
+                    argGenWriter = new ArgGenWriter(map, hold, question, extFileName + "_" + argCounter++);
+                    treeListHold = argGenWriter.getArgument();//add to argInterface tree and xml GAIL.output
+                    if (!treeListHold.isEmpty())
+                        addTreeList(treeListHold);
+                    if (argType.equalsIgnoreCase(ArgInfo.abnormalType.POSSIBLE.getAbType()))
+                        printArgScheme(ArgInfo.schemaType.c2e.getSchema());
+                    else
+                        printArgScheme(ArgInfo.schemaType.nc2e.getSchema());
+                }
+                setArgType(ArgInfo.abnormalType.NOT_POSSIBLE.getAbType());
             }
-            setArgType(ArgInfo.abnormalType.NOT_POSSIBLE.getAbType());
         }
     }
 

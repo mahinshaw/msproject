@@ -19,13 +19,16 @@ import java.util.Stack;
 public class XmlReader {
 
     private HashMap<String, String> map;
+    private HashMap<String, String> questionMap;
     private String fileName;
     final String NODE_ID = "node_id";
+    final String QUESTION_NUMBER = "quest";
     final char DELIMITER = ',';
 
     protected XmlReader(String fileName) {
         this.fileName = fileName;
         this.map = new HashMap<String, String>();
+        this.questionMap = new HashMap<String, String>();
     }
 
     protected void readFile() {
@@ -36,8 +39,8 @@ public class XmlReader {
             Document doc = builder.parse(xmlFile);
             doc.getDocumentElement().normalize();
 
-           // NodeList list = doc.getElementsByTagName("question");
-            //setMap(list);
+            NodeList list = doc.getElementsByTagName("question");
+            setQuestions(list);
 
             NodeList list2 = doc.getElementsByTagName("hypothesis");
             setMap(list2);
@@ -62,7 +65,7 @@ public class XmlReader {
                 String node_id = String.valueOf(element.getAttributeNode(NODE_ID).getValue());
                 Stack<String> nodeStack = checkNodeID(node_id);
                 while (!nodeStack.isEmpty())
-                   map.put(nodeStack.pop(), element.getTextContent());
+                    map.put(nodeStack.pop(), element.getTextContent());
             }
 
         }
@@ -88,8 +91,25 @@ public class XmlReader {
         return nodeStack;
     }
 
+    private void setQuestions(NodeList questions) {
+        for (int i = 0; i < questions.getLength(); i++) {
+            Node nodeN = questions.item(i);
+            if (nodeN.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) nodeN;
+                String questionNo = String.valueOf(element.getAttributeNode(QUESTION_NUMBER).getValue());
+                Stack<String> nodeStack = checkNodeID(questionNo);
+                while (!nodeStack.isEmpty())
+                    questionMap.put(element.getTextContent(), nodeStack.pop());
+            }
+
+        }
+    }
+
     protected HashMap<String, String> getMap() {
         return map;
     }
 
+    protected HashMap<String, String> getQuestionMap(){
+        return questionMap;
+    }
 }

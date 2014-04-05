@@ -5,6 +5,7 @@ import KB.KB_Node.KB_Node;
 import KB.KB_Node.Genotype;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -246,5 +247,22 @@ public class ArgInfo {
                 break;
         }
         return argT;
+    }
+
+    /**
+     * Check to see if the current argument is a question is pro or not pro
+     *
+     * @param question          the current question
+     * @param questionContainer the hash that stores all the questions with their quest ID
+     * @return
+     */
+    public boolean findCurrentQuestionNo(String question, HashMap<String, String> questionContainer) {
+        boolean pro = true;
+        if (questionContainer.containsKey(question)) {
+            if (questionContainer.get(question).startsWith("n")) {
+                pro = false;
+            }
+        }
+        return pro;
     }
 }

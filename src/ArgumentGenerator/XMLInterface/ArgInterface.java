@@ -29,6 +29,11 @@ public class ArgInterface {
         return reader.getMap();
     }
 
+    public HashMap<String, String> getQuestionMap(){
+        fileReader(fileName);
+        return reader.getQuestionMap();
+    }
+
     public ArrayList<KB_Node> getGraphNodes(){
         return KBInterface.getGraph().getNodelist();
     }

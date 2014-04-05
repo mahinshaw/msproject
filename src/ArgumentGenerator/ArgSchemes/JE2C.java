@@ -66,7 +66,6 @@ public class JE2C {
         ChildLoop:
         for (int i = 0; i < mutationCheck.length; i++) {
             for (int j = 0; j < mutationCheck.length; j++) {
-                System.out.println(findMutationChild + " = " + findMutationParent);
                 if (argInfo.checkMutation(knownParent).equalsIgnoreCase(mutationCheck[i].getMath()))
                     findMutationParent = i;
                 if (argInfo.checkMutation(child).equalsIgnoreCase(mutationCheck[j].getMath()))

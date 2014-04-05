@@ -86,13 +86,13 @@
         ]>
 <gail>
     <ui>
-        <question quest="q1" node_id="1">Give one argument for hypothesis that PP does not have HNPCC.</question>
-        <question quest="q2" node_id="1">Give one argument for hypothesis that PP will not develop colon cancer.
+        <question quest="p1" node_id="1">Give one argument for hypothesis that PP does not have HNPCC.</question>
+        <question quest="np2" node_id="1">Give one argument for hypothesis that PP will not develop colon cancer.
         </question>
-        <question quest="q3" node_id="3">Give one argument for hypothesis that PP's child does not have HNPCC.
+        <question quest="np3" node_id="3">Give one argument for hypothesis that PP's child does not have HNPCC.
         </question>
-        <question quest="q4" node_id="4">Give one argument for hypothesis that PP's father had HNPCC.</question>
-        <question quest="q5" node_id="5">Give one argument for hypothesis that PP's mother does not have HNPCC.
+        <question quest="p4" node_id="4">Give one argument for hypothesis that PP's father had HNPCC.</question>
+        <question quest="p5" node_id="5">Give one argument for hypothesis that PP's mother does not have HNPCC.
         </question>
         <!--node_id 100 is false information and node_id 200 is unknown-->
         <hypothesis hypo="h1" node_id="100">PP has HNPCC.</hypothesis>
