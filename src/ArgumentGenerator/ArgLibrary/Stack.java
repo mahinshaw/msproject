@@ -3,7 +3,7 @@ package ArgumentGenerator.ArgLibrary;
 import java.util.ArrayList;
 
 /**
- * Stack.java is a defined class to implement the stack function.
+ * Stack.java is a internal defined class to implement the stack function.
  * <p/>
  * User: Tshering Tobgay
  * Date: 1/23/14
