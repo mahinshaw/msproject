@@ -61,8 +61,11 @@ public class ApplicationFrame extends JFrame {
 	// calls the desktop to reset to initial state
 	public void resetDesktop() {
 		desktop.reset();
-		bottomPanel.reset();
 	}
+
+    public void resetBottomPanel(){
+        bottomPanel.reset();
+    }
 
 	// adds a statement's visual component to the desktop
 	public void addToDesktop(StatementView sv) {

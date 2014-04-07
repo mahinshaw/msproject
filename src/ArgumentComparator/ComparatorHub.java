@@ -11,10 +11,16 @@ import java.util.concurrent.*;
 public class ComparatorHub {
     private ExecutorService executor;
     private int num_threads;
+    private List<ComparatorTree> bestTrees;
 
     public ComparatorHub(){
         num_threads = 1;//Runtime.getRuntime().availableProcessors();
         executor = Executors.newFixedThreadPool(num_threads);
+        bestTrees = new LinkedList<ComparatorTree>();
+    }
+
+    public List<ComparatorTree> getBestTrees(){
+        return bestTrees;
     }
 
     private List<ComparatorTree> performComparison(ArgumentTree userTree,  List<ArgumentTree> generatorTrees){
@@ -38,12 +44,13 @@ public class ComparatorHub {
                 e.printStackTrace();
             }
         }
-
+        bestTrees.add(treeWithBestAccuracy(comparatorTrees));
         return sortComparatorTrees(comparatorTrees);
     }
 
     public List<ComparatorTree> getBestAnswers(List<ArgumentTree> userTrees, List<ArgumentTree> generatorTrees){
         List<ComparatorTree> bestAnswers = new ArrayList<ComparatorTree>();
+        bestTrees.clear();
         for (ArgumentTree userTree : userTrees){
             bestAnswers.addAll(performComparison(userTree, generatorTrees));
         }

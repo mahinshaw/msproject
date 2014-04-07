@@ -121,6 +121,7 @@ public class ApplicationController implements MouseListener, ActionListener {
         conjunctionController.reset();
         MultiGeneralizationFactory.reset();
         appView.resetDesktop();
+        appView.resetBottomPanel();
     }
 
     public void addToDesktop(StatementView sv) {
@@ -336,7 +337,7 @@ public class ApplicationController implements MouseListener, ActionListener {
 
         List<ComparatorTree> comparatorTrees = hub.getBestAnswers(gb.getArgumentTrees(), argGen.getArgument());
         comparatorXMLWriter.writeXML(comparatorTrees, statementController.getProblem().getText());
-        appView.appendToFeedbackPanel(comparatorTrees);
+        appView.appendToFeedbackPanel(hub.getBestTrees());
 
     }
 
@@ -348,6 +349,7 @@ public class ApplicationController implements MouseListener, ActionListener {
         } else if (name.equals("REFRESH")) {
             appView.appendToUserPanel(edgeController.getUserDisplayOutput());
         } else if (name.equals("SUBMIT")) {
+            //appView.resetBottomPanel();
             initAndShowSubmitDialog();
             //startArgGen();
         }
@@ -407,6 +409,7 @@ public class ApplicationController implements MouseListener, ActionListener {
                 + currentProblem);
         saveAllOutput();
         appView.resetDesktop();
+        appView.resetBottomPanel();
         edgeController.reset();
         statementController.reset();
         conjunctionController.reset();
@@ -420,6 +423,7 @@ public class ApplicationController implements MouseListener, ActionListener {
                 + currentProblem);
         saveAllOutput();
         appView.resetDesktop();
+        appView.resetBottomPanel();
         edgeController.reset();
         statementController.reset();
         conjunctionController.reset();
@@ -465,6 +469,7 @@ public class ApplicationController implements MouseListener, ActionListener {
             public void actionPerformed(ActionEvent e) {
                 appendToSessionLog("CLEARED WORKSPACE");
                 appView.resetDesktop();
+                appView.resetBottomPanel();
                 edgeController.reset();
                 statementController.reset();
                 conjunctionController.reset();
