@@ -9,11 +9,9 @@ import java.util.HashMap;
 import java.util.Stack;
 
 /**
- * ArgInfo.java has a collection of functions used multiple times
+ * ArgInfo.java has a collection of functions (a library of sorts) used multiple times
  * in the Argument Generator package.
- * <p/>
  * User: Tshering Tobgay
- * Date: 10/24/13
  */
 public class ArgInfo {
     /**
@@ -84,8 +82,8 @@ public class ArgInfo {
     /**
      * Find the mutation type from KB/Genotype
      *
-     * @param node
-     * @return
+     * @param node node to check mutation
+     * @return  the type of mutation
      */
     public String checkMutation(KB_Node node) {
         String str = "";
@@ -98,9 +96,9 @@ public class ArgInfo {
     /**
      * Find the parent(s) of the child
      *
-     * @param child
-     * @param graph
-     * @return
+     * @param child  the child whose parent(s) are to be found
+     * @param graph  the graph of the KB
+     * @return  parents of the given child
      */
     public ArrayList<KB_Node> getParents(KB_Node child, ArrayList<KB_Node> graph) {
         ArrayList<KB_Node> parents = new ArrayList<KB_Node>();
@@ -152,9 +150,10 @@ public class ArgInfo {
      * @param child
      * @param root
      * @param parents
-     * @param parent  @return
+     * @param parent
+     * @return
      */
-    public ArrayList<KB_Node> findParents(KB_Node child, KB_Node root, ArrayList<KB_Node> parents, KB_Node parent) {
+    private ArrayList<KB_Node> findParents(KB_Node child, KB_Node root, ArrayList<KB_Node> parents, KB_Node parent) {
         if (root == child) {
             parents.add(parent);
         }
@@ -250,11 +249,14 @@ public class ArgInfo {
     }
 
     /**
-     * Check to see if the current argument is a question is pro or not pro
+     * Check to see if the current argument is a question is pro or not pro.
+     * For instance, if a question explores the possibilities of "possible" or "not possible" exhibition of certain aliment,
+     * we add the "n" before the "p" in the question ID in the KB. This vital information will determine the course of the
+     * argument generation.
      *
      * @param question          the current question
      * @param questionContainer the hash that stores all the questions with their quest ID
-     * @return
+     * @return true - if question is "p", and false - if question is "np"
      */
     public boolean findCurrentQuestionNo(String question, HashMap<String, String> questionContainer) {
         boolean pro = true;

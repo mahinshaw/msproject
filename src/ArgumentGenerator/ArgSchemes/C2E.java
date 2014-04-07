@@ -29,6 +29,11 @@ public class C2E {
         this.pro = pro;
     }
 
+    /**
+     * Compute and return the tree list of your C2E arguments
+     *
+     * @return the tree path list of the argument
+     */
     public ArrayList<ArrayList<KB_Node>> getPathList() {
         if (rootNode.getChildren().isEmpty()) {
             System.out.println("No children for node " + rootNode.getId() + " (ArgumentGenerator/ArgSchemes/C2E Scheme)");

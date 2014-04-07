@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * ArgGen.java proceeds with the generation of the arguments made from KB.
  * User: Tshering Tobgay
- * Date: 1/5/14
+ *
  */
 public class ArgGen {
     private KB_Node rootNode;
@@ -30,9 +30,14 @@ public class ArgGen {
     private C2E c2e;
     private ArgGenWriter argGenWriter;
     private String extFileName;//this name is appended to the filename of the xml output
-
     private ArrayList<KB_Node> graphNodes;
 
+    /**
+     * Initiate ArgGen with the following parameters:
+     * @param nodeID the node ID of the current question
+     * @param question the current question in text (English)
+     * @param fileName  the name of the KB file currently being used
+     */
     public ArgGen(int nodeID, String question, String fileName) {
         argInterface = new ArgInterface(fileName);
         argInfo = new ArgInfo();
@@ -176,7 +181,7 @@ public class ArgGen {
     }
 
     /**
-     * Return argument tree(s)
+     * Return the argument tree(s)
      *
      * @return
      */

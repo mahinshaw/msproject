@@ -26,6 +26,13 @@ public class ArgGenWriter {
     private ArgumentTree currentTree;
     private String fileName;
 
+    /**
+     * ArgGen Writer's main purposes are two folds: add argument to the Argument Tree and print to XML
+     * @param map this hashmap contains the current set of data, generalizations, and hypotheses
+     * @param pathList
+     * @param question
+     * @param fileName
+     */
     public ArgGenWriter(HashMap<String, String> map, ArrayList<ArrayList<KB_Node>> pathList, String question, String fileName) {
         this.map = map;
         this.pathList = pathList;
@@ -70,7 +77,7 @@ public class ArgGenWriter {
      * @param argumentObject  argument tree object
      * @param argNo           argument number
      * @param nodeIndex       index/pointer to keep track of nodes in n list
-     * @return
+     * @return the current argument tree
      */
     private ArgumentTree createTree(List<KB_Node> n, ArgumentTree tree, ArgumentFactory argumentFactory, ArgumentObject argumentObject, int argNo, int nodeIndex) {
         //if (n.get(nodeIndex).getType() == 'D') {

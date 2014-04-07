@@ -19,7 +19,6 @@ import java.util.List;
  * Due to the complex nature of this form of schema, ArgGenWriter is
  * not used, but rather, its own writer has been implemented in
  * this class.
- * <p/>
  * User: Tshering Tobgay
  * Date: 1/17/14
  */
@@ -160,7 +159,7 @@ public class Conjunction {
     private ArgumentTree conjTree(KB_Node rootNode, Stack<KB_Node> conjPath, int argNo) {
         ArgumentFactory argumentFactory = new ArgumentFactory();
         argumentFactory.setHypothesis(String.valueOf(rootNode.getId()), map.get(String.valueOf(rootNode.getId())));
-       // System.out.println(String.valueOf("Hypo: " + map.get(String.valueOf(rootNode.getId()))));
+        // System.out.println(String.valueOf("Hypo: " + map.get(String.valueOf(rootNode.getId()))));
 
         //Check for all generalizations
         for (KB_Node n : rootNode.getChildren()) {
@@ -170,7 +169,7 @@ public class Conjunction {
                 if (genStr == null)
                     genStr = " ";
                 //argumentFactory.addGeneralization(arc.getEdge_id(), genStr);
-               // System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
+                // System.out.println(String.valueOf("Gen: " + arc.getEdge_id()));
             }
         }
 

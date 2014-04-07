@@ -33,7 +33,7 @@ public class JE2C {
      * Find the JE2C argument by finding a synergy relation or S relation with its child(ren)
      * and the other parent node.
      *
-     * @return
+     * @return the path list of the current arguments
      */
     public ArrayList<ArrayList<KB_Node>> getPathList() {
         if (rootNode.getChildren().isEmpty()) {
@@ -51,7 +51,7 @@ public class JE2C {
     }
 
     /**
-     * Mutally Exclusive relation X-: if one parent has it, the child may have it as well
+     * Mutually Exclusive relation X-: if one parent has it, the child may have it as well
      *
      * @param child
      * @param knownParent
