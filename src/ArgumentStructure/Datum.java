@@ -66,6 +66,9 @@ public class Datum {
      * @return - true if Datum are equal.
      */
     public boolean equals(Datum other){
-        return this.isConjunction() && other.isConjunction() || this.getKBNODEID().equals(other.getKBNODEID());
+        if (this.isConjunction() || other.isConjunction())
+            return this.isConjunction() && other.isConjunction();
+        else
+            return this.getKBNODEID().equals(other.getKBNODEID());
     }
 }
