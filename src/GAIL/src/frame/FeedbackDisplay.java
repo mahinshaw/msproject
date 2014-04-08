@@ -4,20 +4,18 @@ import ArgumentComparator.ComparatorTree;
 import ArgumentStructure.Generalization;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
+import javax.swing.text.*;
 import java.awt.*;
 
 /**
  * This class prints the feedback for the Argument Comparator to the screen.
  */
 public class FeedbackDisplay extends JScrollPane{
-     JTextPane textPane;
+    JTextPane textPane;
     DefaultStyledDocument doc;
     StyleContext sc;
     Style indentedStyle;
@@ -53,52 +51,58 @@ public class FeedbackDisplay extends JScrollPane{
     }
 
     public void appendToTextArea(List<ComparatorTree> trees) {
-        StringBuffer str = new StringBuffer();
+        List<String> strings = new ArrayList<String>();
         for (ComparatorTree tree : trees){
-            str.append(buildOutput(tree));
+            strings.addAll(buildOutput(tree));
         }
+        String[] s = new String[strings.size()];
+        for(int i = 0; i < s.length; i++){
+            s[i] = strings.get(i);
+        }
+
         // clear this pane.
         textPane.setText("");
         try {
-//            for (int i = 0; i < s.length; i++) {
-//                String d = s[i];
-//                if (d.startsWith("Arg")) {
-//                    doc.removeStyle("indented");
-//                    doc.removeStyle("bold");
-//                    if (d.contains("Pro")) {
-//                        doc.setLogicalStyle(doc.getLength(), blueBoldStyle);
-//                        doc.insertString(doc.getLength(), " " + d, blueBoldStyle);
-//                    } else {
-//                        doc.setLogicalStyle(doc.getLength(), redBoldStyle);
-//                        doc.insertString(doc.getLength(), " " + d, redBoldStyle);
-//                    }
-//
-//
-//                } else {
-//                    doc.removeStyle("indented");
-//                    doc.removeStyle("bold");
-//                    doc.setLogicalStyle(doc.getLength(), indentedStyle);
-//                    doc.insertString(doc.getLength(), " " + d, indentedStyle);
-//                }
-//                if (i < s.length - 1) {
-//                    doc.insertString(doc.getLength(), "\n", blueBoldStyle);
-//                }
-//            }
-            textPane.setText(str.toString());
+            for (int i = 0; i < s.length; i++) {
+                String d = s[i];
+                if (d.startsWith("Arg")) {
+                    doc.removeStyle("indented");
+                    doc.removeStyle("bold");
+                    if (d.contains("Correct")) {
+                        doc.setLogicalStyle(doc.getLength(), blueBoldStyle);
+                        doc.insertString(doc.getLength(), " " + d, blueBoldStyle);
+                    } else {
+                        doc.setLogicalStyle(doc.getLength(), redBoldStyle);
+                        doc.insertString(doc.getLength(), " " + d, redBoldStyle);
+                    }
+
+
+                } else {
+                    doc.removeStyle("indented");
+                    doc.removeStyle("bold");
+                    doc.setLogicalStyle(doc.getLength(), indentedStyle);
+                    doc.insertString(doc.getLength(), " " + d, indentedStyle);
+                }
+                if (i < s.length - 1) {
+                    doc.insertString(doc.getLength(), "\n", blueBoldStyle);
+                }
+            }
             textPane.setCaretPosition(0);
         } catch (Exception e) { e.printStackTrace(); }
     }
 
-    private String buildOutput(ComparatorTree tree){
-        StringBuffer str = new StringBuffer();
+    private ArrayList<String> buildOutput(ComparatorTree tree){
+        ArrayList<String> str = new ArrayList<String>();
         // first see if the answer is correct and save some space.
         if (tree.isTreeCorrect()){
-            str.append("Argument " + tree.getArgIndex() + " is Correct.\n\n");
-            return str.toString();
+            str.add("Argument " + tree.getArgIndex() + " is Correct.");
+            return str;
         }
         ArrayDeque<ComparatorTree> treeStack = new ArrayDeque<ComparatorTree>();
         ComparatorTree workingTree;
         treeStack.push(tree);
+
+        str.add("Argument " + tree.getArgIndex() + " is incorrect");
 
         while (!treeStack.isEmpty()){
             workingTree = treeStack.pop();
@@ -113,26 +117,35 @@ public class FeedbackDisplay extends JScrollPane{
             }
             // check the hypothesis.
             if (!workingTree.getRoot().compareHypothesis()){
-                str.append("Incorrect hypothesis; " + workingTree.getUser().getHypothesis().getTEXT() + "\n\n");
+                str.add("");
+                str.add("Incorrect Hypothesis; " + workingTree.getUser().getHypothesis().getTEXT());
             }
             // check the generalizations.
             if (!workingTree.getRoot().compareGeneralization()){
+                if (workingTree.getUser().getGeneralizations().isEmpty()){
+                    str.add("");
+                    str.add("Missing Generalization for Hypothesis: " + workingTree.getUser().getHypothesis().getTEXT());
+                }
                 for (Generalization gen : workingTree.getUser().getGeneralizations()){
-                    str.append("Incorrect generalization: " + gen.getTEXT() + "\n\n");
+                    str.add("");
+                    str.add("Incorrect Generalization: " + gen.getTEXT());
                 }
             }
 
             if (!workingTree.getRoot().compareDatum()){
                 if (workingTree.getGen().getDatum().isConjunction() && !workingTree.getUser().getDatum().isConjunction()){
                     // there should be a conjuntion after the hypothesis
-                    str.append("There should be a Conjunction after: " + workingTree.getUser().getHypothesis().getTEXT() + "\n\n");
+                    str.add("");
+                    str.add("There should be a Conjunction after: " + workingTree.getUser().getHypothesis().getTEXT());
                 }
                 else if (workingTree.getGen().getDatum().isEmptyDatum() && !workingTree.getUser().getDatum().isEmptyDatum()){
-                    str.append("There should be a Hypothesis after: " + workingTree.getUser().getHypothesis().getTEXT() + "\n\n");
+                    str.add("");
+                    str.add("There should be a Hypothesis after: " + workingTree.getUser().getHypothesis().getTEXT());
                 }
                 else {
                     // the datum is outright wrong.
-                    str.append("Incorrect Datum: " + workingTree.getUser().getDatum().getTEXT());
+                    str.add("");
+                    str.add("Incorrect Datum: " + workingTree.getUser().getDatum().getTEXT());
                 }
             }
 
@@ -140,6 +153,7 @@ public class FeedbackDisplay extends JScrollPane{
                 treeStack.addAll(workingTree.getChildren());
         }
 
-        return str.toString();
+        str.add("");
+        return str;
     }
 }
