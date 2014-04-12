@@ -133,19 +133,27 @@ public class FeedbackDisplay extends JScrollPane{
             }
 
             if (!workingTree.getRoot().compareDatum()){
-                if (workingTree.getGen().getDatum().isConjunction() && !workingTree.getUser().getDatum().isConjunction()){
-                    // there should be a conjuntion after the hypothesis
+                if (workingTree.getGen() == null) {
+                    if (workingTree.getUser().getDatum() != null) {
+                        str.add("");
+                        str.add("Incorrect Datum: " + workingTree.getUser().getDatum().getTEXT());
+                    }
+                }
+                else if (workingTree.getGen().getDatum().isConjunction() && !workingTree.getUser().getDatum().isConjunction()){
+                    // there should be a conjunction after the hypothesis
                     str.add("");
-                    str.add("There should be a Conjunction after: " + workingTree.getUser().getHypothesis().getTEXT());
+                    str.add("A Conjunction should follow the Hypothesis: " + workingTree.getUser().getHypothesis().getTEXT());
                 }
                 else if (workingTree.getGen().getDatum().isEmptyDatum() && !workingTree.getUser().getDatum().isEmptyDatum()){
                     str.add("");
-                    str.add("There should be a Hypothesis after: " + workingTree.getUser().getHypothesis().getTEXT());
+                    str.add("A Hypothesis should follow the Hypothesis: " + workingTree.getUser().getHypothesis().getTEXT());
                 }
                 else {
                     // the datum is outright wrong.
-                    str.add("");
-                    str.add("Incorrect Datum: " + workingTree.getUser().getDatum().getTEXT());
+                    if (workingTree.getUser().getDatum() != null) {
+                        str.add("Incorrect Datum: " + workingTree.getUser().getDatum().getTEXT());
+                        str.add("");
+                    }
                 }
             }
 
