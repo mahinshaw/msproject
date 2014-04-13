@@ -68,19 +68,6 @@ public class ArgumentObject {
     }
 
     /**
-     * Returns if the Datum is empty.
-     * @return - if the Datum is empty.
-     */
-    public boolean isHypothesis(){
-        if (datum == null || datum.isEmptyDatum()){
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    /**
      * Returns true if the Datum is a conjuction.
      * @return - true if the Datum is a conjunction.
      */

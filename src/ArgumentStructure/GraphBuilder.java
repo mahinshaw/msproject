@@ -341,7 +341,8 @@ public class GraphBuilder {
                     tree.addSubArgument(nextParent, parent);
                     parent = nextParent;
                 }
-                factory = new ArgumentFactory();
+                // reset the factor so that we can create a new object.
+                factory.reset();
             }
             factory.setHypothesis(((Statement) current).getNode_id(), ((Statement) current).getText());
 
@@ -364,7 +365,7 @@ public class GraphBuilder {
             while (!edges.isEmpty()) {
                 next = getNextNode(current, edges);
 
-                factory = new ArgumentFactory();
+                factory.reset();
 
                 tree = treeBuilder(next, parent);
             }

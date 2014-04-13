@@ -18,7 +18,6 @@ import java.util.ArrayList;
  */
 public class ArgumentFactory {
 
-    private ArgumentObject argumentObject;
     private Hypothesis hypothesis;
     private ArrayList<Generalization> generalizations;
     private Datum datum;
@@ -27,6 +26,13 @@ public class ArgumentFactory {
      * Constructs an empty ArgumentFactory.
      */
     public ArgumentFactory(){
+        reset();
+    }
+
+    /**
+     * Reset the ArgumentFactory to defaults.
+     */
+    public void reset(){
         this.hypothesis = null;
         this.generalizations = new ArrayList<Generalization>();
         this.datum = null;
@@ -85,7 +91,6 @@ public class ArgumentFactory {
             this.hypothesis = new Hypothesis();
         if (this.datum == null)
             this.datum = new Datum(false);
-        this.argumentObject = new ArgumentObject.Builder().argID(argID).hypothesis(this.hypothesis).generalizations(this.generalizations).datum(this.datum).build();
-        return this.argumentObject;
+        return new ArgumentObject.Builder().argID(argID).hypothesis(this.hypothesis).generalizations(this.generalizations).datum(this.datum).build();
     }
 }

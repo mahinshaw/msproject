@@ -40,7 +40,7 @@ public class Datum {
      * Returns true if Datum is empty.
      * @return - true if Datum is empty.
      */
-    public boolean isEmptyDatum() {
+    public boolean isChained() {
         return !isConjunction && (getKBNODEID() == "" && getTEXT() == "");
     }
 

@@ -144,7 +144,7 @@ public class FeedbackDisplay extends JScrollPane{
                     str.add("");
                     str.add("A Conjunction should follow the Hypothesis: " + workingTree.getUser().getHypothesis().getTEXT());
                 }
-                else if (workingTree.getGen().getDatum().isEmptyDatum() && !workingTree.getUser().getDatum().isEmptyDatum()){
+                else if (workingTree.getGen().getDatum().isChained() && !workingTree.getUser().getDatum().isChained()){
                     str.add("");
                     str.add("A Hypothesis should follow the Hypothesis: " + workingTree.getUser().getHypothesis().getTEXT());
                 }
