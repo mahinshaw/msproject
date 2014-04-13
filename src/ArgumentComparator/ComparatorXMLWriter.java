@@ -1,7 +1,5 @@
 package ArgumentComparator;
 
-import ArgumentStructure.ArgumentTree;
-import ArgumentStructure.Generalization;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -105,8 +103,8 @@ public class ComparatorXMLWriter {
 
         // append the hypothesis to element
         Element hypothesis = document.createElement("Hypothesis");
-        Element hNode = document.createElement("Node");
-        Element hText = document.createElement("Text");
+        Element hNode = document.createElement("UserNode");
+        Element hText = document.createElement("UserText");
         Element hCorrect = document.createElement("Correct");
         Element hCorrectNode = document.createElement("CorrectNode");
         Element hCorrectText = document.createElement("CorrectText");
@@ -117,13 +115,13 @@ public class ComparatorXMLWriter {
             hCorrect.appendChild(document.createTextNode("False"));
         }
         else {
-            hNode.appendChild(document.createTextNode("Node " + tree.getUser().getHypothesis().getKBNODEID()));
+            hNode.appendChild(document.createTextNode("UserNode " + tree.getUser().getHypothesis().getKBNODEID()));
             hText.appendChild(document.createTextNode(tree.getUser().getHypothesis().getTEXT()));
             hCorrect.appendChild(document.createTextNode(Boolean.toString(tree.getRoot().compareHypothesis())));
         }
         if (tree.getGen() == null){
-            hCorrectNode.appendChild(document.createTextNode("Not needed"));
-            hCorrectText.appendChild(document.createTextNode("Not needed"));
+            hCorrectNode.appendChild(document.createTextNode("Extraneous"));
+            hCorrectText.appendChild(document.createTextNode("Extraneous"));
         }
         else {
             hCorrectNode.appendChild(document.createTextNode("Node" + tree.getGen().getHypothesis().getKBNODEID()));
@@ -143,15 +141,20 @@ public class ComparatorXMLWriter {
         // append the generalizations to the element - there should only be one generalization.
         Element generalization = document.createElement("Generalization");
         Element gArc = document.createElement("Arc");
-        Element gText = document.createElement("Text");
+        Element gText = document.createElement("UserText");
         Element gCorrect = document.createElement("Correct");
         Element gCorrectNode = document.createElement("CorrectArc");
         Element gCorrectText = document.createElement("CorrectText");
 
-        if (tree.getUser() == null || tree.getUser().getGeneralizations().isEmpty()) {
+        // if the user is null or no generalization is found AND the gen is not null and has generalizations, text and node are missing.
+        if ((tree.getUser() == null || tree.getUser().getGeneralizations().isEmpty()) && !(tree.getGen() == null || tree.getGen().getGeneralizations().isEmpty())) {
             gArc.appendChild(document.createTextNode("Missing"));
             gText.appendChild(document.createTextNode("Missing"));
             gCorrect.appendChild(document.createTextNode("False"));
+            // append the generalization
+            generalization.appendChild(gCorrect);
+            generalization.appendChild(gArc);
+            generalization.appendChild(gText);
         }
         else if(!tree.getUser().getGeneralizations().isEmpty()){
             if (tree.getRoot().compareGeneralization() && tree.getGen() != null)
@@ -160,19 +163,21 @@ public class ComparatorXMLWriter {
                 gArc.appendChild(document.createTextNode("Arc " + tree.getUser().getGeneralizations().get(0).getKBARCID()));
             gText.appendChild(document.createTextNode(tree.getUser().getGeneralizations().get(0).getTEXT()));
             gCorrect.appendChild(document.createTextNode(Boolean.toString(tree.getRoot().compareGeneralization())));
+            // append the generalization.
+            generalization.appendChild(gCorrect);
+            generalization.appendChild(gArc);
+            generalization.appendChild(gText);
         }
         if (tree.getGen() == null || tree.getGen().getGeneralizations().isEmpty()){
-            gCorrectNode.appendChild(document.createTextNode("Not needed"));
-            gCorrectText.appendChild(document.createTextNode("Not needed"));
+            gCorrectNode.appendChild(document.createTextNode("Extraneous"));
+            gCorrectText.appendChild(document.createTextNode("Extraneous"));
         }
         else if(!tree.getGen().getGeneralizations().isEmpty()) {
             gCorrectNode.appendChild(document.createTextNode("Arc " + tree.getGen().getGeneralizations().get(0).getKBARCID()));
             gCorrectText.appendChild(document.createTextNode(tree.getGen().getGeneralizations().get(0).getTEXT()));
         }
 
-        generalization.appendChild(gCorrect);
-        generalization.appendChild(gArc);
-        generalization.appendChild(gText);
+
         if (tree.getUser() == null || !tree.getRoot().compareGeneralization()){
             generalization.appendChild(gCorrectNode);
             generalization.appendChild(gCorrectText);
@@ -182,31 +187,50 @@ public class ComparatorXMLWriter {
         // append the data to the element
         Element data = document.createElement("Data");
         if (tree.hasChildren()){
-            if (tree.getUser() != null)
-                if(!tree.getUser().getDatum().isEmptyDatum() && !tree.getUser().getDatum().isConjunction())
-                    appendUserDatum(document, data, tree);
             // check and see if there is a conjunction
             if (tree.hasConjunction()) {
                 // see if both the user and the data have a conjunction.
+                Element conjCorrect = document.createElement("ConjunctionCorrect");
+                conjCorrect.appendChild(document.createTextNode(Boolean.toString(tree.getUser().HasConjunction() && tree.getGen().HasConjunction())));
+                data.appendChild(conjCorrect);
                 if(!tree.getUser().HasConjunction() && tree.getGen().HasConjunction()){
                     // print the user Data in UserData Tag and gen in GenData tag
-
+                    if (tree.getUser().getDatum().isEmptyDatum()) {
+                        Element uArc = document.createElement("UserNode");
+                        Element uText = document.createElement("UserText");
+                        Element gen = document.createElement("CorrectDatum");
+                        uArc.appendChild(document.createTextNode("Arc " + tree.getUser().getDatum().getKBNODEID()));
+                        uText.appendChild(document.createTextNode(tree.getUser().getDatum().getTEXT()));
+                        gen.appendChild(document.createTextNode("Following Conjunction"));
+                        data.appendChild(uArc);
+                        data.appendChild(uText);
+                        data.appendChild(gen);
+                    }
                 }
                 if(!tree.getGen().HasConjunction() && tree.getUser().HasConjunction()){
                     // print the user Data in UserData tag, and gen in Gen Data tag
-                }
-                else { // both are conjunction.
-                    Element conjunction = document.createElement("Conjunction");
-                    //conjunctions should have a multiple children, so add them
-                    int i = 1;
-                    for (ComparatorTree child : tree.getChildren()) {
-                        Element conjunct = document.createElement("Conjunct" + i);
-                        addArgument(document, conjunct, child);
-                        conjunction.appendChild(conjunct);
-                        i++;
+                    if (!tree.getGen().getDatum().isEmptyDatum()) {
+                        Element user = document.createElement("IncorrectUser");
+                        user.appendChild(document.createTextNode("FollowingConjunction"));
+                        Element genNode = document.createElement("CorrectNode");
+                        Element genText = document.createElement("CorrectText");
+                        genNode.appendChild(document.createTextNode("Arc " + tree.getGen().getDatum().getKBNODEID()));
+                        genText.appendChild(document.createTextNode(tree.getGen().getDatum().getTEXT()));
+                        data.appendChild(user);
+                        data.appendChild(genNode);
+                        data.appendChild(genText);
                     }
-                    data.appendChild(conjunction);
                 }
+                Element conjunction = document.createElement("Conjunction");
+                //conjunctions should have a multiple children, so add them
+                int i = 1;
+                for (ComparatorTree child : tree.getChildren()) {
+                    Element conjunct = document.createElement("Conjunct" + i);
+                    addArgument(document, conjunct, child);
+                    conjunction.appendChild(conjunct);
+                    i++;
+                }
+                data.appendChild(conjunction);
             }
             else { // there is no conjunction, just one child.
                 for (ComparatorTree child : tree.getChildren())
@@ -223,8 +247,8 @@ public class ComparatorXMLWriter {
     }
 
     private void appendUserDatum(Document document, Element data, ComparatorTree tree){
-        Element dNode = document.createElement("Node");
-        Element dText = document.createElement("Text");
+        Element dNode = document.createElement("UserNode");
+        Element dText = document.createElement("UserText");
 
         if (tree.getUser() != null){
             dNode.appendChild(document.createTextNode("Node " + tree.getUser().getDatum().getKBNODEID()));
@@ -236,8 +260,8 @@ public class ComparatorXMLWriter {
     }
 
     private void addDatumNode(Document document, Element data, ComparatorTree tree){
-        Element dNode = document.createElement("Node");
-        Element dText = document.createElement("Text");
+        Element dNode = document.createElement("UserNode");
+        Element dText = document.createElement("UserText");
         Element dCorrect = document.createElement("Correct");
         Element dCorrectNode = document.createElement("CorrectNode");
         Element dCorrectText = document.createElement("CorrectText");
@@ -253,8 +277,8 @@ public class ComparatorXMLWriter {
             dCorrect.appendChild(document.createTextNode(Boolean.toString(tree.getRoot().compareDatum())));
         }
         if (tree.getGen() == null){
-            dCorrectNode.appendChild(document.createTextNode("Not needed"));
-            dCorrectText.appendChild(document.createTextNode("Not needed"));
+            dCorrectNode.appendChild(document.createTextNode("Extraneous"));
+            dCorrectText.appendChild(document.createTextNode("Extraneous"));
         }
         else {
             dCorrectNode.appendChild(document.createTextNode(tree.getGen().getDatum().getKBNODEID()));

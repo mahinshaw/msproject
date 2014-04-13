@@ -14,7 +14,7 @@ public class ComparatorHub {
     private List<ComparatorTree> bestTrees;
 
     public ComparatorHub(){
-        num_threads = 1;//Runtime.getRuntime().availableProcessors();
+        num_threads = Runtime.getRuntime().availableProcessors();
         executor = Executors.newFixedThreadPool(num_threads);
         bestTrees = new LinkedList<ComparatorTree>();
     }

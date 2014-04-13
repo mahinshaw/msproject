@@ -823,6 +823,14 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 				statementSource = null;
 				return;
 			}
+            // added to remove the ability to connect a DATA to a conjunction
+            if (statementSource.getType() == Statement.StatementType.DATA) {
+                source = null;
+                target = null;
+                statementSource = null;
+                conjunctionTarget = null;
+                return;
+            }
 			if (conjunctionTarget.containsStatement(statementSource)) {
 				// ERROR
 			} else {
@@ -856,8 +864,13 @@ public class EdgeController implements ActionListener, Serializable, MouseListen
 				conjunctionSource = null;
 				return;
 			}
+            // Altered to remove the ability to connect a DATA to a conjunction.
 			if (statementTarget.getType() == Statement.StatementType.DATA){
-				createBranch(statementTarget, conjunctionSource);
+				//createBranch(statementTarget, conjunctionSource);
+                source = null;
+                target = null;
+                statementTarget = null;
+                conjunctionSource = null;
 				return;
 			}
 

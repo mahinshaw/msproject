@@ -180,7 +180,7 @@ public class GraphBuilder {
             // getNextNode will add generalizations if needed.
             next = getNextNode(current, edges);
             // if next is null then we need to go to the next head.
-            if (next.equals(null)) continue;
+            if (next == null) continue;
 
             // create a tree for the new head
             tree = null;
@@ -248,6 +248,8 @@ public class GraphBuilder {
      */
     private Node getNextNode(Node current, LinkedList<Edge> edges) {
         Node next = null;
+        if (edges == null)
+            return null;
         Edge edge = edges.poll(); //edges is decremented.
         // make sure the edge exists.  If not, then we return null.  This is important for Conjunctions.
         if (edge == null) {
