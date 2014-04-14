@@ -195,28 +195,22 @@ public class ComparatorXMLWriter {
                 data.appendChild(conjCorrect);
                 if(!tree.getUser().HasConjunction() && tree.getGen().HasConjunction()){
                     // print the user Data in UserData Tag and gen in GenData tag
-                    if (tree.getUser().getDatum().isChained()) {
-                        Element uArc = document.createElement("UserNode");
+                    if (!tree.getUser().getDatum().isChained()) {
+                        Element uNode = document.createElement("UserNode");
                         Element uText = document.createElement("UserText");
-                        Element gen = document.createElement("CorrectDatum");
-                        uArc.appendChild(document.createTextNode("Arc " + tree.getUser().getDatum().getKBNODEID()));
+                        uNode.appendChild(document.createTextNode("Node " + tree.getUser().getDatum().getKBNODEID()));
                         uText.appendChild(document.createTextNode(tree.getUser().getDatum().getTEXT()));
-                        gen.appendChild(document.createTextNode("Following Conjunction"));
-                        data.appendChild(uArc);
+                        data.appendChild(uNode);
                         data.appendChild(uText);
-                        data.appendChild(gen);
                     }
                 }
                 if(!tree.getGen().HasConjunction() && tree.getUser().HasConjunction()){
                     // print the user Data in UserData tag, and gen in Gen Data tag
                     if (!tree.getGen().getDatum().isChained()) {
-                        Element user = document.createElement("IncorrectUser");
-                        user.appendChild(document.createTextNode("FollowingConjunction"));
                         Element genNode = document.createElement("CorrectNode");
                         Element genText = document.createElement("CorrectText");
                         genNode.appendChild(document.createTextNode("Arc " + tree.getGen().getDatum().getKBNODEID()));
                         genText.appendChild(document.createTextNode(tree.getGen().getDatum().getTEXT()));
-                        data.appendChild(user);
                         data.appendChild(genNode);
                         data.appendChild(genText);
                     }
