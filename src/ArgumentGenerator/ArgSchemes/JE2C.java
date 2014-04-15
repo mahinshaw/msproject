@@ -42,8 +42,9 @@ public class JE2C {
             for (KB_Node n : rootNode.getChildren())
                 if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.SYNERGY.getType())))
                     traverseGraph(n, rootNode);
-                else if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.MUTAL_EXCLUSIVE.getType())))
-                    traverseMutualGraph(n, rootNode);
+               // else if (argInfo.findEdge(rootNode, n).getType().equalsIgnoreCase(String.valueOf(ArgInfo.ArcTYPE.MUTAL_EXCLUSIVE.getType())))
+                 //   traverseMutualGraph(n, rootNode);  //More design input needed
+
         }
         if (getJE2C().isEmpty())
             pathList.clear();
