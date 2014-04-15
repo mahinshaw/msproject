@@ -103,14 +103,14 @@
         <hypothesis hypo="h8" node_id="14">PP will not develop colon cancer.</hypothesis>
         <hypothesis hypo="h9" node_id="100">PP's child has HNPCC (one mutation of MLH1).</hypothesis>
         <hypothesis hypo="h10" node_id="3">PP's child does not have HNPCC (has no mutation of MLH1.)</hypothesis>
-        <hypothesis hypo="h12" node_id="5">NEW: PP's mother does not have HNPCC</hypothesis>
+        <hypothesis hypo="h12" node_id="5">PP's mother does not have HNPCC</hypothesis>
         <data datum="d1" node_id="6">PP is a 40 year old male that does not have colon cancer.</data>
         <data datum="d2" node_id="9">PP's deceased father had colon cancer.</data>
         <data datum="d3" node_id="10">PP's deceased mother did not have colon cancer.</data>
         <data datum="d4" node_id="7">PP's brother has colon cancer.</data>
         <data datum="d5" node_id="12">PP's brother's test result is positive (one mutation of MLH1).</data>
         <data datum="d6" node_id="11">PP's test result is negative (no mutation of MLH1).</data>
-        <data datum="d7" node_id="8">NEW: PP's child may not have HNPCC</data>
+        <data datum="d7" node_id="8">PP's child may not have HNPCC</data>
         <generalizations gen="g1" node_id="I1, I2, I3, I4, I7, I8">HNPCC is an autosomal dominant condition in which one copy of the MLH1 is mutated. Having HNPCC increases the lifetime risk of colon cancer.
         </generalizations>
         <generalizations gen="g2" node_id="I5, I6">Having one mutated copy of MLH1 gene is indicated by a positive gene test for MLH1 mutations
