@@ -96,6 +96,7 @@ public class FeedbackDisplay extends JScrollPane{
         // first see if the answer is correct and save some space.
         if (tree.isTreeCorrect()){
             str.add("Argument " + tree.getArgIndex() + " is Correct.");
+            str.add("");
             return str;
         }
         ArrayDeque<ComparatorTree> treeStack = new ArrayDeque<ComparatorTree>();
@@ -151,8 +152,8 @@ public class FeedbackDisplay extends JScrollPane{
                 else {
                     // the datum is outright wrong.
                     if (workingTree.getUser().getDatum() != null) {
-                        str.add("Incorrect Datum: " + workingTree.getUser().getDatum().getTEXT());
                         str.add("");
+                        str.add("Incorrect Datum: " + workingTree.getUser().getDatum().getTEXT());
                     }
                 }
             }
