@@ -149,6 +149,10 @@ public class FeedbackDisplay extends JScrollPane{
                     str.add("");
                     str.add("A Hypothesis should follow the Hypothesis: " + workingTree.getUser().getHypothesis().getTEXT());
                 }
+                else if (workingTree.getUser().getDatum().isChained() && !workingTree.getGen().getDatum().isChained()) {
+                    str.add("");
+                    str.add("There should not be a sub-argument for Hypothesis: " + workingTree.getUser().getHypothesis().getTEXT());
+                }
                 else {
                     // the datum is outright wrong.
                     if (workingTree.getUser().getDatum() != null) {
