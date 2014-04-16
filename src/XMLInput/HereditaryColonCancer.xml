@@ -111,11 +111,11 @@
         <data datum="d5" node_id="12">PP's brother's test result is positive (one mutation of MLH1).</data>
         <data datum="d6" node_id="11">PP's test result is negative (no mutation of MLH1).</data>
         <data datum="d7" node_id="8">PP's child may not have HNPCC</data>
-        <generalizations gen="g1" node_id="I1, I2, I3, I4, I7, I8">HNPCC is an autosomal dominant condition in which one copy of the MLH1 is mutated. Having HNPCC increases the lifetime risk of colon cancer.
+        <generalizations gen="g1" node_id="I1, I2, I3, I4, I7, I8,">HNPCC is an autosomal dominant condition in which one copy of the MLH1 is mutated. Having HNPCC increases the lifetime risk of colon cancer.
         </generalizations>
-        <generalizations gen="g2" node_id="I5, I6">Having one mutated copy of MLH1 gene is indicated by a positive gene test for MLH1 mutations
+        <generalizations gen="g2" node_id="I5, I6,">Having one mutated copy of MLH1 gene is indicated by a positive gene test for MLH1 mutations
         </generalizations>
-        <generalizations gen="g3" node_id="S1, S2, S3">A child inherits one copy of a gene from each parent.
+        <generalizations gen="g3" node_id="S1, S2, S3,">A child inherits one copy of a gene from each parent.
         </generalizations>
     </ui>
     <genie>
