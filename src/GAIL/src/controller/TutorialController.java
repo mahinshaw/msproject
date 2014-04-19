@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class TutorialController implements HyperlinkListener {
-	private final static String TUTORIAL_PATH = "text/input/tutorial/";
+	private final static String TUTORIAL_PATH = "src/GAIL/text/input/tutorial/";
 	private final static String INIT_FILE = "1.html";
 	private final static String FILE_NOT_FOUND_HTML =
 		"<html><body><h1 align=\"center\">Could not load page</h1></body></html>";

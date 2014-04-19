@@ -29,7 +29,7 @@ public class ApplicationFrame extends JFrame {
 		//setUndecorated(true); //TODO: reenable undecorated mode at some point...
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(0,0,screenSize.width, screenSize.height);
-		setTitle("MT's GAIL version 2.0");
+		setTitle("GAIL version 2.0");
 		ToolTipManager.sharedInstance().setInitialDelay(200);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
