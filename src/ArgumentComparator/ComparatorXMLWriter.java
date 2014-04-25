@@ -81,7 +81,7 @@ public class ComparatorXMLWriter {
             TransformerFactory tFactory = TransformerFactory.newInstance();
             Transformer transformer = tFactory.newTransformer();
             DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult("src/XMLOutput/Comparator_" + getTimeStamp() + ".xml");
+            StreamResult result = new StreamResult("XMLOutput/Comparator_" + getTimeStamp() + ".xml");
             transformer.transform(source, result);
         } catch (Exception e) {
             e.printStackTrace();

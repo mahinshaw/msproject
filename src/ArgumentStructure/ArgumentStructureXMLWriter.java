@@ -62,7 +62,7 @@ public class ArgumentStructureXMLWriter {
             TransformerFactory tFactory = TransformerFactory.newInstance();
             Transformer transformer = tFactory.newTransformer();
             DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult("src/XMLOutput/"+fileName+"_" + getTimeStamp() + ".xml");
+            StreamResult result = new StreamResult("XMLOutput/"+fileName+"_" + getTimeStamp() + ".xml");
             transformer.transform(source, result);
         } catch (Exception e) {
             e.printStackTrace();

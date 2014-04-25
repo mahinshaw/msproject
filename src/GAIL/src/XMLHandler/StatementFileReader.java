@@ -8,7 +8,7 @@ import GAIL.src.controller.StatementController;
 public class StatementFileReader {
 
     /* private final char DELIMETER = '@'; */
-    private final String FOLDER = "src/XMLInput/";
+    private final String FOLDER = "XMLInput/";
     StatementController statementController;
     xmlReader reader;
 
